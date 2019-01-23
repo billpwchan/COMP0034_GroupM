@@ -4,6 +4,7 @@
 <head>
     <?php include("includes/headTags.php"); ?>
     <link rel="stylesheet" href="assets/css/eventDetail.css" type="text/css">
+    <link rel="stylesheet" href="assets/css/util.css" type="text/css">
 </head>
 <body>
 <?php include("includes/navigation.php"); ?>

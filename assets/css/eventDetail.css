@@ -6,11 +6,11 @@ html, body {
     font-family: 'Roboto', sans-serif;
 }
 
-.container-fluid {
+.product-form {
     max-width: 1200px;
-    margin: 0 auto;
     padding: 15px;
     display: flex;
+    margin: 3% auto 0;
 }
 
 /* Columns */
@@ -64,14 +64,13 @@ html, body {
 }
 
 .product-description p {
-    font-size: 16px;
     font-weight: 300;
     color: #86939E;
     line-height: 24px;
+    margin-bottom: 15px;
 }
 
 /* Product Configuration */
-.product-color span,
 .service-config span {
     font-size: 14px;
     font-weight: 400;
@@ -80,51 +79,6 @@ html, body {
     display: inline-block;
 }
 
-/* Product Color */
-.product-color {
-    margin-bottom: 30px;
-}
-
-.color-choose div {
-    display: inline-block;
-}
-
-.color-choose input[type="radio"] {
-    display: none;
-}
-
-.color-choose input[type="radio"] + label span {
-    display: inline-block;
-    width: 40px;
-    height: 40px;
-    margin: -1px 4px 0 0;
-    vertical-align: middle;
-    cursor: pointer;
-    border-radius: 50%;
-}
-
-.color-choose input[type="radio"] + label span {
-    border: 2px solid #FFFFFF;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.33);
-}
-
-.color-choose input[type="radio"]#red + label span {
-    background-color: #C91524;
-}
-
-.color-choose input[type="radio"]#blue + label span {
-    background-color: #314780;
-}
-
-.color-choose input[type="radio"]#black + label span {
-    background-color: #323232;
-}
-
-.color-choose input[type="radio"]:checked + label span {
-    background-image: url(../img/check-icon.svg);
-    background-repeat: no-repeat;
-    background-position: center;
-}
 
 /* Cable Configuration */
 .service-choose {

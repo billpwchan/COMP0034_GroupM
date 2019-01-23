@@ -1,6 +1,4 @@
-<link rel="stylesheet" href="../assets/css/navigation.css" type="text/css">
-
-<nav class="navbar navbar-dark bg-dark navbar-expand-lg fixed-top">
+<nav class="navbar navbar-dark bg-dark navbar-expand-lg fixed-top" style="font-family: Montserrat-Regular, sans-serif;">
     <a class="navbar-brand" href="#">
         <i class="fas fa-glass-cheers"></i>
         UberKidz
@@ -11,7 +9,7 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarToggler">
-        <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item <?php if ($CURRENT_PAGE == "Index") { ?>active<?php } ?>">
                 <a class="nav-link" href="index.php">
                     <i class="fas fa-home"></i>

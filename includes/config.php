@@ -9,6 +9,10 @@ switch ($_SERVER["SCRIPT_NAME"]) {
         $CURRENT_PAGE = "EntertainmentPackages";
         $PAGE_TITLE = "Entertainment Packages";
         break;
+    case "/COMP0034_GroupM/contactUs.php":
+        $CURRENT_PAGE = "ContactUs";
+        $PAGE_TITLE = "Contact Us";
+        break;
     default:
         $CURRENT_PAGE = "Index";
         $PAGE_TITLE = "Welcome to UberKidz!";
