@@ -77,6 +77,7 @@
         </div>
     </div>
 </main>
+<?php include("includes/footer.php"); ?>
 </body>
 <?php include("includes/scripts.php"); ?>
 <script src="assets/js/eventDetail.js" charset="utf-8"></script>
