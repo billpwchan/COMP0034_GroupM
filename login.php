@@ -22,7 +22,7 @@
 						Member Login
 					</span>
 
-                <div class="wrap-input validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                <div class="wrap-input validate-input" data-validate="Valid email is required: abc@de.fg">
                     <input class="userInput" type="text" name="email" placeholder="Email">
                     <span class="focus-input"></span>
                     <span class="symbol-input">
