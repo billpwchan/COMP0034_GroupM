@@ -21,25 +21,34 @@
 						Get in touch
 					</span>
 
-                <div class="wrap-userInput validate-input" data-validate = "Name is required">
+                <div class="wrap-userInput validate-input" data-validate="Name is required">
                     <input class="userInput" type="text" name="name" placeholder="Name">
                     <span class="focus-userInput"></span>
                     <span class="symbol-userInput">
 							<i class="fa fa-user" aria-hidden="true"></i>
-						</span>
+                    </span>
+                    <span class="alert-validate">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </span>
                 </div>
 
-                <div class="wrap-userInput validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+                <div class="wrap-userInput validate-input" data-validate="Valid email is required: ex@abc.xyz">
                     <input class="userInput" type="text" name="email" placeholder="Email">
                     <span class="focus-userInput"></span>
                     <span class="symbol-userInput">
 							<i class="fa fa-envelope" aria-hidden="true"></i>
-						</span>
+                    </span>
+                    <span class="alert-validate">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </span>
                 </div>
 
-                <div class="wrap-userInput validate-input" data-validate = "Message is required">
+                <div class="wrap-userInput validate-input" data-validate="Message is required">
                     <textarea class="userInput" name="message" placeholder="Message"></textarea>
                     <span class="focus-userInput"></span>
+                    <span class="alert-validate">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </span>
                 </div>
 
                 <div class="container-contact-form-btn">
@@ -55,4 +64,5 @@
 
 </body>
 <?php include("includes/scripts.php"); ?>
+<script src="./assets/js/login.js"></script>
 </html>
