@@ -20,13 +20,13 @@
                 <p class="text-white">
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temp <br> or incididunt ut labore et dolore magna aliqua. Ut enim ad minim.
                 </p>
-                <a href="#" class="primary-btn header-btn text-uppercase">Check Our Menu</a>
+                <a href="#product-display" class="primary-btn header-btn text-uppercase">Check Our Event</a>
             </div>
         </div>
     </div>
 </section>
 
-<div class="container product">
+<div class="container product" id="product-display">
     <div class="row">
         <div class="col-md-4 col-sm-6">
             <div class="product-grid">

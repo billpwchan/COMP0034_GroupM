@@ -9,6 +9,10 @@ switch ($_SERVER["SCRIPT_NAME"]) {
         $CURRENT_PAGE = "EntertainmentPackages";
         $PAGE_TITLE = "Entertainment Packages";
         break;
+    case "/COMP0034_GroupM/menus.php":
+        $CURRENT_PAGE = "Menus";
+        $PAGE_TITLE = "Menus";
+        break;
     case "/COMP0034_GroupM/contactUs.php":
         $CURRENT_PAGE = "ContactUs";
         $PAGE_TITLE = "Contact Us";

@@ -67,7 +67,8 @@
 .banner-area {
     background: url(../img/event-header.jpg) right;
     background-size: cover;
-    height: 300px;
+    height: 350px;
+    opacity: 0.9;
 }
 
 @media (max-width: 767.98px) {
@@ -83,7 +84,7 @@
 }
 
 .banner-text {
-    padding-top: 50px;
+    padding-top: 70px;
 }
 
 .banner-content {

@@ -1,0 +1,121 @@
+.lead {
+    margin-top: 20px;
+}
+
+.primary-btn {
+    background-color: #f42f2c;
+    line-height: 42px;
+    padding-left: 30px;
+    padding-right: 60px;
+    border-radius: 25px;
+    border: none;
+    color: #fff;
+    display: inline-block;
+    font-weight: 500;
+    position: relative;
+    -webkit-transition: all 0.3s ease 0s;
+    -moz-transition: all 0.3s ease 0s;
+    -o-transition: all 0.3s ease 0s;
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.primary-btn:focus {
+    outline: none
+}
+
+.primary-btn span {
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-60%);
+    right: 30px;
+    -webkit-transition: all 0.3s ease 0s;
+    -moz-transition: all 0.3s ease 0s;
+    -o-transition: all 0.3s ease 0s;
+    transition: all 0.3s ease 0s
+}
+
+.primary-btn:hover {
+    color: #fff
+}
+
+.primary-btn:hover span {
+    color: #fff;
+    right: 20px
+}
+
+.primary-btn.white {
+    border: 1px solid #fff;
+    color: #fff
+}
+
+.primary-btn.white span {
+    color: #fff
+}
+
+.primary-btn.white:hover {
+    background: #fff;
+    color: #f42f2c
+}
+
+.primary-btn.white:hover span {
+    color: #f42f2c
+}
+
+.banner-area {
+    background: url(../img/menus-header.jpg) right;
+    background-size: cover;
+    height: 350px;
+}
+
+@media (max-width: 767.98px) {
+    .banner-area .fullscreen {
+        height: 700px !important
+    }
+}
+
+.banner-area .primary-btn {
+    padding-left: 30px;
+    padding-right: 30px;
+    margin-top: 10px;
+}
+
+.banner-text {
+    padding-top: 70px;
+}
+
+.banner-content {
+    text-align: left;
+}
+
+.banner-content h1 {
+    color: #fff;
+    font-size: 60px;
+    font-weight: 700;
+    line-height: 1em;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.banner-content h1 span {
+    font-weight: 700;
+}
+
+.banner-content h4 {
+    font-weight: 400;
+    letter-spacing: 3px;
+}
+
+.header-btn {
+    background-color: #f42f2c;
+    border: 1px solid transparent;
+    color: #fff;
+}
+
+.header-btn:hover {
+    border: 1px solid #fff;
+    background: transparent;
+    color: #fff;
+}
