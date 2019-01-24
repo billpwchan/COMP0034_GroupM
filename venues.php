@@ -3,7 +3,7 @@
 <html>
 <head>
     <?php include("includes/headTags.php"); ?>
-    <link rel="stylesheet" href="assets/css/menus.css" type="text/css">
+    <link rel="stylesheet" href="assets/css/venues.css" type="text/css">
     <link rel="stylesheet" href="assets/css/util.css" type="text/css">
 </head>
 <body>
@@ -15,13 +15,13 @@
             <div class="banner-content col-lg-8 col-md-12">
                 <h4 class="text-white text-uppercase">Wide Options of Choice</h4>
                 <h1>
-                    Menus
+                    Venues
                 </h1>
                 <p class="text-white">
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temp <br> or incididunt ut
                     labore et dolore magna aliqua. Ut enim ad minim.
                 </p>
-                <a href="#" class="primary-btn header-btn text-uppercase">Check Our Menu</a>
+                <a href="#" class="primary-btn header-btn text-uppercase">Check Our Venue</a>
             </div>
         </div>
     </div>
@@ -42,7 +42,7 @@
                     <a href="#" class="select-options"><i class="fas fa-arrow-right"></i> Select Options</a>
                 </div>
                 <div class="product-content">
-                    <h3 class="title"><a href="#">Menu 1</a></h3>
+                    <h3 class="title"><a href="#">Venue 1</a></h3>
                     <div class="price">
                         $14.40
                         <span>$16.00</span>
@@ -64,7 +64,7 @@
                     <a href="#" class="select-options"><i class="fas fa-arrow-right"></i> Select Options</a>
                 </div>
                 <div class="product-content">
-                    <h3 class="title"><a href="#">Menu 2</a></h3>
+                    <h3 class="title"><a href="#">Venue 2</a></h3>
                     <div class="price">
                         $14.40
                         <span>$16.00</span>
@@ -86,7 +86,7 @@
                     <a href="#" class="select-options"><i class="fas fa-arrow-right"></i> Select Options</a>
                 </div>
                 <div class="product-content">
-                    <h3 class="title"><a href="#">Menu 3</a></h3>
+                    <h3 class="title"><a href="#">Venue 3</a></h3>
                     <div class="price">
                         $14.40
                         <span>$16.00</span>
