@@ -34,29 +34,6 @@
 
         <!-- Product Configuration -->
         <div class="product-configuration">
-
-            <!-- Product Color -->
-            <!--            <div class="product-color">
-                            <span>Color</span>
-
-                            <div class="color-choose">
-                                <div>
-                                    <input data-image="red" type="radio" id="red" name="color" value="red" checked>
-                                    <label for="red"><span></span></label>
-                                </div>
-                                <div>
-                                    <input data-image="blue" type="radio" id="blue" name="color" value="blue">
-                                    <label for="blue"><span></span></label>
-                                </div>
-                                <div>
-                                    <input data-image="black" type="radio" id="black" name="color" value="black">
-                                    <label for="black"><span></span></label>
-                                </div>
-                            </div>
-
-                        </div>-->
-
-            <!-- Cable Configuration -->
             <div class="service-config">
                 <span>Service Quality</span>
 

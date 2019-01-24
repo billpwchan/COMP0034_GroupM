@@ -9,16 +9,23 @@
 <body>
 <?php include("includes/navigation.php"); ?>
 <br>
-<div class="jumbotron jumbotron-fluid">
+<section class="banner-area relative" id="home">
     <div class="container">
-        <h1 class="display-4">Entertainment Packages</h1>
-        <p class="lead">Delightful remarkably mr on announcing themselves entreaties favourable. About to in so terms
-            voice at. Equal an would is found seems of. The particular friendship one sufficient terminated frequently
-            themselves. It more shed went up is roof if loud case. Delay music in lived noise an. Beyond genius really
-            enough passed is up.
-        </p>
+        <div class="row d-flex align-items-center justify-content-start banner-text">
+            <div class="banner-content col-lg-8 col-md-12">
+                <h4 class="text-white text-uppercase">Wide Options of Choice</h4>
+                <h1>
+                    Entertainment Packages
+                </h1>
+                <p class="text-white">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temp <br> or incididunt ut labore et dolore magna aliqua. Ut enim ad minim.
+                </p>
+                <a href="#" class="primary-btn header-btn text-uppercase">Check Our Menu</a>
+            </div>
+        </div>
     </div>
-</div>
+</section>
+
 <div class="container product">
     <div class="row">
         <div class="col-md-4 col-sm-6">
