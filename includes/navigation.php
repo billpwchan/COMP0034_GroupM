@@ -30,7 +30,7 @@
             </li>
             <li class="nav-item <?php if ($CURRENT_PAGE == "EntertainmentPackages") { ?>active<?php } ?>">
                 <a class="nav-link" href="events.php">
-                    <i class="fas fa-map"></i>
+                    <i class="fas fa-gifts"></i>
                     Entertainment Packages
                 </a>
             </li>

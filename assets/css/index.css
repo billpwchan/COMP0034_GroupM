@@ -1,9 +1,3 @@
-@media (min-width: 991px) and (max-width: 1139px) {
-    .collapse {
-        display: none !important;
-    }
-}
-
 /*
 Theme Name:
 Author: yaminncco
@@ -619,7 +613,7 @@ header {
 
 #home .home-wrapper {
     position: absolute;
-    left: 10%;
+    left: 0px;
     right: 0px;
     top: 50%;
     -webkit-transform: translateY(-50%);
