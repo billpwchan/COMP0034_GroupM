@@ -47,9 +47,46 @@
                 </a>
             </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="inputSearch">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="button" id="search">Search</button>
-        </form>
+        <!--        <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="inputSearch">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="button" id="search">Search</button>
+                </form>-->
+        <ul class="navbar-right">
+            <li><a href="#" id="cart"><i class="fa fa-shopping-cart"></i> Cart <span class="badge">3</span></a></li>
+        </ul>
     </div>
 </nav>
+
+<div class="container">
+    <div class="shopping-cart">
+        <div class="shopping-cart-header">
+            <i class="fa fa-shopping-cart cart-icon"></i><span class="badge">3</span>
+            <div class="shopping-cart-total">
+                <span class="lighter-text">Total:</span>
+                <span class="main-color-text">$2,229.97</span>
+            </div>
+        </div>
+
+        <ul class="shopping-cart-items">
+            <li class="clearfix">
+                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/cart-item1.jpg" alt="item1"/>
+                <span class="item-name">Product 1</span>
+                <span class="item-price">$849.99</span>
+                <span class="item-quantity">Quantity: 01</span>
+            </li>
+            <li class="clearfix">
+                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/cart-item1.jpg" alt="item1"/>
+                <span class="item-name">Product 2</span>
+                <span class="item-price">$849.99</span>
+                <span class="item-quantity">Quantity: 01</span>
+            </li>
+            <li class="clearfix">
+                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/cart-item1.jpg" alt="item1"/>
+                <span class="item-name">Product 2</span>
+                <span class="item-price">$849.99</span>
+                <span class="item-quantity">Quantity: 01</span>
+            </li>
+        </ul>
+        <a href="#" class="button">Checkout</a>
+    </div>
+</div>
