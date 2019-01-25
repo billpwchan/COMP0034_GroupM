@@ -73,4 +73,5 @@
 <?php include("includes/footer.php"); ?>
 </body>
 <?php include("includes/scripts.php"); ?>
+<script src="assets/js/index.js"></script>
 </html>
