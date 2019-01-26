@@ -4,6 +4,11 @@ switch ($_SERVER["SCRIPT_NAME"]) {
         $CURRENT_PAGE = "Index";
         $PAGE_TITLE = "Welcome to UberKidz!";
         break;
+    case "/COMP0034_GroupM/registration.php":
+    case "/COMP0034_GroupM/login.php":
+        $CURRENT_PAGE = "MyAccount";
+        $PAGE_TITLE = "My Account";
+        break;
     case "/COMP0034_GroupM/venues.php":
         $CURRENT_PAGE = "Venues";
         $PAGE_TITLE = "Venues";

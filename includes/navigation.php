@@ -17,7 +17,7 @@
                 </a>
             </li>
             <li class="nav-item <?php if ($CURRENT_PAGE == "MyAccount") { ?>active<?php } ?>">
-                <a class="nav-link" href="myAccount.php">
+                <a class="nav-link" href="login.php">
                     <i class="fas fa-user-circle"></i>
                     My Account
                 </a>

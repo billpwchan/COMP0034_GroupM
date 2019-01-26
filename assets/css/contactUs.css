@@ -1,14 +1,19 @@
-.bg-contact {
+.bg-contact::before {
     width: 100%;
-    background-repeat: no-repeat;
-    background-position: center center;
+    height: 100%;
+    margin: 0 auto;
+    background-image: url("../img/login-background.jpg");
     background-size: cover;
-    background-image: url('../img/login-background.jpg');
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    opacity: 0.6;
+    z-index: -2;
 }
 
 .container-contact {
     width: 100%;
-    min-height: 100vh;
     display: -webkit-box;
     display: -webkit-flex;
     display: -moz-box;
@@ -17,13 +22,12 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    padding: 15px;
-    background: rgba(132, 106, 221, 0.7);
-    margin-top: 3.5%;
+    padding: 100px;
+    /*background: rgba(132, 106, 221, 0.7);*/
 }
 
 .wrap-contact {
-    width: 1163px;
+    width: 960px;
     background: #fff;
     border-radius: 10px;
     overflow: hidden;
@@ -35,7 +39,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    padding: 110px 130px 157px 148px;
+    padding: 100px 130px 33px 95px;
 }
 
 .contact-pic {
@@ -53,11 +57,10 @@
 
 .contact-form-title {
     display: block;
-    font-family: Montserrat-ExtraBold;
     font-size: 24px;
     color: #333333;
     line-height: 1.2;
-    text-align: left;
+    text-align: center;
     padding-bottom: 36px;
 }
 
@@ -88,7 +91,6 @@ textarea.userInput {
     display: block;
     width: 100%;
     background: #e6e6e6;
-    font-family: Montserrat-Bold;
     font-size: 15px;
     line-height: 1.5;
     color: #666666;
@@ -172,7 +174,6 @@ textarea.userInput {
     height: 50px;
     border-radius: 25px;
     background: #846add;
-    font-family: Montserrat-Bold;
     font-size: 15px;
     line-height: 1.5;
     color: #fff;
