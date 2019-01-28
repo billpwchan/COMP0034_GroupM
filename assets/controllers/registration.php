@@ -1,5 +1,7 @@
-<?php include("./dbConnect.php"); ?>
+<link rel="stylesheet" href="../css/animate.css" type="text/css">
+<script src="../js/sweatalert2.all.min.js"></script>
 <?php
+include("./dbConnect.php");
 $connect = db_connect();
 session_start();
 /*if(isset($_SESSION["username"]))
@@ -25,11 +27,19 @@ if (empty($_POST["email"]) || empty($_POST["pass"]) || empty($_POST["cpass"])
     $result = db_query($sql);
     if ($result) {
         $_SESSION['Registration_Status'] = $result;
-        echo '<script>alert("Registration Done")</script>';
+        echo "<script>Swal.fire({
+            title: 'Custom animation with Animate.css',
+            animation: false,
+            customClass: 'animated tada'
+        });</script>";
     } else {
         echo '<script>alert("Registration Failed")</script>';
     }
 }
-
-
 ?>
+<!doctype html>
+<html>
+<head></head>
+<body></body>
+</html>
+

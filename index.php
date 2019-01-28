@@ -3,6 +3,13 @@
 <html>
 <head>
     <?php include("includes/headTags.php"); ?>
+    <?php
+    if (isset($_GET['logout'])) {
+        session_destroy();
+        session_unset();
+        header('Location: index.php');
+    }
+    ?>
     <link rel="stylesheet" href="assets/css/styles.css" type="text/css">
     <link rel="stylesheet" href="assets/css/util.css" type="text/css">
     <link rel="stylesheet" href="assets/css/animate.css" type="text/css">

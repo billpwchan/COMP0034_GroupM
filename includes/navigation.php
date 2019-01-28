@@ -17,8 +17,9 @@
                 </a>
             </li>
             <li class="nav-item <?php if ($CURRENT_PAGE == "MyAccount") { ?>active<?php } ?>">
-                <a class="nav-link" href="login.php">
-                    <i class="fas fa-user-circle"></i>
+                <a class="nav-link"
+                   href="<?php if (isset($_SESSION['email']) and $_SESSION['login_status'] == 1) { ?> index.php <?php } else { ?> login.php <?php } ?> ">
+                    <i class=" fas fa-user-circle"></i>
                     My Account
                 </a>
             </li>
@@ -51,8 +52,21 @@
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="inputSearch">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="button" id="search">Search</button>
                 </form>-->
-        <ul class="navbar-right">
-            <li><a href="#" id="cart"><i class="fa fa-shopping-cart"></i> Cart <span class="badge">3</span></a></li>
+        <ul class="navbar-nav">
+            <?php
+            if (isset($_SESSION['email']) and $_SESSION['login_status'] == 1) {
+                ?>
+                <li class="nav-item">
+                    <button class="nav-link" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false"><i
+                                class="fas fa-user-secret"></i><?= $_SESSION['email'] ?></button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" id="logout" href="index.php?logout=true">Logout</a>
+                    </div>
+                </li>
+            <?php } ?>
+            <li class="nav-item"><a href="#" class="nav-link" id="cart"><i class="fa fa-shopping-cart"></i> Cart <span
+                            class="badge">3</span></a></li>
         </ul>
     </div>
 </nav>
