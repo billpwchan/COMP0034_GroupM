@@ -5,6 +5,7 @@
     <?php include("includes/headTags.php"); ?>
     <link rel="stylesheet" href="assets/css/styles.css" type="text/css">
     <link rel="stylesheet" href="assets/css/util.css" type="text/css">
+    <link rel="stylesheet" href="assets/css/animate.css" type="text/css">
 </head>
 <body>
 <?php include("includes/navigation.php"); ?>
