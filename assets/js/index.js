@@ -11,5 +11,5 @@
             animation: false,
             customClass: 'animated tada'
         });
-    })
+    });
 })(jQuery);

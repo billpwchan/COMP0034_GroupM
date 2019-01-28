@@ -6,6 +6,7 @@ switch ($_SERVER["SCRIPT_NAME"]) {
         break;
     case "/COMP0034_GroupM/registration.php":
     case "/COMP0034_GroupM/login.php":
+    case "/COMP0034_GroupM/myAccount.php":
         $CURRENT_PAGE = "MyAccount";
         $PAGE_TITLE = "My Account";
         break;

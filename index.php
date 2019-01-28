@@ -9,7 +9,9 @@
         session_unset();
         header('Location: index.php');
     }
-    ?>
+    if (isset($_GET['login']) and $_GET['login'] = 'fail') { ?>
+
+    <?php } ?>
     <link rel="stylesheet" href="assets/css/styles.css" type="text/css">
     <link rel="stylesheet" href="assets/css/util.css" type="text/css">
     <link rel="stylesheet" href="assets/css/animate.css" type="text/css">

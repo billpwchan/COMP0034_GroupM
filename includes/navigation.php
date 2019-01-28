@@ -18,7 +18,7 @@
             </li>
             <li class="nav-item <?php if ($CURRENT_PAGE == "MyAccount") { ?>active<?php } ?>">
                 <a class="nav-link"
-                   href="<?php if (isset($_SESSION['email']) and $_SESSION['login_status'] == 1) { ?> index.php <?php } else { ?> login.php <?php } ?> ">
+                   href="<?php if (isset($_SESSION['email']) and $_SESSION['login_status'] == 1) { ?>myAccount.php<?php } else { ?>login.php<?php } ?> ">
                     <i class=" fas fa-user-circle"></i>
                     My Account
                 </a>

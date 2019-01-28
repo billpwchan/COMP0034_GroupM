@@ -10,11 +10,13 @@ if (isset($_POST['email']) and isset($_POST['pass'])) {
 
     $result = db_select($sql);
     if (sizeof($result) == 1) {
+        $_SESSION['userInfo'] = $result[0];
+        unset($_SESSION['userInfo']['pass']);
         $_SESSION['email'] = $email;
         $_SESSION['login_status'] = 1;
-        echo '<script>alert("Login Success")</script>';
-        header("Location:../../index.php?login=success");
+        header("Location:../../myAccount.php?login=success");
     } else {
-        echo '<script>alert("Login Failed")</script>';
+        $_SESSION['login_status'] = 0;
+        header("Location:../../index.php?login=failed");
     }
 }
