@@ -5,6 +5,7 @@
     <?php include("includes/headTags.php"); ?>
     <link rel="stylesheet" href="assets/css/login.css" type="text/css">
     <link rel="stylesheet" href="assets/css/util.css" type="text/css">
+    <link rel="stylesheet" href="assets/css/animate.css" type="text/css">
 </head>
 <body>
 <?php include("includes/navigation.php"); ?>
@@ -72,4 +73,17 @@
 </body>
 <?php include("includes/scripts.php"); ?>
 <script src="./assets/js/login.js"></script>
+<?php
+if (isset($_SESSION['login_status']) and $_SESSION['login_status'] === 0) { ?>
+    <script> Swal.fire({
+            title: 'Login Failed',
+            animation: false,
+            customClass: 'animated tada',
+            text: "Invalid Credential Provided",
+            type: 'error'
+        });
+    </script>
+<?php }
+unset($_SESSION['login_status']);
+?>
 </html>

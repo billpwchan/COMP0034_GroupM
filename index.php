@@ -8,17 +8,7 @@
         session_destroy();
         session_unset();
         header('Location: index.php');
-    }
-    if (isset($_GET['login']) and $_GET['login'] = 'failed') { ?>
-        <script> Swal.fire({
-                title: 'Login Failed',
-                animation: false,
-                customClass: 'animated tada',
-                text: "Invalid Credential Provided",
-                type: 'error'
-            });
-        </script>
-    <?php } ?>
+    } ?>
     <link rel="stylesheet" href="assets/css/styles.css" type="text/css">
     <link rel="stylesheet" href="assets/css/util.css" type="text/css">
     <link rel="stylesheet" href="assets/css/animate.css" type="text/css">
