@@ -8,10 +8,7 @@
         session_destroy();
         session_unset();
         header('Location: index.php');
-    }
-    if (isset($_GET['login']) and $_GET['login'] = 'fail') { ?>
-
-    <?php } ?>
+    } ?>
     <link rel="stylesheet" href="assets/css/styles.css" type="text/css">
     <link rel="stylesheet" href="assets/css/util.css" type="text/css">
     <link rel="stylesheet" href="assets/css/animate.css" type="text/css">
@@ -33,7 +30,9 @@
                         <p class="white-text">Concerns greatest margaret him absolute entrance nay. Door neat week do
                             find past he. Be no surprise he honoured indulged. Unpacked endeavor six steepest had
                             husbands h</p>
-                        <button class="white-btn">Get Started!</button>
+                        <button class="white-btn"><a
+                                    href="<?php if (isset($_SESSION['email']) and $_SESSION['login_status'] == 1) { ?>myAccount.php<?php } else { ?>login.php<?php } ?>">Get
+                                Started!</a></button>
                         <button class="main-btn">Learn more</button>
                     </div>
                 </div>

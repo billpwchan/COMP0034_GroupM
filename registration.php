@@ -47,4 +47,24 @@
 <?php include("includes/scripts.php"); ?>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
 <script src="assets/js/registration.js"></script>
+<?php
+if (isset($_GET['registration']) and $_GET['registration'] === 'allFieldsRequired') { ?>
+    <script> Swal.fire({
+            title: 'Registration Failed',
+            animation: false,
+            customClass: 'animated tada',
+            text: "All Fields Required",
+            type: 'error'
+        });
+    </script>
+<?php } else if (isset($_GET['registration']) and $_GET['registration'] === 'passwordMismatch') { ?>
+    <script> Swal.fire({
+            title: 'Registration Failed',
+            animation: false,
+            customClass: 'animated tada',
+            text: "Password Mismatch",
+            type: 'error'
+        });
+    </script>
+<?php } ?>
 </html>

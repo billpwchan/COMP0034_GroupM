@@ -6,6 +6,8 @@
     $("#logout").on('click', function () {
         Swal.fire({
             title: 'Are you sure?',
+            animation: false,
+            customClass: 'animated tada',
             text: "You are going to logout UberKidz",
             type: 'warning',
             showCancelButton: true,
@@ -18,6 +20,8 @@
                     title: 'Logging out...',
                     type: 'success'
                 })
+            } else {
+                return false;
             }
         });
     });

@@ -11,9 +11,9 @@ session_start();
 if (empty($_POST["email"]) || empty($_POST["pass"]) || empty($_POST["cpass"])
     || empty($_POST["gender"]) || empty($_POST["phone"]) || empty($_POST["fname"])
     || empty($_POST["lname"])) {
-    echo '<script>alert("All Fields are required")</script>';
+    header("Location:../../registration.php?registration=allFieldsRequired");
 } elseif ($_POST["pass"] != $_POST["cpass"]) {
-    echo '<script>alert("Password is not matched.")</script>';
+    header("Location:../../registration.php?registration=passwordMismatch");
 } else {
     $firstName = mysqli_real_escape_string($connect, $_POST["fname"]);
     $lastName = mysqli_real_escape_string($connect, $_POST["lname"]);
@@ -27,13 +27,9 @@ if (empty($_POST["email"]) || empty($_POST["pass"]) || empty($_POST["cpass"])
     $result = db_query($sql);
     if ($result) {
         $_SESSION['Registration_Status'] = $result;
-        echo "<script>Swal.fire({
-            title: 'Custom animation with Animate.css',
-            animation: false,
-            customClass: 'animated tada'
-        });</script>";
+        header("Location:../../login.php?registration=success");
     } else {
-        echo '<script>alert("Registration Failed")</script>';
+        header("Location:../../index.php?registration=failed");
     }
 }
 ?>
