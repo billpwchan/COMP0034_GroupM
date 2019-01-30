@@ -1,6 +1,6 @@
-# Project Title
+# UberKidz
 
-One Paragraph of project description goes here
+Kid's Party Planning Online Platform
 
 ## Getting Started
 
