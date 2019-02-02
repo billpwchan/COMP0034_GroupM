@@ -38,6 +38,10 @@
             <h3 class="fs-subtitle">Last step already...till your account! </h3>
             <input type="text" name="fname" placeholder="First Name"/>
             <input type="text" name="lname" placeholder="Last Name"/>
+            <div class="upload-avatar-container">
+                <button class="avatar-btn">Upload Profile Picture</button>
+                <input type="file" name="avatar" id="avatar" placeholder="Profile Picture">
+            </div>
             <input type="button" name="previous" class="previous action-button" value="Previous"/>
             <input type="submit" class="next action-button" id="submit" value="Submit"/>
         </fieldset>
@@ -63,6 +67,15 @@ if (isset($_GET['registration']) and $_GET['registration'] === 'allFieldsRequire
             animation: false,
             customClass: 'animated tada',
             text: "Password Mismatch",
+            type: 'error'
+        });
+    </script>
+<?php } else if (isset($_GET['registration']) and $_GET['registration'] === 'duplicateEmail') { ?>
+    <script> Swal.fire({
+            title: 'Registration Failed',
+            animation: false,
+            customClass: 'animated tada',
+            text: "User with the same email already exist! ",
             type: 'error'
         });
     </script>

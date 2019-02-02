@@ -31,7 +31,7 @@ function db_validate()
 function db_query($query)
 {
     $connection = db_connect();
-    $result = mysqli_query($connection, $query);
+    $result = mysqli_query($connection, $query) or die(mysqli_error($connection));
     return $result;
 }
 
