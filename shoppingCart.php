@@ -104,6 +104,21 @@
 
             <div class="total-price">$349</div>
         </div>
+        <div class="container-fluid checkout-container">
+            <div class="row">
+                <div class="col-sm-3">
+                    <input type="text" class="form-control voucher-input" placeholder="Enter Voucher">
+                </div>
+                <div class="col-sm-3">
+                    <button class="btn btn-info voucher-btn" type="submit">Apply Coupon</button>
+                </div>
+                <div class="col-sm-6">
+                    <div class="text-right">
+                        <button class="btn btn-success checkout-btn" type="submit">Proceed to checkout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

@@ -138,9 +138,9 @@
 }
 
 button[class*=btn] {
-    width: 30px;
-    height: 30px;
-    background-color: #E1E8EE;
+    /*width: 30px;*/
+    /*height: 30px;*/
+    /*background-color: #E1E8EE;*/
     border-radius: 6px;
     border: none;
     cursor: pointer;
@@ -198,4 +198,8 @@ input:focus {
     .buttons {
         margin-right: 20px;
     }
+}
+
+.checkout-container {
+    margin-top: 1rem;
 }
