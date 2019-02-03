@@ -28,7 +28,11 @@
         <fieldset>
             <h2 class="fs-title">Social Profiles</h2>
             <h3 class="fs-subtitle">Your presence in the Social Network</h3>
-            <input type="text" name="gender" placeholder="Gender"/>
+            <select name="gender">
+                <option>Male</option>
+                <option>Female</option>
+                <option>Prefer not to say</option>
+            </select>
             <input type="text" name="phone" placeholder="Phone No."/>
             <input type="button" name="previous" class="previous action-button" value="Previous"/>
             <input type="button" name="next" class="next action-button" value="Next"/>

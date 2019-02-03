@@ -34,7 +34,7 @@
 }
 
 /*inputs*/
-#rsform input, #rsform textarea {
+#rsform input, #rsform textarea, #rsform select {
     padding: 15px;
     border: 1px solid #ccc;
     border-radius: 3px;
