@@ -9,7 +9,7 @@
 <body>
 <?php include("includes/navigation.php"); ?>
 <div class="container-fluid rsform-container">
-    <form id="rsform" method="post" action="./assets/controllers/registration.php">
+    <form id="rsform" method="post" action="./assets/controllers/registration.php" enctype="multipart/form-data">
         <!-- progressbar -->
         <ul id="progressbar">
             <li class="active">Account Setup</li>
@@ -40,7 +40,7 @@
             <input type="text" name="lname" placeholder="Last Name"/>
             <div class="upload-avatar-container">
                 <button class="avatar-btn">Upload Profile Picture</button>
-                <input type="file" name="avatar" id="avatar" placeholder="Profile Picture">
+                <input type="file" name="avatar" id="avatar">
             </div>
             <input type="button" name="previous" class="previous action-button" value="Previous"/>
             <input type="submit" class="next action-button" id="submit" value="Submit"/>

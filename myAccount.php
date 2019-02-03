@@ -17,7 +17,7 @@
             <div class="left col-lg-4">
                 <div class="photo-left">
                     <img class="photo"
-                         src="https://image.noelshack.com/fichiers/2017/38/2/1505775062-1505606859-portrait-1961529-960-720.jpg"/>
+                         src="./assets/uploads/avatar/<?= $_SESSION['userInfo']['avatar'] ?>"/>
                     <div class="profileActive"></div>
                 </div>
                 <h4 class="name"><?= $_SESSION['userInfo']['first_name'] ?> <?= $_SESSION['userInfo']['last_name'] ?></h4>
