@@ -1,5 +1,5 @@
 <?php
-include "dbConnect.php";
+include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/controllers/dbConnect.php';
 $connect = db_connect();
 session_start();
 
@@ -11,8 +11,8 @@ if (isset($_POST['email']) and isset($_POST['pass'])) {
     if (sizeof($result) == 1) {
         $_SESSION['userInfo'] = $result[0];
         unset($_SESSION['userInfo']['pass']);
-        $_SESSION['email'] = $email;
         $_SESSION['login_status'] = 1;
+        $_SESSION['email'] = $email;
         header("Location:../../myAccount.php?login=success");
     } else {
         $_SESSION['login_status'] = 0;

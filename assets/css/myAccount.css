@@ -140,20 +140,24 @@ main {
     margin: 0 15px;
 }
 
-.social i:nth-child(1) {
+.social a:nth-child(1) {
     color: #4267b2;
 }
 
-.social i:nth-child(2) {
+.social a:nth-child(2) {
     color: #1da1f2;
 }
 
-.social i:nth-child(3) {
+.social a:nth-child(3) {
     color: #bd081c;
 }
 
-.social i:nth-child(4) {
+.social a:nth-child(4) {
     color: #36465d;
+}
+
+.social-links {
+    font-size: 20pt;
 }
 
 .right {
