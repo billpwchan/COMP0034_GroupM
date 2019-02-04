@@ -1,5 +1,3 @@
-<link rel="stylesheet" href="../css/animate.css" type="text/css">
-<script src="../js/sweatalert2.all.min.js"></script>
 <?php
 include("./dbConnect.php");
 $connect = db_connect();
