@@ -59,32 +59,54 @@ if (!isset($_SESSION['userInfo'])) {
             </div>
             <div class="right col-lg-8">
                 <ul class="nav">
-
-                    <li>Order History</li>
-                    <li>Collections</li>
-                    <li>Groups</li>
-                    <li>About</li>
+                    <li class="nav-item">
+                        <a class="nav-link active" id="order-tab" data-toggle="tab" href="#order" role="tab"
+                           aria-controls="order" aria-selected="true">Order History</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="personal-tab" data-toggle="tab" href="#personal" role="tab"
+                           aria-controls="personal" aria-selected="false">Personal Information</a>
+                    </li>
                 </ul>
                 <span class="follow">Follow</span>
-                <div class="row gallery">
-                    <table class="table table-hover">
-                        <thead>
-                        <tr>
-                            <?php foreach (array_keys($orderHistory[0]) as $key) { ?>
-                                <th scope="col"><?= $key ?></th>
+                <div class="tab-content profile-tab" id="myTabContent">
+                    <div aria-labelledby="order-tab" class="row gallery tab-pane fade show active" id="order"
+                         role="tabpanel">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <?php foreach (array_keys($orderHistory[0]) as $key) { ?>
+                                    <th scope="col"><?= $key ?></th>
+                                <?php } ?>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <?php foreach (array_values($orderHistory) as $transaction) {
+                                    foreach (array_values($transaction) as $value) { ?>
+                                        <td scope="col"><?= ucfirst($value) ?></td>
+                                    <?php }
+                                } ?>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div aria-labelledby="personal-tab" class="row tab-pane fade" id="personal"
+                         role="tabpane2">
+                        <form>
+                            <?php foreach ($_SESSION['userInfo'] as $key => $value) { ?>
+                                <div class="form-group row">
+                                    <label for="static<?= $key ?>" class="col-sm-2 col-form-label"><?= $key ?></label>
+                                    <div class="col-sm-10">
+                                        <input type="text" readonly
+                                               class="<?= $key == 'email_address' ? 'form-control-plaintext' : 'form-control'; ?>"
+                                               id="static<?= $key ?>"
+                                               value="<?= $value ?>">
+                                    </div>
+                                </div>
                             <?php } ?>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <?php foreach (array_values($orderHistory) as $transaction) {
-                                foreach (array_values($transaction) as $value) { ?>
-                                    <td scope="col"><?= ucfirst($value) ?></td>
-                                <?php }
-                            } ?>
-                        </tr>
-                        </tbody>
-                    </table>
+                        </form>
+                    </div>
                 </div>
             </div>
     </main>
