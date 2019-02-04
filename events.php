@@ -9,7 +9,7 @@
 </head>
 <body>
 <?php include("includes/navigation.php"); ?>
-<br>
+
 
 <section class="banner-area relative" id="home">
     <div class="container">
@@ -31,13 +31,15 @@
 
 <div class="container product" id="product-display">
     <div class="row">
-        <?php for ($i = 1; $i <= 6; $i++) { ?>
+        <?php for ($i = 1; $i <= min($records_per_page, $row_count); $i++) { ?>
             <div class="col-md-4 col-sm-6">
                 <div class="product-grid">
                     <div class="product-image">
                         <a href="#">
-                            <img class="pic-1" src="./assets/img/event-preview1.jpg" alt="Preview Image 1">
-                            <img class="pic-2" src="./assets/img/event-preview2.jpg" alt="Preview Image 2">
+                            <img class="pic-1" src="./assets/entertainment/<?= $entertainments[$i]['eventimage1'] ?>"
+                                 alt="Preview Image 1">
+                            <img class="pic-2" src="./assets/entertainment/<?= $entertainments[$i]['eventimage2'] ?>"
+                                 alt="Preview Image 2">
                         </a>
                         <ul class="function">
                             <li><a href="" data-tip="Details"><i class="fas fa-search"></i></a></li>
@@ -46,10 +48,10 @@
                         <a href="#" class="select-options"><i class="fas fa-arrow-right"></i> Select Options</a>
                     </div>
                     <div class="product-content">
-                        <h3 class="title"><a href="#">Entertainment Package <?= $i ?></a></h3>
+                        <h3 class="title"><a href="#"><?= $entertainments[$i]['name'] ?></a></h3>
                         <div class="price">
-                            $14.40
-                            <span>$16.00</span>
+                            <span>&#163;</span><?= $entertainments[$i]['price'] ?>
+                            <span><?= (round((float)$entertainments[$i]['price'], 2)) ?></span>
                         </div>
                     </div>
                 </div>

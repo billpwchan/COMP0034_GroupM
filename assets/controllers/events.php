@@ -10,7 +10,7 @@ $page = isset($_GET['page']) ? $_GET['page'] : 1; // page is the current page, i
 $records_per_page = 6; // set records or rows of data per page
 $from_record_num = ($records_per_page * $page) - $records_per_page; // calculate for the query LIMIT clause
 
-$products = read($from_record_num, $records_per_page);
+$entertainments = read($from_record_num, $records_per_page);
 $row_count = row_count();
 
 
