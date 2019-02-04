@@ -1,7 +1,17 @@
 <?php
-include("./dbConnect.php");
+include("dbConnect.php");
 $connect = db_connect();
 session_start();
+// to prevent undefined index notice
+$action = isset($_GET['action']) ? $_GET['action'] : "";
+
+// for pagination purposes
+$page = isset($_GET['page']) ? $_GET['page'] : 1; // page is the current page, if there's nothing set, default is page 1
+$records_per_page = 6; // set records or rows of data per page
+$from_record_num = ($records_per_page * $page) - $records_per_page; // calculate for the query LIMIT clause
+
+$products = read($from_record_num, $records_per_page);
+$row_count = row_count();
 
 
 function read($from_record_num, $records_per_page)
@@ -17,15 +27,15 @@ function read($from_record_num, $records_per_page)
     return db_select($sql);
 }
 
-function count()
+function row_count()
 {
     $sql = "
-        SELECT COUNT(*)
+        SELECT COUNT(*) as rowCount
         from event, entertainmentpackage
         WHERE event.event_ID = entertainmentpackage.event_ID
         AND event.event_type = 'entertainmentpackage'
     ";
-    return db_select($sql);
+    return db_select($sql)[0]['rowCount'];
 }
 
 ?>

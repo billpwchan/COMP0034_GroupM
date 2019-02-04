@@ -1,4 +1,5 @@
 <?php include("includes/config.php"); ?>
+<?php include("./assets/controllers/events.php") ?>
 <!doctype html>
 <html>
 <head>
@@ -66,9 +67,9 @@
                             <span class="sr-only">Previous</span>
                         </a>
                     </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <?php for ($i = 1; $i <= ceil($row_count / $records_per_page); $i++) { ?>
+                        <li class="page-item"><a class="page-link" href="events.php?page=<?= $i ?>"><?= $i ?></a></li>
+                    <?php } ?>
                     <li class="page-item">
                         <a class="page-link" href="#" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
