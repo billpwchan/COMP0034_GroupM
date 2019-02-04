@@ -156,5 +156,6 @@
     opacity: 0;
 }
 
-
-
+.bootstrap-select {
+    width: 100% !important;
+}

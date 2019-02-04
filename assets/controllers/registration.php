@@ -4,10 +4,9 @@
 include("./dbConnect.php");
 $connect = db_connect();
 session_start();
-/*if(isset($_SESSION["username"]))
-{
-    header("location:entry.php");
-}*/
+if (isset($_SESSION["userInfo"])) {
+    header("location:../../login.php");
+}
 if (empty($_POST["email"]) || empty($_POST["pass"]) || empty($_POST["cpass"])
     || empty($_POST["gender"]) || empty($_POST["phone"]) || empty($_POST["fname"])
     || empty($_POST["lname"])) {
@@ -66,9 +65,18 @@ if (empty($_POST["email"]) || empty($_POST["pass"]) || empty($_POST["cpass"])
 
     $sql = "INSERT INTO user (first_name, last_name, gender, email_address, password, contact_number, registration_date, avatar) VALUES ('$firstName', '$lastName', '$gender', '$email', '$password', '$contactNumber', '$registrationDate', '$fileName')";
     $result = db_query($sql);   //$result contains the ID generated
-    echo $result;
+    $accountType = $_POST["accounttype"];
+    $autoGenID = mysqli_insert_id($connect);
+    if (strtolower($accountType) == "customer") {
+        $sql = "INSERT INTO customer (user_ID, account_balance) VALUES ({$autoGenID}, 2000.00)";
+        $result = db_query($sql);
+    } else if (strtolower($accountType) == "service provider") {
+        $companyName = 'UberKidz Company';
+        $sql = "INSERT INTO servicesupplier (user_ID, company_name) VALUES ({$autoGenID}, '$companyName')";
+        $result = db_query($sql);
+    }
+
     if ($result) {
-//        $_SESSION['Registration_Status'] = $result;
         header("Location:../../login.php?registration=success");
     } else {
         header("Location:../../index.php?registration=failed");
