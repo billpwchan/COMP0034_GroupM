@@ -19,7 +19,8 @@
                 Swal.fire({
                     title: 'Logging out...',
                     type: 'success'
-                })
+                });
+                window.location.href = "index.php?logout=true";
             } else {
                 return false;
             }

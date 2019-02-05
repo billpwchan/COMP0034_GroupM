@@ -61,7 +61,7 @@
                             aria-haspopup="true" aria-expanded="false"><i
                                 class="fas fa-user-secret"></i><?= $_SESSION['email'] ?></button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" id="logout" href="index.php?logout=true">Logout</a>
+                        <a class="dropdown-item" id="logout">Logout</a>
                     </div>
                 </li>
             <?php } ?>
