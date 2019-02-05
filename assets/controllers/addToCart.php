@@ -1,7 +1,7 @@
 <?php
 
 if (!isset($_SESSION['userInfo'])) {
-    header("Location:../../login.php");
+    header("Location" . $_SERVER['DOCUMENT_ROOT'] . "/login.php");
 }
 include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/controllers/dbConnect.php';
 $connect = db_connect();

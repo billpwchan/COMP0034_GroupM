@@ -30,7 +30,7 @@
 </section>
 
 <div class="container product" id="product-display">
-    <?php print_r($entertainments); ?>
+    <?php print_r($_SESSION['cartItems']); ?>
     <div class="row">
         <?php for ($i = 0; $i < min($records_per_page, $row_count); $i++) { ?>
             <div class="col-md-4 col-sm-6">
@@ -39,7 +39,7 @@
                     <div class="product-image">
                         <a href="#">
                             <img class="pic-1"
-                                 src="./assets/uploads/entertainment/<?= $entertainments[$i]['eventimage1'] ?>"
+                                 src="./assets/uploads/event/<?= $entertainments[$i]['eventimage1'] ?>"
                                  alt="Preview Image 1">
                             <img class="pic-2"
                                  src="./assets/uploads/entertainment/<?= $entertainments[$i]['eventimage2'] ?>"

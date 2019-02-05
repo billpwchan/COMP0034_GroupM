@@ -1,3 +1,8 @@
+<?php
+if (isset($_SESSION['userInfo'])) {
+    include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/controllers/displayCart.php';
+}
+?>
 <nav class="navbar navbar-dark bg-dark navbar-expand-lg fixed-top" style="font-family: Montserrat-Regular, sans-serif;">
     <a class="navbar-brand" href="#">
         <i class="fas fa-glass-cheers"></i>
@@ -53,9 +58,7 @@
                 <button class="btn btn-outline-success my-2 my-sm-0" type="button" id="search">Search</button>
                 </form>-->
         <ul class="navbar-nav">
-            <?php
-            if (isset($_SESSION['email']) and $_SESSION['login_status'] == 1) {
-                ?>
+            <?php if (isset($_SESSION['email']) and $_SESSION['login_status'] == 1) { ?>
                 <li class="nav-item">
                     <button class="nav-link" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false"><i
@@ -64,43 +67,43 @@
                         <a class="dropdown-item" id="logout">Logout</a>
                     </div>
                 </li>
+                <li class="nav-item"><a href="#" class="nav-link" id="cart"><i class="fa fa-shopping-cart"></i> Cart
+                        <span
+                                class="badge"><?= sizeof($_SESSION['cartItems']) ?></span></a></li>
             <?php } ?>
-            <li class="nav-item"><a href="#" class="nav-link" id="cart"><i class="fa fa-shopping-cart"></i> Cart <span
-                            class="badge">3</span></a></li>
         </ul>
     </div>
 </nav>
-
-<div class="container">
-    <div class="shopping-cart">
-        <div class="shopping-cart-header">
-            <i class="fa fa-shopping-cart cart-icon"></i><span class="badge">3</span>
-            <div class="shopping-cart-total">
-                <span class="lighter-text">Total:</span>
-                <span class="main-color-text">$2,229.97</span>
+<?php if (isset($_SESSION['email']) and $_SESSION['login_status'] == 1) { ?>
+    <div class="container">
+        <div class="shopping-cart">
+            <div class="shopping-cart-header">
+                <i class="fa fa-shopping-cart cart-icon"></i><span
+                        class="badge"><?= sizeof($_SESSION['cartItems']) ?></span>
+                <div class="shopping-cart-total">
+                    <span class="lighter-text">Total:</span>
+                    <span class="main-color-text">&#163;
+                    <?php $totalPrice = 0.0;
+                    foreach ($_SESSION['cartItems'] as $cartItem) {
+                        $totalPrice += (float)$cartItem['price'];
+                    }
+                    echo $totalPrice ?>
+                </span>
+                </div>
             </div>
-        </div>
 
-        <ul class="shopping-cart-items">
-            <li class="clearfix">
-                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/cart-item1.jpg" alt="item1"/>
-                <span class="item-name">Product 1</span>
-                <span class="item-price">$849.99</span>
-                <span class="item-quantity">Quantity: 01</span>
-            </li>
-            <li class="clearfix">
-                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/cart-item1.jpg" alt="item1"/>
-                <span class="item-name">Product 2</span>
-                <span class="item-price">$849.99</span>
-                <span class="item-quantity">Quantity: 01</span>
-            </li>
-            <li class="clearfix">
-                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/cart-item1.jpg" alt="item1"/>
-                <span class="item-name">Product 2</span>
-                <span class="item-price">$849.99</span>
-                <span class="item-quantity">Quantity: 01</span>
-            </li>
-        </ul>
-        <a href="#" class="button">Checkout</a>
+            <ul class="shopping-cart-items">
+                <?php foreach ($_SESSION['cartItems'] as $cartItem) { ?>
+                    <li class="clearfix">
+                        <img src="./assets/uploads/event/<?= $cartItem['eventimage1'] ?>" alt="item1" width="80"
+                             height="60"/>
+                        <span class="item-name"><?= $cartItem['name'] ?></span>
+                        <span class="item-price">&#163;<?= $cartItem['price'] ?></span>
+                        <span class="item-quantity">Quantity: <?= $cartItem['quantity'] ?></span>
+                    </li>
+                <?php } ?>
+            </ul>
+            <a href="#" class="button">Checkout</a>
+        </div>
     </div>
-</div>
+<?php } ?>
