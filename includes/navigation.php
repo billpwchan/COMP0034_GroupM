@@ -85,7 +85,7 @@ if (isset($_SESSION['userInfo'])) {
                     <span class="main-color-text">&#163;
                     <?php $totalPrice = 0.0;
                     foreach ($_SESSION['cartItems'] as $cartItem) {
-                        $totalPrice += (float)$cartItem['price'];
+                        $totalPrice += (float)$cartItem['price'] * (int)$cartItem['quantity'];
                     }
                     echo $totalPrice ?>
                 </span>
@@ -98,7 +98,7 @@ if (isset($_SESSION['userInfo'])) {
                         <img src="./assets/uploads/event/<?= $cartItem['eventimage1'] ?>" alt="item1" width="80"
                              height="60"/>
                         <span class="item-name"><?= $cartItem['name'] ?></span>
-                        <span class="item-price">&#163;<?= $cartItem['price'] ?></span>
+                        <span class="item-price">&#163;<?= $cartItem['price'] * $cartItem['quantity'] ?></span>
                         <span class="item-quantity">Quantity: <?= $cartItem['quantity'] ?></span>
                     </li>
                 <?php } ?>
