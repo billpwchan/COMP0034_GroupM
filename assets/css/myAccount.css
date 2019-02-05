@@ -87,7 +87,6 @@ main {
 }
 
 .info {
-    margin-top: -5px;
     margin-bottom: 5px;
     font-family: 'Montserrat', sans-serif;
     font-size: 11pt;
@@ -231,3 +230,6 @@ main {
     max-width: 100%;
 }
 
+.personal-form {
+    margin-top: 2rem;
+}

@@ -125,6 +125,10 @@
     margin-top: 3.5%;
 }
 
+.display-none {
+    display: none;
+}
+
 .product-image .pic-1, .product-image .pic-2 {
     backface-visibility: hidden;
     transition: all .5s ease 0s;

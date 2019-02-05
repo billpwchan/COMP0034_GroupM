@@ -30,15 +30,19 @@
 </section>
 
 <div class="container product" id="product-display">
+    <?php print_r($entertainments); ?>
     <div class="row">
-        <?php for ($i = 1; $i <= min($records_per_page, $row_count); $i++) { ?>
+        <?php for ($i = 0; $i < min($records_per_page, $row_count); $i++) {
+            echo "<div class='product-id display-none'>{$entertainments[$i]['event_ID']}</div>"; ?>
             <div class="col-md-4 col-sm-6">
                 <div class="product-grid">
                     <div class="product-image">
                         <a href="#">
-                            <img class="pic-1" src="./assets/entertainment/<?= $entertainments[$i]['eventimage1'] ?>"
+                            <img class="pic-1"
+                                 src="./assets/uploads/entertainment/<?= $entertainments[$i]['eventimage1'] ?>"
                                  alt="Preview Image 1">
-                            <img class="pic-2" src="./assets/entertainment/<?= $entertainments[$i]['eventimage2'] ?>"
+                            <img class="pic-2"
+                                 src="./assets/uploads/entertainment/<?= $entertainments[$i]['eventimage2'] ?>"
                                  alt="Preview Image 2">
                         </a>
                         <ul class="function">
@@ -50,8 +54,8 @@
                     <div class="product-content">
                         <h3 class="title"><a href="#"><?= $entertainments[$i]['name'] ?></a></h3>
                         <div class="price">
-                            <span>&#163;</span><?= $entertainments[$i]['price'] ?>
-                            <span><?= (round((float)$entertainments[$i]['price'], 2)) ?></span>
+                            &#163;<?= $entertainments[$i]['price'] ?>
+                            <span>&#163;<?= (round((float)$entertainments[$i]['price'] * 1.5, 2)) ?></span>
                         </div>
                     </div>
                 </div>

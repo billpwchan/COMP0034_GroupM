@@ -31,7 +31,7 @@ if (!isset($_SESSION['userInfo'])) {
                     <?php } ?>
                 </div>
                 <h4 class="name"><?= $_SESSION['userInfo']['first_name'] ?> <?= $_SESSION['userInfo']['last_name'] ?></h4>
-                <p class="info">UI/UX Designer</p>
+                <p class="info"><?= (isset($_SESSION['customer']) and (float)$_SESSION['customer']['account_balance'] > 1000) ? 'Premium' : '' ?> <?= isset($_SESSION['customer']) ? 'Customer' : 'Service Provider' ?></p>
                 <p class="info"><?= $_SESSION['userInfo']['email_address'] ?></p>
                 <p class="desc"><?= isset($_SESSION['customer']['description']) ? $_SESSION['customer']['description'] : '' ?></p>
                 <?php if (isset($_SESSION['customer'])) { ?>
@@ -93,7 +93,7 @@ if (!isset($_SESSION['userInfo'])) {
                     </div>
                     <div aria-labelledby="personal-tab" class="row tab-pane fade" id="personal"
                          role="tabpane2">
-                        <form>
+                        <form class="personal-form">
                             <?php foreach ($_SESSION['userInfo'] as $key => $value) { ?>
                                 <div class="form-group row">
                                     <label for="static<?= $key ?>" class="col-sm-2 col-form-label"><?= $key ?></label>

@@ -16,6 +16,7 @@ if (isset($_POST['email']) and isset($_POST['pass'])) {
     $result = db_select($sql);
     if (sizeof($result) == 1) {
         $_SESSION['userInfo'] = $result[0];
+
         unset($_SESSION['userInfo']['pass']);
         $_SESSION['login_status'] = 1;
         $_SESSION['email'] = $email;

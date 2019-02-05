@@ -15,7 +15,7 @@ $row_count = row_count();
 function read($from_record_num, $records_per_page)
 {
     $sql = "
-        SELECT event.event_ID, event.name, event.description, event.description
+        SELECT event.event_ID, event.name, event.description, event.price, event.eventimage1, event.eventimage2
         from event, entertainmentpackage
         WHERE event.event_ID = entertainmentpackage.event_ID
         AND event.event_type = 'entertainment'
