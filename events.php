@@ -32,10 +32,10 @@
 <div class="container product" id="product-display">
     <?php print_r($entertainments); ?>
     <div class="row">
-        <?php for ($i = 0; $i < min($records_per_page, $row_count); $i++) {
-            echo "<div class='product-id display-none'>{$entertainments[$i]['event_ID']}</div>"; ?>
+        <?php for ($i = 0; $i < min($records_per_page, $row_count); $i++) { ?>
             <div class="col-md-4 col-sm-6">
-                <div class="product-grid">
+                <form class="product-grid">
+                    <div class='product-id display-none'><?= $entertainments[$i]['event_ID'] ?></div>
                     <div class="product-image">
                         <a href="#">
                             <img class="pic-1"
@@ -46,8 +46,11 @@
                                  alt="Preview Image 2">
                         </a>
                         <ul class="function">
-                            <li><a href="" data-tip="Details"><i class="fas fa-search"></i></a></li>
-                            <li><a href="" data-tip="Add to Shopping Cart"><i class="fas fa-shopping-cart"></i></a></li>
+                            <li><a href="" data-tip="Details" class="detail"><i class="fas fa-search"></i></a></li>
+                            <li>
+                                <button type="submit" data-tip="Add to Shopping Cart" class="add-to-cart"><i
+                                            class="fas fa-shopping-cart"></i></button>
+                            </li>
                         </ul>
                         <a href="#" class="select-options"><i class="fas fa-arrow-right"></i> Select Options</a>
                     </div>
@@ -58,7 +61,7 @@
                             <span>&#163;<?= (round((float)$entertainments[$i]['price'] * 1.5, 2)) ?></span>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
         <?php } ?>
     </div>
@@ -90,4 +93,16 @@
 <?php include("includes/footer.php"); ?>
 </body>
 <?php include("includes/scripts.php"); ?>
+<script src="assets/js/events.js"></script>
+<?php
+if ($_GET['addtocart'] === 'success') { ?>
+    <script> Swal.fire({
+            title: 'Successful',
+            animation: false,
+            customClass: 'animated tada',
+            text: "An item has successfully added to your cart",
+            type: 'success'
+        });
+    </script>
+<?php } ?>
 </html>
