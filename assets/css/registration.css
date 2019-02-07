@@ -77,6 +77,14 @@
     margin-bottom: 20px;
 }
 
+.fs-fieldtitle {
+    font-weight: normal;
+    font-size: 14px;
+    color: black;
+    margin-bottom: 5px;
+    text-align: left;
+}
+
 /*progressbar*/
 #progressbar {
     margin-bottom: 30px;
@@ -132,5 +140,72 @@
     color: white;
 }
 
+.radiotextsty {
+    color: #2C3E50;
+    font-size: 15px;
+}
 
+.customradio {
+    display: block;
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 18px;
+    cursor: pointer;
+    font-size: 18px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
 
+/* Hide the browser's default radio button */
+.customradio input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkmark {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    height: 16px;
+    width: 16px;
+    background-color: white;
+    border-radius: 50%;
+    border: 1px solid #BEBEBE;
+}
+
+/* On mouse-over, add a grey background color */
+.customradio:hover input ~ .checkmark {
+    background-color: transparent;
+}
+
+/* When the radio button is checked, add a blue background */
+.customradio input:checked ~ .checkmark {
+    background-color: white;
+    border:1px solid #BEBEBE;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.customradio input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.customradio .checkmark:after {
+    top: 2px;
+    left: 2px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #007bff;
+}
