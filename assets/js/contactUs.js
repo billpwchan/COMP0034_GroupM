@@ -1,11 +1,12 @@
 (function ($) {
     "use strict";
-    let input = $('.validate-input .userInput');
+    let input = $('.validate-input .userInput')
 
     $('.validate-form').on('submit', function () {
         let check = true;
         for (let i = 0; i < input.length; i++) {
             if (validate(input[i]) === false) {
+                console.log($(input[i]).val().trim());
                 showValidate(input[i]);
                 check = false;
             }
@@ -25,12 +26,17 @@
             if ($(input).val().trim().match(/^([a-zA-Z0-9_\-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(]?)$/) == null) {
                 return false;
             }
-        } else if ($(input).attr('name') === 'name' || $(input).attr('name') === 'message') {
+        } else if ($(input).attr('name') === 'name') {
             return !($(input).val().trim() === '');
-        } else {
+        } else if ($(input).val().length >150)
+        {
+            alert("Message must less then 150 characters");
             return false;
         }
     }
+    {
+ }
+
 
     function showValidate(input) {
         $(input).siblings(".alert-validate").css("visibility", "visible")
@@ -39,4 +45,5 @@
     function hideValidate(input) {
         $(input).siblings(".alert-validate").css("visibility", "hidden")
     }
+
 })(jQuery);
