@@ -1,6 +1,6 @@
 (function ($) {
     "use strict";
-    let input = $('.validate-input .userInput')
+    let input = $('.validate-input .userInput');
 
     $('.validate-form').on('submit', function () {
         let check = true;
