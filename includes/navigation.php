@@ -103,7 +103,7 @@ if (isset($_SESSION['userInfo'])) {
                     </li>
                 <?php } ?>
             </ul>
-            <a href="#" class="button">Checkout</a>
+            <a href="shoppingCart.php" class="button">Checkout</a>
         </div>
     </div>
 <?php } ?>

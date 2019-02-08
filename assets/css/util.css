@@ -35,11 +35,11 @@
 }
 
 .shopping-cart {
-    margin: 55px 0;
+    margin: 8px 0;
     float: right;
     background: white;
     width: 320px;
-    position: absolute;
+    position: fixed;
     border-radius: 3px;
     padding: 20px;
     right: 20px;

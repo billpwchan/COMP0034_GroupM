@@ -30,7 +30,6 @@
 </section>
 
 <div class="container product" id="product-display">
-    <?php print_r($_SESSION['cartItems']); ?>
     <div class="row">
         <?php for ($i = 0; $i < min($records_per_page, $row_count); $i++) { ?>
             <div class="col-md-4 col-sm-6">
@@ -42,14 +41,16 @@
                                  src="./assets/uploads/event/<?= $entertainments[$i]['eventimage1'] ?>"
                                  alt="Preview Image 1">
                             <img class="pic-2"
-                                 src="./assets/uploads/entertainment/<?= $entertainments[$i]['eventimage2'] ?>"
+                                 src="./assets/uploads/event/<?= $entertainments[$i]['eventimage2'] ?>"
                                  alt="Preview Image 2">
                         </a>
                         <ul class="function">
                             <li><a href="" data-tip="Details" class="detail"><i class="fas fa-search"></i></a></li>
                             <li>
-                                <button type="submit" data-tip="Add to Shopping Cart" class="add-to-cart"><i
-                                            class="fas fa-shopping-cart"></i></button>
+                                <a>
+                                    <button type="submit" data-tip="Add to Shopping Cart" class="add-to-cart"><i
+                                                class="fas fa-shopping-cart"></i></button></li>
+                            </a>
                             </li>
                         </ul>
                         <a href="#" class="select-options"><i class="fas fa-arrow-right"></i> Select Options</a>

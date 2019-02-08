@@ -23,8 +23,8 @@ if (sizeof($result) === 0) {
             SET user_ID = $userID, event_ID = $product_id, quantity = $quantity
             WHERE event_ID = $product_id and user_ID = $userID";
     $result = db_query($sql);
-    if ($result) {
-        header("location:../../{$previousURL}.php?addtocart=success");
-    }
 }
 
+if ($result) {
+    header("location:../../{$previousURL}.php?addtocart=success");
+}
