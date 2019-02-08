@@ -40,7 +40,6 @@ $(".next1").click(function () {
     }
 });
 
-
 $(".next2").click(function () {
     current_fs = $(this).parent();
     next_fs = $(this).parent().next();
@@ -113,6 +112,13 @@ $(".previous").click(function () {
     });
 });
 
+$(document).ready(function(){
+    $('input:radio').click(function() {
+        $('input:radio').not(this).prop('checked', false);
+    });
+});
+
+
 document.querySelector("#submit").addEventListener("click", function () {
     let check = true;
     if (validate_Input3() === false) {
@@ -129,7 +135,7 @@ function validate_Input1() {
     if (validate_email(input[0]) === false) {
         //showValidate(input[0]);
         check = false;
-        alert("Wrong email format");
+        showAlert("Wrong email format");
     }
     if (validate_password(input[1]) === false) {
         //showValidate(input[1]);
@@ -139,7 +145,7 @@ function validate_Input1() {
     if (input[1].value !== input[2].value) {
         //showValidate(input[1]);
         //showValidate(input[2]);
-        alert("Passwords do not match");
+        showAlert("Passwords do not match");
         return false;
     }
         return check;
@@ -161,7 +167,7 @@ function validate_password(password) {
 
     if (password.value.trim() === "") {
         //showValidate(input[1]);
-        alert("Blank password");
+        showAlert("Blank password");
         return false;
     }
     if (password.value.length < 8 || password.value.length > 15) {
@@ -169,7 +175,7 @@ function validate_password(password) {
         return false;
     }
     if (password.value.search(anUpperCase) == -1 || password.value.search(aLowerCase) == -1 || password.value.search(aNumber) == -1 || password.value.search(aSpecial) == -1) {
-        alert("Invalid composition");
+        showAlert("Invalid composition");
         return false;
     }
 }
@@ -181,11 +187,11 @@ function validate_Input2() {
     var input = fieldset2.getElementsByClassName("userInput");
 
     if(input[0].checked===false && input[1].checked===false ){
-        alert("Please select your gender");
+        showAlert("Please select your gender");
         return false
     }
     if (validate_phonenumber(input[2]) === false) {
-        alert("Invalid phone number");
+        showAlert("Invalid phone number");
         return false;
     }
     else{
@@ -231,6 +237,9 @@ function validate_name(name) {
     }
 }
 
+function showAlert(message) {
+    alert(message);
+}
 
 
 
