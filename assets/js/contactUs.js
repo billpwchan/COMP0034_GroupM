@@ -28,14 +28,13 @@
             }
         } else if ($(input).attr('name') === 'name') {
             return !($(input).val().trim() === '');
-        } else if ($(input).val().length >150)
-        {
-            alert("Message must less then 150 characters");
+        } else if ($(input).attr('name') === 'message' && $(input).val().length > 150) {
             return false;
         }
     }
+
     {
- }
+    }
 
 
     function showValidate(input) {

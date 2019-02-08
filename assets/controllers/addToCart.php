@@ -5,7 +5,9 @@ if (!isset($_SESSION['userInfo'])) {
 }
 include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/controllers/dbConnect.php';
 $connect = db_connect();
-session_start();
+if (!isset($_SESSION)) {
+    session_start();
+}
 $previousURL = $_GET['from'];
 $userID = mysqli_real_escape_string($connect, $_SESSION['userInfo']['user_ID']);
 $product_id = isset($_GET['id']) ? mysqli_real_escape_string($connect, $_GET['id']) : "";

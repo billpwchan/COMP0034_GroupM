@@ -8,8 +8,8 @@ $(".next1").click(function () {
     next_fs = $(this).parent().next();
 
     if (validate_Input1() === true) {
-    //activate next step on progressbar using the index of next_fs
-    $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+        //activate next step on progressbar using the index of next_fs
+        $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
 
         //show the next fieldset
         next_fs.show();
@@ -112,13 +112,13 @@ $(".previous").click(function () {
     });
 });
 
-$(document).ready(function(){
-    $('input:radio').click(function() {
+$(document).ready(function () {
+    $('input:radio').click(function () {
         $('input:radio').not(this).prop('checked', false);
     });
 
-    $(window).keydown(function(event){
-        if(event.keyCode === 13) {
+    $(window).keydown(function (event) {
+        if (event.keyCode === 13) {
             event.preventDefault();
             return false;
         }
@@ -135,27 +135,23 @@ document.querySelector("#submit").addEventListener("click", function () {
 });
 
 function validate_Input1() {
-    var fieldset1 = document.getElementById("fieldset1");
-    var input = fieldset1.getElementsByClassName("userInput");
+    const fieldset1 = document.getElementById("fieldset1");
+    const input = fieldset1.getElementsByClassName("userInput");
     let check = true;
 
     if (validate_email(input[0]) === false) {
-        //showValidate(input[0]);
+
         check = false;
         showAlert("Wrong email format");
     }
     if (validate_password(input[1]) === false) {
-        //showValidate(input[1]);
-        //showValidate(input[2]);
         check = false;
     }
     if (input[1].value !== input[2].value) {
-        //showValidate(input[1]);
-        //showValidate(input[2]);
         showAlert("Passwords do not match");
         return false;
     }
-        return check;
+    return check;
 };
 
 function validate_email(email) {
@@ -178,74 +174,74 @@ function validate_password(password) {
         return false;
     }
     if (password.value.length < 8 || password.value.length > 15) {
-        alert("Invalid password length");
+        showAlert("Invalid password length");
         return false;
     }
-    if (password.value.search(anUpperCase) == -1 || password.value.search(aLowerCase) == -1 || password.value.search(aNumber) == -1 || password.value.search(aSpecial) == -1) {
+    if (password.value.search(anUpperCase) === -1 || password.value.search(aLowerCase) === -1 || password.value.search(aNumber) === -1 || password.value.search(aSpecial) == -1) {
         showAlert("Invalid composition");
         return false;
     }
 }
 
 
-
 function validate_Input2() {
-    var fieldset2 = document.getElementById("fieldset2");
-    var input = fieldset2.getElementsByClassName("userInput");
+    const fieldset2 = document.getElementById("fieldset2");
+    const input = fieldset2.getElementsByClassName("userInput");
 
-    if(input[0].checked===false && input[1].checked===false ){
+    if (input[0].checked === false && input[1].checked === false) {
         showAlert("Please select your gender");
         return false
     }
     if (validate_phonenumber(input[2]) === false) {
         showAlert("Invalid phone number");
         return false;
-    }
-    else{
+    } else {
         return true;
     }
 }
 
 
 function validate_phonenumber(phone_number) {
-        var phoneno = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;  //does not check for random number like 1234567890
-        if (phone_number.value.match(phoneno))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+    var phoneno = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;  //does not check for random number like 1234567890
+    if (phone_number.value.match(phoneno)) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 function validate_Input3() {
     var fieldset3 = document.getElementById("fieldset3");
     var input = fieldset3.getElementsByClassName("userInput");
 
-    if (validate_name(input[0]) === false || validate_name(input[1]) === false){
+    if (validate_name(input[0]) === false || validate_name(input[1]) === false) {
         return false;
-    }
-    else{
+    } else {
         return true;
     }
 }
 
 function validate_name(name) {
-    var aNumber = /[0-9]/;
-    var aSpecial = /[!|@|#|$|%|^|&|*|(|)|-|_]/;
+    const aNumber = /[0-9]/;
+    const aSpecial = /[!|@|#|$|%|^|&|*|(|)|-|_]/;
     if (name.value.trim() === "") {
-        alert("Blank name");
+        showAlert("Blank name");
         return false;
     }
     if (name.value.search(aNumber) !== -1 || name.value.search(aSpecial) !== -1) {
-        alert("Invalid name");
+        showAlert("Invalid name");
         return false;
     }
 }
 
 function showAlert(message) {
-    alert(message);
+    Swal.fire({
+        title: 'Error',
+        animation: false,
+        customClass: 'animated tada',
+        text: "Message",
+        type: 'error'
+    });
 }
 
 
