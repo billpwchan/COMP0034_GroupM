@@ -4,7 +4,7 @@ function db_connect()
     static $connection;
 
     if (!isset($connection)) {
-        $config = parse_ini_file('../../config.ini');
+        $config = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . '/config.ini');
         $connection = mysqli_connect('localhost', $config['username'], $config['password'], $config['dbName']);
     }
     db_validate();
@@ -31,7 +31,7 @@ function db_validate()
 function db_query($query)
 {
     $connection = db_connect();
-    $result = mysqli_query($connection, $query);
+    $result = mysqli_query($connection, $query) or die(mysqli_error($connection));
     return $result;
 }
 

@@ -31,7 +31,7 @@
                             find past he. Be no surprise he honoured indulged. Unpacked endeavor six steepest had
                             husbands h</p>
                         <button class="white-btn"><a
-                                    href="<?php if (isset($_SESSION['email']) and $_SESSION['login_status'] == 1) { ?>myAccount.php<?php } else { ?>login.php<?php } ?>">Get
+                                    href="<?php if (isset($_SESSION['email'])) { ?>myAccount.php<?php } else { ?>login.php<?php } ?>">Get
                                 Started!</a></button>
                         <button class="main-btn">Learn more</button>
                     </div>

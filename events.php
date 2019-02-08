@@ -1,4 +1,5 @@
 <?php include("includes/config.php"); ?>
+<?php include("./assets/controllers/events.php") ?>
 <!doctype html>
 <html>
 <head>
@@ -8,7 +9,7 @@
 </head>
 <body>
 <?php include("includes/navigation.php"); ?>
-<br>
+
 
 <section class="banner-area relative" id="home">
     <div class="container">
@@ -30,33 +31,79 @@
 
 <div class="container product" id="product-display">
     <div class="row">
-        <?php for ($i = 1; $i <= 6; $i++) { ?>
+        <?php for ($i = 0; $i < min($records_per_page, $row_count); $i++) { ?>
             <div class="col-md-4 col-sm-6">
-                <div class="product-grid">
+                <form class="product-grid">
+                    <div class='product-id display-none'><?= $entertainments[$i]['event_ID'] ?></div>
                     <div class="product-image">
                         <a href="#">
-                            <img class="pic-1" src="./assets/img/event-preview1.jpg" alt="Preview Image 1">
-                            <img class="pic-2" src="./assets/img/event-preview2.jpg" alt="Preview Image 2">
+                            <img class="pic-1"
+                                 src="./assets/uploads/event/<?= $entertainments[$i]['eventimage1'] ?>"
+                                 alt="Preview Image 1">
+                            <img class="pic-2"
+                                 src="./assets/uploads/event/<?= $entertainments[$i]['eventimage2'] ?>"
+                                 alt="Preview Image 2">
                         </a>
                         <ul class="function">
-                            <li><a href="" data-tip="Details"><i class="fas fa-search"></i></a></li>
-                            <li><a href="" data-tip="Add to Shopping Cart"><i class="fas fa-shopping-cart"></i></a></li>
+                            <li><a href="" data-tip="Details" class="detail"><i class="fas fa-search"></i></a></li>
+                            <li>
+                                <a>
+                                    <button type="submit" data-tip="Add to Shopping Cart" class="add-to-cart"><i
+                                                class="fas fa-shopping-cart"></i></button></li>
+                            </a>
+                            </li>
                         </ul>
                         <a href="#" class="select-options"><i class="fas fa-arrow-right"></i> Select Options</a>
                     </div>
                     <div class="product-content">
-                        <h3 class="title"><a href="#">Entertainment Package <?= $i ?></a></h3>
+                        <h3 class="title"><a href="#"><?= $entertainments[$i]['name'] ?></a></h3>
                         <div class="price">
-                            $14.40
-                            <span>$16.00</span>
+                            &#163;<?= $entertainments[$i]['price'] ?>
+                            <span>&#163;<?= (round((float)$entertainments[$i]['price'] * 1.5, 2)) ?></span>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
         <?php } ?>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-4"></div>
+        <div class="col-md-6">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    <?php for ($i = 1; $i <= ceil($row_count / $records_per_page); $i++) { ?>
+                        <li class="page-item"><a class="page-link" href="events.php?page=<?= $i ?>"><?= $i ?></a></li>
+                    <?php } ?>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </div>
 </div>
 <?php include("includes/footer.php"); ?>
 </body>
 <?php include("includes/scripts.php"); ?>
+<script src="assets/js/events.js"></script>
+<?php
+if ($_GET['addtocart'] === 'success') { ?>
+    <script> Swal.fire({
+            title: 'Successful',
+            animation: false,
+            customClass: 'animated tada',
+            text: "An item has successfully added to your cart",
+            type: 'success'
+        });
+    </script>
+<?php } ?>
 </html>

@@ -34,7 +34,7 @@
 }
 
 /*inputs*/
-#rsform input, #rsform textarea {
+#rsform input, #rsform textarea, #rsform select {
     padding: 15px;
     border: 1px solid #ccc;
     border-radius: 3px;
@@ -140,6 +140,35 @@
     color: white;
 }
 
+
+.upload-avatar-container {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.avatar-btn {
+    border: 2px solid gray;
+    color: gray;
+    background-color: white;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.upload-avatar-container input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+}
+
+.bootstrap-select {
+    width: 100% !important;
+}
+
 .radiotextsty {
     color: #2C3E50;
     font-size: 15px;
@@ -209,3 +238,4 @@
     border-radius: 50%;
     background: #007bff;
 }
+

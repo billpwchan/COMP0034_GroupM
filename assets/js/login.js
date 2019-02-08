@@ -13,7 +13,6 @@
         return check;
     });
 
-
     $('.validate-form .userInput').each(function () {
         $(this).focus(function () {
             hideValidate(this);

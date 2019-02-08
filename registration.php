@@ -9,7 +9,7 @@
 <body>
 <?php include("includes/navigation.php"); ?>
 <div class="container-fluid rsform-container">
-    <form id="rsform" method="post" action="./assets/controllers/registration.php" onsubmit="return validate_Input3()">
+    <form id="rsform" method="post" action="./assets/controllers/registration.php" onsubmit="return validate_Input3()" enctype="multipart/form-data">
         <!-- progressbar -->
         <ul id="progressbar">
             <li class="active">Account Setup</li>
@@ -23,11 +23,16 @@
             <input class="userInput" type="text" name="email" id="email" placeholder="Email"/>
             <input class="userInput" type="password" name="pass" id="password" placeholder="Password"/>
             <input class="userInput" type="cpassword" name="cpass" id="cpassword" placeholder="Confirm Password"/>
+            <select class="selectpicker" title="User Type..." name="accounttype">
+                <option>Customer</option>
+                <option>Service Provider</option>
+            </select>
             <input type="button" name="next" class="next1 action-button" value="Next"/>
         </fieldset>
         <fieldset id="fieldset2">
             <h2 class="fs-title">Social Profiles</h2>
             <h3 class="fs-subtitle">Your presence in the Social Network</h3>
+
             <label class="fs-fieldtitle">Gender:</label>
             <div class="custom-control-inline">
                <label class="customradio"><span class="radiotextsty">Male</span>
@@ -46,8 +51,12 @@
         <fieldset id="fieldset3">
             <h2 class="fs-title">Personal Details</h2>
             <h3 class="fs-subtitle">Last step already...till your account! </h3>
-            <input class="userInput" type="text" name="fname" placeholder="First Name"/>
-            <input class="userInput" type="text" name="lname" placeholder="Last Name"/>
+            <input type="text" name="fname" placeholder="First Name"/>
+            <input type="text" name="lname" placeholder="Last Name"/>
+            <div class="upload-avatar-container">
+                <button class="avatar-btn">Upload Profile Picture</button>
+                <input type="file" name="avatar" id="avatar">
+            </div>
             <input type="button" name="previous" class="previous action-button" value="Previous"/>
             <input type="submit" id="submit" class="action-button" value="Submit"/>
         </fieldset>
@@ -73,6 +82,15 @@ if (isset($_GET['registration']) and $_GET['registration'] === 'allFieldsRequire
             animation: false,
             customClass: 'animated tada',
             text: "Password Mismatch",
+            type: 'error'
+        });
+    </script>
+<?php } else if (isset($_GET['registration']) and $_GET['registration'] === 'duplicateEmail') { ?>
+    <script> Swal.fire({
+            title: 'Registration Failed',
+            animation: false,
+            customClass: 'animated tada',
+            text: "User with the same email already exist! ",
             type: 'error'
         });
     </script>
