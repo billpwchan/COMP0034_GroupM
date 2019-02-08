@@ -116,6 +116,13 @@ $(document).ready(function(){
     $('input:radio').click(function() {
         $('input:radio').not(this).prop('checked', false);
     });
+
+    $(window).keydown(function(event){
+        if(event.keyCode === 13) {
+            event.preventDefault();
+            return false;
+        }
+    });
 });
 
 
