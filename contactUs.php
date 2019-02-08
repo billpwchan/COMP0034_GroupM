@@ -44,7 +44,7 @@
                 </div>
 
                 <div class="wrap-userInput validate-input" data-validate="Message is required">
-                    <textarea class="userInput" name="message" placeholder="Message"></textarea>
+                    <textarea class="userInput" type="text" name="message" placeholder="Message"></textarea>
                     <span class="focus-userInput"></span>
                     <span class="alert-validate">
                         <i class="fas fa-exclamation-triangle"></i>
@@ -64,5 +64,5 @@
 
 </body>
 <?php include("includes/scripts.php"); ?>
-<script src="./assets/js/login.js"></script>
+<script src="./assets/js/contactUs.js"></script>
 </html>
