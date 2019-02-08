@@ -22,7 +22,7 @@ if (empty($_POST["email"]) || empty($_POST["pass"]) || empty($_POST["cpass"])
         header("Location:../../registration.php?registration=duplicateEmail");
     }
     $password = mysqli_real_escape_string($connect, $_POST["pass"]);
-    $password = md5($password);
+    $password = password_hash($password, PASSWORD_DEFAULT);
     $contactNumber = mysqli_real_escape_string($connect, $_POST["phone"]);
     $registrationDate = date('Y-m-d H:i:s');
 

@@ -33,16 +33,12 @@
         }
     }
 
-    {
-    }
-
-
     function showValidate(input) {
-        $(input).siblings(".alert-validate").css("visibility", "visible")
+        $(input).siblings(".alert-validate").css("visibility", "visible");
     }
 
     function hideValidate(input) {
-        $(input).siblings(".alert-validate").css("visibility", "hidden")
+        $(input).siblings(".alert-validate").css("visibility", "hidden");
     }
 
 })(jQuery);

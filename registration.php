@@ -21,8 +21,8 @@
             <h2 class="fs-title">Create your account</h2>
             <h3 class="fs-subtitle">First step to use UberKidz!</h3>
             <input class="userInput" type="text" name="email" id="email" placeholder="Email"/>
-            <input class="userInput" type="password" name="pass" id="password" placeholder="Password"/>
-            <input class="userInput" type="cpassword" name="cpass" id="cpassword" placeholder="Confirm Password"/>
+            <input class="userInput" type="password" name="pass" placeholder="Password"/>
+            <input class="userInput" type="password" name="cpass" placeholder="Confirm Password"/>
             <select class="selectpicker" title="User Type..." name="accounttype">
                 <option>Customer</option>
                 <option>Service Provider</option>
@@ -36,11 +36,11 @@
             <label class="fs-fieldtitle">Gender:</label>
             <div class="custom-control-inline">
                <label class="customradio"><span class="radiotextsty">Male</span>
-                   <input type="radio" id="genderM" class="userInput">
+                   <input type="radio" id="genderM" class="userInput" name="gender" value="Male">
                    <span class="checkmark"></span>
                 </label>
                 <label class="customradio"><span class="radiotextsty">Female</span>
-                    <input type="radio" id="genderF" class="userInput">
+                    <input type="radio" id="genderF" class="userInput" name="gender" value="Female">
                     <span class="checkmark"></span>
                 </label>
             </div>
@@ -58,7 +58,7 @@
                 <input type="file" name="avatar" id="avatar">
             </div>
             <input type="button" name="previous" class="previous action-button" value="Previous"/>
-            <input type="submit" id="submit" class="action-button" value="Submit"/>
+            <input type="submit" id="submitRegistration" class="action-button" value="Submit"/>
         </fieldset>
     </form>
 </div>
