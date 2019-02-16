@@ -51,8 +51,8 @@
         <fieldset id="fieldset3">
             <h2 class="fs-title">Personal Details</h2>
             <h3 class="fs-subtitle">Last step already...till your account! </h3>
-            <input type="text" name="fname" placeholder="First Name"/>
-            <input type="text" name="lname" placeholder="Last Name"/>
+            <input class="userInput" type="text" name="fname" placeholder="First Name"/>
+            <input class="userInput" type="text" name="lname" placeholder="Last Name"/>
             <div class="upload-avatar-container">
                 <button class="avatar-btn">Upload Profile Picture</button>
                 <input type="file" name="avatar" id="avatar">
