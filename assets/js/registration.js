@@ -206,7 +206,6 @@ function validate_Input2() {
     }
 }
 
-
 function validate_phonenumber(phone_number) {
         var phoneno = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;  //does not check for random number like 1234567890
         if (phone_number.value.match(phoneno))

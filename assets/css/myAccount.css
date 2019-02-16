@@ -233,3 +233,34 @@ main {
 .personal-form {
     margin-top: 2rem;
 }
+
+.col-form-label {
+    text-align: right;
+}
+
+.edit-btn {
+    color: #fff;
+    background-color: rgba(14, 167, 255, 0.62);
+    border-color: #6c757d;
+    padding: 5px;
+    font-size: 10pt;
+    margin: 3.5px 6px;
+}
+
+.save-btn {
+    color: #fff;
+    background-color: rgba(14, 167, 255, 0.62);
+    border-color: #6c757d;
+    padding: 5px;
+    font-size: 10pt;
+    margin: 3.5px 10px;
+}
+
+.cancel-btn {
+    color: #fff;
+    background-color: rgba(14, 167, 255, 0.62);
+    border-color: #6c757d;
+    padding: 5px;
+    font-size: 10pt;
+    margin: 3.5px 10px;
+}
