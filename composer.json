@@ -1,5 +1,6 @@
 {
   "require": {
-    "swiftmailer/swiftmailer": "@stable"
+    "swiftmailer/swiftmailer": "@stable",
+    "ext-mysqli": "*"
   }
 }

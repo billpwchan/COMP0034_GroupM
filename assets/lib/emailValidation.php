@@ -114,8 +114,8 @@ class emailValidation
         $port = '465';
         $encryption = 'ssl';
 
-        // create account verification link
-        $link = 'http://' . $_SERVER['SERVER_NAME'] . '/activation.php?key=' . $email_activation_key;
+        // create account verification link. Need to fixed in the future
+        $link = 'http://' . $_SERVER['DOCUMENT_ROOT'] . '/activation.php?key=' . $email_activation_key;
 
         // get the html email content
         $html_content = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/assets/lib/email/email_verification.html');
@@ -140,185 +140,21 @@ class emailValidation
         $mailer->send($message);
     }
 
-    /**
-     * check if email already exists
-     *
-     * @param $email
-     *
-     * @return bool
-     */
-    public function isEmail($email)
-    {
-        $email = mysqli_real_escape_string($this->db, $email);
-        $query = "SELECT `email` FROM `users` WHERE `email` = '$email'";
-        if (!$result = mysqli_query($this->db, $query)) {
-            exit(mysqli_error($this->db));
-        }
-        if (mysqli_num_rows($result) > 0) {
-            return TRUE;
-        } else {
-            return FALSE;
-        }
-    }
-
-
-    /**
-     * get user ID by using activation key
-     *
-     * @param $email_activation_key
-     *
-     * @return string
-     */
-    public function getUserID($email_activation_key)
-    {
-        $email_activation_key = mysqli_real_escape_string($this->db, $email_activation_key);
-        $query = "SELECT id FROM `users` WHERE `email_activation_key` = '$email_activation_key'";
-        if (!$result = mysqli_query($this->db, $query)) {
-            exit(mysqli_error($this->db));
-        }
-        $data = '';
-        if (mysqli_num_rows($result) > 0) {
-            while ($row = mysqli_fetch_assoc($result)) {
-                $data = $row['id'];
-            }
-        }
-
-        return $data;
-    }
-
-    /**
-     * get user ID by using email address
-     *
-     * @param $email
-     *
-     * @return string
-     */
-    public function getUserIDByEmail($email)
-    {
-        $email = mysqli_real_escape_string($this->db, $email);
-        $query = "SELECT id FROM `users` WHERE `email` = '$email'";
-        if (!$result = mysqli_query($this->db, $query)) {
-            exit(mysqli_error($this->db));
-        }
-        $data = '';
-        if (mysqli_num_rows($result) > 0) {
-            while ($row = mysqli_fetch_assoc($result)) {
-                $data = $row['id'];
-            }
-        }
-
-        return $data;
-    }
 
     /**
      * activate account
      *
-     * @param $id
-     *
+     * @param $key
      * @return bool
      */
-    public function activateAccount($id)
+    public function activateAccount($key)
     {
-        $query = "UPDATE `users` SET status = 1, email_activation_key = '' WHERE id = '$id'";
-        if (!$result = mysqli_query($this->db, $query)) {
-            exit(mysqli_error($this->db));
+        $key = mysqli_real_escape_string($this->connect, $key);
+        $sql = "UPDATE `user` SET status = 1, email_activation_key = '' WHERE email_activation_key = '$key'";
+        if (!db_query($sql)) {
+            return false;
         }
-
-        return TRUE;
-    }
-
-    /**
-     * check is password is valid
-     *
-     * @param $email
-     * @param $password
-     *
-     * @return bool
-     */
-    public function isValidPassword($email, $password)
-    {
-        $email = mysqli_real_escape_string($this->db, $email);
-        $password = mysqli_real_escape_string($this->db, $password);
-
-        if ($this->isEmail($email)) {
-            $enc_password = $this->findPasswordByEmail($email);
-            if (password_verify($password, $enc_password)) {
-                return TRUE;
-            } else {
-                return FALSE;
-            }
-        } else {
-            return FALSE;
-        }
-
-    }
-
-    /**
-     * find out password by email
-     *
-     * @param $email
-     *
-     * @return string
-     */
-    function findPasswordByEmail($email)
-    {
-        $query = "SELECT password FROM `users` WHERE `email`='$email'";
-        if (!$result = mysqli_query($this->db, $query)) {
-            exit(mysqli_error($this->db));
-        }
-        $data = '';
-        if (mysqli_num_rows($result) > 0) {
-            while ($r = mysqli_fetch_assoc($result)) {
-                $data = $r['password'];
-            }
-        }
-
-        return $data;
-    }
-
-    /**
-     * checkout if account is active
-     *
-     * @param $email
-     *
-     * @return bool
-     */
-    public function isActive($email)
-    {
-        $email = mysqli_real_escape_string($this->db, $email);
-        $query = "SELECT `id` FROM `users` WHERE `email` = '$email' AND status = 1";
-        if (!$result = mysqli_query($this->db, $query)) {
-            exit(mysqli_error($this->db));
-        }
-        if (mysqli_num_rows($result) > 0) {
-            return TRUE;
-        } else {
-            return FALSE;
-        }
-    }
-
-    /**
-     * get user details
-     *
-     * @param $id
-     *
-     * @return array|null
-     */
-    public function UserDetails($id)
-    {
-        $id = mysqli_real_escape_string($this->db, $id);
-        $query = "SELECT `first_name`, `last_name`, `email`  FROM `users` WHERE `id` = '$id'";
-        if (!$result = mysqli_query($this->db, $query)) {
-            exit(mysqli_error($this->db));
-        }
-        $data = [];
-        if (mysqli_num_rows($result) > 0) {
-            while ($row = mysqli_fetch_assoc($result)) {
-                $data = $row;
-            }
-        }
-
-        return $data;
+        return true;
     }
 
 }
