@@ -72,7 +72,9 @@
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
                     <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Previous">
+                        <a class="page-link"
+                           <?php if (($page - 1) >= 1) { ?>href="events.php?page=<?= $page - 1 ?>" <?php } ?>
+                           aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                             <span class="sr-only">Previous</span>
                         </a>
@@ -81,7 +83,9 @@
                         <li class="page-item"><a class="page-link" href="events.php?page=<?= $i ?>"><?= $i ?></a></li>
                     <?php } ?>
                     <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next">
+                        <a class="page-link"
+                           <?php if (($page + 1) <= ceil($row_count / $records_per_page)) { ?>href="events.php?page=<?= $page + 1 ?>" <?php } ?>
+                           aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                             <span class="sr-only">Next</span>
                         </a>
@@ -96,7 +100,7 @@
 <?php include("includes/scripts.php"); ?>
 <script src="assets/js/events.js"></script>
 <?php
-if ($_GET['addtocart'] === 'success') { ?>
+if (isset($_GET['addtocart']) && $_GET['addtocart'] === 'success') { ?>
     <script> Swal.fire({
             title: 'Successful',
             animation: false,

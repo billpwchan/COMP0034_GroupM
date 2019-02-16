@@ -11,7 +11,6 @@ $('.minus-btn').on('click', function (e) {
     }
 
     $input.val(value);
-
 });
 
 $('.plus-btn').on('click', function (e) {
