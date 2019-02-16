@@ -31,7 +31,7 @@
 
 <div class="container product" id="product-display">
     <div class="row">
-        <?php for ($i = 0; $i < min($records_per_page, $row_count); $i++) { ?>
+        <?php for ($i = 0; $i < min($records_per_page, $row_count - $records_per_page * ($page - 1)); $i++) { ?>
             <div class="col-md-4 col-sm-6">
                 <form class="product-grid">
                     <div class='product-id display-none'><?= $entertainments[$i]['event_ID'] ?></div>
@@ -48,9 +48,9 @@
                             <li><a href="" data-tip="Details" class="detail"><i class="fas fa-search"></i></a></li>
                             <li>
                                 <a>
-                                    <button type="submit" data-tip="Add to Shopping Cart" class="add-to-cart"><i
-                                                class="fas fa-shopping-cart"></i></button></li>
-                            </a>
+                                    <button type="submit" data-tip="Add to Shopping Cart" class="add-to-cart">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </button>
                             </li>
                         </ul>
                         <a href="#" class="select-options"><i class="fas fa-arrow-right"></i> Select Options</a>

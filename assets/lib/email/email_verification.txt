@@ -1,0 +1,11 @@
+UberKidz
+
+Verify Your Email Address
+
+Thanks for creating an account with the UberKidz. Please follow the link below to verify your email address.
+
+{link}
+
+Regards,
+UberKidz
+© 2019 UberKidz. All rights reserved.

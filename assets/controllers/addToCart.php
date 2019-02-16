@@ -1,12 +1,13 @@
 <?php
-
-if (!isset($_SESSION['userInfo'])) {
-    header("Location" . $_SERVER['DOCUMENT_ROOT'] . "/login.php");
-}
 include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/controllers/dbConnect.php';
 $connect = db_connect();
-session_start();
+if (!isset($_SESSION)) {
+    session_start();
+}
 $previousURL = $_GET['from'];
+if (!isset($_SESSION['userInfo'])) {
+    header("location:../../login.php");
+}
 $userID = mysqli_real_escape_string($connect, $_SESSION['userInfo']['user_ID']);
 $product_id = isset($_GET['id']) ? mysqli_real_escape_string($connect, $_GET['id']) : "";
 
