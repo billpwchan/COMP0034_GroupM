@@ -10,6 +10,7 @@ if (isset($_POST['email']) and isset($_POST['pass'])) {
     SELECT user_ID, first_name, last_name, gender, email_address, password, contact_number, registration_date, avatar
     FROM user
     WHERE email_address = '{$email}'
+    AND status = 1
     ";
     $result = db_select($sql);
     if (sizeof($result) == 1 && password_verify($password, $result[0]['password'])) {
