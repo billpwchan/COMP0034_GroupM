@@ -74,7 +74,7 @@ document.querySelector("#cancel_button_password").addEventListener("click", func
     document.querySelector("#edit_button_password").style.visibility = "visible";
     document.querySelector("#save_button_password").style.visibility = "hidden";
     document.querySelector("#cancel_button_password").style.visibility="hidden";
-})
+});
 
 // *********   Field: Contact number
 document.querySelector("#edit_button_contact_number").addEventListener("click", function() {
@@ -101,57 +101,6 @@ document.querySelector("#cancel_button_contact_number").addEventListener("click"
     document.querySelector("#cancel_button_contact_number").style.visibility="hidden";
 })
 
-
-function validate_name(name) {
-    var aNumber = /[0-9]/;
-    var aSpecial = /[!|@|#|$|%|^|&|*|(|)|-|_]/;
-
-    if (name.value.trim() === "") {
-        alert("Blank name");
-        return false;
-    }
-    if (name.value.search(aNumber) !== -1 || name.value.search(aSpecial) !== -1) {
-        alert("Invalid name");
-        return false;
-    }
-}
-
-function validate_password(password) {
-    var anUpperCase = /[A-Z]/;
-    var aLowerCase = /[a-z]/;
-    var aNumber = /[0-9]/;
-    var aSpecial = /[!|@|#|$|%|^|&|*|(|)|-|_]/;
-
-    if (password.value.trim() === "") {
-        showAlert("Blank password");
-        return false;
-    }
-    if (password.value.length < 8 || password.value.length > 15) {
-        alert("Invalid password length");
-        return false;
-    }
-    if (password.value.search(anUpperCase) == -1 || password.value.search(aLowerCase) == -1 || password.value.search(aNumber) == -1 || password.value.search(aSpecial) == -1) {
-        showAlert("Invalid composition");
-        return false;
-    }
-}
-
-function validate_phonenumber(phone_number) {
-    var phoneno = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;  //does not check for random number like 1234567890
-    if (phone_number.value.match(phoneno))
-    {
-        return true;
-    }
-    else
-    {
-        showAlert("Invalid phone number");
-        return false;
-    }
-}
-
-function showAlert(message) {
-    alert(message);
-}
 
 function update_first_name() {
     $.ajax({

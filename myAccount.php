@@ -156,5 +156,6 @@ if (!isset($_SESSION['userInfo'])) {
 </div>
 </body>
 <?php include("includes/scripts.php"); ?>
+<script src="assets/js/accountValidationUtil.js"></script>
 <script src="assets/js/myAccount.js"></script>
 </html>
