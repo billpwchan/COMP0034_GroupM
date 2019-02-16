@@ -36,7 +36,7 @@
                 <form class="product-grid">
                     <div class='product-id display-none'><?= $entertainments[$i]['event_ID'] ?></div>
                     <div class="product-image">
-                        <a href="#">
+                        <a href="eventDetail.php?id=<?= $entertainments[$i]['event_ID'] ?>&from=events">
                             <img class="pic-1"
                                  src="./assets/uploads/event/<?= $entertainments[$i]['eventimage1'] ?>"
                                  alt="Preview Image 1">
@@ -56,7 +56,9 @@
                         <a href="#" class="select-options"><i class="fas fa-arrow-right"></i> Select Options</a>
                     </div>
                     <div class="product-content">
-                        <h3 class="title"><a href="#"><?= $entertainments[$i]['name'] ?></a></h3>
+                        <h3 class="title">
+                            <a href="eventDetail.php?id=<?= $entertainments[$i]['event_ID'] ?>&from=events"><?= $entertainments[$i]['name'] ?></a>
+                        </h3>
                         <div class="price">
                             &#163;<?= $entertainments[$i]['price'] ?>
                             <span>&#163;<?= (round((float)$entertainments[$i]['price'] * 1.5, 2)) ?></span>
@@ -107,6 +109,15 @@ if (isset($_GET['addtocart']) && $_GET['addtocart'] === 'success') { ?>
             customClass: 'animated tada',
             text: "An item has successfully added to your cart",
             type: 'success'
+        });
+    </script>
+<?php } else if (isset($_GET['display']) && $_GET['display'] === 'invalid') { ?>
+    <script> Swal.fire({
+            title: 'Invalid Product',
+            animation: false,
+            customClass: 'animated tada',
+            text: "Cannot Display Product Detail, Please contact Administrator for Assistance.",
+            type: 'error'
         });
     </script>
 <?php } ?>

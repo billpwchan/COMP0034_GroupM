@@ -1,4 +1,6 @@
 <?php include("includes/config.php"); ?>
+<?php include("./assets/controllers/eventDetail.php") ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,9 +15,10 @@
 
     <!-- Left Column / Headphones Image -->
     <div class="left-column col-lg-6">
-        <img data-image="basic" src="./assets/img/basic-entertainment.jpg" alt="">
-        <img data-image="advanced" src="./assets/img/advanced-entertainment.jpg" alt="">
-        <img data-image="premium" class="active" src="./assets/img/premium-entertainment.jpg" alt="">
+        <img data-image="basic" src="./assets/uploads/event/<?= $productDetails['eventimage1'] ?>" alt="">
+        <img data-image="advanced" src="./assets/uploads/event/<?= $productDetails['eventimage2'] ?>" alt="">
+        <img data-image="premium" class="active" src="./assets/uploads/event/<?= $productDetails['eventimage3'] ?>"
+             alt="">
     </div>
 
 
@@ -24,12 +27,9 @@
 
         <!-- Product Description -->
         <div class="product-description">
-            <span class="product-description-general">Entertainment Package</span>
-            <h1 class="product-description-title">Sample Entertainment 1</h1>
-            <p class="product-description-content">Lorem ipsum dolor sit amet,sed diam nonumy eirmod tempor invidunt ut
-                labore et dolore magna aliquyam
-                erat, At vero eos et accusam et justo duo dolores et ea rebum. Lorem ipsum dolor sit amet, no sea
-                takimata sanctus est Lorem ipsum dolor sit amet.</p>
+            <span class="product-description-general"><?= $productDetails['event_type'] ?></span>
+            <h1 class="product-description-title"><?= $productDetails['name'] ?></h1>
+            <p class="product-description-content"><?= $productDetails['description'] ?></p>
         </div>
 
         <!-- Product Configuration -->
@@ -43,14 +43,21 @@
                     <button class="premium">Luxury</button>
                 </div>
 
-                <a href="#">Encounter a problem? No Problem, just contact us</a>
+                <a href="contactUs.php">Encounter a problem? No Problem, just contact us</a>
             </div>
         </div>
 
         <!-- Product Pricing -->
         <div class="product-price">
-            <span class="product-price-value">&#163;100</span>
-            <a href="#" class="cart-btn">Add to cart</a>
+            <span class="product-price-value">&#163;<?= $productDetails['price'] ?></span>
+            <a
+                <?php if (isset($_SESSION['userInfo'])) { ?>
+                    href="./assets/controllers/addToCart.php?id=<?= $productID ?>&from=eventDetails"
+                <?php } else { ?>
+                    href="login.php"
+                <?php } ?>
+                    class="cart-btn">Add to cart
+            </a>
         </div>
     </div>
 </main>

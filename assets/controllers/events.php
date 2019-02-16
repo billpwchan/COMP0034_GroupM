@@ -1,7 +1,9 @@
 <?php
 include("dbConnect.php");
 $connect = db_connect();
-session_start();
+if (!isset($_SESSION)) {
+    session_start();
+}
 
 // for pagination purposes
 $page = isset($_GET['page']) ? $_GET['page'] : 1; // page is the current page, if there's nothing set, default is page 1

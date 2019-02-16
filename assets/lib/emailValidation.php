@@ -57,7 +57,9 @@ class emailValidation
         $fileTmpName = $avatar['tmp_name'];
         $fileExtension = strtolower(end(explode('.', $fileName)));
 
-        $uploadPath = $uploadDirectory . basename($fileName);
+        $temp = explode(".", $_FILES["file"]["name"]);
+        $newfilename = round(microtime(true)) . '.' . end($temp);
+        $uploadPath = $uploadDirectory . basename($newfilename);
 
         if (!in_array($fileExtension, $fileExtensions)) {
             $errors[] = "This file extension is not allowed. Please upload a JPEG or PNG file";
