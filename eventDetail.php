@@ -49,10 +49,12 @@
 
         <!-- Product Pricing -->
         <div class="product-price">
-            <span class="product-price-value">&#163;<?= $productDetails['price'] ?></span>
+            <div style="display:none;" id="productPrice"><?= $productDetails['price'] ?></div>
+            <span class="product-price-value"><span>&#163;</span><span id="productPriceDisplay"
+                ><?= $productDetails['price'] ?></span></span>
             <a
                 <?php if (isset($_SESSION['userInfo'])) { ?>
-                    href="./assets/controllers/addToCart.php?id=<?= $productID ?>&from=eventDetails"
+                    href="./assets/controllers/addToCart.php?id=<?= $productID ?>&from=eventDetail"
                 <?php } else { ?>
                     href="login.php"
                 <?php } ?>

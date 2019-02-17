@@ -7,6 +7,9 @@ if (!isset($_SESSION)) {
 
 $productID = isset($_GET['id']) ? $_GET['id'] : 1;
 $productID = (int)mysqli_real_escape_string($connect, $productID);
+if ($_GET['from'] === "") {
+    header("location:index.php");
+}
 $previousURL = $_GET['from'];
 switch ($previousURL) {
     case 'events':
@@ -23,7 +26,7 @@ switch ($previousURL) {
 }
 $productDetails = read_product_detail($productID, $productType);
 if (sizeof($productDetails) != 1) {
-    header("location:{$previousURL}.php?display=invalid");
+    header("location:events.php?display=invalid");
 } else {
     $productDetails = $productDetails[0];
 }

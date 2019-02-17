@@ -27,5 +27,8 @@ if (sizeof($result) === 0) {
 }
 
 if ($result) {
+    if (isset($_SERVER["HTTP_REFERER"])) {
+        header("Location: " . $_SERVER["HTTP_REFERER"]);
+    }
     header("location:../../{$previousURL}.php?addtocart=success");
 }
