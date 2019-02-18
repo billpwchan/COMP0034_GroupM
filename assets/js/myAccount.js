@@ -1,7 +1,17 @@
-var original_firstname = document.querySelector("#staticfirst_name").value;
-var original_lastname = document.querySelector("#staticlast_name").value;
-var original_password = document.querySelector("#staticpassword").value;
-var original_contact_number = document.querySelector("#staticcontact_number").value;
+document.getElementById("order_tab").addEventListener("click", function() {
+    document.getElementById("order_tab").style.borderBottom = "2px solid #999";
+    document.getElementById("personal_tab").style.borderBottom = "0px solid #999";
+});
+
+document.getElementById("personal_tab").addEventListener("click", function() {
+    document.getElementById("personal_tab").style.borderBottom = "2px solid #999";
+    document.getElementById("order_tab").style.borderBottom = "0px solid #999";
+});
+
+    var original_firstname = document.querySelector("#staticfirst_name").value;
+    var original_lastname = document.querySelector("#staticlast_name").value;
+    var original_password = document.querySelector("#staticpassword").value;
+    var original_contact_number = document.querySelector("#staticcontact_number").value;
 
 // *********   Field: First name
 document.querySelector("#edit_button_first_name").addEventListener("click", function() {
@@ -20,11 +30,11 @@ document.querySelector("#save_button_first_name").addEventListener("click", func
     }
 });
 document.querySelector("#cancel_button_first_name").addEventListener("click", function() {
-        $("#staticfirst_name").prop('readonly', true);
-        $("#staticfirst_name").val(original_firstname);
-        document.querySelector("#edit_button_first_name").style.visibility = "visible";
-        document.querySelector("#save_button_first_name").style.visibility = "hidden";
-        document.querySelector("#cancel_button_first_name").style.visibility="hidden";
+    $("#staticfirst_name").prop('readonly', true);
+    $("#staticfirst_name").val(original_firstname);
+    document.querySelector("#edit_button_first_name").style.visibility = "visible";
+    document.querySelector("#save_button_first_name").style.visibility = "hidden";
+    document.querySelector("#cancel_button_first_name").style.visibility="hidden";
 });
 
 // *********   Field : Last name

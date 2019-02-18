@@ -60,16 +60,15 @@ if (!isset($_SESSION['userInfo'])) {
             </div>
             <div class="right col-lg-8">
                 <ul class="nav">
-                    <li class="nav-item">
+                    <li class="nav-item" id="order_tab">
                         <a class="nav-link active" id="order-tab" data-toggle="tab" href="#order" role="tab"
                            aria-controls="order" aria-selected="true">Order History</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" id="personal_tab">
                         <a class="nav-link" id="personal-tab" data-toggle="tab" href="#personal" role="tab"
                            aria-controls="personal" aria-selected="false">Personal Information</a>
                     </li>
                 </ul>
-                <span class="follow">Follow</span>
                 <div class="tab-content profile-tab" id="myTabContent">
                     <div aria-labelledby="order-tab" class="row gallery tab-pane fade show active" id="order"
                          role="tabpanel">
