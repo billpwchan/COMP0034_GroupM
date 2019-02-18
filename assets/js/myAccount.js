@@ -1,3 +1,7 @@
+$( document ).ready(function() {
+    document.getElementById("order_tab").style.borderBottom = "2px solid #999";
+});
+
 document.getElementById("order_tab").addEventListener("click", function() {
     document.getElementById("order_tab").style.borderBottom = "2px solid #999";
     document.getElementById("personal_tab").style.borderBottom = "0px solid #999";
