@@ -10,12 +10,15 @@ if (!isset($_SESSION['userInfo'])) {
 }
 $userID = mysqli_real_escape_string($connect, $_SESSION['userInfo']['user_ID']);
 $product_id = isset($_GET['id']) ? mysqli_real_escape_string($connect, $_GET['id']) : "";
+$quality = isset($_GET['quality']) ? mysqli_real_escape_string($connect, $_GET['quality']) : "basic";
+$eventStartTime = isset($_GET['eventStartTime']) ? mysqli_real_escape_string($connect, $_GET['eventStartTime']) : date("Y-m-d H:i:s");;
+
 
 $sql = "SELECT quantity FROM cart WHERE event_ID = {$product_id} AND user_ID = {$userID}";
 $result = db_select($sql);
 
 if (sizeof($result) === 0) {
-    $sql = "INSERT INTO cart (user_ID, event_ID, quantity) VALUES ({$userID}, {$product_id}, 1)";
+    $sql = "INSERT INTO cart (user_ID, event_ID, quantity, quality, eventStartTime, eventLocation, price) VALUES ({$userID}, {$product_id}, 1, '{$quality}', {$eventStartTime}, '{$eventLocation}', {$price})";
     $result = db_query($sql);
 } else {
     $quantity = (int)$result[0]['quantity'];

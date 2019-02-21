@@ -49,7 +49,7 @@ function service_provider_read($userID)
 function customer_order_history($userID)
 {
     $sql = "
-    SELECT event.name as 'Event Name', event.event_type as 'Type', event_startTime as 'Start Time', event_duration as 'Duration', event_location as 'Location', orderdetail.price as 'Price', status as 'Status'
+    SELECT event.name as 'Event Name', event.event_type as 'Type', event_startTime as 'Start Time', event_location as 'Location', orderdetail.price as 'Price', status as 'Status'
     FROM customer, orderhistory, orderdetail, event
     WHERE customer.user_ID = orderhistory.customer_ID
     AND orderhistory.orderdetail_ID = orderdetail.orderdetail_ID
@@ -62,7 +62,7 @@ function customer_order_history($userID)
 function provider_provided_service($userID)
 {
     $sql = "
-    SELECT event.name as 'Event Name', event.event_type as 'Type', event_startTime as 'Start Time', event_duration as 'Duration', event_location as 'Location'
+    SELECT event.name as 'Event Name', event.event_type as 'Type'
     FROM servicesupplier, event
     WHERE servicesupplier.user_ID = event.provider_ID
     AND servicesupplier.user_ID = {$userID}
