@@ -9,8 +9,14 @@
 <body>
 <?php include("includes/navigation.php"); ?>
 <div class="container-fluid rsform-container">
+    <?php
+    $token = md5(uniqid(rand(), TRUE));
+    $_SESSION['token'] = $token;
+    $_SESSION['token_time'] = time();
+    ?>
     <form id="rsform" method="post" action="./assets/controllers/registration.php" onsubmit="return validate_Input3()"
           enctype="multipart/form-data">
+        <input type="hidden" name="token" value="<?= $token ?>"/>
         <!-- progressbar -->
         <ul id="progressbar">
             <li class="active">Account Setup</li>

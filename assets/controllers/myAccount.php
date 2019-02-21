@@ -1,8 +1,7 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/controllers/dbConnect.php';
-
+include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/controllers/tokenValidation.php';
 $connect = db_connect();
-session_start();
 
 if (!isset($_SESSION['userInfo']['user_ID'])) {
     session_unset();

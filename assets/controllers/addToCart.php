@@ -1,9 +1,7 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/controllers/dbConnect.php';
-$connect = db_connect();
-if (!isset($_SESSION)) {
-    session_start();
-}
+include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/controllers/tokenValidation.php';
+
 $previousURL = $_GET['from'];
 if (!isset($_SESSION['userInfo'])) {
     header("location:../../login.php");

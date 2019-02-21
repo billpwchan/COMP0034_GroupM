@@ -1,8 +1,11 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/controllers/dbConnect.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/controllers/tokenValidation.php';
 $connect = db_connect();
-session_start();
 
+if ($_POST['token'] !== $_SESSION['token']) {
+    header("Location:../../index?status=invalidToken");
+}
 if (isset($_POST['email']) and isset($_POST['pass'])) {
     $email = mysqli_real_escape_string($connect, $_POST["email"]);
     $password = mysqli_real_escape_string($connect, $_POST["pass"]);

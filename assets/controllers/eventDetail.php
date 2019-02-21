@@ -1,9 +1,7 @@
 <?php
-include("dbConnect.php");
+include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/controllers/dbConnect.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/controllers/tokenValidation.php';
 $connect = db_connect();
-if (!isset($_SESSION)) {
-    session_start();
-}
 
 $productID = isset($_GET['id']) ? $_GET['id'] : 1;
 $productID = (int)mysqli_real_escape_string($connect, $productID);
