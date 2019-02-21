@@ -16,7 +16,8 @@ $(document).ready(function () {
                 retailPrice *= 2.0;
                 break;
         }
-        document.getElementById('productPriceDisplay').innerText = retailPrice.toFixed(2).toString();
+        console.log(retailPrice);
+        document.getElementById('productPriceDisplay').setAttribute('value', retailPrice.toFixed(2).toString());
         document.getElementById('service').setAttribute('value', serviceLevel);
     });
 });

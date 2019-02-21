@@ -7,6 +7,7 @@
     <?php include("includes/headTags.php"); ?>
     <link rel="stylesheet" href="assets/css/eventDetail.css" type="text/css">
     <link rel="stylesheet" href="assets/css/util.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
 </head>
 <body>
 <?php include("includes/navigation.php"); ?>
@@ -28,12 +29,42 @@
 
             <label>
                 <input class="product-id" style="display:none" name="id" value="<?= $_GET['id'] ?>">
+                <input class="from" style="display: none;" name="from" value="<?= $_GET['from'] ?>">
             </label>
             <!-- Product Description -->
             <div class="product-description">
                 <span class="product-description-general"><?= $productDetails['event_type'] ?></span>
                 <h1 class="product-description-title"><?= $productDetails['name'] ?></h1>
                 <p class="product-description-content"><?= $productDetails['description'] ?></p>
+                <?php switch ($productType) {
+                    case 'entertainment': ?>
+                        <div class="product-detail-table ver1 m-b-10">
+                            <div class="product-detail-table-head">
+                                <table>
+                                    <thead>
+                                    <tr class="product-detail-row head">
+                                        <th class="product-detail-cell column1">Performer</th>
+                                        <th class="product-detail-cell column2">Performance Type</th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+
+                            <div class="product-detail-table-body js-pscroll">
+                                <table>
+                                    <tbody>
+                                    <?php foreach ($entertainers as $entertainer) { ?>
+                                        <tr class="product-detail-row body">
+                                            <td class="product-detail-cell column1"><?= $entertainer['name'] ?></td>
+                                            <td class="product-detail-cell column2"><?= $entertainer['skill'] ?></td>
+                                        </tr>
+                                    <?php } ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <?php break; ?>
+                    <?php } ?>
             </div>
 
             <!-- Product Configuration -->
@@ -90,8 +121,11 @@
             <!-- Product Pricing -->
             <div class="product-price">
                 <div style="display:none;" id="productPrice"><?= $productDetails['price'] ?></div>
-                <span class="product-price-value"><span>&#163;</span><span id="productPriceDisplay"
-                    ><?= $productDetails['price'] ?></span></span>
+                <span class="product-price-value">
+                    <span>&#163;</span>
+                    <label for="productPriceDisplay"></label><input id="productPriceDisplay" name="productPrice"
+                                                                    value="<?= $productDetails['price'] ?>">
+                </span>
                 <?php if (isset($_SESSION['userInfo'])) { ?>
                     <button type="submit" class="cart-btn">Add to cart</button>
                 <?php } else { ?>

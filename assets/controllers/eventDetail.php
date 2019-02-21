@@ -14,12 +14,13 @@ $previousURL = $_GET['from'];
 switch ($previousURL) {
     case 'events':
         $productType = 'entertainment';
+        $entertainers = read_entertainer_detail($productID);
         break;
     case 'menus':
         $productType = 'menu';
         break;
     case 'venues':
-        $productType = 'venues';
+        $productType = 'venue';
         break;
     default:
         $productType = 'Invalid';
@@ -39,6 +40,18 @@ function read_product_detail($productID, $productType)
     WHERE event.event_ID = entertainmentpackage.event_ID
     AND event.event_ID = {$productID}
     AND event.event_type = '{$productType}'
+    ";
+    return db_select($sql);
+}
+
+function read_entertainer_detail($productID)
+{
+    $sql = "
+    SELECT name, skill 
+    FROM entertainmentpackage, entertainmentpackagemap, entertainer
+    WHERE entertainmentpackage.event_ID = entertainmentpackagemap.entertainment_ID
+    AND entertainmentpackagemap.entertainer_ID = entertainer.entertainer_ID
+    AND entertainmentpackage.event_ID = {$productID}
     ";
     return db_select($sql);
 }
