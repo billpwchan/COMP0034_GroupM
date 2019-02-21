@@ -23,7 +23,8 @@
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temp <br> or incididunt ut
                     labore et dolore magna aliqua. Ut enim ad minim.
                 </p>
-                <a href="#product-display" class="primary-btn header-btn text-uppercase">Check Our Event</a>
+                <a href="" class="primary-btn header-btn text-uppercase">Check Our
+                    Event</a>
             </div>
         </div>
     </div>

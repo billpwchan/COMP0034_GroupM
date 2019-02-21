@@ -28,52 +28,54 @@
         <form action="./assets/controllers/addToCart.php" method="get">
 
             <label>
-                <input class="product-id" style="display:none" name="id" value="<?= $_GET['id'] ?>">
-                <input class="from" style="display: none;" name="from" value="<?= $_GET['from'] ?>">
+                <input class="product-id display-none" name="id" value="<?= $_GET['id'] ?>">
+                <input class="from display-none" name="from" value="<?= $_GET['from'] ?>">
             </label>
             <!-- Product Description -->
             <div class="product-description">
                 <span class="product-description-general"><?= $productDetails['event_type'] ?></span>
                 <h1 class="product-description-title"><?= $productDetails['name'] ?></h1>
                 <p class="product-description-content"><?= $productDetails['description'] ?></p>
-                <?php switch ($productType) {
-                    case 'entertainment': ?>
-                        <div class="product-detail-table ver1 m-b-10">
-                            <div class="product-detail-table-head">
-                                <table>
-                                    <thead>
-                                    <tr class="product-detail-row head">
-                                        <th class="product-detail-cell column1">Performer</th>
-                                        <th class="product-detail-cell column2">Performance Type</th>
-                                    </tr>
-                                    </thead>
-                                </table>
-                            </div>
-
-                            <div class="product-detail-table-body js-pscroll">
-                                <table>
-                                    <tbody>
-                                    <?php foreach ($entertainers as $entertainer) { ?>
-                                        <tr class="product-detail-row body">
-                                            <td class="product-detail-cell column1"><?= $entertainer['name'] ?></td>
-                                            <td class="product-detail-cell column2"><?= $entertainer['skill'] ?></td>
-                                        </tr>
-                                    <?php } ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <?php break; ?>
-                    <?php } ?>
             </div>
 
             <!-- Product Configuration -->
             <div class="product-configuration">
                 <div class="service-config">
+                    <span>Performer List</span>
+                    <?php switch ($productType) {
+                        case 'entertainment': ?>
+                            <div class="product-detail-table ver1 m-b-10">
+                                <div class="product-detail-table-head">
+                                    <table>
+                                        <thead>
+                                        <tr class="product-detail-row head">
+                                            <th class="product-detail-cell column1">Performer</th>
+                                            <th class="product-detail-cell column2">Performance Type</th>
+                                        </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+
+                                <div class="product-detail-table-body js-pscroll">
+                                    <table>
+                                        <tbody>
+                                        <?php foreach ($entertainers as $entertainer) { ?>
+                                            <tr class="product-detail-row body">
+                                                <td class="product-detail-cell column1"><?= $entertainer['name'] ?></td>
+                                                <td class="product-detail-cell column2"><?= $entertainer['skill'] ?></td>
+                                            </tr>
+                                        <?php } ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <?php break; ?>
+                        <?php } ?>
+
                     <span>Service Quality</span>
                     <div class="service-choose">
                         <label for="service"></label><input id="service" name="service" type="text"
-                                                            style="display: none;">
+                                                            class="display-none">
                         <button type="button" class="basic" name="basic">Regular</button>
                         <button type="button" class="advanced" name="advanced">Premium</button>
                         <button type="button" class="premium" name="premium">Luxury</button>
@@ -101,11 +103,10 @@
                         </div>
                         <div class="container" id="pac-container">
                             <div class="container__item">
-                                <input id="pac-input" type="text" name="location"
+                                <input id="pac-input" type="text" name="eventLocation"
                                        placeholder="Enter a location "
                                        class="form__field" aria-label="Default"
                                        aria-describedby="inputGroup-sizing-default">
-                                <!--                                    <button type="button" class="btn btn--primary btn--inside uppercase">Send</button>-->
                             </div>
                         </div>
                     </div>
@@ -231,4 +232,24 @@
             });
     }
 </script>
+<?php
+if (isset($_GET['addtocart']) && $_GET['addtocart'] === 'success') { ?>
+    <script> Swal.fire({
+            title: 'Successful',
+            animation: false,
+            customClass: 'animated tada',
+            text: "An item has successfully added to your cart",
+            type: 'success'
+        });
+    </script>
+<?php } elseif (isset($_GET['addtocart']) && $_GET['addtocart'] === 'duplicateBooking') { ?>
+    <script> Swal.fire({
+            title: 'Failed',
+            animation: false,
+            customClass: 'animated tada',
+            text: "Invalid Booking TimeSlot.",
+            type: 'error'
+        });
+    </script>
+<?php } ?>
 </html>

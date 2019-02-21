@@ -9,7 +9,7 @@ if (!isset($_SESSION)) {
 }
 $userID = mysqli_real_escape_string($connect, $_SESSION['userInfo']['user_ID']);
 $sql = "
-        SELECT event.eventimage1, event.name, event.price, cart.quantity
+        SELECT event.eventimage1, event.name, cart.price, cart.quantity
         FROM cart, event
         WHERE cart.event_ID = event.event_ID
         AND cart.user_ID = $userID
