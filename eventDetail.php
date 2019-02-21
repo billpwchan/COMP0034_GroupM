@@ -76,9 +76,9 @@
                     <div class="service-choose">
                         <label for="service"></label><input id="service" name="service" type="text"
                                                             class="display-none">
-                        <button type="button" class="basic" name="basic">Regular</button>
-                        <button type="button" class="advanced" name="advanced">Premium</button>
-                        <button type="button" class="premium" name="premium">Luxury</button>
+                        <button type="button" class="basic" name="basic">Basic</button>
+                        <button type="button" class="advanced" name="advanced">Advanced</button>
+                        <button type="button" class="premium" name="premium">Premium</button>
                     </div>
                     <span>Location Selector</span>
                     <div class="pac-card" id="pac-card">
