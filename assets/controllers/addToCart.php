@@ -29,7 +29,6 @@ FROM cart
 WHERE event_ID = {$product_id} 
 AND user_ID = {$userID}
 AND quality = '{$quality}'
-AND eventLocation = '{$eventLocation}'
 ";
 $startTimes = db_select($sql);
 
@@ -37,6 +36,7 @@ if (sizeof($startTimes) === 0) {
     $eventStartTimeText = $eventStartTime->format('Y-m-d H:i:s');
     $sql = "INSERT INTO cart (user_ID, event_ID, quantity, quality, eventStartTime, eventLocation, price) VALUES ({$userID}, {$product_id}, 1, '{$quality}', '{$eventStartTimeText}', '{$eventLocation}', {$price})";
     $result = db_query($sql);
+    header("location:../../{$previousURL}.php?addtocart=success");
 } elseif (sizeof($startTimes) > 0) {
     $sql = "SELECT event.event_type
     FROM event
@@ -67,6 +67,7 @@ if (sizeof($startTimes) === 0) {
                 $eventStartTimeText = $eventStartTime->format('Y-m-d H:i:s');
                 $sql = "INSERT INTO cart (user_ID, event_ID, quantity, quality, eventStartTime, eventLocation, price) VALUES ({$userID}, {$product_id}, 1, '{$quality}', '{$eventStartTimeText}', '{$eventLocation}', {$price})";
                 $result = db_query($sql);
+                header("location:../../{$previousURL}.php?addtocart=success");
             }
             break;
         case "menu":
@@ -81,5 +82,4 @@ if (sizeof($startTimes) === 0) {
 }
 
 
-header("location:../../{$previousURL}.php?addtocart=success");
 

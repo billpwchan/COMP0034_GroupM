@@ -151,22 +151,6 @@ if (!isset($_SESSION['userInfo'])) {
                             </button>
                         </div>
                         <div class="form-group row">
-                            <label for="staticpassword" class="col-sm-3 col-form-label">Password</label>
-                            <div class="col-sm-5">
-                                <input type="text" readonly class="form-control" id="staticpassword"
-                                       value="<?= $_SESSION['userInfo']['password'] ?>">
-                            </div>
-                            <button class=" col-sm-1 btn edit-btn" id="edit_button_password"
-                                    style="visibility: visible">Edit
-                            </button>
-                            <button class=" col-sm-1 btn save-btn" id="save_button_password" style="visibility: hidden">
-                                Save
-                            </button>
-                            <button class=" col-sm-1 btn cancel-btn" id="cancel_button_password"
-                                    style="visibility: hidden">Cancel
-                            </button>
-                        </div>
-                        <div class="form-group row">
                             <label for="staticcontact_number" class="col-sm-3 col-form-label">Contact number</label>
                             <div class="col-sm-5">
                                 <input type="text" readonly class="form-control" id="staticcontact_number"

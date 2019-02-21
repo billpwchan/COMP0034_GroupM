@@ -23,7 +23,7 @@
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temp <br> or incididunt ut
                     labore et dolore magna aliqua. Ut enim ad minim.
                 </p>
-                <a href="" class="primary-btn header-btn text-uppercase">Check Our
+                <a href="#product-display" class="primary-btn header-btn text-uppercase">Check Our
                     Event</a>
             </div>
         </div>
@@ -118,6 +118,15 @@ if (isset($_GET['addtocart']) && $_GET['addtocart'] === 'success') { ?>
             animation: false,
             customClass: 'animated tada',
             text: "Cannot Display Product Detail, Please contact Administrator for Assistance.",
+            type: 'error'
+        });
+    </script>
+<?php } elseif (isset($_GET['addtocart']) && $_GET['addtocart'] === 'overlappedBooking') { ?>
+    <script> Swal.fire({
+            title: 'Failed',
+            animation: false,
+            customClass: 'animated tada',
+            text: "Invalid Booking TimeSlot.",
             type: 'error'
         });
     </script>

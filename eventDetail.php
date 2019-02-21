@@ -124,7 +124,8 @@
                 <div style="display:none;" id="productPrice"><?= $productDetails['price'] ?></div>
                 <span class="product-price-value">
                     <span>&#163;</span>
-                    <label for="productPriceDisplay"></label><input id="productPriceDisplay" name="productPrice"
+                    <label for="productPriceDisplay"></label><input disabled id="productPriceDisplay"
+                                                                    name="productPrice"
                                                                     value="<?= $productDetails['price'] ?>">
                 </span>
                 <?php if (isset($_SESSION['userInfo'])) { ?>
@@ -242,7 +243,7 @@ if (isset($_GET['addtocart']) && $_GET['addtocart'] === 'success') { ?>
             type: 'success'
         });
     </script>
-<?php } elseif (isset($_GET['addtocart']) && $_GET['addtocart'] === 'duplicateBooking') { ?>
+<?php } elseif (isset($_GET['addtocart']) && $_GET['addtocart'] === 'overlappedBooking') { ?>
     <script> Swal.fire({
             title: 'Failed',
             animation: false,
