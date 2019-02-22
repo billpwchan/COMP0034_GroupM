@@ -16,7 +16,7 @@
                 <img src="./assets/img/logo.jpg" alt="IMG">
             </div>
 
-            <form class="contact-form validate-form">
+            <form class="contact-form validate-form" method="post" action="./assets/controllers/contactUs.php">
 					<span class="contact-form-title">
 						Get in touch
 					</span>

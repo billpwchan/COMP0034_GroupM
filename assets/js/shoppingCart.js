@@ -32,7 +32,7 @@ $('.like-btn').on('click', function () {
     $(this).toggleClass('is-active');
 });
 
-document.querySelector("#apply_voucher").addEventListener("click", function() {
+document.querySelector("#apply_voucher").addEventListener("click", function () {
     if (document.querySelector("#voucher_code").value.trim() === "") {
         showAlert("Please enter the coupon code.");
     } else {
@@ -51,11 +51,10 @@ function check_coupon() {
     });
 }
 
-function apply_coupon(discount){
-    if (discount == 0){
+function apply_coupon(discount) {
+    if (discount === 0) {
         alert("Invalid voucher");
-    }
-    else {
+    } else {
         alert("The discount is " + discount + "% off");
     }
 

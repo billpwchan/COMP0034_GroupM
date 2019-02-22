@@ -3,7 +3,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/controllers/dbConnect.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/lib/emailValidation.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/controllers/tokenValidation.php';
 if ($_POST['token'] !== $_SESSION['token']) {
-    header("Location:../../index?status=invalidToken");
+    header("Location:../../index.php?status=invalidToken");
 }
 
 if (isset($_SESSION["userInfo"])) {
