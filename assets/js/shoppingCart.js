@@ -64,3 +64,14 @@ function apply_coupon(discount){
 function showAlert(message) {
     alert(message);
 }
+
+document.querySelector("#button").addEventListener("click", function() {
+    $.ajax({
+        type: "POST",
+        url: "assets/controllers/update_cart.php",
+        data: {'voucher_code': document.querySelector("#voucher_code").value, 'methodID': 1},
+        success: function (data) {
+            apply_coupon(data);
+        }
+    });
+}

@@ -18,66 +18,29 @@
                     Shopping Bag
                 </div>
 
-                <!-- Product #1 -->
-                <div class="item">
-                    <div class="buttons">
-                        <i class="fas fa-times"></i>
-                        <i class="fas fa-heart"></i>
-                    </div>
-
-                    <div class="image">
-                        <img src="./assets/img/item-1.png" alt=""/>
-                    </div>
-
-                    <div class="description">
-                        <span>Common Projects</span>
-                        <span>Bball High</span>
-                        <span>White</span>
-                    </div>
-
-                    <div class="total-price">$549</div>
+                <div>
+                <?php
+                $i = 1;
+                foreach ($_SESSION['cartItems'] as $cartItem) { ?>
+                        <div class="item" id="item<?=$i?>">
+                            <div class="buttons">
+                               <button class="fas fa-times" id="button<?=$i?>"></button>
+                            </div>
+                            <div class = "image">
+                                <img src="./assets/uploads/event/<?= $cartItem['eventimage1'] ?>" alt="item1" width="160" height="100"/>
+                            </div>
+                            <div class="description">
+                                <span><?= $cartItem['name'] ?></span>
+                                <span><?= $cartItem['quality'] ?></span>
+                            </div>
+                            <div class="time">
+                               Time
+                            </div>
+                            <div class="total-price">&#163;<?= $cartItem['price'] * $cartItem['quantity'] ?></div><br>
+                        </div>
+                <?php } $i++ ?>
                 </div>
 
-                <!-- Product #2 -->
-                <div class="item">
-                    <div class="buttons">
-                        <i class="fas fa-times"></i>
-                        <i class="fas fa-heart"></i>
-                    </div>
-
-                    <div class="image">
-                        <img src="./assets/img/item-2.png" alt=""/>
-                    </div>
-
-                    <div class="description">
-                        <span>Maison Margiela</span>
-                        <span>Future Sneakers</span>
-                        <span>White</span>
-                    </div>
-
-
-                    <div class="total-price">$870</div>
-                </div>
-
-                <!-- Product #3 -->
-                <div class="item">
-                    <div class="buttons">
-                        <i class="fas fa-times"></i>
-                        <i class="fas fa-heart"></i>
-                    </div>
-
-                    <div class="image">
-                        <img src="./assets/img/item-3.png" alt=""/>
-                    </div>
-
-                    <div class="description">
-                        <span>Our Legacy</span>
-                        <span>Brushed Scarf</span>
-                        <span>Brown</span>
-                    </div>
-
-                    <div class="total-price">$349</div>
-                </div>
                 <div class="container-fluid checkout-container">
                     <div class="row">
                         <div class="col-sm-3">
@@ -95,6 +58,7 @@
                 </div>
             </div>
         </div>
+
         <div class="col-sm-3">
             <div class="shopping-cart-page">
                 <div class="title">
@@ -106,7 +70,7 @@
 					</span>
 
                     <span class="m-text21 w-size20 w-full-sm">
-						$39.00
+						£ <?= $_SESSION['total_price'] ?>
 					</span>
                 </div>
                 <div class="flex-w flex-sb-m p-l-30 m-t-20 m-b-20">
@@ -124,7 +88,7 @@
 					</span>
 
                     <span class="m-text21 w-size20 w-full-sm">
-						$39.00
+						£
 					</span>
                 </div>
             </div>
