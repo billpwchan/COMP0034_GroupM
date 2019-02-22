@@ -102,7 +102,9 @@ if (isset($_SESSION['userInfo'])) {
             <ul class="shopping-cart-items">
                 <?php foreach ($_SESSION['cartItems'] as $cartItem) { ?>
                     <li class="clearfix">
-                        <img src="./assets/uploads/event/<?= $cartItem['eventimage1'] ?>" alt="item1" width="80"
+                        <img src="./assets/uploads/<?= $cartItem['event_type'] ?>/<?= $cartItem['eventimage1'] ?>"
+                             alt="item1"
+                             width="80"
                              height="60"/>
                         <span class="item-name"><?= $cartItem['name'] ?></span>
                         <span class="item-price">&#163;<?= $cartItem['price'] * $cartItem['quantity'] ?></span><br>

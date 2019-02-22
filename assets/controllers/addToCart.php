@@ -11,8 +11,10 @@ $userID = mysqli_real_escape_string($connect, $_SESSION['userInfo']['user_ID']);
 $product_id = isset($_GET['id']) ? mysqli_real_escape_string($connect, $_GET['id']) : "";
 $quality = isset($_GET['service']) ? mysqli_real_escape_string($connect, $_GET['service']) : "basic";
 try {
-    $eventStartTime = isset($_GET['eventStartTime']) ? mysqli_real_escape_string($connect, $_GET['eventStartTime']) : new DateTime();
-    $eventStartTime->format('Y-m-d H:i:s');
+    $eventStartTime = new DateTime();
+    if (isset($_GET['eventStartTime'])) {
+        $eventStartTime->setTimestamp(strtotime($_GET['eventStartTime']));
+    }
 } catch (Exception $e) {
 }
 $eventLocation = isset($_GET['eventLocation']) ? mysqli_real_escape_string($connect, $_GET['eventLocation']) : "";
@@ -60,8 +62,10 @@ if (sizeof($startTimes) === 0) {
             AND eventStartTime BETWEEN '{$startTime}' AND '{$endTime}'
             ";
             $cartCount = db_select($sql);
-            if (sizeof($orderCount) > 0 || sizeof($cartCount) > 0) {
+            if (sizeof($orderCount) > 0) {
                 header("location: ../../{$previousURL}.php?addtocart=overlappedBooking");
+            } elseif (sizeof($cartCount) > 0) {
+                header("location: ../../{$previousURL}.php?addtocart=duplicateInCart");
             } else {
                 $eventStartTimeText = $eventStartTime->format('Y-m-d H:i:s');
                 $sql = "INSERT INTO cart (user_ID, event_ID, quantity, quality, eventStartTime, eventLocation, price) VALUES ({$userID}, {$product_id}, 1, '{$quality}', '{$eventStartTimeText}', '{$eventLocation}', {$price})";

@@ -7,7 +7,6 @@
     <?php include("includes/headTags.php"); ?>
     <link rel="stylesheet" href="assets/css/eventDetail.css" type="text/css">
     <link rel="stylesheet" href="assets/css/util.css" type="text/css">
-    <link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
 </head>
 <body>
 <?php include("includes/navigation.php"); ?>
@@ -111,17 +110,12 @@
                         <button type="button" class="advanced" name="advanced">Advanced</button>
                         <button type="button" class="premium" name="premium">Premium</button>
                     </div>
-                          <link rel="stylesheet" href="jquery.datetimepicker.min.css">
-        <script src="jquery.js"></script>
-        <script src="jquery.datetimepicker.full.js"></script>
+                    <link rel="stylesheet" href="./assets/css/jquery.datetimepicker.min.css">
 
-        <label>Availability: </label>
-        <input id="datetime" placeholder="DATE : TIME">
-        <script>
-            $("#datetime").datetimepicker({
-                step: 30
-            })
-        </script>
+                    <span>Booking Time: </span>
+                    <div class="time-choose">
+                        <input id="datetimepicker" type="text" name="eventStartTime" placeholder="DATE : TIME">
+                    </div>
                     <span>Location Selector</span>
                     <div class="pac-card" id="pac-card">
                         <div style="visibility: hidden; height: 0px;">
@@ -185,6 +179,8 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAp_ixDe7lUnJhtKJSp6mgByno7jzC7P04&libraries=places&callback=initMap"
         async defer></script>
 <script src="assets/js/eventDetail.js" charset="utf-8"></script>
+<script src="assets/js/jquery.js"></script>
+<script src="./assets/js/jquery.datetimepicker.full.js"></script>
 <script>
     function initMap() {
         console.log("Hello");
