@@ -99,6 +99,7 @@
 <?php include("includes/footer.php"); ?>
 </body>
 <?php include("includes/scripts.php"); ?>
+<script src="assets/js/venues.js"></script>
 <?php
 if (isset($_GET['addtocart']) && $_GET['addtocart'] === 'success') { ?>
     <script> Swal.fire({

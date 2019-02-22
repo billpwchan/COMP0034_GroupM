@@ -39,10 +39,10 @@
                     <div class="product-image">
                         <a href="eventDetail.php?id=<?= $entertainments[$i]['event_ID'] ?>&from=events">
                             <img class="pic-1"
-                                 src="./assets/uploads/event/<?= $entertainments[$i]['eventimage1'] ?>"
+                                 src="./assets/uploads/entertainment/<?= $entertainments[$i]['eventimage1'] ?>"
                                  alt="Preview Image 1">
                             <img class="pic-2"
-                                 src="./assets/uploads/event/<?= $entertainments[$i]['eventimage2'] ?>"
+                                 src="./assets/uploads/entertainment/<?= $entertainments[$i]['eventimage2'] ?>"
                                  alt="Preview Image 2">
                         </a>
                         <ul class="function">

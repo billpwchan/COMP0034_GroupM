@@ -16,9 +16,11 @@
 
     <!-- Left Column / Headphones Image -->
     <div class="left-column col-lg-6">
-        <img data-image="basic" src="./assets/uploads/event/<?= $productDetails['eventimage1'] ?>" alt="">
-        <img data-image="advanced" src="./assets/uploads/event/<?= $productDetails['eventimage2'] ?>" alt="">
-        <img data-image="premium" class="active" src="./assets/uploads/event/<?= $productDetails['eventimage3'] ?>"
+        <img data-image="basic" src="./assets/uploads/<?= $productType ?>/<?= $productDetails['eventimage1'] ?>" alt="">
+        <img data-image="advanced" src="./assets/uploads/<?= $productType ?>/<?= $productDetails['eventimage2'] ?>"
+             alt="">
+        <img data-image="premium" class="active"
+             src="./assets/uploads/<?= $productType ?>/<?= $productDetails['eventimage3'] ?>"
              alt="">
     </div>
 
@@ -69,8 +71,37 @@
                                     </table>
                                 </div>
                             </div>
-                            <?php break; ?>
-                        <?php } ?>
+                            <?php break;
+                        case "menu": ?>
+                            <div class="product-detail-table ver1 m-b-10">
+                                <div class="product-detail-table-head">
+                                    <table>
+                                        <thead>
+                                        <tr class="product-detail-row head">
+                                            <th class="product-detail-cell column1">Menu Name</th>
+                                            <th class="product-detail-cell column2">Quantity</th>
+                                        </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+
+                                <div class="product-detail-table-body js-pscroll">
+                                    <table>
+                                        <tbody>
+                                        <?php foreach ($menus as $menu) { ?>
+                                            <tr class="product-detail-row body">
+                                                <td class="product-detail-cell column1"><?= $menu['name'] ?></td>
+                                                <td class="product-detail-cell column2"><?= $menu['quantity'] ?></td>
+                                            </tr>
+                                        <?php } ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <?php break;
+                        case 'venue': ?>
+                            <?php break;
+                    } ?>
 
                     <span>Service Quality</span>
                     <div class="service-choose">

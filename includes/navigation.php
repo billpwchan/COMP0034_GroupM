@@ -55,7 +55,7 @@ if (isset($_SESSION['userInfo'])) {
             </li>
             <li class="nav-item <?php if ($CURRENT_PAGE == "FAQ") { ?>active<?php } ?>">
                 <a class="nav-link" href="FAQ.php">
-                    <i class="fas fa-phone"></i>
+                    <i class="fas fa-question-circle"></i>
                     FAQ
                 </a>
             </li>

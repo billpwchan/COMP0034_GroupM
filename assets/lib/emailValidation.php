@@ -116,8 +116,12 @@ class emailValidation
         $port = '465';
         $encryption = 'ssl';
 
+
+        $config = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . '/config.ini');
+        $folder = $config['rootFolderName'];
+
         // create account verification link. Need to fixed in the future
-        $link = 'http://' . $_SERVER['DOCUMENT_ROOT'] . '/activation.php?key=' . $email_activation_key;
+        $link = 'http://' . $_SERVER['HTTP_HOST'] . '/' . $folder . '/activation.php?key=' . $email_activation_key;
 
         // get the html email content
         $html_content = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/assets/lib/email/email_verification.html');
