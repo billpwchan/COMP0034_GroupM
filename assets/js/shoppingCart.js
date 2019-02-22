@@ -34,7 +34,11 @@ $('.like-btn').on('click', function () {
 });
 
 document.querySelector("#apply_voucher").addEventListener("click", function() {
-    check_coupon();
+    if (document.querySelector("#voucher_code").value.trim() === "") {
+        showAlert("Please enter the coupon code.");
+    } else {
+        check_coupon();
+    }
 });
 
 function check_coupon() {
@@ -56,4 +60,8 @@ function apply_coupon(discount){
         alert("The discount is " + discount + "% off");
     }
 
+}
+
+function showAlert(message) {
+    alert(message);
 }

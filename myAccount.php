@@ -36,8 +36,8 @@ if (!isset($_SESSION['userInfo'])) {
                 <p class="info"><?= $_SESSION['userInfo']['email_address'] ?></p>
                 <p class="desc"><?= isset($_SESSION['customer']['description']) ? $_SESSION['customer']['description'] : '' ?></p>
                 <?php if (isset($_SESSION['customer'])) { ?>
-                    <p class="desc balance"><i class="fas fa-hand-holding-usd"></i>Balance
-                        : <?= $_SESSION['customer']['account_balance'] ?></p>
+                    <p class="desc balance"><i class="fas fa-hand-holding-usd"></i>  Balance
+                        : £<?= $_SESSION['customer']['account_balance'] ?></p>
                 <?php } ?>
                 <div class="social">
                     <a class="social-links"
