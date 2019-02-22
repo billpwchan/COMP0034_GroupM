@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="assets/css/animate.css" type="text/css">
 </head>
 <body>
+<div class="se-pre-con" id="index-loader"></div>
 <?php include("includes/navigation.php"); ?>
 <!-- Header -->
 <header id="home">
