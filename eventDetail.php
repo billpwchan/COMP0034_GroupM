@@ -80,6 +80,17 @@
                         <button type="button" class="advanced" name="advanced">Advanced</button>
                         <button type="button" class="premium" name="premium">Premium</button>
                     </div>
+                          <link rel="stylesheet" href="jquery.datetimepicker.min.css">
+        <script src="jquery.js"></script>
+        <script src="jquery.datetimepicker.full.js"></script>
+
+        <label>Availability: </label>
+        <input id="datetime" placeholder="DATE : TIME">
+        <script>
+            $("#datetime").datetimepicker({
+                step: 30
+            })
+        </script>
                     <span>Location Selector</span>
                     <div class="pac-card" id="pac-card">
                         <div style="visibility: hidden; height: 0px;">
