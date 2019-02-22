@@ -20,4 +20,36 @@ $(document).ready(function () {
         document.getElementById('productPriceDisplay').setAttribute('value', retailPrice.toFixed(2).toString());
         document.getElementById('service').setAttribute('value', serviceLevel);
     });
+    (function($){
+
+        BBDateTimePicker = {
+            init: function()
+            {
+                BBDateTimePicker._bindEvents()
+            },
+
+            _bindEvents: function()
+            {
+                $('body').delegate('.datetime', 'mouseenter', BBDateTimePicker._datePicker);
+            },
+
+            _datePicker: function()
+            {
+                $('.datetime').datetimepicker();
+            }
+
+        };
+
+        $(function(){
+            BBDateTimePicker.init();
+        });
+        function validate(input) {
+            if ($(input).attr('datetime') === 'datetime') {
+            } else {
+                if ($(input).val().trim() === '') {
+                    return false;
+                }
+            }
+        }
+    })(jQuery);
 });
