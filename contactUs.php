@@ -16,10 +16,15 @@
                 <img src="./assets/img/logo.jpg" alt="IMG">
             </div>
 
+            <?php
+            $token = md5(uniqid(rand(), TRUE));
+            $_SESSION['token'] = $token;
+            $_SESSION['token_time'] = time();
+            ?>
             <form class="contact-form validate-form" method="post" action="./assets/controllers/contactUs.php">
-					<span class="contact-form-title">
-						Get in touch
-					</span>
+                <input type="hidden" name="token" value="<?= $token ?>"/>
+
+                <span class="contact-form-title">Get in touch</span>
 
                 <div class="wrap-userInput validate-input" data-validate="Name is required">
                     <input class="userInput" type="text" name="name" placeholder="Name">
@@ -65,4 +70,24 @@
 </body>
 <?php include("includes/scripts.php"); ?>
 <script src="./assets/js/contactUs.js"></script>
+<?php
+if (isset($_GET['status']) && $_GET['status'] === 'invalidEmail') { ?>
+    <script> Swal.fire({
+            title: 'Invalid Email',
+            animation: false,
+            customClass: 'animated tada',
+            text: "Please provide a valid Email Address.",
+            type: 'error'
+        });
+    </script>
+<?php } elseif (isset($_GET['status']) && $_GET['status'] === 'success') { ?>
+    <script> Swal.fire({
+            title: 'Success',
+            animation: false,
+            customClass: 'animated tada',
+            text: "Thanks for your Feedback! ",
+            type: 'success'
+        });
+    </script>
+<?php } ?>
 </html>

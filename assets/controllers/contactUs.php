@@ -11,6 +11,10 @@ if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['message']))
     if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
         $email = mysqli_real_escape_string($connect, $_POST['email']);
     } else {
-        header("Location:../../index?status=invalidToken");
+        header("Location:../../contactUs.php?status=invalidEmail");
     }
+    $message = mysqli_real_escape_string($connect, $_POST['message']);
+    $sql = "INSERT INTO message(name, email, message) VALUES ('$name', '$email', '$message')";
+    $result = db_query($sql);
+    header("Location:../../contactUs.php?status=success");
 }
