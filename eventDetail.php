@@ -42,9 +42,9 @@
             <!-- Product Configuration -->
             <div class="product-configuration">
                 <div class="service-config">
-                    <span>Performer List</span>
                     <?php switch ($productType) {
                         case 'entertainment': ?>
+                            <span>Performer List</span>
                             <div class="product-detail-table ver1 m-b-10">
                                 <div class="product-detail-table-head">
                                     <table>
@@ -72,6 +72,7 @@
                             </div>
                             <?php break;
                         case "menu": ?>
+                            <span>Menu List</span>
                             <div class="product-detail-table ver1 m-b-10">
                                 <div class="product-detail-table-head">
                                     <table>
@@ -99,6 +100,10 @@
                             </div>
                             <?php break;
                         case 'venue': ?>
+                            <span>Location</span>
+                            <iframe width="600" height="450" frameborder="0" style="border:0"
+                                    src="https://www.google.com/maps/embed/v1/search?q=<?= htmlentities($productDetails['address']) ?>&key=AIzaSyAp_ixDe7lUnJhtKJSp6mgByno7jzC7P04"
+                                    allowfullscreen></iframe>
                             <?php break;
                     } ?>
 
@@ -114,7 +119,8 @@
 
                     <span>Booking Time: </span>
                     <div class="time-choose">
-                        <input id="datetimepicker" type="text" name="eventStartTime" placeholder="DATE : TIME">
+                        <input id="datetimepicker" class="form__field" type="text" name="eventStartTime"
+                               placeholder="DATE : TIME">
                     </div>
                     <span>Location Selector</span>
                     <div class="pac-card" id="pac-card">

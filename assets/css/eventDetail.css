@@ -75,7 +75,7 @@ html, body {
     font-size: 14px;
     font-weight: 400;
     color: #86939E;
-    margin-bottom: 20px;
+    margin-bottom: 4px;
     display: inline-block;
 }
 
@@ -277,6 +277,7 @@ html, body {
     border: 0;
     outline: 0;
     padding: 22px 18px;
+    margin-bottom: 4px;
 }
 
 
