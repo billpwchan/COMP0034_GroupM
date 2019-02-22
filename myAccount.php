@@ -72,80 +72,98 @@ if (!isset($_SESSION['userInfo'])) {
                 <div class="tab-content profile-tab" id="myTabContent">
                     <div aria-labelledby="order-tab" class="row gallery tab-pane fade show active" id="order"
                          role="tabpanel">
-                        <table class="table table-hover">
-                            <thead>
-                            <tr>
-                                <?php foreach (array_keys($orderHistory[0]) as $key) { ?>
-                                    <th scope="col"><?= $key ?></th>
-                                <?php } ?>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <?php foreach (array_values($orderHistory) as $transaction) {
-                                    foreach (array_values($transaction) as $value) { ?>
-                                        <td scope="col"><?= ucfirst($value) ?></td>
-                                    <?php }
-                                } ?>
-                            </tr>
-                            </tbody>
-                        </table>
+                        <?php if (isset($orderHistory) && sizeof($orderHistory) > 0) { ?>
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <?php foreach (array_keys($orderHistory[0]) as $key) { ?>
+                                        <th scope="col"><?= $key ?></th>
+                                    <?php } ?>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <?php foreach (array_values($orderHistory) as $transaction) {
+                                        foreach (array_values($transaction) as $value) { ?>
+                                            <td scope="col"><?= ucfirst($value) ?></td>
+                                        <?php }
+                                    } ?>
+                                </tr>
+                                </tbody>
+                            </table>
+                        <?php } else { ?> <h1 class="display-1">No Order History Found...</h1> <?php } ?>
                     </div>
                     <div aria-labelledby="personal-tab" class="row tab-pane fade" id="personal"
                          role="tabpane2">
                         <div class="form-group row">
                             <label for="staticemail_address" class="col-sm-3 col-form-label">Email address</label>
                             <div class="col-sm-6">
-                                <input type="text" readonly class="form-control-plaintext" id="staticemail_address" value="<?= $_SESSION['userInfo']['email_address'] ?>">
+                                <input type="text" readonly class="form-control-plaintext" id="staticemail_address"
+                                       value="<?= $_SESSION['userInfo']['email_address'] ?>">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="staticgender" class="col-sm-3 col-form-label">Gender</label>
                             <div class="col-sm-6">
-                                <input type="text" readonly class="form-control-plaintext" id="staticgender" value="<?= $_SESSION['userInfo']['gender'] ?>">
+                                <input type="text" readonly class="form-control-plaintext" id="staticgender"
+                                       value="<?= $_SESSION['userInfo']['gender'] ?>">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="staticregistration_date" class="col-sm-3 col-form-label">Registration date</label>
+                            <label for="staticregistration_date" class="col-sm-3 col-form-label">Registration
+                                date</label>
                             <div class="col-sm-6">
-                                <input type="text" readonly class="form-control-plaintext" id="staticregistration_date" value="<?= $_SESSION['userInfo']['registration_date'] ?>">
+                                <input type="text" readonly class="form-control-plaintext" id="staticregistration_date"
+                                       value="<?= $_SESSION['userInfo']['registration_date'] ?>">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="staticfirst_name" class="col-sm-3 col-form-label">First name</label>
                             <div class="col-sm-5">
-                                <input type="text" readonly class="form-control" id="staticfirst_name" value="<?= $_SESSION['userInfo']['first_name'] ?>">
+                                <input type="text" readonly class="form-control" id="staticfirst_name"
+                                       value="<?= $_SESSION['userInfo']['first_name'] ?>">
                             </div>
-                            <button class=" col-sm-1 btn edit-btn" id="edit_button_first_name" style="visibility: visible">Edit</button>
-                            <button class=" col-sm-1 btn save-btn" id="save_button_first_name" style="visibility: hidden">Save</button>
-                            <button class=" col-sm-1 btn cancel-btn" id="cancel_button_first_name" style="visibility: hidden">Cancel</button>
+                            <button class=" col-sm-1 btn edit-btn" id="edit_button_first_name"
+                                    style="visibility: visible">Edit
+                            </button>
+                            <button class=" col-sm-1 btn save-btn" id="save_button_first_name"
+                                    style="visibility: hidden">Save
+                            </button>
+                            <button class=" col-sm-1 btn cancel-btn" id="cancel_button_first_name"
+                                    style="visibility: hidden">Cancel
+                            </button>
                         </div>
                         <div class="form-group row">
                             <label for="staticlast_name" class="col-sm-3 col-form-label">Last name</label>
                             <div class="col-sm-5">
-                                <input type="text" readonly class="form-control" id="staticlast_name" value="<?= $_SESSION['userInfo']['last_name'] ?>">
+                                <input type="text" readonly class="form-control" id="staticlast_name"
+                                       value="<?= $_SESSION['userInfo']['last_name'] ?>">
                             </div>
-                            <button class=" col-sm-1 btn edit-btn" id="edit_button_last_name" style="visibility: visible">Edit</button>
-                            <button class=" col-sm-1 btn save-btn" id="save_button_last_name" style="visibility: hidden">Save</button>
-                            <button class=" col-sm-1 btn cancel-btn" id="cancel_button_last_name" style="visibility: hidden">Cancel</button>
-                        </div>
-                        <div class="form-group row">
-                            <label for="staticpassword" class="col-sm-3 col-form-label">Password</label>
-                            <div class="col-sm-5">
-                                <input type="text" readonly class="form-control" id="staticpassword" value="<?= $_SESSION['userInfo']['password'] ?>">
-                            </div>
-                            <button class=" col-sm-1 btn edit-btn" id="edit_button_password" style="visibility: visible">Edit</button>
-                            <button class=" col-sm-1 btn save-btn" id="save_button_password" style="visibility: hidden">Save</button>
-                            <button class=" col-sm-1 btn cancel-btn" id="cancel_button_password" style="visibility: hidden">Cancel</button>
+                            <button class=" col-sm-1 btn edit-btn" id="edit_button_last_name"
+                                    style="visibility: visible">Edit
+                            </button>
+                            <button class=" col-sm-1 btn save-btn" id="save_button_last_name"
+                                    style="visibility: hidden">Save
+                            </button>
+                            <button class=" col-sm-1 btn cancel-btn" id="cancel_button_last_name"
+                                    style="visibility: hidden">Cancel
+                            </button>
                         </div>
                         <div class="form-group row">
                             <label for="staticcontact_number" class="col-sm-3 col-form-label">Contact number</label>
                             <div class="col-sm-5">
-                                <input type="text" readonly class="form-control" id="staticcontact_number" value="<?= $_SESSION['userInfo']['contact_number'] ?>">
+                                <input type="text" readonly class="form-control" id="staticcontact_number"
+                                       value="<?= $_SESSION['userInfo']['contact_number'] ?>">
                             </div>
-                            <button class=" col-sm-1 btn edit-btn" id="edit_button_contact_number" style="visibility: visible">Edit</button>
-                            <button class=" col-sm-1 btn save-btn" id="save_button_contact_number" style="visibility: hidden">Save</button>
-                            <button class=" col-sm-1 btn cancel-btn" id="cancel_button_contact_number" style="visibility: hidden">Cancel</button>
+                            <button class=" col-sm-1 btn edit-btn" id="edit_button_contact_number"
+                                    style="visibility: visible">Edit
+                            </button>
+                            <button class=" col-sm-1 btn save-btn" id="save_button_contact_number"
+                                    style="visibility: hidden">Save
+                            </button>
+                            <button class=" col-sm-1 btn cancel-btn" id="cancel_button_contact_number"
+                                    style="visibility: hidden">Cancel
+                            </button>
                         </div>
                         </form>
                     </div>
@@ -155,5 +173,6 @@ if (!isset($_SESSION['userInfo'])) {
 </div>
 </body>
 <?php include("includes/scripts.php"); ?>
+<script src="assets/js/accountValidationUtil.js"></script>
 <script src="assets/js/myAccount.js"></script>
 </html>

@@ -10,7 +10,14 @@
 <body>
 <?php include("includes/navigation.php"); ?>
 <div class="container-fluid rsform-container">
-    <form id="rsform" method="post" action="./assets/controllers/registration.php" onsubmit="return validate_Input3()" enctype="multipart/form-data">
+    <?php
+    $token = md5(uniqid(rand(), TRUE));
+    $_SESSION['token'] = $token;
+    $_SESSION['token_time'] = time();
+    ?>
+    <form id="rsform" method="post" action="./assets/controllers/registration.php" onsubmit="return validate_Input3()"
+          enctype="multipart/form-data">
+        <input type="hidden" name="token" value="<?= $token ?>"/>
         <!-- progressbar -->
         <ul id="progressbar">
             <li class="active">Account Setup</li>
@@ -42,9 +49,9 @@
 
             <label class="fs-fieldtitle">Gender:</label>
             <div class="custom-control-inline">
-               <label class="customradio"><span class="radiotextsty">Male</span>
-                   <input type="radio" id="genderM" class="userInput" name="gender" value="Male">
-                   <span class="checkmark"></span>
+                <label class="customradio"><span class="radiotextsty">Male</span>
+                    <input type="radio" id="genderM" class="userInput" name="gender" value="Male">
+                    <span class="checkmark"></span>
                 </label>
                 <label class="customradio"><span class="radiotextsty">Female</span>
                     <input type="radio" id="genderF" class="userInput" name="gender" value="Female">
@@ -183,6 +190,7 @@
 
 <?php include("includes/scripts.php"); ?>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+<script src="assets/js/accountValidationUtil.js"></script>
 <script src="assets/js/registration.js"></script>
 
 <?php

@@ -23,7 +23,8 @@
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temp <br> or incididunt ut
                     labore et dolore magna aliqua. Ut enim ad minim.
                 </p>
-                <a href="#product-display" class="primary-btn header-btn text-uppercase">Check Our Event</a>
+                <a href="#product-display" class="primary-btn header-btn text-uppercase">Check Our
+                    Event</a>
             </div>
         </div>
     </div>
@@ -36,7 +37,7 @@
                 <form class="product-grid">
                     <div class='product-id display-none'><?= $entertainments[$i]['event_ID'] ?></div>
                     <div class="product-image">
-                        <a href="#">
+                        <a href="eventDetail.php?id=<?= $entertainments[$i]['event_ID'] ?>&from=events">
                             <img class="pic-1"
                                  src="./assets/uploads/event/<?= $entertainments[$i]['eventimage1'] ?>"
                                  alt="Preview Image 1">
@@ -56,7 +57,9 @@
                         <a href="#" class="select-options"><i class="fas fa-arrow-right"></i> Select Options</a>
                     </div>
                     <div class="product-content">
-                        <h3 class="title"><a href="#"><?= $entertainments[$i]['name'] ?></a></h3>
+                        <h3 class="title">
+                            <a href="eventDetail.php?id=<?= $entertainments[$i]['event_ID'] ?>&from=events"><?= $entertainments[$i]['name'] ?></a>
+                        </h3>
                         <div class="price">
                             &#163;<?= $entertainments[$i]['price'] ?>
                             <span>&#163;<?= (round((float)$entertainments[$i]['price'] * 1.5, 2)) ?></span>
@@ -72,7 +75,9 @@
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
                     <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Previous">
+                        <a class="page-link"
+                           <?php if (($page - 1) >= 1) { ?>href="events.php?page=<?= $page - 1 ?>" <?php } ?>
+                           aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                             <span class="sr-only">Previous</span>
                         </a>
@@ -81,7 +86,9 @@
                         <li class="page-item"><a class="page-link" href="events.php?page=<?= $i ?>"><?= $i ?></a></li>
                     <?php } ?>
                     <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next">
+                        <a class="page-link"
+                           <?php if (($page + 1) <= ceil($row_count / $records_per_page)) { ?>href="events.php?page=<?= $page + 1 ?>" <?php } ?>
+                           aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                             <span class="sr-only">Next</span>
                         </a>
@@ -96,13 +103,31 @@
 <?php include("includes/scripts.php"); ?>
 <script src="assets/js/events.js"></script>
 <?php
-if ($_GET['addtocart'] === 'success') { ?>
+if (isset($_GET['addtocart']) && $_GET['addtocart'] === 'success') { ?>
     <script> Swal.fire({
             title: 'Successful',
             animation: false,
             customClass: 'animated tada',
             text: "An item has successfully added to your cart",
             type: 'success'
+        });
+    </script>
+<?php } else if (isset($_GET['display']) && $_GET['display'] === 'invalid') { ?>
+    <script> Swal.fire({
+            title: 'Invalid Product',
+            animation: false,
+            customClass: 'animated tada',
+            text: "Cannot Display Product Detail, Please contact Administrator for Assistance.",
+            type: 'error'
+        });
+    </script>
+<?php } elseif (isset($_GET['addtocart']) && $_GET['addtocart'] === 'overlappedBooking') { ?>
+    <script> Swal.fire({
+            title: 'Failed',
+            animation: false,
+            customClass: 'animated tada',
+            text: "Invalid Booking TimeSlot.",
+            type: 'error'
         });
     </script>
 <?php } ?>

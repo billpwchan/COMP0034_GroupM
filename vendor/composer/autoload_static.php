@@ -6,32 +6,32 @@ namespace Composer\Autoload;
 
 class ComposerStaticInitf1939def725803b77bf1f78bd7ec424a
 {
-    public static $files = array(
+    public static $files = array (
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
     );
 
-    public static $prefixLengthsPsr4 = array(
-        'E' =>
-            array(
-                'Egulias\\EmailValidator\\' => 23,
-            ),
+    public static $prefixLengthsPsr4 = array (
+        'E' => 
+        array (
+            'Egulias\\EmailValidator\\' => 23,
+        ),
     );
 
-    public static $prefixDirsPsr4 = array(
-        'Egulias\\EmailValidator\\' =>
-            array(
-                0 => __DIR__ . '/..' . '/egulias/email-validator/EmailValidator',
-            ),
+    public static $prefixDirsPsr4 = array (
+        'Egulias\\EmailValidator\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/egulias/email-validator/EmailValidator',
+        ),
     );
 
-    public static $prefixesPsr0 = array(
-        'D' =>
-            array(
-                'Doctrine\\Common\\Lexer\\' =>
-                    array(
-                        0 => __DIR__ . '/..' . '/doctrine/lexer/lib',
-                    ),
+    public static $prefixesPsr0 = array (
+        'D' => 
+        array (
+            'Doctrine\\Common\\Lexer\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/doctrine/lexer/lib',
             ),
+        ),
     );
 
     public static function getInitializer(ClassLoader $loader)

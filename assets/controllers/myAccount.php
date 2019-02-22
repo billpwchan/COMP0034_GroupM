@@ -1,8 +1,7 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/controllers/dbConnect.php';
-
+include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/controllers/tokenValidation.php';
 $connect = db_connect();
-session_start();
 
 if (!isset($_SESSION['userInfo']['user_ID'])) {
     session_unset();
@@ -20,6 +19,7 @@ if (sizeof($result) === 1) {
     if (sizeof($result) === 1) {
         //This is a service provider account
         $_SESSION['service_provider'] = $result[0];
+        $providedService = provider_provided_service($userID);
     }
 }
 
@@ -48,7 +48,7 @@ function service_provider_read($userID)
 function customer_order_history($userID)
 {
     $sql = "
-    SELECT event.name as 'Event Name', event.event_type as 'Type', event_startTime as 'Start Time', event_duration as 'Duration', event_location as 'Location', orderdetail.price as 'Price', status as 'Status'
+    SELECT event.name as 'Event Name', event.event_type as 'Type', event_startTime as 'Start Time', event_location as 'Location', orderdetail.price as 'Price', status as 'Status'
     FROM customer, orderhistory, orderdetail, event
     WHERE customer.user_ID = orderhistory.customer_ID
     AND orderhistory.orderdetail_ID = orderdetail.orderdetail_ID
@@ -58,3 +58,13 @@ function customer_order_history($userID)
     return db_select($sql);
 }
 
+function provider_provided_service($userID)
+{
+    $sql = "
+    SELECT event.name as 'Event Name', event.event_type as 'Type'
+    FROM servicesupplier, event
+    WHERE servicesupplier.user_ID = event.provider_ID
+    AND servicesupplier.user_ID = {$userID}
+    ";
+    return db_select($sql);
+}

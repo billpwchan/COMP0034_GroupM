@@ -1,0 +1,9 @@
+runtime: php
+env: flex
+
+runtime_config:
+  document_root: web
+
+handlers:
+  - url: /.*
+    script: index.php
