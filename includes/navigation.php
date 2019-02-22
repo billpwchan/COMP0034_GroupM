@@ -53,6 +53,12 @@ if (isset($_SESSION['userInfo'])) {
                     Contact Us
                 </a>
             </li>
+            <li class="nav-item <?php if ($CURRENT_PAGE == "FAQ") { ?>active<?php } ?>">
+                <a class="nav-link" href="FAQ.php">
+                    <i class="fas fa-phone"></i>
+                    FAQ
+                </a>
+            </li>
         </ul>
         <!--        <form class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="inputSearch">

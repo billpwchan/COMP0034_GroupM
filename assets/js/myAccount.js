@@ -1,6 +1,21 @@
+$( document ).ready(function() {
+    document.getElementById("order_tab").style.borderBottom = "2px solid #999";
+});
+
+document.getElementById("order_tab").addEventListener("click", function() {
+    document.getElementById("order_tab").style.borderBottom = "2px solid #999";
+    document.getElementById("personal_tab").style.borderBottom = "0px solid #999";
+});
+
+document.getElementById("personal_tab").addEventListener("click", function() {
+    document.getElementById("personal_tab").style.borderBottom = "2px solid #999";
+    document.getElementById("order_tab").style.borderBottom = "0px solid #999";
+});
+
 let original_firstname = document.querySelector("#staticfirst_name").value;
 let original_lastname = document.querySelector("#staticlast_name").value;
 let original_contact_number = document.querySelector("#staticcontact_number").value;
+
 
 // *********   Field: First name
 document.querySelector("#edit_button_first_name").addEventListener("click", function () {

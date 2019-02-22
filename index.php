@@ -31,9 +31,7 @@
                         <p class="white-text">Concerns greatest margaret him absolute entrance nay. Door neat week do
                             find past he. Be no surprise he honoured indulged. Unpacked endeavor six steepest had
                             husbands h</p>
-                        <button class="white-btn"><a
-                                    href="<?php if (isset($_SESSION['email'])) { ?>myAccount.php<?php } else { ?>login.php<?php } ?>">Get Started!</a>
-                        </button>
+                            <a class="white-btn" id="get_started" href="<?php if (isset($_SESSION['email'])) { ?>myAccount.php<?php } else { ?>login.php<?php } ?>">Get Started</a>
                         <button class="main-btn">Learn more</button>
                     </div>
                 </div>
