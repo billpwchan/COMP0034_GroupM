@@ -29,11 +29,10 @@
                 <option>Service Provider</option>
             </select>
 
-            <form>
-                <p><input type="checkbox" required name="terms"> I accept the <button type="button" class="" data-toggle="modal" data-target="#exampleModalLong">
+            <input type="checkbox" required name="terms"> I accept the <button type="button" class="" data-toggle="modal" data-target="#exampleModalLong">
                         Terms and Conditions
-                    </button></p>
-            </form>
+                    </button>
+
 
             <input type="button" name="next" class="next1 action-button" value="Next"/>
         </fieldset>
