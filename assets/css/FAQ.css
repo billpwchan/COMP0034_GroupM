@@ -1,0 +1,53 @@
+body {
+    padding-top: 3.5rem;
+}
+
+.center {
+    width: auto;
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.faq_question {
+    margin: 0px;
+    padding: 0px 0px 5px 0px;
+    display: inline-block;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.faq_answer_container {
+    height: 0px;
+    overflow: hidden;
+    padding: 0px;
+}
+
+.banner-area {
+    padding: 2rem 1rem;
+    margin-bottom: 2rem;
+    background-color: #e9ecef;
+    border-radius: 0.3rem;
+    background-image: url("../img/FAQ-BG.jpg");
+
+}
+.opacity{
+    opacity:0.4;
+}
+
+.BG-FAQ::before {
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    background-image: url("../img/login-background.jpg");
+    background-size: cover;
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    opacity: 0.6;
+    z-index: -2;
+}
+
+
+
