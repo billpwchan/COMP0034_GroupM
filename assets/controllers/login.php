@@ -1,23 +1,24 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/controllers/dbConnect.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/controllers/tokenValidation.php';
 $connect = db_connect();
-session_start();
 
+if ($_POST['token'] !== $_SESSION['token']) {
+    header("Location:../../index?status=invalidToken");
+}
 if (isset($_POST['email']) and isset($_POST['pass'])) {
     $email = mysqli_real_escape_string($connect, $_POST["email"]);
-    $password = md5(mysqli_real_escape_string($connect, $_POST["pass"]));
-    $sql = "SELECT * FROM user WHERE email_address = '$email' and password = '$password'";
+    $password = mysqli_real_escape_string($connect, $_POST["pass"]);
     $sql = "
     SELECT user_ID, first_name, last_name, gender, email_address, password, contact_number, registration_date, avatar
     FROM user
     WHERE email_address = '{$email}'
-    AND password = '{$password}'
+    AND status = 1
     ";
     $result = db_select($sql);
-    if (sizeof($result) == 1) {
+    if (sizeof($result) == 1 && password_verify($password, $result[0]['password'])) {
         $_SESSION['userInfo'] = $result[0];
-
-        unset($_SESSION['userInfo']['pass']);
+        unset($_SESSION['userInfo']['password']);
         $_SESSION['login_status'] = 1;
         $_SESSION['email'] = $email;
         header("Location:../../myAccount.php?login=success");

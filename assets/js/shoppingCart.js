@@ -11,7 +11,6 @@ $('.minus-btn').on('click', function (e) {
     }
 
     $input.val(value);
-
 });
 
 $('.plus-btn').on('click', function (e) {
@@ -32,3 +31,36 @@ $('.plus-btn').on('click', function (e) {
 $('.like-btn').on('click', function () {
     $(this).toggleClass('is-active');
 });
+
+document.querySelector("#apply_voucher").addEventListener("click", function() {
+    if (document.querySelector("#voucher_code").value.trim() === "") {
+        showAlert("Please enter the coupon code.");
+    } else {
+        check_coupon();
+    }
+});
+
+function check_coupon() {
+    $.ajax({
+        type: "POST",
+        url: "assets/controllers/coupon.php",
+        data: {'voucher_code': document.querySelector("#voucher_code").value, 'methodID': 1},
+        success: function (data) {
+            apply_coupon(data);
+        }
+    });
+}
+
+function apply_coupon(discount){
+    if (discount == 0){
+        alert("Invalid voucher");
+    }
+    else {
+        alert("The discount is " + discount + "% off");
+    }
+
+}
+
+function showAlert(message) {
+    alert(message);
+}

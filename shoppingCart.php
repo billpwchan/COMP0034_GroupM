@@ -110,10 +110,10 @@
                 <div class="container-fluid checkout-container">
                     <div class="row">
                         <div class="col-sm-3">
-                            <input type="text" class="form-control voucher-input" placeholder="Enter Voucher">
+                            <input type="text" class="form-control voucher-input" id="voucher_code" placeholder="Enter Voucher">
                         </div>
                         <div class="col-sm-3">
-                            <button class="btn btn-info voucher-btn" type="submit">Apply Coupon</button>
+                            <button class="btn btn-info voucher-btn" type="submit" id="apply_voucher">Apply Coupon</button>
                         </div>
                         <div class="col-sm-6">
                             <div class="text-right">

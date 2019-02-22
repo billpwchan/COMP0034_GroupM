@@ -17,8 +17,14 @@
                 <img src="./assets/img/logo.jpg" alt="IMG">
             </div>
 
+            <?php
+            $token = md5(uniqid(rand(), TRUE));
+            $_SESSION['token'] = $token;
+            $_SESSION['token_time'] = time();
+            ?>
             <form class="login-form validate-form" method="post" action="./assets/controllers/login.php">
-					<span class="login-form-title">
+                <input type="hidden" name="token" value="<?= $token ?>"/>
+                <span class="login-form-title">
 						Member Login
 					</span>
 
@@ -45,7 +51,7 @@
                 </div>
 
                 <div class="container-login-form-btn">
-                    <button class="login-form-btn">
+                    <button type="submit" class="login-form-btn">
                         Login
                     </button>
                 </div>

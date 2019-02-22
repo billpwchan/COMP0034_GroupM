@@ -3,6 +3,7 @@ if (isset($_SESSION['userInfo'])) {
     include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/controllers/displayCart.php';
 }
 ?>
+
 <nav class="navbar navbar-dark bg-dark navbar-expand-lg fixed-top" style="font-family: Montserrat-Regular, sans-serif;">
     <a class="navbar-brand" href="#">
         <i class="fas fa-glass-cheers"></i>
@@ -52,6 +53,12 @@ if (isset($_SESSION['userInfo'])) {
                     Contact Us
                 </a>
             </li>
+            <li class="nav-item <?php if ($CURRENT_PAGE == "FAQ") { ?>active<?php } ?>">
+                <a class="nav-link" href="FAQ.php">
+                    <i class="fas fa-phone"></i>
+                    FAQ
+                </a>
+            </li>
         </ul>
         <!--        <form class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="inputSearch">
@@ -98,8 +105,8 @@ if (isset($_SESSION['userInfo'])) {
                         <img src="./assets/uploads/event/<?= $cartItem['eventimage1'] ?>" alt="item1" width="80"
                              height="60"/>
                         <span class="item-name"><?= $cartItem['name'] ?></span>
-                        <span class="item-price">&#163;<?= $cartItem['price'] * $cartItem['quantity'] ?></span>
-                        <span class="item-quantity">Quantity: <?= $cartItem['quantity'] ?></span>
+                        <span class="item-price">&#163;<?= $cartItem['price'] * $cartItem['quantity'] ?></span><br>
+                        <span class="item-quantity">Quality: <?= $cartItem['quality'] ?></span>
                     </li>
                 <?php } ?>
             </ul>

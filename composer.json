@@ -1,0 +1,7 @@
+{
+  "require": {
+    "swiftmailer/swiftmailer": "@stable",
+    "ext-mysqli": "*",
+    "php": "7.2.*"
+  }
+}
