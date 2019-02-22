@@ -35,16 +35,6 @@
                         <span>White</span>
                     </div>
 
-                    <div class="quantity">
-                        <button class="minus-btn" type="button" name="button">
-                            <i class="fas fa-minus"></i>
-                        </button>
-                        <input type="text" name="name" value="1">
-                        <button class="plus-btn" type="button" name="button">
-                            <i class="fas fa-plus"></i>
-                        </button>
-                    </div>
-
                     <div class="total-price">$549</div>
                 </div>
 
@@ -65,15 +55,6 @@
                         <span>White</span>
                     </div>
 
-                    <div class="quantity">
-                        <button class="minus-btn" type="button" name="button">
-                            <i class="fas fa-minus"></i>
-                        </button>
-                        <input type="text" name="name" value="1">
-                        <button class="plus-btn" type="button" name="button">
-                            <i class="fas fa-plus"></i>
-                        </button>
-                    </div>
 
                     <div class="total-price">$870</div>
                 </div>
@@ -93,16 +74,6 @@
                         <span>Our Legacy</span>
                         <span>Brushed Scarf</span>
                         <span>Brown</span>
-                    </div>
-
-                    <div class="quantity">
-                        <button class="minus-btn" type="button" name="button">
-                            <i class="fas fa-minus"></i>
-                        </button>
-                        <input type="text" name="name" value="1">
-                        <button class="plus-btn" type="button" name="button">
-                            <i class="fas fa-plus"></i>
-                        </button>
                     </div>
 
                     <div class="total-price">$349</div>

@@ -31,6 +31,8 @@ document.querySelector("#save_button_first_name").addEventListener("click", func
         document.querySelector("#save_button_first_name").style.visibility = "hidden";
         document.querySelector("#cancel_button_first_name").style.visibility = "hidden";
         update_first_name();
+        original_firstname = document.querySelector("#staticfirst_name").value;
+        alert(original_firstname);
     }
 });
 document.querySelector("#cancel_button_first_name").addEventListener("click", function () {
@@ -56,6 +58,7 @@ document.querySelector("#save_button_last_name").addEventListener("click", funct
         document.querySelector("#save_button_last_name").style.visibility = "hidden";
         document.querySelector("#cancel_button_last_name").style.visibility = "hidden";
         update_last_name();
+        original_lastname = document.querySelector("#staticlast_name").value;
     }
 });
 document.querySelector("#cancel_button_last_name").addEventListener("click", function () {
@@ -81,6 +84,7 @@ document.querySelector("#save_button_contact_number").addEventListener("click", 
         document.querySelector("#save_button_contact_number").style.visibility = "hidden";
         document.querySelector("#cancel_button_contact_number").style.visibility = "hidden";
         update_contact_number();
+        original_contact_number = document.querySelector("#staticcontact_number").value;
     }
 });
 document.querySelector("#cancel_button_contact_number").addEventListener("click", function () {
