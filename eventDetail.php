@@ -46,6 +46,19 @@
                 <a href="#">Encounter a problem? No Problem, just contact us</a>
             </div>
         </div>
+        <form>
+        <link rel="stylesheet" href="jquery.datetimepicker.min.css">
+        <script src="jquery.js"></script>
+        <script src="jquery.datetimepicker.full.js"></script>
+
+        <label>Availability: </label>
+        <input id="datetime" placeholder="DATE : TIME">
+        <script>
+            $("#datetime").datetimepicker({
+                step: 30
+            })
+        </script>
+        </form>
 
         <!-- Product Pricing -->
         <div class="product-price">
