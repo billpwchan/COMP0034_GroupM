@@ -76,16 +76,14 @@ function showAlert(message) {
 }
 
 function delete_item(item_id) {
-    alert("JS: delete_item " + item_id);
     $.ajax({
         type: "POST",
         url: "assets/controllers/update_cart.php",
-        data: {'item_id': item_id, 'methodID': 3},
+        data: {'item_id': item_id, 'methodID': 1},
         success: function (data) {
-            alert(data);
         }
     });
-    //location.reload();
+    location.reload();
 }
 
 function apply_discount(item_prices){
