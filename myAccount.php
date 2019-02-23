@@ -36,7 +36,7 @@ if (!isset($_SESSION['userInfo'])) {
                 <p class="info"><?= $_SESSION['userInfo']['email_address'] ?></p>
                 <p class="desc"><?= isset($_SESSION['customer']['description']) ? $_SESSION['customer']['description'] : '' ?></p>
                 <?php if (isset($_SESSION['customer'])) { ?>
-                    <p class="desc balance"><i class="fas fa-hand-holding-usd"></i>  Balance
+                    <p class="desc balance"><i class="fas fa-hand-holding-usd"></i> Balance
                         : £<?= $_SESSION['customer']['account_balance'] ?></p>
                 <?php } ?>
                 <div class="social">
@@ -82,13 +82,13 @@ if (!isset($_SESSION['userInfo'])) {
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <?php foreach (array_values($orderHistory) as $transaction) {
-                                        foreach (array_values($transaction) as $value) { ?>
+                                <?php foreach (array_values($orderHistory) as $transaction) { ?>
+                                    <tr>
+                                        <?php foreach (array_values($transaction) as $value) { ?>
                                             <td scope="col"><?= ucfirst($value) ?></td>
-                                        <?php }
-                                    } ?>
-                                </tr>
+                                        <?php } ?>
+                                    </tr>
+                                <?php } ?>
                                 </tbody>
                             </table>
                         <?php } else { ?> <h1 class="display-1">No Order History Found...</h1> <?php } ?>
