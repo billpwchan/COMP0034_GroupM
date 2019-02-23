@@ -80,12 +80,21 @@
 <?php include("includes/scripts.php"); ?>
 <script src="./assets/js/login.js"></script>
 <?php
-if (isset($_SESSION['login_status']) and $_SESSION['login_status'] === 0) { ?>
+if (isset($_GET['login']) and $_GET['login'] === 'failed') { ?>
     <script> Swal.fire({
             title: 'Login Failed',
             animation: false,
             customClass: 'animated tada',
             text: "Invalid Credential Provided",
+            type: 'error'
+        });
+    </script>
+<?php } elseif (isset($_GET['login']) and $_GET['login'] === 'requireActivation') { ?>
+    <script> Swal.fire({
+            title: 'Login Failed',
+            animation: false,
+            customClass: 'animated tada',
+            text: "Please go to your E-Mail inbox for activating your account.",
             type: 'error'
         });
     </script>

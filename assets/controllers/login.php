@@ -10,13 +10,18 @@ if (isset($_POST['email']) and isset($_POST['pass'])) {
     $email = mysqli_real_escape_string($connect, $_POST["email"]);
     $password = mysqli_real_escape_string($connect, $_POST["pass"]);
     $sql = "
-    SELECT user_ID, first_name, last_name, gender, email_address, password, contact_number, registration_date, avatar
+    SELECT user_ID, first_name, last_name, gender, email_address, password, contact_number, registration_date, avatar, status
     FROM user
     WHERE email_address = '{$email}'
-    AND status = 1
     ";
     $result = db_select($sql);
+    print_r($result);
     if (sizeof($result) == 1 && password_verify($password, $result[0]['password'])) {
+        if ($result[0]['status'] != 1) {
+            $_SESSION['login_status'] = 0;
+            header("Location:../../login.php?login=requireActivation");
+            exit();
+        }
         $_SESSION['userInfo'] = $result[0];
         unset($_SESSION['userInfo']['password']);
         $_SESSION['login_status'] = 1;
