@@ -19,12 +19,10 @@
                 </div>
 
                 <div>
-                <?php
-                $i = 1;
-                foreach ($_SESSION['cartItems'] as $cartItem) { ?>
-                        <div class="item" id="item<?=$i?>">
+                <?php foreach ($_SESSION['cartItems'] as $key => $cartItem) { ?>
+                        <div class="item">
                             <div class="buttons">
-                               <button class="fas fa-times" id="button<?=$i?>"></button>
+                               <button class="fas fa-times" id="<?=$key?>" onClick="delete_item(this.id)"></button>
                             </div>
                             <div class = "image">
                                 <img src="./assets/uploads/event/<?= $cartItem['eventimage1'] ?>" alt="item1" width="160" height="100"/>
@@ -38,7 +36,7 @@
                             </div>
                             <div class="total-price">&#163;<?= $cartItem['price'] * $cartItem['quantity'] ?></div><br>
                         </div>
-                <?php } $i++ ?>
+                <?php } ?>
                 </div>
 
                 <div class="container-fluid checkout-container">
@@ -79,7 +77,7 @@
 					</span>
 
                     <span class="m-text21 w-size20 w-full-sm">
-						$39.00
+
 					</span>
                 </div>
                 <div class="flex-w flex-sb-m p-l-30 m-t-20 m-b-20 bo10">

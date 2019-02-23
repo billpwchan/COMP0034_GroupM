@@ -56,22 +56,42 @@ function apply_coupon(discount){
         alert("Invalid voucher");
     }
     else {
+        item_prices1 = new Array();
         alert("The discount is " + discount + "% off");
+        $.ajax({
+            type: "POST",
+            url: "assets/controllers/update_cart.php",
+            data: {'discount': discount, 'methodID': 2},
+            dataType:"json",
+            success: function (data) {
+                item_prices1 = data;
+                apply_discount(item_prices1);
+            }
+        });
     }
-
 }
 
 function showAlert(message) {
     alert(message);
 }
 
-document.querySelector("#button").addEventListener("click", function() {
+function delete_item(item_id) {
+    alert("JS: delete_item " + item_id);
     $.ajax({
         type: "POST",
         url: "assets/controllers/update_cart.php",
-        data: {'voucher_code': document.querySelector("#voucher_code").value, 'methodID': 1},
+        data: {'item_id': item_id, 'methodID': 3},
         success: function (data) {
-            apply_coupon(data);
+            alert(data);
         }
     });
+    //location.reload();
+}
+
+function apply_discount(item_prices){
+    var i;
+    var string ="";
+    for (i=0; i < item_prices.length; i++){
+        string += item_prices[i] + "  ";
+    } alert(string);
 }
