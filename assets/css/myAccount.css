@@ -14,11 +14,10 @@ html, body {
 
 header {
     background: #eee;
-    background-image: url("https://image.noelshack.com/fichiers/2017/38/2/1505775648-annapurnafocus.jpg");
+    background-image: url('../img/service_background.jpg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    background-color: red;
     height: 250px;
 }
 

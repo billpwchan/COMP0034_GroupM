@@ -23,7 +23,7 @@ if (!isset($_SESSION['userInfo'])) {
         <div class="row">
             <div class="left col-lg-4">
                 <div class="photo-left">
-                    <?php if (isset($_SESSION['userInfo']['avatar'])) { ?>
+                    <?php if (isset($_SESSION['userInfo']['avatar']) and $_SESSION['userInfo']['avatar'] !== '') { ?>
                         <img class="photo"
                              src="./assets/uploads/avatar/<?= $_SESSION['userInfo']['avatar'] ?>"/>
                     <?php } else { ?>
@@ -38,31 +38,35 @@ if (!isset($_SESSION['userInfo'])) {
                 <?php if (isset($_SESSION['customer'])) { ?>
                     <p class="desc balance"><i class="fas fa-hand-holding-usd"></i> Balance
                         : £<?= $_SESSION['customer']['account_balance'] ?></p>
+                    <div class="social">
+                        <a class="social-links"
+                           href="<?= isset($_SESSION['customer']) ? $_SESSION['customer']['facebook'] : 'https://www.facebook.com' ?>">
+                            <i class="fab fa-facebook" aria-hidden="true"></i>
+                        </a>
+                        <a class="social-links"
+                           href="<?= isset($_SESSION['customer']) ? $_SESSION['customer']['twitter'] : 'https://www.twitter.com' ?>">
+                            <i class="fab fa-twitter" aria-hidden="true"></i>
+                        </a>
+                        <a class="social-links"
+                           href="<?= isset($_SESSION['customer']) ? $_SESSION['customer']['pinterest'] : 'https://www.pinterest.com' ?>">
+                            <i class="fab fa-pinterest" aria-hidden="true"></i>
+                        </a>
+                        <a class="social-links"
+                           href="<?= isset($_SESSION['customer']) ? $_SESSION['customer']['tumblr'] : 'https://www.tumblr.com' ?>">
+                            <i class="fab fa-tumblr" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                <?php } else if (isset($_SESSION['service_provider'])) { ?>
+                    <p class="desc balance"><i class="fas fa-building"></i>Company
+                        Name: <?= $_SESSION['service_provider']['company_name'] ?></p>
                 <?php } ?>
-                <div class="social">
-                    <a class="social-links"
-                       href="<?= isset($_SESSION['customer']) ? $_SESSION['customer']['facebook'] : 'https://www.facebook.com' ?>">
-                        <i class="fab fa-facebook" aria-hidden="true"></i>
-                    </a>
-                    <a class="social-links"
-                       href="<?= isset($_SESSION['customer']) ? $_SESSION['customer']['twitter'] : 'https://www.twitter.com' ?>">
-                        <i class="fab fa-twitter" aria-hidden="true"></i>
-                    </a>
-                    <a class="social-links"
-                       href="<?= isset($_SESSION['customer']) ? $_SESSION['customer']['pinterest'] : 'https://www.pinterest.com' ?>">
-                        <i class="fab fa-pinterest" aria-hidden="true"></i>
-                    </a>
-                    <a class="social-links"
-                       href="<?= isset($_SESSION['customer']) ? $_SESSION['customer']['tumblr'] : 'https://www.tumblr.com' ?>">
-                        <i class="fab fa-tumblr" aria-hidden="true"></i>
-                    </a>
-                </div>
             </div>
             <div class="right col-lg-8">
                 <ul class="nav">
                     <li class="nav-item" id="order_tab">
                         <a class="nav-link active" id="order-tab" data-toggle="tab" href="#order" role="tab"
-                           aria-controls="order" aria-selected="true">Order History</a>
+                           aria-controls="order"
+                           aria-selected="true"><?= isset($_SESSION['customer']) ? 'Order History' : 'Provided Service' ?></a>
                     </li>
                     <li class="nav-item" id="personal_tab">
                         <a class="nav-link" id="personal-tab" data-toggle="tab" href="#personal" role="tab"
@@ -72,26 +76,49 @@ if (!isset($_SESSION['userInfo'])) {
                 <div class="tab-content profile-tab" id="myTabContent">
                     <div aria-labelledby="order-tab" class="row gallery tab-pane fade show active" id="order"
                          role="tabpanel">
-                        <?php if (isset($orderHistory) && sizeof($orderHistory) > 0) { ?>
-                            <table class="table table-hover">
-                                <thead>
-                                <tr>
-                                    <?php foreach (array_keys($orderHistory[0]) as $key) { ?>
-                                        <th scope="col"><?= $key ?></th>
-                                    <?php } ?>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <?php foreach (array_values($orderHistory) as $transaction) { ?>
+                        <?php if (isset($_SESSION['customer'])) { ?>
+                            <?php if (isset($orderHistory) && sizeof($orderHistory) > 0) { ?>
+                                <table class="table table-hover">
+                                    <thead>
                                     <tr>
-                                        <?php foreach (array_values($transaction) as $value) { ?>
-                                            <td scope="col"><?= ucfirst($value) ?></td>
+                                        <?php foreach (array_keys($orderHistory[0]) as $key) { ?>
+                                            <th scope="col"><?= $key ?></th>
                                         <?php } ?>
                                     </tr>
-                                <?php } ?>
-                                </tbody>
-                            </table>
-                        <?php } else { ?> <h1 class="display-1">No Order History Found...</h1> <?php } ?>
+                                    </thead>
+                                    <tbody>
+                                    <?php foreach (array_values($orderHistory) as $transaction) { ?>
+                                        <tr>
+                                            <?php foreach (array_values($transaction) as $value) { ?>
+                                                <td scope="col"><?= ucfirst($value) ?></td>
+                                            <?php } ?>
+                                        </tr>
+                                    <?php } ?>
+                                    </tbody>
+                                </table>
+                            <?php } else { ?> <h1 class="display-1">No Order History Found...</h1> <?php } ?>
+                        <?php } else {
+                            if (isset($providedServices) && sizeof($providedServices) > 0) { ?>
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <?php foreach (array_keys($providedServices[0]) as $key) { ?>
+                                            <th scope="col"><?= $key ?></th>
+                                        <?php } ?>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php foreach (array_values($providedServices) as $providedService) { ?>
+                                        <tr>
+                                            <?php foreach (array_values($providedService) as $value) { ?>
+                                                <td scope="col"><?= ucfirst($value) ?></td>
+                                            <?php } ?>
+                                        </tr>
+                                    <?php } ?>
+                                    </tbody>
+                                </table>
+                            <?php } else { ?> <h1 class="display-1">No Provided Service Found...</h1> <?php } ?>
+                        <?php } ?>
                     </div>
                     <div aria-labelledby="personal-tab" class="row tab-pane fade" id="personal"
                          role="tabpane2">
