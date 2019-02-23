@@ -34,7 +34,13 @@
                             <div class="time">
                                Time
                             </div>
-                            <div class="total-price">&#163;<?= $cartItem['price'] * $cartItem['quantity'] ?></div><br>
+                            <div class="total-price" id="item_price<?=$key?>">
+                                <span <?php if (isset($_SESSION['discount'])){ ?>class="original_price"<?php } ?>>£ <?= $cartItem['price']?></span>
+                                <?php if (isset($_SESSION['discount'])){ ?>
+                                    <span class="discount_percentage"><?= $_SESSION['discount']?>% off</span>
+                                    <span>£ <?= $cartItem['price'] * (1 - $_SESSION['discount']/100) ?></span>
+                                <?php } ?>
+                            </div><br>
                         </div>
                 <?php } ?>
                 </div>
@@ -67,7 +73,7 @@
 						Subtotal:
 					</span>
 
-                    <span class="m-text21 w-size20 w-full-sm">
+                    <span class="m-text21 w-size20 w-full-sm" id="total_price">
 						£ <?= $_SESSION['total_price'] ?>
 					</span>
                 </div>
@@ -75,18 +81,16 @@
 					<span class="s-text18 w-size19 w-full-sm">
 						Discount
 					</span>
-
-                    <span class="m-text21 w-size20 w-full-sm">
-
+                    <span class="m-text21 w-size20 w-full-sm" id="discount">
+                        £ <?= $_SESSION['total_price'] * $_SESSION['discount']/100?>
 					</span>
                 </div>
-                <div class="flex-w flex-sb-m p-l-30 m-t-20 m-b-20 bo10">
+                <div class="flex-w flex-sb-m p-l-30 p-t-15 p-b-15 m-t-20 m-b-20 bo10">
 					<span class="m-text22 w-size19 w-full-sm">
 						Total:
 					</span>
-
                     <span class="m-text21 w-size20 w-full-sm">
-						£
+						 £ <?= $_SESSION['total_price'] * ( 1 -  $_SESSION['discount']/100) ?>
 					</span>
                 </div>
             </div>

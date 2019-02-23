@@ -1,32 +1,4 @@
-$('.minus-btn').on('click', function (e) {
-    e.preventDefault();
-    let $this = $(this);
-    let $input = $this.closest('div').find('input');
-    let value = parseInt($input.val());
 
-    if (value > 1) {
-        value = value - 1;
-    } else {
-        value = 0;
-    }
-
-    $input.val(value);
-});
-
-$('.plus-btn').on('click', function (e) {
-    e.preventDefault();
-    let $this = $(this);
-    let $input = $this.closest('div').find('input');
-    let value = parseInt($input.val());
-
-    if (value < 100) {
-        value = value + 1;
-    } else {
-        value = 100;
-    }
-
-    $input.val(value);
-});
 
 $('.like-btn').on('click', function () {
     $(this).toggleClass('is-active');
@@ -57,7 +29,6 @@ function apply_coupon(discount){
     }
     else {
         item_prices1 = new Array();
-        alert("The discount is " + discount + "% off");
         $.ajax({
             type: "POST",
             url: "assets/controllers/update_cart.php",
@@ -65,9 +36,14 @@ function apply_coupon(discount){
             dataType:"json",
             success: function (data) {
                 item_prices1 = data;
-                apply_discount(item_prices1);
             }
         });
+        location.reload();
+       /* var elements = document.getElementsByClassName("original_price");
+        var i;
+        for (i = 0; i < elements.length; i++) {
+            elements[i].style.textDecoration = "line-through";
+        }*/
     }
 }
 
@@ -84,12 +60,4 @@ function delete_item(item_id) {
         }
     });
     location.reload();
-}
-
-function apply_discount(item_prices){
-    var i;
-    var string ="";
-    for (i=0; i < item_prices.length; i++){
-        string += item_prices[i] + "  ";
-    } alert(string);
 }
