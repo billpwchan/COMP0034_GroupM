@@ -78,7 +78,7 @@ if (!isset($_SESSION['userInfo'])) {
                          role="tabpanel">
                         <?php if (isset($_SESSION['customer'])) { ?>
                             <?php if (isset($orderHistory) && sizeof($orderHistory) > 0) { ?>
-                                <table class="table table-hover">
+                                <table class="table table-hover center">
                                     <thead>
                                     <tr>
                                         <?php foreach (array_keys($orderHistory[0]) as $key) { ?>
@@ -99,12 +99,13 @@ if (!isset($_SESSION['userInfo'])) {
                             <?php } else { ?> <h1 class="display-1">No Order History Found...</h1> <?php } ?>
                         <?php } else {
                             if (isset($providedServices) && sizeof($providedServices) > 0) { ?>
-                                <table class="table table-hover">
+                                <table class="table table-hover center">
                                     <thead>
                                     <tr>
                                         <?php foreach (array_keys($providedServices[0]) as $key) { ?>
                                             <th scope="col"><?= $key ?></th>
                                         <?php } ?>
+                                        <th scope="col">Operations</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -113,6 +114,7 @@ if (!isset($_SESSION['userInfo'])) {
                                             <?php foreach (array_values($providedService) as $value) { ?>
                                                 <td scope="col"><?= ucfirst($value) ?></td>
                                             <?php } ?>
+                                            <td scope="col"><i class="fas fa-times"></i></td>
                                         </tr>
                                     <?php } ?>
                                     </tbody>
