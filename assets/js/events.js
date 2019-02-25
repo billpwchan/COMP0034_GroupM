@@ -1,7 +1,16 @@
 (function ($) {
+    let url = window.location.href;
+    var pageKey = "";
+    if (url.includes('events')) {
+        pageKey = 'events';
+    } else if (url.includes('menus')) {
+        pageKey = 'menus';
+    } else if (url.includes('venues')) {
+        pageKey = 'venues'
+    }
     $('.product-grid').on('submit', function () {
         let id = $(this).find('.product-id').text();
-        window.location.href = "./assets/controllers/addToCart.php?id=" + id + "&from=events";
+        window.location.href = "./assets/controllers/addToCart.php?id=" + id + "&from= " + pageKey;
         return false;
     });
     $(".primary-btn").on('click', function () {
@@ -12,26 +21,16 @@
     });
     $(".searchbar a").on('click', function () {
         let searchName = $('#search_input').val();
-        window.location.href = "events.php?searchKey=" + searchName + "&criteria=1"
+        window.location.href = pageKey + ".php?searchKey=" + searchName + "&criteria=1"
     });
     $(".searchbar input").keypress(function (event) {
         if (event.which === 13) {
             let searchName = $('#search_input').val();
-            window.location.href = "events.php?searchKey=" + searchName + "&criteria=1"
+            window.location.href = pageKey + ".php?searchKey=" + searchName + "&criteria=1"
         }
     });
-
-    // var rangeSlider = document.getElementById("rs-range-line");
-    // var rangeBullet = document.getElementById("rs-bullet");
-    //
-    // $("#rs-range-line").on('input', function() {
-    //     $('#rs-bullet').text($('#rs-range-line').val());
-    //     var bulletPosition = (rangeSlider.value / rangeSlider.max);
-    //     rangeBullet.style.left = (bulletPosition * 578) + "px";
-    // });
-    // rangeSlider.addEventListener("input", showSliderValue, false);
-    //
-    // function showSliderValue() {
-    //
-    // }
+    $("#product-display .clear-button").on('click', function () {
+        $('#search_input').val('');
+        window.location.href = pageKey + ".php";
+    });
 })(jQuery);

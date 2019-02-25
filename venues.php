@@ -29,7 +29,18 @@
 </section>
 <div class="container product" id="product-display">
     <div class="row">
-        <?php for ($i = 0; $i < min($records_per_page, $row_count - $records_per_page * ($page - 1)); $i++) { ?>
+        <div class="searchbar">
+            <input class="search_input" id="search_input" type="text" name="searchName"
+                   placeholder="Search for Event Name..."
+                   value="<?= isset($_GET['searchKey']) ? $_GET['searchKey'] : "" ?>">
+            <a href="#" class="search_icon"><i class="fas fa-search"></i></a>
+        </div>
+        <?php if (isset($_GET['searchKey']) && $_GET['searchKey'] !== "") { ?>
+            <button type="button" class="btn btn-dark clear-button">Clear</button>
+        <?php } ?>
+    </div>
+    <div class="row">
+        <?php for ($i = 0; $i < min($records_per_page, $row_count_venues - $records_per_page * ($page - 1)); $i++) { ?>
             <div class="col-md-4 col-sm-6">
                 <form class="product-grid">
                     <div class='product-id display-none'><?= $venues[$i]['event_ID'] ?></div>
@@ -79,12 +90,12 @@
                             <span class="sr-only">Previous</span>
                         </a>
                     </li>
-                    <?php for ($i = 1; $i <= ceil($row_count / $records_per_page); $i++) { ?>
+                    <?php for ($i = 1; $i <= ceil($row_count_venues / $records_per_page); $i++) { ?>
                         <li class="page-item"><a class="page-link" href="venues.php?page=<?= $i ?>"><?= $i ?></a></li>
                     <?php } ?>
                     <li class="page-item">
                         <a class="page-link"
-                           <?php if (($page + 1) <= ceil($row_count / $records_per_page)) { ?>href="venues.php?page=<?= $page + 1 ?>" <?php } ?>
+                           <?php if (($page + 1) <= ceil($row_count_venues / $records_per_page)) { ?>href="venues.php?page=<?= $page + 1 ?>" <?php } ?>
                            aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                             <span class="sr-only">Next</span>
@@ -99,7 +110,7 @@
 <?php include("includes/footer.php"); ?>
 </body>
 <?php include("includes/scripts.php"); ?>
-<script src="assets/js/venues.js"></script>
+<script src="assets/js/events.js"></script>
 <?php
 if (isset($_GET['addtocart']) && $_GET['addtocart'] === 'success') { ?>
     <script> Swal.fire({
