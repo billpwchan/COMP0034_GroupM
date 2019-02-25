@@ -10,4 +10,19 @@
             },
             'slow');
     });
+    $(".searchbar a").on('click', function () {
+        let searchName = $('#search_input').val();
+        window.location.href = "events.php?searchKey=" + searchName + "&criteria=1"
+    });
+
+    function update_search_name(searchName) {
+        $.ajax({
+            type: "GET",
+            url: "assets/controllers/events.php",
+            data: {'searchKey': searchName, 'criteria': 1},
+            success: function (data) {
+                location.reload();
+            }
+        });
+    }
 })(jQuery);

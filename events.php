@@ -32,6 +32,13 @@
 
 <div class="container product" id="product-display">
     <div class="row">
+        <div class="searchbar">
+            <input class="search_input" id="search_input" type="text" name="searchName"
+                   placeholder="Search for Event Name..." value="<?= $_GET['searchKey'] ?>">
+            <a href="#" class="search_icon"><i class="fas fa-search"></i></a>
+        </div>
+    </div>
+    <div class="row">
         <?php for ($i = 0; $i < min($records_per_page, $row_count - $records_per_page * ($page - 1)); $i++) { ?>
             <div class="col-md-4 col-sm-6">
                 <form class="product-grid">

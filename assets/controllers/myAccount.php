@@ -51,7 +51,7 @@ function customer_order_history($userID)
     SELECT event.name as 'Event Name', event.event_type as 'Type', event_startTime as 'Start Time', event_location as 'Location', orderdetail.price as 'Price', status as 'Status'
     FROM customer, orderhistory, orderdetail, event
     WHERE customer.user_ID = orderhistory.customer_ID
-    AND orderhistory.orderdetail_ID = orderdetail.orderdetail_ID
+    AND orderhistory.order_ID = orderdetail.order_ID
     AND orderdetail.event_ID = event.event_ID
     AND customer.user_ID = {$userID}
     ";
