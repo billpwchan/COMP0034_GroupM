@@ -15,14 +15,17 @@
         window.location.href = "events.php?searchKey=" + searchName + "&criteria=1"
     });
 
-    function update_search_name(searchName) {
-        $.ajax({
-            type: "GET",
-            url: "assets/controllers/events.php",
-            data: {'searchKey': searchName, 'criteria': 1},
-            success: function (data) {
-                location.reload();
-            }
-        });
-    }
+    // var rangeSlider = document.getElementById("rs-range-line");
+    // var rangeBullet = document.getElementById("rs-bullet");
+    //
+    // $("#rs-range-line").on('input', function() {
+    //     $('#rs-bullet').text($('#rs-range-line').val());
+    //     var bulletPosition = (rangeSlider.value / rangeSlider.max);
+    //     rangeBullet.style.left = (bulletPosition * 578) + "px";
+    // });
+    // rangeSlider.addEventListener("input", showSliderValue, false);
+    //
+    // function showSliderValue() {
+    //
+    // }
 })(jQuery);

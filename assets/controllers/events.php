@@ -15,10 +15,8 @@ if (!isset($_GET['criteria'])) {
     $searchKey = mysqli_real_escape_string($connect, $_GET['searchKey']);
     switch ($_GET['criteria']) {
         case 1:
-            echo "Executing Criteria 1";
             $entertainments = read_with_searched_name($from_record_num, $records_per_page, $searchKey);
             $row_count = row_count_with_searched_name($searchKey);
-            print_r($entertainments);
             break;
     }
 }

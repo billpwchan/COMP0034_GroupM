@@ -34,7 +34,8 @@
     <div class="row">
         <div class="searchbar">
             <input class="search_input" id="search_input" type="text" name="searchName"
-                   placeholder="Search for Event Name..." value="<?= $_GET['searchKey'] ?>">
+                   placeholder="Search for Event Name..."
+                   value="<?= isset($_GET['searchKey']) ? $_GET['searchKey'] : "" ?>">
             <a href="#" class="search_icon"><i class="fas fa-search"></i></a>
         </div>
     </div>
