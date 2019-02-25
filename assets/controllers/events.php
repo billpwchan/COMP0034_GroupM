@@ -21,7 +21,6 @@ if (!isset($_GET['criteria'])) {
     }
 }
 
-
 function read($from_record_num, $records_per_page)
 {
     $sql = "

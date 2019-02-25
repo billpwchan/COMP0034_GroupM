@@ -14,6 +14,12 @@
         let searchName = $('#search_input').val();
         window.location.href = "events.php?searchKey=" + searchName + "&criteria=1"
     });
+    $(".searchbar input").keypress(function (event) {
+        if (event.which === 13) {
+            let searchName = $('#search_input').val();
+            window.location.href = "events.php?searchKey=" + searchName + "&criteria=1"
+        }
+    });
 
     // var rangeSlider = document.getElementById("rs-range-line");
     // var rangeBullet = document.getElementById("rs-bullet");
