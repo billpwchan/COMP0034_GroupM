@@ -399,6 +399,51 @@ iframe {
     color: #ff0000;
 }
 
+.alert-validate::before {
+    content: attr(data-validate);
+    position: absolute;
+    background-color: white;
+    margin-right: 0.7rem;
+    border: 1px solid #c80000;
+    border-radius: 13px;
+    padding: 4px 25px 4px 10px;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+    right: 8px;
+    pointer-events: none;
+
+    color: #c80000;
+    font-size: 10px;
+    line-height: 1.2;
+    text-align: center;
+
+    visibility: hidden;
+    opacity: 0;
+
+    -webkit-transition: opacity 0.4s;
+    -o-transition: opacity 0.4s;
+    -moz-transition: opacity 0.4s;
+    transition: opacity 0.4s;
+}
+
+.alert-validate::after {
+    display: block;
+    position: absolute;
+    color: #c80000;
+    font-size: 15px;
+    top: 50%;
+    right: 13px;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
 .alert-validate:hover:before {
     visibility: visible;
     opacity: 1;
@@ -410,3 +455,4 @@ iframe {
         opacity: 1;
     }
 }
+

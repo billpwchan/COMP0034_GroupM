@@ -7,20 +7,19 @@ function validate_name(name) {
     const aNumber = /[0-9]/;
     const aSpecial = /[!|@|#|$|%|^|&|*|(|)|-|_]/;
     if (name.value.trim() === "") {
-        showAlert("Blank name");
+        showAlert("Please enter your name", "Name is required for us to display properly for you.");
         return false;
     }
     if (name.value.search(aNumber) !== -1 || name.value.search(aSpecial) !== -1) {
-        showAlert("Invalid name");
+        showAlert("Invalid name format", "Please re-enter your name so only pure text is entered.");
         return false;
     }
 }
 
-function showAlert(message) {
+function showAlert(header, message = "") {
     Swal.fire({
-        title: 'Error',
+        title: header,
         animation: false,
-        customClass: 'animated tada',
         text: message,
         type: 'error'
     });
@@ -34,14 +33,14 @@ function validate_password(password) {
 
     if (password.value.trim() === "") {
         //showValidate(input[1]);
-        showAlert("Blank password");
+        showAlert("Invalid Password", "Blank password");
         return false;
     }
     if (password.value.length < 8 || password.value.length > 15) {
         showAlert("Invalid password length");
         return false;
     }
-    if (password.value.search(anUpperCase) === -1 || password.value.search(aLowerCase) === -1 || password.value.search(aNumber) === -1 || password.value.search(aSpecial) == -1) {
+    if (password.value.search(anUpperCase) === -1 || password.value.search(aLowerCase) === -1 || password.value.search(aNumber) === -1) {
         showAlert("Invalid composition");
         return false;
     }

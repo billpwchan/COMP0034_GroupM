@@ -27,24 +27,24 @@
 						Member Login
 					</span>
 
-                <div class="wrap-input validate-input" data-validate="Valid email is required: abc@de.fg">
+                <div class="wrap-input validate-input">
                     <input class="userInput" type="text" name="email" placeholder="Email">
                     <span class="focus-input"></span>
                     <span class="symbol-input">
 							<i class="fas fa-envelope" aria-hidden="true"></i>
                     </span>
-                    <span class="alert-validate">
+                    <span class="alert-validate" data-validate="Valid email is required: abc@de.fg">
                         <i class="fas fa-exclamation-triangle"></i>
                     </span>
                 </div>
 
-                <div class="wrap-input validate-input" data-validate="Password is required">
+                <div class="wrap-input validate-input">
                     <input class="userInput" type="password" name="pass" placeholder="Password">
                     <span class="focus-input"></span>
                     <span class="symbol-input">
 							<i class="fas fa-lock" aria-hidden="true"></i>
                     </span>
-                    <span class="alert-validate">
+                    <span class="alert-validate" data-validate="Password is required">
                         <i class="fas fa-exclamation-triangle"></i>
                     </span>
                 </div>

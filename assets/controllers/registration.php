@@ -10,7 +10,7 @@ if (isset($_SESSION["userInfo"])) {
     header("location:../../login.php");
 }
 if (empty($_POST["email"]) || empty($_POST["pass"]) || empty($_POST["cpass"])
-    || empty($_POST["gender"]) || empty($_POST["phone"]) || empty($_POST["fname"])
+    || empty($_POST["gender"]) | empty($_POST["fname"])
     || empty($_POST["lname"])) {
     header("Location:../../registration.php?registration=allFieldsRequired");
 } elseif ($_POST["pass"] != $_POST["cpass"]) {
@@ -19,7 +19,7 @@ if (empty($_POST["email"]) || empty($_POST["pass"]) || empty($_POST["cpass"])
     $register = new emailValidation();
     $result = $register->Register($_POST["fname"], $_POST["lname"], $_POST["gender"], $_POST["email"], $_POST["pass"], $_POST["phone"], $_FILES['avatar'], $_POST["accounttype"]);
     if ($result) {
-        header("Location:../../login.php?registration=success");
+        header("Location:../../login.php?login=requireActivation");
     } else {
         header("Location:../../index.php?registration=failed");
     }

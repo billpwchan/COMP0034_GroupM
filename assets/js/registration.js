@@ -106,18 +106,24 @@ function validate_Input1() {
     const fieldset1 = document.getElementById("fieldset1");
     const input = fieldset1.getElementsByClassName("userInput");
     let check = true;
-
     if (validate_email(input[0]) === false) {
         check = false;
-        showAlert("Wrong email format");
+        showAlert("Wrong email format", "Has to be format like abc@d.efg");
     }
     if (validate_password(input[1]) === false) {
         check = false;
+        showAlert("Wrong Password Format", "Has to be a combination of Number, UpperCase Letter, LowerCase Letter.")
     }
     if (input[1].value !== input[2].value) {
-        showAlert("Passwords do not match");
-        return false;
+        check = false;
+        showAlert("Passwords are Not Match!", "Please retry entering password.");
     }
+    if ($('.userInput option:selected').val() === "") {
+        check = false;
+        showAlert("Please select Account Type!", "Only customer can place order, while service provider can add products.")
+    }
+
+
     return check;
 }
 
@@ -126,11 +132,11 @@ function validate_Input2() {
     const input = fieldset2.getElementsByClassName("userInput");
 
     if (input[0].checked === false && input[1].checked === false) {
-        showAlert("Please select your gender");
+        showAlert("Please select your gender", "");
         return false
     }
     if (validate_phonenumber(input[2]) === false) {
-        showAlert("Invalid phone number");
+        showAlert("Invalid phone number", "Has to follow the UK format.");
         return false;
     }
     return true;
