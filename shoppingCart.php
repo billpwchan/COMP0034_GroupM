@@ -5,9 +5,6 @@
     <?php include("includes/headTags.php"); ?>
     <link rel="stylesheet" href="assets/css/shoppingCart.css" type="text/css">
     <link rel="stylesheet" href="assets/css/util.css" type="text/css">
-    <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-grid.css">
-    <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-theme-balham.css">
-    <script src="https://unpkg.com/ag-grid-community/dist/ag-grid-community.min.noStyle.js"></script>
 </head>
 <body>
 <?php include("includes/navigation.php"); ?>
@@ -20,35 +17,36 @@
                 <div class="title">
                     Shopping Bag
                 </div>
-                <!--                <button onclick="getSelectedRows()">Get Selected Rows</button>
-                                <div id="myGrid" class="ag-theme-balham"></div>-->
-
-
                 <div>
-                <?php foreach ($_SESSION['cartItems'] as $key => $cartItem) { ?>
+                    <?php foreach ($_SESSION['cartItems'] as $key => $cartItem) { ?>
                         <div class="item">
                             <div class="buttons">
-                               <button class="fas fa-times" id="<?=$key?>" onClick="delete_item(this.id)"></button>
+                                <button class="fas fa-times" id="<?= $cartItem['cart_ID'] ?>"
+                                        onClick="delete_item(this.id)"></button>
                             </div>
-                            <div class = "image">
-                                <img src="./assets/uploads/event/<?= $cartItem['eventimage1'] ?>" alt="item1" width="160" height="100"/>
+                            <div class="image">
+                                <img src="./assets/uploads/<?= $cartItem['event_type'] ?>/<?= $cartItem['eventimage1'] ?>"
+                                     alt="item1"
+                                     width="160" height="100"/>
                             </div>
                             <div class="description">
                                 <span><?= $cartItem['name'] ?></span>
                                 <span><?= $cartItem['quality'] ?></span>
                             </div>
                             <div class="time">
-                               Time
+                                Time
                             </div>
-                            <div class="total-price" id="item_price<?=$key?>">
-                                <span <?php if (isset($_SESSION['discount'])){ ?>class="original_price"<?php } ?>>£ <?= $cartItem['price']?></span>
-                                <?php if (isset($_SESSION['discount'])){ ?>
-                                    <span class="discount_percentage"><?= $_SESSION['discount']?>% off</span>
-                                    <span>£ <?= $cartItem['price'] * (1 - $_SESSION['discount']/100) ?></span>
+                            <div class="total-price" id="item_price<?= $key ?>">
+                                <span
+                                    <?php if (isset($_SESSION['discount'])){ ?>class="original_price"<?php } ?>>£ <?= $cartItem['price'] ?></span>
+                                <?php if (isset($_SESSION['discount'])) { ?>
+                                    <span class="discount_percentage"><?= $_SESSION['discount'] ?>% off</span>
+                                    <span>£ <?= $cartItem['price'] * (1 - $_SESSION['discount'] / 100) ?></span>
                                 <?php } ?>
-                            </div><br>
+                            </div>
+                            <br>
                         </div>
-                <?php } ?>
+                    <?php } ?>
                 </div>
 
                 <div class="container-fluid checkout-container">
@@ -93,7 +91,7 @@
 						Discount
 					</span>
                     <span class="m-text21 w-size20 w-full-sm" id="discount">
-                        £ <?= $_SESSION['total_price'] * $_SESSION['discount']/100?>
+                        £ <?= $_SESSION['total_price'] * (isset($_SESSION['discount']) ? $_SESSION['discount'] : 0) / 100 ?>
 					</span>
                 </div>
                 <div class="flex-w flex-sb-m p-l-30 p-t-15 p-b-15 m-t-20 m-b-20 bo10">
@@ -101,7 +99,7 @@
 						Total:
 					</span>
                     <span class="m-text21 w-size20 w-full-sm">
-						 £ <?= $_SESSION['total_price'] * ( 1 -  $_SESSION['discount']/100) ?>
+						 £ <?= $_SESSION['total_price'] * (1 - (isset($_SESSION['discount']) ? $_SESSION['discount'] : 0) / 100) ?>
 					</span>
                 </div>
             </div>
