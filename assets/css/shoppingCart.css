@@ -10,7 +10,7 @@
     display: block;
     position: absolute;
     left: 0;
-    opacity: 0.6;
+    opacity: 0.8;
     z-index: -2;
 }
 
@@ -27,29 +27,26 @@
 
 .title {
     height: 60px;
-    border-bottom: 1px solid #E1E8EE;
+    border-bottom: 1.5px solid #E1E8EE;
     padding: 20px 30px;
     color: #5E6977;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 400;
 }
 
 .item {
     padding: 20px 30px;
-    height: 120px;
     display: flex;
-}
-
-.item:nth-child(3) {
-    border-top: 1px solid #E1E8EE;
     border-bottom: 1px solid #E1E8EE;
 }
+
+
 
 /* Buttons -  Delete and Like */
 .buttons {
     position: relative;
     padding-top: 30px;
-    margin-right: 60px;
+    margin-right: 40px;
 }
 
 .delete-btn {
@@ -120,6 +117,11 @@
     color: #86939E;
 }
 
+.time {
+    padding-top: 10px;
+    margin-right: 60px;
+    width: 115px;
+}
 /* Product Quantity */
 .quantity {
     padding-top: 20px;
@@ -145,14 +147,6 @@ button[class*=btn] {
     cursor: pointer;
 }
 
-.minus-btn img {
-    margin-bottom: 3px;
-}
-
-.plus-btn img {
-    margin-top: 2px;
-}
-
 button:focus,
 input:focus {
     outline: 0;
@@ -161,11 +155,36 @@ input:focus {
 /* Total Price */
 .total-price {
     width: 83px;
-    padding-top: 27px;
+    padding-top: 5px;
     text-align: center;
     font-size: 16px;
     color: #43484D;
     font-weight: 300;
+}
+
+.total-price span {
+    display: block;
+    font-size: 16px;
+    color: #43484D;
+    font-weight: 400;
+}
+
+.original_price {
+  text-decoration: line-through;
+}
+
+.discount_percentage {
+    border-bottom: 1.5px solid #7d8288;
+}
+
+.total-price span:first-child {
+    margin-bottom: 5px;
+}
+
+.total-price span:last-child {
+    font-weight: 500;
+    margin-top: 8px;
+    color: #43484D;
 }
 
 /* Responsive */

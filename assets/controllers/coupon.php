@@ -1,4 +1,5 @@
 <?php
+session_start();
 include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/controllers/dbConnect.php';
 
 $connect = db_connect();
@@ -16,6 +17,7 @@ if ($methodID == 1){
     else{
         $result = mysqli_fetch_array($resultset);
         $discount = $result["discount"];
+        $_SESSION['discount'] = $discount;
         echo $discount;
     }
 };

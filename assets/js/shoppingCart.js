@@ -1,32 +1,4 @@
-$('.minus-btn').on('click', function (e) {
-    e.preventDefault();
-    let $this = $(this);
-    let $input = $this.closest('div').find('input');
-    let value = parseInt($input.val());
 
-    if (value > 1) {
-        value = value - 1;
-    } else {
-        value = 0;
-    }
-
-    $input.val(value);
-});
-
-$('.plus-btn').on('click', function (e) {
-    e.preventDefault();
-    let $this = $(this);
-    let $input = $this.closest('div').find('input');
-    let value = parseInt($input.val());
-
-    if (value < 100) {
-        value = value + 1;
-    } else {
-        value = 100;
-    }
-
-    $input.val(value);
-});
 
 $('.like-btn').on('click', function () {
     $(this).toggleClass('is-active');
@@ -56,11 +28,36 @@ function apply_coupon(discount){
         alert("Invalid voucher");
     }
     else {
-        alert("The discount is " + discount + "% off");
+        item_prices1 = new Array();
+        $.ajax({
+            type: "POST",
+            url: "assets/controllers/update_cart.php",
+            data: {'discount': discount, 'methodID': 2},
+            dataType:"json",
+            success: function (data) {
+                item_prices1 = data;
+            }
+        });
+        location.reload();
+       /* var elements = document.getElementsByClassName("original_price");
+        var i;
+        for (i = 0; i < elements.length; i++) {
+            elements[i].style.textDecoration = "line-through";
+        }*/
     }
-
 }
 
 function showAlert(message) {
     alert(message);
+}
+
+function delete_item(item_id) {
+    $.ajax({
+        type: "POST",
+        url: "assets/controllers/update_cart.php",
+        data: {'item_id': item_id, 'methodID': 1},
+        success: function (data) {
+        }
+    });
+    location.reload();
 }
