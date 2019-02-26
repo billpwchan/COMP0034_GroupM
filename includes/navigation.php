@@ -93,6 +93,7 @@ if (isset($_SESSION['userInfo'])) {
                     foreach ($_SESSION['cartItems'] as $cartItem) {
                         $totalPrice += (float)$cartItem['price'] * (int)$cartItem['quantity'];
                     }
+                    $_SESSION['total_price'] = $totalPrice;
                     echo $totalPrice ?>
                 </span>
                 </div>
