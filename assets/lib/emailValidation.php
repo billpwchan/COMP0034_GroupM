@@ -110,18 +110,16 @@ class emailValidation
      */
     public function sendEmail($subject, $to, $name, $email_activation_key)
     {
-        $smtp_server = 'smtp.gmail.com';
-        $username = 'uberkidzuk@gmail.com';
-        $password = 'uberkidz123456';
-        $port = '465';
-        $encryption = 'ssl';
-
-
         $config = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . '/config.ini');
         $folder = $config['rootFolderName'];
+        $smtp_server = $config['smtp_server'];
+        $username = $config['email_name'];
+        $password = $config['email_password'];
+        $port = $config['port'];
+        $encryption = $config['encryption'];
 
         // create account verification link. Need to fixed in the future
-        $link = 'http://' . $_SERVER['HTTP_HOST'] . '/' . $folder . '/activation.php?key=' . $email_activation_key;
+        $link = $_SERVER['HTTP_HOST'] . '/' . $folder . '/activation.php?key=' . $email_activation_key;
 
         // get the html email content
         $html_content = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/assets/lib/email/email_verification.html');
@@ -132,7 +130,7 @@ class emailValidation
         $plain_text = preg_replace('/{link}/', $link, $plain_text);
 
         $message = (new Swift_Message($subject))
-            ->setFrom(['uberkidzuk@gmail.com' => 'UberKidz'])
+            ->setFrom([$username => 'UberKidz'])
             ->setTo([$to => $name])
             ->setBody($html_content, 'text/html')// add html content
             ->addPart($plain_text, 'text/plain'); // Add plain text
@@ -162,7 +160,6 @@ class emailValidation
         }
         return true;
     }
-
 }
 
 ?>

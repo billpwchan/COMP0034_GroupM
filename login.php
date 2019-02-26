@@ -16,7 +16,6 @@
             <div class="login-pic js-tilt" data-tilt>
                 <img src="./assets/img/logo.jpg" alt="IMG">
             </div>
-
             <?php
             $token = md5(uniqid(rand(), TRUE));
             $_SESSION['token'] = $token;

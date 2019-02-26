@@ -11,7 +11,6 @@ if (!isset($_SESSION['userInfo'])) {
     <?php include("includes/headTags.php"); ?>
     <link rel="stylesheet" href="assets/css/myAccount.css" type="text/css">
     <link rel="stylesheet" href="assets/css/util.css" type="text/css">
-
 </head>
 <body>
 <?php include("includes/navigation.php"); ?>
