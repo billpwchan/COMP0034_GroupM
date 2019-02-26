@@ -98,7 +98,8 @@ html, body {
 
 .service-choose button:hover,
 .service-choose button:active,
-.service-choose button:focus {
+.service-choose button:focus,
+.service-choose .active {
     border: 2px solid #86939E;
     outline: none;
 }
