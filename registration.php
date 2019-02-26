@@ -221,5 +221,14 @@ if (isset($_GET['registration']) and $_GET['registration'] === 'allFieldsRequire
             type: 'error'
         });
     </script>
+<?php } else if (isset($_GET['registration']) and $_GET['registration'] === 'success') { ?>
+    <script> Swal.fire({
+            title: 'Registration Successful',
+            animation: false,
+            customClass: 'animated tada',
+            text: "Please go to your E-Mail inbox for activating your account.",
+            type: 'success'
+        });
+    </script>
 <?php } ?>
 </html>

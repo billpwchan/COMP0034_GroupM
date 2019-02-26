@@ -19,7 +19,7 @@ if (sizeof($result) === 1) {
     if (sizeof($result) === 1) {
         //This is a service provider account
         $_SESSION['service_provider'] = $result[0];
-        $providedService = provider_provided_service($userID);
+        $providedServices = provider_provided_service($userID);
     }
 }
 
@@ -51,7 +51,7 @@ function customer_order_history($userID)
     SELECT event.name as 'Event Name', event.event_type as 'Type', event_startTime as 'Start Time', event_location as 'Location', orderdetail.price as 'Price', status as 'Status'
     FROM customer, orderhistory, orderdetail, event
     WHERE customer.user_ID = orderhistory.customer_ID
-    AND orderhistory.orderdetail_ID = orderdetail.orderdetail_ID
+    AND orderhistory.order_ID = orderdetail.order_ID
     AND orderdetail.event_ID = event.event_ID
     AND customer.user_ID = {$userID}
     ";
@@ -61,7 +61,7 @@ function customer_order_history($userID)
 function provider_provided_service($userID)
 {
     $sql = "
-    SELECT event.name as 'Event Name', event.event_type as 'Type'
+    SELECT event.name as 'Event Name', event.event_type as 'Type', event.price as 'Price', event.created as 'Created Time'
     FROM servicesupplier, event
     WHERE servicesupplier.user_ID = event.provider_ID
     AND servicesupplier.user_ID = {$userID}

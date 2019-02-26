@@ -11,7 +11,6 @@ if (!empty($_GET['key']) && isset($_GET['key'])) {
         echo "Invalid Activation Key!";
     }
 
-
 } else {
     echo "Null activation key!";
 }

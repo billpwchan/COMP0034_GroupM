@@ -16,7 +16,6 @@
             <div class="login-pic js-tilt" data-tilt>
                 <img src="./assets/img/logo.jpg" alt="IMG">
             </div>
-
             <?php
             $token = md5(uniqid(rand(), TRUE));
             $_SESSION['token'] = $token;
@@ -60,7 +59,7 @@
 						<span class="txt1">
 							Forgot
 						</span>
-                    <a class="txt2" href="#">
+                    <a class="txt2" href="passwordReset.php">
                         Username / Password?
                     </a>
                 </div>
@@ -80,12 +79,21 @@
 <?php include("includes/scripts.php"); ?>
 <script src="./assets/js/login.js"></script>
 <?php
-if (isset($_SESSION['login_status']) and $_SESSION['login_status'] === 0) { ?>
+if (isset($_GET['login']) and $_GET['login'] === 'failed') { ?>
     <script> Swal.fire({
             title: 'Login Failed',
             animation: false,
             customClass: 'animated tada',
             text: "Invalid Credential Provided",
+            type: 'error'
+        });
+    </script>
+<?php } elseif (isset($_GET['login']) and $_GET['login'] === 'requireActivation') { ?>
+    <script> Swal.fire({
+            title: 'Login Failed',
+            animation: false,
+            customClass: 'animated tada',
+            text: "Please go to your E-Mail inbox for activating your account.",
             type: 'error'
         });
     </script>

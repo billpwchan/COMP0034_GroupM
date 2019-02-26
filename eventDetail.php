@@ -7,7 +7,6 @@
     <?php include("includes/headTags.php"); ?>
     <link rel="stylesheet" href="assets/css/eventDetail.css" type="text/css">
     <link rel="stylesheet" href="assets/css/util.css" type="text/css">
-    <link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
 </head>
 <body>
 <?php include("includes/navigation.php"); ?>
@@ -16,9 +15,11 @@
 
     <!-- Left Column / Headphones Image -->
     <div class="left-column col-lg-6">
-        <img data-image="basic" src="./assets/uploads/event/<?= $productDetails['eventimage1'] ?>" alt="">
-        <img data-image="advanced" src="./assets/uploads/event/<?= $productDetails['eventimage2'] ?>" alt="">
-        <img data-image="premium" class="active" src="./assets/uploads/event/<?= $productDetails['eventimage3'] ?>"
+        <img data-image="basic" src="./assets/uploads/<?= $productType ?>/<?= $productDetails['eventimage1'] ?>" alt="">
+        <img data-image="advanced" src="./assets/uploads/<?= $productType ?>/<?= $productDetails['eventimage2'] ?>"
+             alt="">
+        <img data-image="premium" class="active"
+             src="./assets/uploads/<?= $productType ?>/<?= $productDetails['eventimage3'] ?>"
              alt="">
     </div>
 
@@ -41,9 +42,9 @@
             <!-- Product Configuration -->
             <div class="product-configuration">
                 <div class="service-config">
-                    <span>Performer List</span>
                     <?php switch ($productType) {
                         case 'entertainment': ?>
+                            <span>Performer List</span>
                             <div class="product-detail-table ver1 m-b-10">
                                 <div class="product-detail-table-head">
                                     <table>
@@ -69,8 +70,42 @@
                                     </table>
                                 </div>
                             </div>
-                            <?php break; ?>
-                        <?php } ?>
+                            <?php break;
+                        case "menu": ?>
+                            <span>Menu List</span>
+                            <div class="product-detail-table ver1 m-b-10">
+                                <div class="product-detail-table-head">
+                                    <table>
+                                        <thead>
+                                        <tr class="product-detail-row head">
+                                            <th class="product-detail-cell column1">Menu Name</th>
+                                            <th class="product-detail-cell column2">Quantity</th>
+                                        </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+
+                                <div class="product-detail-table-body js-pscroll">
+                                    <table>
+                                        <tbody>
+                                        <?php foreach ($menus as $menu) { ?>
+                                            <tr class="product-detail-row body">
+                                                <td class="product-detail-cell column1"><?= $menu['name'] ?></td>
+                                                <td class="product-detail-cell column2"><?= $menu['quantity'] ?></td>
+                                            </tr>
+                                        <?php } ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <?php break;
+                        case 'venue': ?>
+                            <span>Location</span>
+                            <iframe width="600" height="450" frameborder="0" style="border:0"
+                                    src="https://www.google.com/maps/embed/v1/search?q=<?= htmlentities($productDetails['address']) ?>&key=AIzaSyAp_ixDe7lUnJhtKJSp6mgByno7jzC7P04"
+                                    allowfullscreen></iframe>
+                            <?php break;
+                    } ?>
 
                     <span>Service Quality</span>
                     <div class="service-choose">
@@ -80,17 +115,13 @@
                         <button type="button" class="advanced" name="advanced">Advanced</button>
                         <button type="button" class="premium" name="premium">Premium</button>
                     </div>
-                          <link rel="stylesheet" href="jquery.datetimepicker.min.css">
-        <script src="jquery.js"></script>
-        <script src="jquery.datetimepicker.full.js"></script>
+                    <link rel="stylesheet" href="./assets/css/jquery.datetimepicker.min.css">
 
-        <label>Availability: </label>
-        <input id="datetime" placeholder="DATE : TIME">
-        <script>
-            $("#datetime").datetimepicker({
-                step: 30
-            })
-        </script>
+                    <span>Booking Time: </span>
+                    <div class="time-choose">
+                        <input id="datetimepicker" class="form__field" type="text" name="eventStartTime"
+                               placeholder="DATE : TIME">
+                    </div>
                     <span>Location Selector</span>
                     <div class="pac-card" id="pac-card">
                         <div style="visibility: hidden; height: 0px;">
@@ -154,6 +185,8 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAp_ixDe7lUnJhtKJSp6mgByno7jzC7P04&libraries=places&callback=initMap"
         async defer></script>
 <script src="assets/js/eventDetail.js" charset="utf-8"></script>
+<script src="assets/js/jquery.js"></script>
+<script src="./assets/js/jquery.datetimepicker.full.js"></script>
 <script>
     function initMap() {
         console.log("Hello");

@@ -5,6 +5,9 @@
     <?php include("includes/headTags.php"); ?>
     <link rel="stylesheet" href="assets/css/shoppingCart.css" type="text/css">
     <link rel="stylesheet" href="assets/css/util.css" type="text/css">
+    <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-grid.css">
+    <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-theme-balham.css">
+    <script src="https://unpkg.com/ag-grid-community/dist/ag-grid-community.min.noStyle.js"></script>
 </head>
 <body>
 <?php include("includes/navigation.php"); ?>
@@ -17,6 +20,9 @@
                 <div class="title">
                     Shopping Bag
                 </div>
+                <!--                <button onclick="getSelectedRows()">Get Selected Rows</button>
+                                <div id="myGrid" class="ag-theme-balham"></div>-->
+
 
                 <div>
                 <?php foreach ($_SESSION['cartItems'] as $key => $cartItem) { ?>
@@ -48,14 +54,19 @@
                 <div class="container-fluid checkout-container">
                     <div class="row">
                         <div class="col-sm-3">
-                            <input type="text" class="form-control voucher-input" id="voucher_code" placeholder="Enter Voucher">
+                            <input type="text" class="form-control voucher-input" id="voucher_code"
+                                   placeholder="Enter Voucher">
                         </div>
                         <div class="col-sm-3">
-                            <button class="btn btn-info voucher-btn" type="submit" id="apply_voucher">Apply Coupon</button>
+                            <button class="btn btn-info voucher-btn" type="submit" id="apply_voucher" name="action"
+                                    value="checkout">Apply Coupon
+                            </button>
                         </div>
                         <div class="col-sm-6">
                             <div class="text-right">
-                                <button class="btn btn-success checkout-btn" type="submit">Proceed to checkout</button>
+                                <button class="btn btn-success checkout-btn" type="submit" id="checkout" name="action"
+                                        value="checkout">Proceed to checkout
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -101,5 +112,25 @@
 </body>
 <?php include("includes/scripts.php"); ?>
 <script src="assets/js/shoppingCart.js"></script>
+<?php
+if (isset($_GET['status']) and $_GET['status'] === 'success') { ?>
+    <script> Swal.fire({
+            title: 'Order Complete',
+            animation: false,
+            customClass: 'animated tada',
+            text: "Thanks for purchasing on UberKidz",
+            type: 'success'
+        });
+    </script>
+<?php } elseif (isset($_GET['status']) and $_GET['status'] === 'insufficientBalance') { ?>
+    <script> Swal.fire({
+            title: 'Order Failed',
+            animation: false,
+            customClass: 'animated tada',
+            text: "Insufficient Balance Detected. Please Add More Fund Into your Account",
+            type: 'error'
+        });
+    </script>
+<?php } ?>
 </html>
 

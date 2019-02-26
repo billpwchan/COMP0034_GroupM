@@ -7,6 +7,7 @@
     line-height: 42px;
     padding-left: 30px;
     padding-right: 60px;
+    margin-bottom: 2rem;
     border-radius: 25px;
     border: none;
     color: #fff;
@@ -67,7 +68,7 @@
 .banner-area {
     background: url(../img/event-header.jpg) right;
     background-size: cover;
-    height: 350px;
+    height: auto;
     opacity: 0.9;
 }
 
@@ -84,7 +85,7 @@
 }
 
 .banner-text {
-    padding-top: 70px;
+    padding-top: 100px;
 }
 
 .banner-content {
@@ -121,8 +122,56 @@
     color: #fff;
 }
 
+.searchbar {
+    margin-bottom: 10px;
+    background-color: #353b48;
+    border-radius: 30px;
+    padding: 10px;
+    margin-left: 1rem;
+}
+
+.search_input {
+    color: white;
+    border: 0;
+    outline: 0;
+    background: none;
+    width: 0;
+    caret-color: transparent;
+    line-height: 40px;
+    transition: width 0.4s linear;
+}
+
+.searchbar:hover > .search_input {
+    padding: 0 10px;
+    width: 200px;
+    caret-color: red;
+    transition: width 0.4s linear;
+}
+
+.searchbar:hover > .search_icon {
+    background: white;
+    color: #e74c3c;
+}
+
+.search_icon {
+    height: 40px;
+    width: 40px;
+    float: right;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    color: white;
+}
+
+.clear-button {
+    margin-bottom: 10px;
+    margin-left: 10px;
+    width: 5rem;
+}
+
 .product {
-    margin-top: 3.5%;
+    margin-top: 15px;
 }
 
 .display-none {

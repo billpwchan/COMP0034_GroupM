@@ -5,19 +5,16 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/controllers/dbConnect.php';
 $connect = db_connect();
 $methodID = $_POST['methodID'];
 
-if ($methodID == 1){
-    $voucher_code = $_POST['voucher_code'];
-    $sql = "SELECT * FROM voucher WHERE voucher_code = '$voucher_code'";
-    $resultset = mysqli_query($connect, $sql);
-    $count = mysqli_num_rows($resultset);
+if ($methodID == 1) {
+    $voucher_code = mysqli_real_escape_string($connect, $_POST['voucher_code']);
+    $sql = "SELECT * FROM voucher WHERE voucher_code = '{$voucher_code}'";
+    $result = db_select($sql);
 
-   if($count === 0){
+
+    if (sizeof($result) === 0) {
         echo 0;
-    }
-    else{
-        $result = mysqli_fetch_array($resultset);
-        $discount = $result["discount"];
+    } else {
+        $discount = $result[0]["discount"];
         $_SESSION['discount'] = $discount;
-        echo $discount;
     }
 };

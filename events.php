@@ -32,17 +32,28 @@
 
 <div class="container product" id="product-display">
     <div class="row">
-        <?php for ($i = 0; $i < min($records_per_page, $row_count - $records_per_page * ($page - 1)); $i++) { ?>
+        <div class="searchbar">
+            <input class="search_input" id="search_input" type="text" name="searchName"
+                   placeholder="Search for Event Name..."
+                   value="<?= isset($_GET['searchKey']) ? $_GET['searchKey'] : "" ?>">
+            <a href="#" class="search_icon"><i class="fas fa-search"></i></a>
+        </div>
+        <?php if (isset($_GET['searchKey']) && $_GET['searchKey'] !== "") { ?>
+            <button type="button" class="btn btn-dark clear-button">Clear</button>
+        <?php } ?>
+    </div>
+    <div class="row">
+        <?php for ($i = 0; $i < min($records_per_page, $row_count_entertainment - $records_per_page * ($page - 1)); $i++) { ?>
             <div class="col-md-4 col-sm-6">
                 <form class="product-grid">
                     <div class='product-id display-none'><?= $entertainments[$i]['event_ID'] ?></div>
                     <div class="product-image">
                         <a href="eventDetail.php?id=<?= $entertainments[$i]['event_ID'] ?>&from=events">
                             <img class="pic-1"
-                                 src="./assets/uploads/event/<?= $entertainments[$i]['eventimage1'] ?>"
+                                 src="./assets/uploads/entertainment/<?= $entertainments[$i]['eventimage1'] ?>"
                                  alt="Preview Image 1">
                             <img class="pic-2"
-                                 src="./assets/uploads/event/<?= $entertainments[$i]['eventimage2'] ?>"
+                                 src="./assets/uploads/entertainment/<?= $entertainments[$i]['eventimage2'] ?>"
                                  alt="Preview Image 2">
                         </a>
                         <ul class="function">
@@ -82,12 +93,12 @@
                             <span class="sr-only">Previous</span>
                         </a>
                     </li>
-                    <?php for ($i = 1; $i <= ceil($row_count / $records_per_page); $i++) { ?>
+                    <?php for ($i = 1; $i <= ceil($row_count_entertainment / $records_per_page); $i++) { ?>
                         <li class="page-item"><a class="page-link" href="events.php?page=<?= $i ?>"><?= $i ?></a></li>
                     <?php } ?>
                     <li class="page-item">
                         <a class="page-link"
-                           <?php if (($page + 1) <= ceil($row_count / $records_per_page)) { ?>href="events.php?page=<?= $page + 1 ?>" <?php } ?>
+                           <?php if (($page + 1) <= ceil($row_count_entertainment / $records_per_page)) { ?>href="events.php?page=<?= $page + 1 ?>" <?php } ?>
                            aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                             <span class="sr-only">Next</span>
@@ -112,7 +123,7 @@ if (isset($_GET['addtocart']) && $_GET['addtocart'] === 'success') { ?>
             type: 'success'
         });
     </script>
-<?php } else if (isset($_GET['display']) && $_GET['display'] === 'invalid') { ?>
+<?php } elseif (isset($_GET['display']) && $_GET['display'] === 'invalid') { ?>
     <script> Swal.fire({
             title: 'Invalid Product',
             animation: false,
@@ -127,6 +138,15 @@ if (isset($_GET['addtocart']) && $_GET['addtocart'] === 'success') { ?>
             animation: false,
             customClass: 'animated tada',
             text: "Invalid Booking TimeSlot.",
+            type: 'error'
+        });
+    </script>
+<?php } elseif (isset($_GET['addtocart']) && $_GET['addtocart'] === 'duplicateInCart') { ?>
+    <script> Swal.fire({
+            title: 'Duplicate Entry in Cart',
+            animation: false,
+            customClass: 'animated tada',
+            text: "The service with specified quality level is already added in your cart",
             type: 'error'
         });
     </script>

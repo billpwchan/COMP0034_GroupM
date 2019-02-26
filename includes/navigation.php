@@ -55,15 +55,12 @@ if (isset($_SESSION['userInfo'])) {
             </li>
             <li class="nav-item <?php if ($CURRENT_PAGE == "FAQ") { ?>active<?php } ?>">
                 <a class="nav-link" href="FAQ.php">
-                    <i class="fas fa-phone"></i>
+                    <i class="fas fa-question-circle"></i>
                     FAQ
                 </a>
             </li>
         </ul>
-        <!--        <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="inputSearch">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="button" id="search">Search</button>
-                </form>-->
+
         <ul class="navbar-nav">
             <?php if (isset($_SESSION['email']) and $_SESSION['login_status'] == 1) { ?>
                 <li class="nav-item">
@@ -74,14 +71,16 @@ if (isset($_SESSION['userInfo'])) {
                         <a class="dropdown-item" id="logout">Logout</a>
                     </div>
                 </li>
-                <li class="nav-item"><a href="#" class="nav-link" id="cart"><i class="fa fa-shopping-cart"></i> Cart
-                        <span
-                                class="badge"><?= sizeof($_SESSION['cartItems']) ?></span></a></li>
-            <?php } ?>
+                <?php if (isset($_SESSION['customer'])) { ?>
+                    <li class="nav-item"><a href="#" class="nav-link" id="cart"><i class="fa fa-shopping-cart"></i> Cart
+                            <span
+                                    class="badge"><?= sizeof($_SESSION['cartItems']) ?></span></a></li>
+                <?php }
+            } ?>
         </ul>
     </div>
 </nav>
-<?php if (isset($_SESSION['email']) and $_SESSION['login_status'] == 1) { ?>
+<?php if (isset($_SESSION['email']) and $_SESSION['login_status'] == 1 and isset($_SESSION['customer'])) { ?>
     <div class="container">
         <div class="shopping-cart">
             <div class="shopping-cart-header">
@@ -103,7 +102,9 @@ if (isset($_SESSION['userInfo'])) {
             <ul class="shopping-cart-items">
                 <?php foreach ($_SESSION['cartItems'] as $cartItem) { ?>
                     <li class="clearfix">
-                        <img src="./assets/uploads/event/<?= $cartItem['eventimage1'] ?>" alt="item1" width="80"
+                        <img src="./assets/uploads/<?= $cartItem['event_type'] ?>/<?= $cartItem['eventimage1'] ?>"
+                             alt="item1"
+                             width="80"
                              height="60"/>
                         <span class="item-name"><?= $cartItem['name'] ?></span>
                         <span class="item-price">&#163;<?= $cartItem['price'] * $cartItem['quantity'] ?></span><br>
