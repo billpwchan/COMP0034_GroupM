@@ -69,3 +69,6 @@ $transport = (new Swift_SmtpTransport($smtp_server, $port, $encryption))
 $mailer = new Swift_Mailer($transport);
 
 $mailer->send($message);
+
+header("location:../../passwordReset.php?status=requireVerification");
+exit();

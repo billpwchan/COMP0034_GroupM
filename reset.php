@@ -61,4 +61,26 @@ if (false !== ctype_xdigit($selector) && false !== ctype_xdigit($validator)) :
 <?php endif; ?>
 </body>
 <?php include("includes/scripts.php"); ?>
+<?php
+if (isset($_GET['status']) and $_GET['status'] === 'success') { ?>
+    <script> Swal.fire({
+            title: 'Password Update Successfully! ',
+            animation: false,
+            customClass: 'animated tada',
+            html: '<a href="login.php">Click here to Login!</a>',
+            text: "Thanks for using UberKidz Service.",
+            type: 'success'
+        });
+    </script>
+<?php } elseif (isset($_GET['status']) and $_GET['status'] === 'failed') { ?>
+    <script> Swal.fire({
+            title: 'Password Update Failed ',
+            animation: false,
+            customClass: 'animated tada',
+            html: '<a href="passwordReset.php">Click here to retry...</a>',
+            text: "Please try again",
+            type: 'error'
+        });
+    </script>
+<?php } ?>
 </html>

@@ -51,4 +51,15 @@
 </div>
 </body>
 <?php include("includes/scripts.php"); ?>
+<?php
+if (isset($_GET['status']) and $_GET['status'] === 'requireVerification') { ?>
+    <script> Swal.fire({
+            title: 'Password Reset Link Sent',
+            animation: false,
+            customClass: 'animated tada',
+            text: "Please check your email inbox",
+            type: 'success'
+        });
+    </script>
+<?php } ?>
 </html>

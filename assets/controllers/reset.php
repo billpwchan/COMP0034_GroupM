@@ -10,7 +10,8 @@ $time = time();
 $sql = "SELECT * FROM passwordreset WHERE selector = '$selector' AND expires >= $time";
 $result = db_select($sql);
 if (empty($result)) {
-    echo "There was an error processing your request. Error Code: 002";
+    header("location:../../reset.php?status=failed");
+    exit();
 } else {
     $auth_token = $result[0];
     $validator = $_POST['validator'];
@@ -28,9 +29,10 @@ if (empty($result)) {
 
         if ($update == true) {
             session_destroy();
-            echo "Password Update Successfully! ";
+            header("location:../../reset.php?status=success");
         }
     } else {
-        echo "Error Token";
+        header("location:../../reset.php?status=failed");
+        exit();
     }
 }
