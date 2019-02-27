@@ -58,6 +58,12 @@
                 </div>
 
                 <div class="text-center p-t-11">
+                    <input type="checkbox" name="remember" id="remember"
+                        <?php if (isset($_COOKIE["member_login"])) { ?> checked
+                        <?php } ?> /> <label for="remember-me">Remember me</label>
+                </div>
+
+                <div class="text-center p-t-11">
 						<span class="txt1">
 							Forgot
 						</span>
@@ -66,11 +72,6 @@
                     </a>
                 </div>
 
-                <div class="text-center p-t-11">
-                    <input type="checkbox" name="remember" id="remember"
-                        <?php if (isset($_COOKIE["member_login"])) { ?> checked
-                        <?php } ?> /> <label for="remember-me">Remember me</label>
-                </div>
 
                 <div class="text-center p-t-50">
                     <a class="txt2" href="registration.php">
