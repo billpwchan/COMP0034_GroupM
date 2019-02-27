@@ -7,7 +7,6 @@ if (!isset($_SESSION['userInfo']) && empty($_SESSION['userInfo'])) {
     session_unset();
     header('location:index.php');
 }
-print_r($_SESSION['userInfo']);
 
 $userID = (int)mysqli_real_escape_string($connect, $_SESSION['userInfo']['user_ID']);
 $result = customer_read($userID);

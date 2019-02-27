@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/assets/model/auth.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/model/auth.php';
 $auth = new auth();
 
 // Get Current date, time
@@ -23,7 +23,7 @@ else if (!empty($_COOKIE["member_login"]) && !empty($_COOKIE["random_password"])
 
     // Get token for username
     $userToken = $auth->getTokenByEmail($_COOKIE["member_login"], 0);
-    print_r($userToken);
+    $_SESSION['email'] = $_COOKIE['member_login'];
 
     // Validate random password cookie with database
     if (password_verify($_COOKIE["random_password"], $userToken[0]["password_hash"])) {

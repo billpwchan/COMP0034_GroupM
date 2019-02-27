@@ -20,6 +20,7 @@
             $token = md5(uniqid(rand(), TRUE));
             $_SESSION['token'] = $token;
             $_SESSION['token_time'] = time();
+            include "./assets/controllers/rememberMeCookieAuth.php";
             ?>
             <form class="login-form validate-form" method="post" action="./assets/controllers/login.php">
                 <input type="hidden" name="token" value="<?= $token ?>"/>
@@ -28,7 +29,7 @@
 					</span>
                 <div class="wrap-input validate-input">
                     <input class="userInput" type="text" name="email" placeholder="Email"
-                           value="<?= isset($_COOKIE['member_login']) ? $_COOKIE['member_login'] : '' ?>">
+                           value="<?= $isLoggedIn ? $_SESSION['email'] : "" ?>">
                     <span class="focus-input"></span>
                     <span class="symbol-input">
 							<i class="fas fa-envelope" aria-hidden="true"></i>
@@ -39,7 +40,8 @@
                 </div>
 
                 <div class="wrap-input validate-input">
-                    <input class="userInput" type="password" name="pass" placeholder="Password">
+                    <input class="userInput" type="password" name="pass" placeholder="Password"
+                           value="<?= $isLoggedIn ? "Password123456" : "" ?>">
                     <span class="focus-input"></span>
                     <span class="symbol-input">
 							<i class="fas fa-lock" aria-hidden="true"></i>
