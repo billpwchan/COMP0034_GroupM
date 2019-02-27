@@ -78,13 +78,18 @@ class dbController
     {
         $sql = $this->conn->prepare($query);
         $this->bindQueryParams($sql, $param_type, $param_value_array);
-        $sql->execute();
+        return $sql->execute();
     }
 
     function db_update($query, $param_type, $param_value_array)
     {
         $sql = $this->conn->prepare($query);
         $this->bindQueryParams($sql, $param_type, $param_value_array);
-        $sql->execute();
+        return $sql->execute();
+    }
+
+    function db_lastID()
+    {
+        return mysqli_insert_id($this->conn);
     }
 }

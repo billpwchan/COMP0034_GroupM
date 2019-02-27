@@ -2,6 +2,7 @@
   "require": {
     "swiftmailer/swiftmailer": "@stable",
     "ext-mysqli": "*",
-    "ext-json": "*"
+    "ext-json": "*",
+    "ext-openssl": "*"
   }
 }

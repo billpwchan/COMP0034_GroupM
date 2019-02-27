@@ -64,6 +64,12 @@
                     </a>
                 </div>
 
+                <div class="text-center p-t-11">
+                    <input type="checkbox" name="remember" id="remember"
+                        <?php if (isset($_COOKIE["member_login"])) { ?> checked
+                        <?php } ?> /> <label for="remember-me">Remember me</label>
+                </div>
+
                 <div class="text-center p-t-50">
                     <a class="txt2" href="registration.php">
                         Create your Account
@@ -90,11 +96,11 @@ if (isset($_GET['login']) and $_GET['login'] === 'failed') { ?>
     </script>
 <?php } elseif (isset($_GET['login']) and $_GET['login'] === 'requireActivation') { ?>
     <script> Swal.fire({
-            title: 'Login Failed',
+            title: 'One More Step...',
             animation: false,
             customClass: 'animated tada',
             text: "Please go to your E-Mail inbox for activating your account.",
-            type: 'error'
+            type: 'success'
         });
     </script>
 <?php }
