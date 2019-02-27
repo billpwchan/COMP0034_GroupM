@@ -3,7 +3,8 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/controllers/dbConnect.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/controllers/tokenValidation.php';
 $connect = db_connect();
 
-$previousURL = $_GET['from'];
+$previousURL = trim(preg_replace('/ +/', ' ', preg_replace('/[^A-Za-z0-9 ]/', ' ', urldecode(html_entity_decode(strip_tags($_GET['from']))))));
+
 if (!isset($_SESSION['userInfo'])) {
     header("location:../../login.php");
 }

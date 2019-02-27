@@ -3,7 +3,7 @@
 <html>
 <head>
     <?php include("includes/headTags.php"); ?>
-    <link rel="stylesheet" href="assets/css/mdb.min.css" type="text/css">
+    <!--    <link rel="stylesheet" href="assets/css/mdb.min.css" type="text/css">-->
     <link rel="stylesheet" href="assets/css/util.css" type="text/css">
     <link rel="stylesheet" href="assets/css/registration.css" type="text/css">
 </head>
@@ -193,7 +193,7 @@
 
 <?php include("includes/scripts.php"); ?>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-<script src="assets/js/mdb.min.js"></script>
+<!--<script src="assets/js/mdb.min.js"></script>-->
 <script src="assets/js/accountValidationUtil.js"></script>
 <script src="assets/js/registration.js"></script>
 

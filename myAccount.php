@@ -1,9 +1,4 @@
 <?php include("includes/config.php"); ?>
-<?php
-if (!isset($_SESSION['userInfo'])) {
-    header('index.php');
-}
-?>
 <?php include("assets/controllers/myAccount.php") ?>
 <!doctype html>
 <html>

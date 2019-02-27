@@ -65,6 +65,19 @@ class auth
         } while ($rnd >= $range);
         return $min + $rnd;
     }
+
+    public function clearCookies()
+    {
+        if (isset($_COOKIE["member_login"])) {
+            setcookie("member_login", "");
+        }
+        if (isset($_COOKIE["random_password"])) {
+            setcookie("random_password", "");
+        }
+        if (isset($_COOKIE["random_selector"])) {
+            setcookie("random_selector", "");
+        }
+    }
 }
 
 ?>

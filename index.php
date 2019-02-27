@@ -1,4 +1,6 @@
-<?php include("includes/config.php"); ?>
+<?php
+ob_start();
+include("includes/config.php"); ?>
 <!doctype html>
 <html>
 <head>
@@ -9,6 +11,7 @@
         session_unset();
         header('Location: index.php');
     } ?>
+    <?php print_r(print_r($_COOKIE)); ?>
     <link rel="stylesheet" href="assets/css/styles.css" type="text/css">
     <link rel="stylesheet" href="assets/css/util.css" type="text/css">
     <link rel="stylesheet" href="assets/css/animate.css" type="text/css">
@@ -31,7 +34,9 @@
                         <p class="white-text">Concerns greatest margaret him absolute entrance nay. Door neat week do
                             find past he. Be no surprise he honoured indulged. Unpacked endeavor six steepest had
                             husbands h</p>
-                            <a class="white-btn" id="get_started" href="<?php if (isset($_SESSION['email'])) { ?>myAccount.php<?php } else { ?>login.php<?php } ?>">Get Started</a>
+                        <a class="white-btn" id="get_started"
+                           href="<?php if (isset($_SESSION['userInfo']['email_address'])) { ?>myAccount.php<?php } else { ?>login.php<?php } ?>">Get
+                            Started</a>
                         <button class="main-btn">Learn more</button>
                     </div>
                 </div>

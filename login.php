@@ -26,9 +26,9 @@
                 <span class="login-form-title">
 						Member Login
 					</span>
-
                 <div class="wrap-input validate-input">
-                    <input class="userInput" type="text" name="email" placeholder="Email">
+                    <input class="userInput" type="text" name="email" placeholder="Email"
+                           value="<?= isset($_COOKIE['member_login']) ? $_COOKIE['member_login'] : '' ?>">
                     <span class="focus-input"></span>
                     <span class="symbol-input">
 							<i class="fas fa-envelope" aria-hidden="true"></i>
@@ -103,7 +103,5 @@ if (isset($_GET['login']) and $_GET['login'] === 'failed') { ?>
             type: 'success'
         });
     </script>
-<?php }
-unset($_SESSION['login_status']);
-?>
+<?php } ?>
 </html>
