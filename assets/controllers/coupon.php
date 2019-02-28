@@ -1,15 +1,12 @@
 <?php
-session_start();
-include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/controllers/dbConnect.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/controllers/tokenValidation.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/model/cart.php';
 
-$connect = db_connect();
+$cart = new cart();
 $methodID = $_POST['methodID'];
 
 if ($methodID == 1) {
-    $voucher_code = mysqli_real_escape_string($connect, $_POST['voucher_code']);
-    $sql = "SELECT * FROM voucher WHERE voucher_code = '{$voucher_code}'";
-    $result = db_select($sql);
-
+    $result = $cart->applyCoupon($_POST['voucher_code']);
 
     if (sizeof($result) === 0) {
         echo 0;
