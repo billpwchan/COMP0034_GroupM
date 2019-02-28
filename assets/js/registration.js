@@ -122,8 +122,6 @@ function validate_Input1() {
         check = false;
         showAlert("Please select Account Type!", "Only customer can place order, while service provider can add products.")
     }
-
-
     return check;
 }
 

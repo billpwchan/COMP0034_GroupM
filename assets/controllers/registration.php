@@ -10,6 +10,7 @@ if (isset($_SESSION["userInfo"])) {
     header("location:../../login.php");
     exit();
 }
+
 if (empty($_POST["email"]) || empty($_POST["pass"]) || empty($_POST["cpass"])
     || empty($_POST["gender"]) | empty($_POST["fname"])
     || empty($_POST["lname"])) {

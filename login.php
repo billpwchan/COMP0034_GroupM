@@ -57,13 +57,15 @@
                     </button>
                 </div>
 
-                <div class="text-center p-t-11">
+                <div class="chiller_cb text-center p-t-20">
                     <input type="checkbox" name="remember" id="remember"
                         <?php if (isset($_COOKIE["member_login"])) { ?> checked
-                        <?php } ?> /> <label for="remember-me">Remember me</label>
+                        <?php } ?> />
+                    <label for="remember">Remember me</label>
+                    <span></span>
                 </div>
 
-                <div class="text-center p-t-11">
+                <div class="text-center p-t-33">
 						<span class="txt1">
 							Forgot
 						</span>
@@ -73,7 +75,7 @@
                 </div>
 
 
-                <div class="text-center p-t-50">
+                <div class="text-center p-t-11">
                     <a class="txt2" href="registration.php">
                         Create your Account
                         <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
