@@ -1,7 +1,9 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/model/user.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/controllers/tokenValidation.php';
-if ($_POST['token'] !== $_SESSION['token']) {
+echo $_SESSION['token'];
+echo $_POST['token'];
+if ($_POST['token'] != $_SESSION['token']) {
     header("Location:../../index.php?status=invalidToken");
     exit();
 }

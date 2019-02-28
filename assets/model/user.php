@@ -13,7 +13,7 @@ class user
     function register($firstName, $lastName, $gender, $email, $password, $contactNumber, $avatar, $accountType)
     {
         $db_handle = new dbController();
-        if ($this->checkUserExistsByEmail($email)) {
+        if (!$this->checkUserExistsByEmail($email)) {
             $password = password_hash($password, PASSWORD_DEFAULT);
             $registrationDate = date('Y-m-d H:i:s');
             $email_activation_key = md5($email . $firstName . $lastName);
@@ -55,8 +55,8 @@ class user
     public function activateAccount($key)
     {
         $db_handle = new dbController();
-        $sql = "UPDATE `user` SET status = 1, email_activation_key = '' WHERE email_activation_key = ?";
-        return $db_handle->db_update($sql, 's', $key);
+        $sql = "UPDATE user SET status = 1, email_activation_key = '' WHERE email_activation_key = ?";
+        return $db_handle->db_update($sql, 's', array($key));
     }
 
     function selectUserByEmail($email)

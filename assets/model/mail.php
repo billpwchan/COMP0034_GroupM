@@ -18,8 +18,10 @@ class mail
 
     function __construct()
     {
+        if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php')) {
+            require_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
+        }
         $config = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . '/config.ini');
-//        $this->$folder = $config['rootFolderName'];
         $this->folder = $config['rootFolderName'];
         $this->smtp_server = $config['smtp_server'];
         $this->username = $config['email_name'];
@@ -29,9 +31,6 @@ class mail
         $this->transport = (new Swift_SmtpTransport($this->smtp_server, $this->port, $this->encryption))
             ->setUsername($this->username)
             ->setPassword($this->password);
-        if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php')) {
-            require_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
-        }
     }
 
     function emailActivation($subject, $to, $name, $email_activation_key)
