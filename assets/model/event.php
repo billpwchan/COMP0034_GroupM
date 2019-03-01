@@ -8,9 +8,17 @@
 
 require_once "dbController.php";
 
+/**
+ * Class event
+ */
 class event
 {
 
+    /**
+     * @param $from_record_num
+     * @param $records_per_page
+     * @return array
+     */
     function read_entertainment($from_record_num, $records_per_page)
     {
         $db_handle = new dbController();
@@ -25,6 +33,12 @@ class event
         return $db_handle->db_query($sql, 'ii', array($from_record_num, $records_per_page));
     }
 
+    /**
+     * @param $from_record_num
+     * @param $records_per_page
+     * @param $searchKey
+     * @return array
+     */
     function read_entertainment_with_searched_name($from_record_num, $records_per_page, $searchKey)
     {
         $db_handle = new dbController();
@@ -40,6 +54,9 @@ class event
         return $db_handle->db_query($sql, 'sii', array('%' . $searchKey . '%', $from_record_num, $records_per_page));
     }
 
+    /**
+     * @return mixed
+     */
     function row_count_entertainment()
     {
         $db_handle = new dbController();
@@ -52,6 +69,10 @@ class event
         return $db_handle->db_query($sql, 's', array('entertainment'))[0]['rowCount'];
     }
 
+    /**
+     * @param $searchKey
+     * @return mixed
+     */
     function row_count_entertainment_with_searched_name($searchKey)
     {
         $db_handle = new dbController();
@@ -65,6 +86,11 @@ class event
         return $db_handle->db_query($sql, 's', array('%' . $searchKey . '%'))[0]['rowCount'];
     }
 
+    /**
+     * @param $from_record_num
+     * @param $records_per_page
+     * @return array
+     */
     function read_menus($from_record_num, $records_per_page)
     {
         $db_handle = new dbController();
@@ -79,6 +105,12 @@ class event
         return $db_handle->db_query($sql, 'ii', array($from_record_num, $records_per_page));
     }
 
+    /**
+     * @param $from_record_num
+     * @param $records_per_page
+     * @param $searchKey
+     * @return array
+     */
     function read_menus_with_searched_name($from_record_num, $records_per_page, $searchKey)
     {
         $db_handle = new dbController();
@@ -94,6 +126,9 @@ class event
         return $db_handle->db_query($sql, 'sii', array('%' . $searchKey . '%', $from_record_num, $records_per_page));
     }
 
+    /**
+     * @return mixed
+     */
     function row_count_menus()
     {
         $db_handle = new dbController();
@@ -106,6 +141,10 @@ class event
         return $db_handle->db_query($sql, 's', array('menu'))[0]['rowCount'];
     }
 
+    /**
+     * @param $searchKey
+     * @return mixed
+     */
     function row_count_menus_with_searched_name($searchKey)
     {
         $db_handle = new dbController();
@@ -119,6 +158,11 @@ class event
         return $db_handle->db_query($sql, 's', array('%' . $searchKey . '%'))[0]['rowCount'];
     }
 
+    /**
+     * @param $from_record_num
+     * @param $records_per_page
+     * @return array
+     */
     function read_venues($from_record_num, $records_per_page)
     {
         $db_handle = new dbController();
@@ -133,6 +177,12 @@ class event
         return $db_handle->db_query($sql, 'ii', array($from_record_num, $records_per_page));
     }
 
+    /**
+     * @param $from_record_num
+     * @param $records_per_page
+     * @param $searchKey
+     * @return array
+     */
     function read_with_searched_name($from_record_num, $records_per_page, $searchKey)
     {
         $db_handle = new dbController();
@@ -148,6 +198,9 @@ class event
         return $db_handle->db_query($sql, 'sii', array('%' . $searchKey . '%', $from_record_num, $records_per_page));
     }
 
+    /**
+     * @return mixed
+     */
     function row_count_venue()
     {
         $db_handle = new dbController();
@@ -160,6 +213,10 @@ class event
         return $db_handle->db_query($sql, 's', array('venue'))[0]['rowCount'];
     }
 
+    /**
+     * @param $searchKey
+     * @return mixed
+     */
     function row_count_venue_with_searched_name($searchKey)
     {
         $db_handle = new dbController();
@@ -174,6 +231,11 @@ class event
     }
 
 
+    /**
+     * @param $productID
+     * @param $productType
+     * @return array
+     */
     public function read_event_detail($productID, $productType)
     {
         $db_handle = new dbController();
@@ -188,6 +250,11 @@ class event
 
     }
 
+    /**
+     * @param $productID
+     * @param $productType
+     * @return array
+     */
     public function read_menu_detail($productID, $productType)
     {
         $db_handle = new dbController();
@@ -202,6 +269,11 @@ class event
 
     }
 
+    /**
+     * @param $productID
+     * @param $productType
+     * @return array
+     */
     public function read_venue_detail($productID, $productType)
     {
         $db_handle = new dbController();
@@ -215,6 +287,10 @@ class event
         return $db_handle->db_query($sql, 'is', array($productID, $productType));
     }
 
+    /**
+     * @param $productID
+     * @return array
+     */
     public function read_entertainer_detail($productID)
     {
         $db_handle = new dbController();
@@ -228,6 +304,10 @@ class event
         return $db_handle->db_query($sql, 'i', array($productID));
     }
 
+    /**
+     * @param $productID
+     * @return array
+     */
     public function read_menuItem_detail($productID)
     {
         $db_handle = new dbController();

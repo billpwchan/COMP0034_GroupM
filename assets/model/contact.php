@@ -8,6 +8,9 @@
 require_once "dbController.php";
 
 
+/**
+ * Class contact
+ */
 class contact
 {
 
@@ -18,6 +21,12 @@ class contact
     {
     }
 
+    /**
+     * @param $name
+     * @param $email
+     * @param $message
+     * @return bool
+     */
     public function storeMessage($name, $email, $message)
     {
         $db_handle = new dbController();

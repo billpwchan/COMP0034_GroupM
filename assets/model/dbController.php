@@ -15,6 +15,9 @@ class dbController
     private $conn;
 
 
+    /**
+     * dbController constructor.
+     */
     function __construct()
     {
         $config = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . '/config.ini');
@@ -25,12 +28,19 @@ class dbController
         $this->conn = $this->connectDB();
     }
 
+    /**
+     * @return mysqli
+     */
     function connectDB()
     {
         $conn = mysqli_connect($this->host, $this->user, $this->password, $this->database);
         return $conn;
     }
 
+    /**
+     * @param $query
+     * @return array
+     */
     function runBaseQuery($query)
     {
         $result = mysqli_query($this->conn, $query);
@@ -42,6 +52,12 @@ class dbController
     }
 
 
+    /**
+     * @param $query
+     * @param $param_type
+     * @param $param_value_array
+     * @return array
+     */
     function db_query($query, $param_type, $param_value_array)
     {
 
@@ -62,6 +78,11 @@ class dbController
         return array();
     }
 
+    /**
+     * @param $sql
+     * @param $param_type
+     * @param $param_value_array
+     */
     function bindQueryParams($sql, $param_type, $param_value_array)
     {
         $param_value_reference[] = &$param_type;
@@ -74,6 +95,12 @@ class dbController
         ), $param_value_reference);
     }
 
+    /**
+     * @param $query
+     * @param $param_type
+     * @param $param_value_array
+     * @return bool
+     */
     function db_insert($query, $param_type, $param_value_array)
     {
         $sql = $this->conn->prepare($query);
@@ -81,6 +108,12 @@ class dbController
         return $sql->execute();
     }
 
+    /**
+     * @param $query
+     * @param $param_type
+     * @param $param_value_array
+     * @return bool
+     */
     function db_update($query, $param_type, $param_value_array)
     {
         $sql = $this->conn->prepare($query);
@@ -88,6 +121,9 @@ class dbController
         return $sql->execute();
     }
 
+    /**
+     * @return int|string
+     */
     function db_lastID()
     {
         return mysqli_insert_id($this->conn);

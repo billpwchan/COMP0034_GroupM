@@ -16,6 +16,9 @@ class mail
     private $encryption;
     private $transport;
 
+    /**
+     * mail constructor.
+     */
     function __construct()
     {
         if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php')) {
@@ -33,6 +36,12 @@ class mail
             ->setPassword($this->password);
     }
 
+    /**
+     * @param $subject
+     * @param $to
+     * @param $name
+     * @param $email_activation_key
+     */
     function emailActivation($subject, $to, $name, $email_activation_key)
     {
 

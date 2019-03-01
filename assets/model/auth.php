@@ -26,6 +26,10 @@ class auth
         return $db_handle->db_query($sql, 'si', array($selector, $time));
     }
 
+    /**
+     * @param $email
+     * @return array
+     */
     public function clearResetLink($email)
     {
         $db_handle = new dbController();

@@ -8,13 +8,24 @@
 
 require_once "dbController.php";
 
+/**
+ * Class cart
+ */
 class cart
 {
+
+    /**
+     * cart constructor.
+     */
     public function __construct()
     {
 
     }
 
+    /**
+     * @param $userID
+     * @return array
+     */
     public function displayCart($userID)
     {
         $db_handle = new dbController();
@@ -27,6 +38,10 @@ class cart
         return $db_handle->db_query($sql, 'i', array($userID));
     }
 
+    /**
+     * @param $voucher_code
+     * @return array
+     */
     public function applyCoupon($voucher_code)
     {
         $db_handle = new dbController();
