@@ -20,7 +20,7 @@
             $token = md5(uniqid(rand(), TRUE));
             $_SESSION['token'] = $token;
             $_SESSION['token_time'] = time();
-            include "./assets/controllers/rememberMeCookieAuth.php";
+            require "./assets/controllers/rememberMeCookieAuth.php";
             ?>
             <form class="login-form validate-form" method="post" action="./assets/controllers/login.php">
                 <input type="hidden" name="token" value="<?= $token ?>"/>
