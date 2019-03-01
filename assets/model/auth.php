@@ -8,9 +8,40 @@
 
 require_once "dbController.php";
 
+/**
+ * Class auth
+ */
 class auth
 {
 
+    /**
+     * @param $selector
+     * @param $time
+     * @return array
+     */
+    public function checkResetExpiry($selector, $time)
+    {
+        $db_handle = new dbController();
+        $sql = "SELECT * FROM passwordreset WHERE selector = ? AND expires >= ?";
+        return $db_handle->db_query($sql, 'si', array($selector, $time));
+    }
+
+    /**
+     * @param $email
+     * @return array
+     */
+    public function clearResetLink($email)
+    {
+        $db_handle = new dbController();
+        $sql = "DELETE FROM passwordreset WHERE email = ?";
+        return $db_handle->db_query($sql, 's', array($email));
+    }
+
+    /**
+     * @param $email
+     * @param $expired
+     * @return array
+     */
     function getTokenByEmail($email, $expired)
     {
         $db_handle = new dbController();
@@ -19,6 +50,10 @@ class auth
         return $result;
     }
 
+    /**
+     * @param $tokenId
+     * @return bool
+     */
     function markAsExpired($tokenId)
     {
         $db_handle = new dbController();
@@ -28,6 +63,13 @@ class auth
         return $result;
     }
 
+    /**
+     * @param $email
+     * @param $random_password_hash
+     * @param $random_selector_hash
+     * @param $expiry_date
+     * @return bool
+     */
     function insertToken($email, $random_password_hash, $random_selector_hash, $expiry_date)
     {
         $db_handle = new dbController();
@@ -36,6 +78,10 @@ class auth
         return $result;
     }
 
+    /**
+     * @param $length
+     * @return string
+     */
     public function getToken($length)
     {
         $token = "";
@@ -49,6 +95,11 @@ class auth
         return $token;
     }
 
+    /**
+     * @param $min
+     * @param $max
+     * @return int
+     */
     public function cryptoRandSecure($min, $max)
     {
         $range = $max - $min;
@@ -66,6 +117,9 @@ class auth
         return $min + $rnd;
     }
 
+    /**
+     *
+     */
     public function clearCookies()
     {
         if (isset($_COOKIE["member_login"])) {

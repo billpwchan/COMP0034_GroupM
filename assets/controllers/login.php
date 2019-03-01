@@ -1,7 +1,6 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/controllers/tokenValidation.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/model/user.php';
-
+include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/controllers/tokenValidation.php';
 
 if ($_POST['token'] != $_SESSION['token']) {
     header("Location:../../index.php?status=invalidToken");
@@ -15,7 +14,7 @@ include_once "rememberMeCookieAuth.php";
 if ($isLoggedIn) {
     $_SESSION['userInfo'] = $user->selectUserByEmail($_COOKIE['member_login'])[0];
     unset($_SESSION['userInfo']['password']);
-//    header("Location:../../myAccount.php?login=success");
+    header("Location:../../myAccount.php?login=success");
     exit();
 }
 
@@ -32,13 +31,13 @@ if (isset($_POST['email']) and isset($_POST['pass'])) {
         }
 
         if (isset($_POST["remember"])) {
-            setcookie("member_login", $email, $cookie_expiration_time, "/", "127.0.0.1");
+            setcookie("member_login", $email, $cookie_expiration_time, "/");
 
             $random_password = $auth->getToken(16);
-            setcookie("random_password", $random_password, $cookie_expiration_time, "/", "127.0.0.1");
+            setcookie("random_password", $random_password, $cookie_expiration_time, "/");
 
             $random_selector = $auth->getToken(32);
-            setcookie("random_selector", $random_selector, $cookie_expiration_time, "/", "127.0.0.1");
+            setcookie("random_selector", $random_selector, $cookie_expiration_time, "/");
 
             $random_password_hash = password_hash($random_password, PASSWORD_DEFAULT);
             $random_selector_hash = password_hash($random_selector, PASSWORD_DEFAULT);

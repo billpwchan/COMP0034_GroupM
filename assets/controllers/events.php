@@ -1,18 +1,19 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/controllers/dbConnect.php';
-include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/controllers/tokenValidation.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/model/event.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/controllers/eventUtilFunc.php';
-$connect = db_connect();
+include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/controllers/tokenValidation.php';
+
+$event = new event();
 
 if (!isset($_GET['criteria'])) {
-    $entertainments = read_entertainment($from_record_num, $records_per_page);
-    $row_count_entertainment = row_count_entertainment();
+    $entertainments = $event->read_entertainment($from_record_num, $records_per_page);
+    $row_count_entertainment = $event->row_count_entertainment();
 } elseif (isset($_GET['criteria'])) {
-    $searchKey = mysqli_real_escape_string($connect, $_GET['searchKey']);
+    $searchKey = $_GET['searchKey'];
     switch ($_GET['criteria']) {
         case 1:
-            $entertainments = read_entertainment_with_searched_name($from_record_num, $records_per_page, $searchKey);
-            $row_count_entertainment = row_count_entertainment_with_searched_name($searchKey);
+            $entertainments = $event->read_entertainment_with_searched_name($from_record_num, $records_per_page, $searchKey);
+            $row_count_entertainment = $event->row_count_entertainment_with_searched_name($searchKey);
             break;
     }
 }

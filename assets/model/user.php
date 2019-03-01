@@ -8,8 +8,22 @@
 require_once "dbController.php";
 require_once "mail.php";
 
+/**
+ * Class user
+ */
 class user
 {
+    /**
+     * @param $firstName
+     * @param $lastName
+     * @param $gender
+     * @param $email
+     * @param $password
+     * @param $contactNumber
+     * @param $avatar
+     * @param $accountType
+     * @return bool
+     */
     function register($firstName, $lastName, $gender, $email, $password, $contactNumber, $avatar, $accountType)
     {
         $db_handle = new dbController();
@@ -45,6 +59,10 @@ class user
         return false;
     }
 
+    /**
+     * @param $email
+     * @return bool
+     */
     private function checkUserExistsByEmail($email)
     {
         $db_handle = new dbController();
@@ -52,6 +70,10 @@ class user
         return sizeof($db_handle->db_query($sql, 's', array($email))) === 1;
     }
 
+    /**
+     * @param $key
+     * @return bool
+     */
     public function activateAccount($key)
     {
         $db_handle = new dbController();
@@ -59,6 +81,10 @@ class user
         return $db_handle->db_update($sql, 's', array($key));
     }
 
+    /**
+     * @param $email
+     * @return array
+     */
     function selectUserByEmail($email)
     {
         $db_handle = new dbController();
@@ -68,5 +94,17 @@ class user
         WHERE email_address = ?
         ";
         return $db_handle->db_query($sql, 's', array($email));
+    }
+
+    /**
+     * @param $password
+     * @param $email
+     * @return bool
+     */
+    function updatePassword($password, $email)
+    {
+        $db_handle = new dbController();
+        $sql = "UPDATE user SET password = ? WHERE email_address = ?";
+        return $db_handle->db_update($sql, 'ss', array($password, $email));
     }
 }

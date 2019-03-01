@@ -32,7 +32,6 @@ document.querySelector("#save_button_first_name").addEventListener("click", func
         document.querySelector("#cancel_button_first_name").style.visibility = "hidden";
         update_first_name();
         original_firstname = document.querySelector("#staticfirst_name").value;
-        alert(original_firstname);
     }
 });
 document.querySelector("#cancel_button_first_name").addEventListener("click", function () {
