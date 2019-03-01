@@ -22,6 +22,27 @@ class cart
 
     }
 
+    public function insertCart($userID, $productID, $quality, $eventStartTime, $eventLocation, $price)
+    {
+        $db_handle = new dbController();
+        $sql = "INSERT INTO 
+          cart (user_ID, event_ID, quantity, quality, eventStartTime, eventLocation, price) 
+          VALUES (?, ?, 1, ?, ?, ?, ?)
+          ";
+        return $db_handle->db_update($sql, 'iisssd', array($userID, $productID, $quality, $eventStartTime, $eventLocation, $price));
+    }
+
+    function checkOverlapBookingCart($productID, $startTime, $endTime)
+    {
+        $db_handle = new dbController();
+        $sql = "SELECT quantity
+                FROM cart
+                WHERE event_ID = ?
+                AND eventStartTime BETWEEN ? AND ?
+            ";
+        return $db_handle->db_query($sql, 'iss', array($productID, $startTime, $endTime));
+    }
+
     /**
      * @param $userID
      * @return array

@@ -34,7 +34,7 @@
                                 <span><?= $cartItem['quality'] ?></span>
                             </div>
                             <div class="time">
-                                Time
+                                <?= $cartItem['eventStartTime'] ?>
                             </div>
                             <div class="total-price" id="item_price<?= $key ?>">
                                 <span

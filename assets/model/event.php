@@ -14,6 +14,49 @@ require_once "dbController.php";
 class event
 {
 
+    function selectDuration($productType, $productID)
+    {
+        $db_handle = new dbController();
+        switch ($productType) {
+            case 'entertainment':
+                $sql = "SELECT duration FROM entertainmentpackage WHERE event_ID = ?";
+                break;
+            case 'menu':
+                $sql = "SELECT duration FROM menu WHERE event_ID = ?";
+                break;
+        }
+        return $db_handle->db_query($sql, 'i', array($productID))[0]['duration'];
+    }
+
+    function checkOverlapBookingOrderDetail($productID, $startTime, $endTime)
+    {
+        $db_handle = new dbController();
+        $sql = "SELECT orderdetail_ID
+                FROM orderdetail
+                WHERE event_ID = ?
+                AND event_startTime BETWEEN ? AND ?
+            ";
+        return $db_handle->db_query($sql, 'iss', array($productID, $startTime, $endTime));
+    }
+
+
+    function getEventPrice($productID)
+    {
+        $db_handle = new dbController();
+        $sql = "SELECT price FROM event WHERE event_ID = ?";
+        return $db_handle->db_query($sql, 'i', array($productID))[0]['price'];
+    }
+
+    function getEventType($productID)
+    {
+        $db_handle = new dbController();
+        $sql = "SELECT event.event_type
+        FROM event
+        WHERE event_ID = ?
+        ";
+        return $db_handle->db_query($sql, 'i', array($productID))[0]['event_type'];
+    }
+
     /**
      * @param $from_record_num
      * @param $records_per_page
