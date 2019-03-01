@@ -56,36 +56,47 @@ switch ($productType) {
         }
         break;
     case "menu":
-        $sql = "SELECT duration FROM menu WHERE event_ID = {$product_id}";
+        $duration = $event->selectDuration('menu', $product_id);
+        $startTime = $eventStartTime->modify('-' . $duration . ' hours')->format('Y-m-d H:i:s');
+        $endTime = $eventStartTime->modify('+' . $duration . ' hours')->format('Y-m-d H:i:s');
+        $orderCount = $event->checkOverlapBookingOrderDetail($product_id, $startTime, $endTime);
+        $cartCount = $cart->checkOverlapBookingCart($product_id, $startTime, $endTime);
+        if (sizeof($orderCount) > 0) {
+            print_r($orderCount);
+            header("location: ../../{$previousURL}.php?addtocart=overlappedBooking");
+            exit();
+        } elseif (sizeof($cartCount) > 0) {
+            header("location: ../../{$previousURL}.php?addtocart=duplicateInCart");
+            exit();
+        } else {
+            $eventStartTimeText = $eventStartTime->format('Y-m-d H:i:s');
+            $updateFlag = $cart->insertCart($userID, $product_id, $quality, $eventStartTimeText, $eventLocation, $price);
+            if ($updateFlag) {
+                header("location:../../{$previousURL}.php?addtocart=success");
+                exit();
+            }
+        }
         break;
     case "venue":
-        $sql = "SELECT address, capacity, region FROM venue WHERE event_ID = {$product_id}";
+        $duration = $event->selectDuration('menu', $product_id);
+        $startTime = $eventStartTime->modify('-8 hours')->format('Y-m-d H:i:s');
+        $endTime = $eventStartTime->modify('+8 hours')->format('Y-m-d H:i:s');
+        $orderCount = $event->checkOverlapBookingOrderDetail($product_id, $startTime, $endTime);
+        $cartCount = $cart->checkOverlapBookingCart($product_id, $startTime, $endTime);
+        if (sizeof($orderCount) > 0) {
+            print_r($orderCount);
+            header("location: ../../{$previousURL}.php?addtocart=overlappedBooking");
+            exit();
+        } elseif (sizeof($cartCount) > 0) {
+            header("location: ../../{$previousURL}.php?addtocart=duplicateInCart");
+            exit();
+        } else {
+            $eventStartTimeText = $eventStartTime->format('Y-m-d H:i:s');
+            $updateFlag = $cart->insertCart($userID, $product_id, $quality, $eventStartTimeText, $eventLocation, $price);
+            if ($updateFlag) {
+                header("location:../../{$previousURL}.php?addtocart=success");
+                exit();
+            }
+        }
         break;
 }
-
-
-$sql = "SELECT eventStartTime
-FROM cart
-WHERE event_ID = {$product_id} 
-AND user_ID = {$userID}
-AND quality = '{$quality}'
-";
-$startTimes = db_select($sql);
-
-if (sizeof($startTimes) === 0) {
-    $eventStartTimeText = $eventStartTime->format('Y-m-d H:i:s');
-    $sql = "INSERT INTO cart (user_ID, event_ID, quantity, quality, eventStartTime, eventLocation, price) VALUES ({$userID}, {$product_id}, 1, '{$quality}', '{$eventStartTimeText}', '{$eventLocation}', {$price})";
-    $result = db_query($sql);
-    header("location:../../{$previousURL}.php?addtocart=success");
-} elseif (sizeof($startTimes) > 0) {
-    $sql = "SELECT event.event_type
-    FROM event
-    WHERE event_ID = {$product_id}
-    ";
-    $result = db_select($sql);
-} else {
-    header("location: ../../{$previousURL}.php?addtocart=failed");
-}
-
-
-
