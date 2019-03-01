@@ -1,14 +1,14 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/controllers/dbConnect.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/controllers/tokenValidation.php';
-$connect = db_connect();
+include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/model/auth.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/model/user.php';
+$auth = new auth();
+$user = new user();
 
-$selector = mysqli_real_escape_string($connect, $_POST['selector']);
+$selector = $_POST['selector'];
 $time = time();
 
-
-$sql = "SELECT * FROM passwordreset WHERE selector = '$selector' AND expires >= $time";
-$result = db_select($sql);
+$result = $auth->checkResetExpiry($selector, $time);
 if (empty($result)) {
     header("location:../../reset.php?status=failed");
     exit();
@@ -17,20 +17,16 @@ if (empty($result)) {
     $validator = $_POST['validator'];
     $calc = hash('sha256', hex2bin($validator));
     if (hash_equals($calc, $auth_token['token'])) {
-        $email = mysqli_real_escape_string($connect, $auth_token['email']);
-        $password = mysqli_real_escape_string($connect, $_POST['password']);
+        $email = $auth_token['email'];
+        $password = $_POST['password'];
         $password = password_hash($password, PASSWORD_DEFAULT);
 
-        $sql = "UPDATE user SET password = '$password' WHERE email_address = '$email'";
-        db_query($sql);
+        $user->updatePassword($password, $email);
+        $auth->clearResetLink($email);
 
-        $sql = "DELETE FROM passwordreset WHERE email = '$email'";
-        $update = db_query($sql);
-
-        if ($update == true) {
-            session_destroy();
-            header("location:../../reset.php?status=success");
-        }
+        session_destroy();
+        header("location:../../reset.php?status=success");
+        exit();
     } else {
         header("location:../../reset.php?status=failed");
         exit();
