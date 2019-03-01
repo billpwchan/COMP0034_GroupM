@@ -239,3 +239,7 @@
     background: #007bff;
 }
 
+#fieldset1 > div.dropdown.bootstrap-select > button {
+    margin-left: 0;
+}
+

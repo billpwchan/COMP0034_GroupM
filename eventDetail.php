@@ -26,7 +26,7 @@
 
     <!-- Right Column -->
     <div class="right-column col-lg-6">
-        <form action="./assets/controllers/addToCart.php" method="get">
+        <form action="./assets/controllers/addToCart.php" method="get" autocomplete="off">
 
             <label>
                 <input class="product-id display-none" name="id" value="<?= $_GET['id'] ?>">

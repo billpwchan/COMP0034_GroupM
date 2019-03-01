@@ -1,27 +1,35 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/controllers/dbConnect.php';
-include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/lib/emailValidation.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/model/user.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/controllers/tokenValidation.php';
-if ($_POST['token'] !== $_SESSION['token']) {
+echo $_SESSION['token'];
+echo $_POST['token'];
+if ($_POST['token'] != $_SESSION['token']) {
     header("Location:../../index.php?status=invalidToken");
+    exit();
 }
 
 if (isset($_SESSION["userInfo"])) {
     header("location:../../login.php");
+    exit();
 }
+
 if (empty($_POST["email"]) || empty($_POST["pass"]) || empty($_POST["cpass"])
-    || empty($_POST["gender"]) || empty($_POST["phone"]) || empty($_POST["fname"])
+    || empty($_POST["gender"]) | empty($_POST["fname"])
     || empty($_POST["lname"])) {
     header("Location:../../registration.php?registration=allFieldsRequired");
+    exit();
 } elseif ($_POST["pass"] != $_POST["cpass"]) {
     header("Location:../../registration.php?registration=passwordMismatch");
+    exit();
 } else {
-    $register = new emailValidation();
-    $result = $register->Register($_POST["fname"], $_POST["lname"], $_POST["gender"], $_POST["email"], $_POST["pass"], $_POST["phone"], $_FILES['avatar'], $_POST["accounttype"]);
+    $user = new user();
+    $result = $user->register($_POST["fname"], $_POST["lname"], $_POST["gender"], $_POST["email"], $_POST["pass"], $_POST["phone"], $_FILES['avatar'], $_POST["accounttype"]);
     if ($result) {
-        header("Location:../../login.php?registration=success");
+        header("Location:../../login.php?login=requireActivation");
+        exit();
     } else {
         header("Location:../../index.php?registration=failed");
+        exit();
     }
 }
 

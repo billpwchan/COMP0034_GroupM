@@ -24,7 +24,7 @@ if (isset($_SESSION['userInfo'])) {
             </li>
             <li class="nav-item <?php if ($CURRENT_PAGE == "MyAccount") { ?>active<?php } ?>">
                 <a class="nav-link"
-                   href="<?php if (isset($_SESSION['email']) and $_SESSION['login_status'] == 1) { ?>myAccount.php<?php } else { ?>login.php<?php } ?> ">
+                   href="<?php if (isset($_SESSION['userInfo']['email_address'])) { ?>myAccount.php<?php } else { ?>login.php<?php } ?> ">
                     <i class=" fas fa-user-circle"></i>
                     My Account
                 </a>
@@ -62,11 +62,11 @@ if (isset($_SESSION['userInfo'])) {
         </ul>
 
         <ul class="navbar-nav">
-            <?php if (isset($_SESSION['email']) and $_SESSION['login_status'] == 1) { ?>
+            <?php if (isset($_SESSION['userInfo']['email_address'])) { ?>
                 <li class="nav-item">
                     <button class="nav-link" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false"><i
-                                class="fas fa-user-secret"></i><?= $_SESSION['email'] ?></button>
+                                class="fas fa-user-secret"></i><?= $_SESSION['userInfo']['email_address'] ?></button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <a class="dropdown-item" id="logout">Logout</a>
                     </div>
@@ -80,7 +80,7 @@ if (isset($_SESSION['userInfo'])) {
         </ul>
     </div>
 </nav>
-<?php if (isset($_SESSION['email']) and $_SESSION['login_status'] == 1 and isset($_SESSION['customer'])) { ?>
+<?php if (isset($_SESSION['userInfo']['email_address']) and isset($_SESSION['customer'])) { ?>
     <div class="container">
         <div class="shopping-cart">
             <div class="shopping-cart-header">

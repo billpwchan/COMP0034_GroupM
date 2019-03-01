@@ -23,7 +23,7 @@ if (false !== ctype_xdigit($selector) && false !== ctype_xdigit($validator)) :
                     <div class="panel-body">
                         <div class="text-center">
                             <h3><i class="fa fa-lock fa-4x"></i></h3>
-                            <h2 class="text-center">Forgot Password?</h2>
+                            <h2 class="text-center">Set your New Password</h2>
                             <p>You can reset your password here.</p>
                             <div class="panel-body">
                                 <?php

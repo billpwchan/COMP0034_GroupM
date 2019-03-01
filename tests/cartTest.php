@@ -1,0 +1,18 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Billp
+ * Date: 28/2/2019
+ * Time: 22:34
+ */
+
+use PHPUnit\Framework\TestCase;
+
+class cartTest extends TestCase
+{
+
+    public function testApplyCoupon()
+    {
+
+    }
+}

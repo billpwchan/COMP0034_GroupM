@@ -31,16 +31,17 @@ foreach ($_SESSION['cartItems'] as $cartItem) {
     $price = mysqli_real_escape_string($connect, $cartItem['price']);
     $status = "Pending";
     $sql = "
-        INSERT INTO orderdetail (event_ID, quality, event_startTime, event_location, price, status) 
-        VALUES ($event_ID, '$quality', '$event_startTime', '$event_location', $price, '$status')
+        INSERT INTO orderhistory (customer_ID)
+        VALUES ($userID);
     ";
     $result = db_query($sql);
-    $orderDeatilID = mysqli_insert_id($connect);
+    $orderHistoryID = mysqli_insert_id($connect);
     $sql = "
-        INSERT INTO orderhistory (customer_ID, orderdetail_ID)
-        VALUES ($userID, $orderDeatilID);
+        INSERT INTO orderdetail (order_ID, event_ID, quality, event_startTime, event_location, price, status) 
+        VALUES ($orderHistoryID, $event_ID, '$quality', '$event_startTime', '$event_location', $price, '$status')
     ";
     $result = db_query($sql);
+
 }
 
 unset($_SESSION['cartItems']);

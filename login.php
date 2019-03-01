@@ -20,31 +20,33 @@
             $token = md5(uniqid(rand(), TRUE));
             $_SESSION['token'] = $token;
             $_SESSION['token_time'] = time();
+            include "./assets/controllers/rememberMeCookieAuth.php";
             ?>
             <form class="login-form validate-form" method="post" action="./assets/controllers/login.php">
                 <input type="hidden" name="token" value="<?= $token ?>"/>
                 <span class="login-form-title">
 						Member Login
 					</span>
-
-                <div class="wrap-input validate-input" data-validate="Valid email is required: abc@de.fg">
-                    <input class="userInput" type="text" name="email" placeholder="Email">
+                <div class="wrap-input validate-input">
+                    <input class="userInput" type="text" name="email" placeholder="Email"
+                           value="<?= $isLoggedIn ? $_SESSION['email'] : "" ?>">
                     <span class="focus-input"></span>
                     <span class="symbol-input">
 							<i class="fas fa-envelope" aria-hidden="true"></i>
                     </span>
-                    <span class="alert-validate">
+                    <span class="alert-validate" data-validate="Valid email is required: abc@de.fg">
                         <i class="fas fa-exclamation-triangle"></i>
                     </span>
                 </div>
 
-                <div class="wrap-input validate-input" data-validate="Password is required">
-                    <input class="userInput" type="password" name="pass" placeholder="Password">
+                <div class="wrap-input validate-input">
+                    <input class="userInput" type="password" name="pass" placeholder="Password"
+                           value="<?= $isLoggedIn ? "Password123456" : "" ?>">
                     <span class="focus-input"></span>
                     <span class="symbol-input">
 							<i class="fas fa-lock" aria-hidden="true"></i>
                     </span>
-                    <span class="alert-validate">
+                    <span class="alert-validate" data-validate="Password is required">
                         <i class="fas fa-exclamation-triangle"></i>
                     </span>
                 </div>
@@ -55,7 +57,15 @@
                     </button>
                 </div>
 
-                <div class="text-center p-t-11">
+                <div class="chiller_cb text-center p-t-20">
+                    <input type="checkbox" name="remember" id="remember"
+                        <?php if (isset($_COOKIE["member_login"])) { ?> checked
+                        <?php } ?> />
+                    <label for="remember">Remember me</label>
+                    <span></span>
+                </div>
+
+                <div class="text-center p-t-33">
 						<span class="txt1">
 							Forgot
 						</span>
@@ -64,7 +74,8 @@
                     </a>
                 </div>
 
-                <div class="text-center p-t-50">
+
+                <div class="text-center p-t-11">
                     <a class="txt2" href="registration.php">
                         Create your Account
                         <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
@@ -90,14 +101,12 @@ if (isset($_GET['login']) and $_GET['login'] === 'failed') { ?>
     </script>
 <?php } elseif (isset($_GET['login']) and $_GET['login'] === 'requireActivation') { ?>
     <script> Swal.fire({
-            title: 'Login Failed',
+            title: 'One More Step...',
             animation: false,
             customClass: 'animated tada',
             text: "Please go to your E-Mail inbox for activating your account.",
-            type: 'error'
+            type: 'success'
         });
     </script>
-<?php }
-unset($_SESSION['login_status']);
-?>
+<?php } ?>
 </html>
