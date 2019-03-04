@@ -198,22 +198,20 @@
                     <div aria-labelledby="add_service" class="row tab-pane fade" id="service"
                          role="tabpane3">
                         <div class="form-group row">
-                            <label for="staticname" class="col-sm-3 col-form-label">
-                            <select id="event_type" name="event_type">
-                                <option value="0">Event Type</option>
-                                <option value="1">Venue</option>
-                                <option value="2">Entertainment</option>
-                                <option value="3">Menus</option>
-                            </select>
-                            </label>
-                            </form>
+                            <label for="staticname" class="col-sm-3 col-form-label">Event Type</label>
+                            <div class="col-sm-5">
+                                <select id="event_type" name="event_type">
+                                    <option value="1">Venue</option>
+                                    <option value="2">Entertainment</option>
+                                    <option value="3">Menus</option>
+                                </select>
+                            </div>
                         </div>
                         <div class="form-group row">
                             <label for="staticname" class="col-sm-3 col-form-label">Name</label>
                             <div class="col-sm-5">
                                 <input type="text" readonly class="form-control" id="staticname">
                             </div>
-                            </form>
                         </div>
                         <div class="form-group row">
                             <label for="staticname" class="col-sm-3 col-form-label">Price</label>
@@ -234,6 +232,24 @@
                             <div class="col-sm-6">
                                 <input type="text" readonly class="form-control-plaintext" id="staticregistration_date"
                                        value="<?= $_SESSION['userInfo']['registration_date'] ?>">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="staticregistration_date" class="col-sm-3 col-form-label">Event Image 1</label>
+                            <div class="upload-avatar-container">
+                                <input type="file" name="avatar" id="avatar">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="staticregistration_date" class="col-sm-3 col-form-label">Event Image 2</label>
+                            <div class="upload-avatar-container">
+                                <input type="file" name="avatar" id="avatar">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="staticregistration_date" class="col-sm-3 col-form-label">Event Image 3</label>
+                            <div class="upload-avatar-container">
+                                <input type="file" name="avatar" id="avatar">
                             </div>
                         </div>
                         </div>
