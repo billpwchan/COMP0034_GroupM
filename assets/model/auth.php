@@ -26,6 +26,23 @@ class auth
         return $db_handle->db_query($sql, 'si', array($selector, $time));
     }
 
+    public function insertResetLink($email, $selector, $token, $expires)
+    {
+        $db_handle = new dbController();
+        $sql = "INSERT INTO passwordreset (email, selector, token, expires) VALUES (?,?,?,?)";
+        return $db_handle->db_update($sql, 'sssi', array($email, $selector, $token, $expires));
+    }
+
+    public function selectNameByEmail($email)
+    {
+        $db_handle = new dbController();
+        $sql = "SELECT first_name
+        FROM user, passwordreset
+        WHERE user.email_address = passwordreset.email
+        AND passwordreset.email = ?";
+        return $db_handle->db_query($sql, 's', array($email));
+    }
+
     /**
      * @param $email
      * @return array

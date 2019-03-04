@@ -8,13 +8,11 @@ addons:
       - libxml2-utils
 
 php:
+  - 7.1
   - 7.2
   - 7.3
-  - master
 
 matrix:
-  allow_failures:
-    - php: master
   fast_finish: true
 
 env:

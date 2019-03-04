@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -28,156 +28,156 @@ use SebastianBergmann\Timer\Timer;
 use Throwable;
 
 /**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
+ * A TestResult collects the results of executing a test case.
  */
-final class TestResult implements Countable
+class TestResult implements Countable
 {
     /**
      * @var array
      */
-    private $passed = [];
+    protected $passed = [];
 
     /**
      * @var TestFailure[]
      */
-    private $errors = [];
+    protected $errors = [];
 
     /**
      * @var TestFailure[]
      */
-    private $failures = [];
+    protected $failures = [];
 
     /**
      * @var TestFailure[]
      */
-    private $warnings = [];
+    protected $warnings = [];
 
     /**
      * @var TestFailure[]
      */
-    private $notImplemented = [];
+    protected $notImplemented = [];
 
     /**
      * @var TestFailure[]
      */
-    private $risky = [];
+    protected $risky = [];
 
     /**
      * @var TestFailure[]
      */
-    private $skipped = [];
+    protected $skipped = [];
 
     /**
      * @var TestListener[]
      */
-    private $listeners = [];
+    protected $listeners = [];
 
     /**
      * @var int
      */
-    private $runTests = 0;
+    protected $runTests = 0;
 
     /**
      * @var float
      */
-    private $time = 0;
+    protected $time = 0;
 
     /**
      * @var TestSuite
      */
-    private $topTestSuite;
+    protected $topTestSuite;
 
     /**
      * Code Coverage information.
      *
      * @var CodeCoverage
      */
-    private $codeCoverage;
+    protected $codeCoverage;
 
     /**
      * @var bool
      */
-    private $convertErrorsToExceptions = true;
+    protected $convertErrorsToExceptions = true;
 
     /**
      * @var bool
      */
-    private $stop = false;
+    protected $stop = false;
 
     /**
      * @var bool
      */
-    private $stopOnError = false;
+    protected $stopOnError = false;
 
     /**
      * @var bool
      */
-    private $stopOnFailure = false;
+    protected $stopOnFailure = false;
 
     /**
      * @var bool
      */
-    private $stopOnWarning = false;
+    protected $stopOnWarning = false;
 
     /**
      * @var bool
      */
-    private $beStrictAboutTestsThatDoNotTestAnything = true;
+    protected $beStrictAboutTestsThatDoNotTestAnything = true;
 
     /**
      * @var bool
      */
-    private $beStrictAboutOutputDuringTests = false;
+    protected $beStrictAboutOutputDuringTests = false;
 
     /**
      * @var bool
      */
-    private $beStrictAboutTodoAnnotatedTests = false;
+    protected $beStrictAboutTodoAnnotatedTests = false;
 
     /**
      * @var bool
      */
-    private $beStrictAboutResourceUsageDuringSmallTests = false;
+    protected $beStrictAboutResourceUsageDuringSmallTests = false;
 
     /**
      * @var bool
      */
-    private $enforceTimeLimit = false;
+    protected $enforceTimeLimit = false;
 
     /**
      * @var int
      */
-    private $timeoutForSmallTests = 1;
+    protected $timeoutForSmallTests = 1;
 
     /**
      * @var int
      */
-    private $timeoutForMediumTests = 10;
+    protected $timeoutForMediumTests = 10;
 
     /**
      * @var int
      */
-    private $timeoutForLargeTests = 60;
+    protected $timeoutForLargeTests = 60;
 
     /**
      * @var bool
      */
-    private $stopOnRisky = false;
+    protected $stopOnRisky = false;
 
     /**
      * @var bool
      */
-    private $stopOnIncomplete = false;
+    protected $stopOnIncomplete = false;
 
     /**
      * @var bool
      */
-    private $stopOnSkipped = false;
+    protected $stopOnSkipped = false;
 
     /**
      * @var bool
      */
-    private $lastTestFailed = false;
+    protected $lastTestFailed = false;
 
     /**
      * @var int
@@ -599,6 +599,8 @@ final class TestResult implements Countable
     public function run(Test $test): void
     {
         Assert::resetCount();
+
+        $coversNothing = false;
 
         if ($test instanceof TestCase) {
             $test->setRegisterMockObjectsFromTestArgumentsRecursively(
@@ -1078,7 +1080,12 @@ final class TestResult implements Countable
      */
     public function wasSuccessful(): bool
     {
-        return empty($this->errors) && empty($this->failures) && empty($this->warnings);
+        return $this->wasSuccessfulIgnoringWarnings() && empty($this->warnings);
+    }
+
+    public function wasSuccessfulIgnoringWarnings(): bool
+    {
+        return empty($this->errors) && empty($this->failures);
     }
 
     /**

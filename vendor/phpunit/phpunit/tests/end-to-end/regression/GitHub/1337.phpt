@@ -1,7 +1,7 @@
 --TEST--
 https://github.com/sebastianbergmann/phpunit/issues/1337
 --FILE--
-<?php declare(strict_types=1);
+<?php
 $_SERVER['argv'][1] = '--no-configuration';
 $_SERVER['argv'][2] = '--process-isolation';
 $_SERVER['argv'][3] = 'Issue1337Test';

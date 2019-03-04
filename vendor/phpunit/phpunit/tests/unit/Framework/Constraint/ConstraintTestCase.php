@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -36,7 +36,7 @@ abstract class ConstraintTestCase extends TestCase
         $this->assertTrue($reflection->implementsInterface(SelfDescribing::class), \sprintf(
             'Failed to assert that "%s" implements "%s".',
             $className,
-            \Countable::class
+            SelfDescribing::class
         ));
     }
 

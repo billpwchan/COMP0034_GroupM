@@ -1,7 +1,7 @@
 --TEST--
 phpunit --filter testBalanceIsInitiallyZero BankAccountTest ../../_files/BankAccountTest.php
 --FILE--
-<?php declare(strict_types=1);
+<?php
 $_SERVER['argv'][1] = '--no-configuration';
 $_SERVER['argv'][2] = '--filter';
 $_SERVER['argv'][3] = 'testBalanceIsInitiallyZero';

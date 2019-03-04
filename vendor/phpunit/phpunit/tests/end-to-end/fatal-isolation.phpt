@@ -1,7 +1,7 @@
 --TEST--
 phpunit FatalTest --process-isolation ../../_files/FatalTest.php
 --FILE--
-<?php declare(strict_types=1);
+<?php
 $_SERVER['argv'][1] = '--no-configuration';
 $_SERVER['argv'][2] = '--process-isolation';
 $_SERVER['argv'][3] = 'FatalTest';

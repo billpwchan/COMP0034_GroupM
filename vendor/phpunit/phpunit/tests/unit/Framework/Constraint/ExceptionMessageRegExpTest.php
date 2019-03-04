@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -41,5 +41,13 @@ class ExceptionMessageRegExpTest extends TestCase
         $this->expectExceptionMessageRegExp('#Screaming preg_match#');
 
         throw new \Exception('Screaming preg_match');
+    }
+
+    public function testSimultaneousLiteralAndRegExpExceptionMessage(): void
+    {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessageRegExp('/^A variadic \w+ message/');
+
+        throw new \Exception('A variadic exception message');
     }
 }

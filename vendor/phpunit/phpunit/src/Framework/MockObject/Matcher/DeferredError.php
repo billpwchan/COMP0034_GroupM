@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -11,10 +11,7 @@ namespace PHPUnit\Framework\MockObject\Matcher;
 
 use PHPUnit\Framework\MockObject\Invocation as BaseInvocation;
 
-/**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
- */
-final class DeferredError extends StatelessInvocation
+class DeferredError extends StatelessInvocation
 {
     /**
      * @var \Throwable
@@ -26,9 +23,6 @@ final class DeferredError extends StatelessInvocation
         $this->exception = $exception;
     }
 
-    /**
-     * @throws \Throwable
-     */
     public function verify(): void
     {
         throw $this->exception;

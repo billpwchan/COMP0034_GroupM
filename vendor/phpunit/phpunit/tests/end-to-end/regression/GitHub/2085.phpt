@@ -14,7 +14,7 @@ if (!\extension_loaded('pcntl') || \strpos(\ini_get('disable_functions'), 'pcntl
     print "Skip: extension pcntl is required for enforcing time limits" . PHP_EOL;
 }
 --FILE--
-<?php declare(strict_types=1);
+<?php
 $_SERVER['argv'][1] = '--no-configuration';
 $_SERVER['argv'][2] = '--enforce-time-limit';
 $_SERVER['argv'][3] = '--default-time-limit=1';

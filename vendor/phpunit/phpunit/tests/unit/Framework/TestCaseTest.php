@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -14,7 +14,7 @@ use PHPUnit\Runner\BaseTestRunner;
 
 class TestCaseTest extends TestCase
 {
-    protected static $testStatic = 456;
+    protected static $testStatic      = 456;
 
     protected $backupGlobalsBlacklist = ['i', 'singleton'];
 

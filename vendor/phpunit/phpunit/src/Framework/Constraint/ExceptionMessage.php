@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -9,7 +9,7 @@
  */
 namespace PHPUnit\Framework\Constraint;
 
-final class ExceptionMessage extends Constraint
+class ExceptionMessage extends Constraint
 {
     /**
      * @var string
@@ -18,6 +18,8 @@ final class ExceptionMessage extends Constraint
 
     public function __construct(string $expected)
     {
+        parent::__construct();
+
         $this->expectedMessage = $expected;
     }
 

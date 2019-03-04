@@ -7,7 +7,7 @@ if (!extension_loaded('xdebug')) {
 }
 ?>
 --FILE--
-<?php declare(strict_types=1);
+<?php
 $_SERVER['argv'][1] = '--no-configuration';
 $_SERVER['argv'][2] = '--colors=never';
 $_SERVER['argv'][3] = '--coverage-text=php://stdout';

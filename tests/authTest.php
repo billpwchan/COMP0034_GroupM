@@ -6,9 +6,7 @@
  * Time: 22:34
  */
 
-use PHPUnit\Framework\TestCase;
-
-class authTest extends TestCase
+class authTest extends PHPUnit_Extensions_Selenium2TestCase
 {
 
     public function testMarkAsExpired()

@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -19,14 +19,13 @@ use PHPUnit\Framework\TestResult;
 use PHPUnit\Framework\TestSuite;
 use PHPUnit\Framework\Warning;
 use PHPUnit\Runner\PhptTestCase;
-use PHPUnit\Util\Color;
 use PHPUnit\Util\InvalidArgumentHelper;
 use PHPUnit\Util\Printer;
 use SebastianBergmann\Environment\Console;
 use SebastianBergmann\Timer\Timer;
 
 /**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
+ * Prints the result of a TextUI TestRunner run.
  */
 class ResultPrinter extends Printer implements TestListener
 {
@@ -47,6 +46,29 @@ class ResultPrinter extends Printer implements TestListener
     public const COLOR_DEFAULT = self::COLOR_NEVER;
 
     private const AVAILABLE_COLORS = [self::COLOR_NEVER, self::COLOR_AUTO, self::COLOR_ALWAYS];
+
+    /**
+     * @var array
+     */
+    private static $ansiCodes = [
+        'bold'       => 1,
+        'fg-black'   => 30,
+        'fg-red'     => 31,
+        'fg-green'   => 32,
+        'fg-yellow'  => 33,
+        'fg-blue'    => 34,
+        'fg-magenta' => 35,
+        'fg-cyan'    => 36,
+        'fg-white'   => 37,
+        'bg-black'   => 40,
+        'bg-red'     => 41,
+        'bg-green'   => 42,
+        'bg-yellow'  => 43,
+        'bg-blue'    => 44,
+        'bg-magenta' => 45,
+        'bg-cyan'    => 46,
+        'bg-white'   => 47,
+    ];
 
     /**
      * @var int
@@ -116,12 +138,13 @@ class ResultPrinter extends Printer implements TestListener
     /**
      * Constructor.
      *
-     * @param null|resource|string $out
-     * @param int|string           $numberOfColumns
+     * @param string     $colors
+     * @param int|string $numberOfColumns
+     * @param null|mixed $out
      *
      * @throws Exception
      */
-    public function __construct($out = null, bool $verbose = false, string $colors = self::COLOR_DEFAULT, bool $debug = false, $numberOfColumns = 80, bool $reverse = false)
+    public function __construct($out = null, bool $verbose = false, $colors = self::COLOR_DEFAULT, bool $debug = false, $numberOfColumns = 80, bool $reverse = false)
     {
         parent::__construct($out);
 
@@ -155,9 +178,6 @@ class ResultPrinter extends Printer implements TestListener
         }
     }
 
-    /**
-     * @throws \SebastianBergmann\Timer\RuntimeException
-     */
     public function printResult(TestResult $result): void
     {
         $this->printHeader();
@@ -385,9 +405,6 @@ class ResultPrinter extends Printer implements TestListener
         $this->printDefects($result->skipped(), 'skipped test');
     }
 
-    /**
-     * @throws \SebastianBergmann\Timer\RuntimeException
-     */
     protected function printHeader(): void
     {
         $this->write("\n\n" . Timer::resourceUsage() . "\n\n");
@@ -510,19 +527,27 @@ class ResultPrinter extends Printer implements TestListener
      * Formats a buffer with a specified ANSI color sequence if colors are
      * enabled.
      */
-    protected function colorizeTextBox(string $color, string $buffer): string
+    protected function formatWithColor(string $color, string $buffer): string
     {
         if (!$this->colors) {
             return $buffer;
         }
 
+        $codes   = \array_map('\trim', \explode(',', $color));
         $lines   = \explode("\n", $buffer);
         $padding = \max(\array_map('\strlen', $lines));
+        $styles  = [];
+
+        foreach ($codes as $code) {
+            $styles[] = self::$ansiCodes[$code];
+        }
+
+        $style = \sprintf("\x1b[%sm", \implode(';', $styles));
 
         $styledLines = [];
 
         foreach ($lines as $line) {
-            $styledLines[] = Color::colorize($color, \str_pad($line, $padding));
+            $styledLines[] = $style . \str_pad($line, $padding) . "\x1b[0m";
         }
 
         return \implode("\n", $styledLines);
@@ -533,7 +558,7 @@ class ResultPrinter extends Printer implements TestListener
      */
     protected function writeWithColor(string $color, string $buffer, bool $lf = true): void
     {
-        $this->write($this->colorizeTextBox($color, $buffer));
+        $this->write($this->formatWithColor($color, $buffer));
 
         if ($lf) {
             $this->write("\n");
@@ -545,7 +570,7 @@ class ResultPrinter extends Printer implements TestListener
      */
     protected function writeProgressWithColor(string $color, string $buffer): void
     {
-        $buffer = $this->colorizeTextBox($color, $buffer);
+        $buffer = $this->formatWithColor($color, $buffer);
         $this->writeProgress($buffer);
     }
 

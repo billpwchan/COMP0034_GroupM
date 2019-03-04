@@ -1,7 +1,7 @@
 --TEST--
 Mock method and call original method
 --FILE--
-<?php declare(strict_types=1);
+<?php
 class Foo
 {
     public function bar(){}

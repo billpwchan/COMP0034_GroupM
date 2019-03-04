@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -26,9 +26,11 @@ use ReflectionClass;
 use ReflectionException;
 
 /**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
+ * A TestListener that generates a logfile of the test execution in XML markup.
+ *
+ * The XML markup used is the same as the one that is used by the JUnit Ant task.
  */
-final class JUnit extends Printer implements TestListener
+class JUnit extends Printer implements TestListener
 {
     /**
      * @var DOMDocument
@@ -131,7 +133,6 @@ final class JUnit extends Printer implements TestListener
      * An error occurred.
      *
      * @throws \InvalidArgumentException
-     * @throws ReflectionException
      */
     public function addError(Test $test, \Throwable $t, float $time): void
     {
@@ -143,7 +144,6 @@ final class JUnit extends Printer implements TestListener
      * A warning occurred.
      *
      * @throws \InvalidArgumentException
-     * @throws ReflectionException
      */
     public function addWarning(Test $test, Warning $e, float $time): void
     {
@@ -155,7 +155,6 @@ final class JUnit extends Printer implements TestListener
      * A failure occurred.
      *
      * @throws \InvalidArgumentException
-     * @throws ReflectionException
      */
     public function addFailure(Test $test, AssertionFailedError $e, float $time): void
     {
@@ -173,8 +172,6 @@ final class JUnit extends Printer implements TestListener
 
     /**
      * Risky test.
-     *
-     * @throws ReflectionException
      */
     public function addRiskyTest(Test $test, \Throwable $t, float $time): void
     {
@@ -245,27 +242,27 @@ final class JUnit extends Printer implements TestListener
     {
         $this->testSuites[$this->testSuiteLevel]->setAttribute(
             'tests',
-            (string) $this->testSuiteTests[$this->testSuiteLevel]
+            $this->testSuiteTests[$this->testSuiteLevel]
         );
 
         $this->testSuites[$this->testSuiteLevel]->setAttribute(
             'assertions',
-            (string) $this->testSuiteAssertions[$this->testSuiteLevel]
+            $this->testSuiteAssertions[$this->testSuiteLevel]
         );
 
         $this->testSuites[$this->testSuiteLevel]->setAttribute(
             'errors',
-            (string) $this->testSuiteErrors[$this->testSuiteLevel]
+            $this->testSuiteErrors[$this->testSuiteLevel]
         );
 
         $this->testSuites[$this->testSuiteLevel]->setAttribute(
             'failures',
-            (string) $this->testSuiteFailures[$this->testSuiteLevel]
+            $this->testSuiteFailures[$this->testSuiteLevel]
         );
 
         $this->testSuites[$this->testSuiteLevel]->setAttribute(
             'skipped',
-            (string) $this->testSuiteSkipped[$this->testSuiteLevel]
+            $this->testSuiteSkipped[$this->testSuiteLevel]
         );
 
         $this->testSuites[$this->testSuiteLevel]->setAttribute(
@@ -311,7 +308,7 @@ final class JUnit extends Printer implements TestListener
             $testCase->setAttribute('class', $class->getName());
             $testCase->setAttribute('classname', \str_replace('\\', '.', $class->getName()));
             $testCase->setAttribute('file', $class->getFileName());
-            $testCase->setAttribute('line', (string) $method->getStartLine());
+            $testCase->setAttribute('line', $method->getStartLine());
         }
 
         $this->currentTestCase = $testCase;
@@ -332,7 +329,7 @@ final class JUnit extends Printer implements TestListener
 
         $this->currentTestCase->setAttribute(
             'assertions',
-            (string) $numAssertions
+            $numAssertions
         );
 
         $this->currentTestCase->setAttribute(
@@ -391,7 +388,6 @@ final class JUnit extends Printer implements TestListener
      * Method which generalizes addError() and addFailure()
      *
      * @throws \InvalidArgumentException
-     * @throws ReflectionException
      */
     private function doAddFault(Test $test, \Throwable $t, float $time, $type): void
     {

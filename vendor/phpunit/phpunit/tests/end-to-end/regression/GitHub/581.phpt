@@ -1,7 +1,8 @@
 --TEST--
 GH-581: PHPUnit_Util_Type::export adds extra newlines in Windows
 --FILE--
-<?php declare(strict_types=1);
+<?php
+
 $_SERVER['argv'][1] = '--no-configuration';
 $_SERVER['argv'][2] = 'Issue581Test';
 $_SERVER['argv'][3] = __DIR__ . '/581/Issue581Test.php';

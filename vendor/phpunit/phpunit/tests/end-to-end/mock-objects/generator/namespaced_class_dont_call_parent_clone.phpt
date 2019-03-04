@@ -1,7 +1,7 @@
 --TEST--
 \PHPUnit\Framework\MockObject\Generator::generate('NS\Foo', [], 'MockFoo', false)
 --FILE--
-<?php declare(strict_types=1);
+<?php
 namespace NS;
 
 class Foo

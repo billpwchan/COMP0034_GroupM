@@ -2,7 +2,7 @@
 https://github.com/sebastianbergmann/phpunit-mock-objects/issues/420
 https://github.com/sebastianbergmann/phpunit/issues/3154
 --FILE--
-<?php declare(strict_types=1);
+<?php
 namespace Is\Namespaced;
 /*
  * This file is part of PHPUnit.

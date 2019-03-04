@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -26,6 +26,8 @@ class ClassHasAttribute extends Constraint
 
     public function __construct(string $attributeName)
     {
+        parent::__construct();
+
         $this->attributeName = $attributeName;
     }
 
@@ -45,8 +47,6 @@ class ClassHasAttribute extends Constraint
      * constraint is met, false otherwise.
      *
      * @param mixed $other value or object to evaluate
-     *
-     * @throws \ReflectionException
      */
     protected function matches($other): bool
     {

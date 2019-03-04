@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -60,9 +60,10 @@ use SebastianBergmann\Environment\Runtime;
 use SebastianBergmann\Invoker\Invoker;
 
 /**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
+ * A TestRunner for the Command Line Interface (CLI)
+ * PHP SAPI Module.
  */
-final class TestRunner extends BaseTestRunner
+class TestRunner extends BaseTestRunner
 {
     public const SUCCESS_EXIT   = 0;
 
@@ -193,7 +194,7 @@ final class TestRunner extends BaseTestRunner
                 $cache = new TestResultCache;
             }
 
-            $this->addExtension(new ResultCacheExtension($cache));
+            $this->extensions[] = new ResultCacheExtension($cache);
         }
 
         if ($arguments['executionOrder'] !== TestSuiteSorter::ORDER_DEFAULT || $arguments['executionOrderDefects'] !== TestSuiteSorter::ORDER_DEFAULT || $arguments['resolveDependencies']) {
@@ -212,7 +213,6 @@ final class TestRunner extends BaseTestRunner
         if (\is_int($arguments['repeat']) && $arguments['repeat'] > 0) {
             $_suite = new TestSuite;
 
-            /* @noinspection PhpUnusedLocalVariableInspection */
             foreach (\range(1, $arguments['repeat']) as $step) {
                 $_suite->addTest($suite);
             }
@@ -327,14 +327,16 @@ final class TestRunner extends BaseTestRunner
         self::$versionStringPrinted = true;
 
         if ($arguments['verbose']) {
-            $this->writeMessage('Runtime', $this->runtime->getNameWithVersionAndCodeCoverageDriver());
+            $runtime = $this->runtime->getNameWithVersion();
 
-            if ($arguments['executionOrder'] === TestSuiteSorter::ORDER_RANDOMIZED) {
-                $this->writeMessage(
-                    'Random seed',
-                    (string) $arguments['randomOrderSeed']
+            if ($this->runtime->hasXdebug()) {
+                $runtime .= \sprintf(
+                    ' with Xdebug %s',
+                    \phpversion('xdebug')
                 );
             }
+
+            $this->writeMessage('Runtime', $runtime);
 
             if (isset($arguments['configuration'])) {
                 $this->writeMessage(
@@ -356,6 +358,13 @@ final class TestRunner extends BaseTestRunner
                     $extension
                 );
             }
+        }
+
+        if ($arguments['executionOrder'] === TestSuiteSorter::ORDER_RANDOMIZED) {
+            $this->writeMessage(
+                'Random seed',
+                $arguments['randomOrderSeed']
+            );
         }
 
         if (isset($tooFewColumnsRequested)) {
@@ -765,7 +774,7 @@ final class TestRunner extends BaseTestRunner
         }
 
         if ($exit) {
-            if ($result->wasSuccessful()) {
+            if ($result->wasSuccessfulIgnoringWarnings()) {
                 if ($arguments['failOnRisky'] && !$result->allHarmless()) {
                     exit(self::FAILURE_EXIT);
                 }
@@ -804,11 +813,6 @@ final class TestRunner extends BaseTestRunner
         }
 
         return $this->loader;
-    }
-
-    public function addExtension(TestHook $extension): void
-    {
-        $this->extensions[] = $extension;
     }
 
     protected function createTestResult(): TestResult
@@ -1071,16 +1075,12 @@ final class TestRunner extends BaseTestRunner
                 }
 
                 if (\count($extension['arguments']) == 0) {
-                    $extensionObject = $extensionClass->newInstance();
+                    $this->extensions[] = $extensionClass->newInstance();
                 } else {
-                    $extensionObject = $extensionClass->newInstanceArgs(
+                    $this->extensions[] = $extensionClass->newInstanceArgs(
                         $extension['arguments']
                     );
                 }
-
-                \assert($extensionObject instanceof TestHook);
-
-                $this->addExtension($extensionObject);
             }
 
             foreach ($arguments['configuration']->getListenerConfiguration() as $listener) {
@@ -1215,7 +1215,7 @@ final class TestRunner extends BaseTestRunner
         $arguments['backupStaticAttributes']                          = $arguments['backupStaticAttributes'] ?? null;
         $arguments['beStrictAboutChangesToGlobalState']               = $arguments['beStrictAboutChangesToGlobalState'] ?? null;
         $arguments['beStrictAboutResourceUsageDuringSmallTests']      = $arguments['beStrictAboutResourceUsageDuringSmallTests'] ?? false;
-        $arguments['cacheResult']                                     = $arguments['cacheResult'] ?? true;
+        $arguments['cacheResult']                                     = $arguments['cacheResult'] ?? false;
         $arguments['cacheTokens']                                     = $arguments['cacheTokens'] ?? false;
         $arguments['colors']                                          = $arguments['colors'] ?? ResultPrinter::COLOR_DEFAULT;
         $arguments['columns']                                         = $arguments['columns'] ?? 80;
@@ -1243,7 +1243,7 @@ final class TestRunner extends BaseTestRunner
         $arguments['reportUselessTests']                              = $arguments['reportUselessTests'] ?? true;
         $arguments['reverseList']                                     = $arguments['reverseList'] ?? false;
         $arguments['executionOrder']                                  = $arguments['executionOrder'] ?? TestSuiteSorter::ORDER_DEFAULT;
-        $arguments['resolveDependencies']                             = $arguments['resolveDependencies'] ?? true;
+        $arguments['resolveDependencies']                             = $arguments['resolveDependencies'] ?? false;
         $arguments['stopOnError']                                     = $arguments['stopOnError'] ?? false;
         $arguments['stopOnFailure']                                   = $arguments['stopOnFailure'] ?? false;
         $arguments['stopOnIncomplete']                                = $arguments['stopOnIncomplete'] ?? false;

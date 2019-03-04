@@ -1,7 +1,7 @@
 --TEST--
 \PHPUnit\Framework\MockObject\Generator::generate('ClassWithMethodWithVariadicArguments', [], 'MockFoo', true, true)
 --FILE--
-<?php declare(strict_types=1);
+<?php
 class ClassWithMethodWithNullableTypehintedVariadicArguments
 {
     public function methodWithNullableTypehintedVariadicArguments($a, ?string ...$parameters)

@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -16,7 +16,7 @@ use ReflectionObject;
 use SebastianBergmann\Exporter\Exporter;
 
 /**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
+ * Represents a static invocation.
  */
 class StaticInvocation implements Invocation, SelfDescribing
 {

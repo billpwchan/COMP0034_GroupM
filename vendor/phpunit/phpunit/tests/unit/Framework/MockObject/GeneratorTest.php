@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -211,7 +211,7 @@ class GeneratorTest extends TestCase
         $this->assertInstanceOf(MockObject::class, $stub);
     }
 
-    public function testVariadicArgumentsArePassedToOriginalMethod(): void
+    public function testVariadicArgumentsArePassedToOriginalMethod()
     {
         /** @var ClassWithVariadicArgumentMethod|MockObject $mock */
         $mock = $this->generator->getMock(
@@ -230,7 +230,7 @@ class GeneratorTest extends TestCase
         $this->assertSame($arguments, $mock->foo(...$arguments));
     }
 
-    public function testVariadicArgumentsArePassedToMockedMethod(): void
+    public function testVariadicArgumentsArePassedToMockedMethod()
     {
         /** @var ClassWithVariadicArgumentMethod|MockObject $mock */
         $mock = $this->createMock(ClassWithVariadicArgumentMethod::class);

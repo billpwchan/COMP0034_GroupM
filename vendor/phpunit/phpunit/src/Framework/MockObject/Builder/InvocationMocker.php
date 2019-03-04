@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -17,9 +17,14 @@ use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\MockObject\Stub\MatcherCollection;
 
 /**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
+ * Builder for mocked or stubbed invocations.
+ *
+ * Provides methods for building expectations without having to resort to
+ * instantiating the various matchers manually. These methods also form a
+ * more natural way of reading the expectation. This class should be together
+ * with the test case PHPUnit\Framework\MockObject\TestCase.
  */
-final class InvocationMocker implements MethodNameMatch
+class InvocationMocker implements MethodNameMatch
 {
     /**
      * @var MatcherCollection

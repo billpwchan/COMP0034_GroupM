@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -12,7 +12,7 @@ namespace PHPUnit\Util;
 use PHPUnit\Framework\Exception;
 
 /**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
+ * Utility methods to load PHP sourcefiles.
  */
 final class FileLoader
 {

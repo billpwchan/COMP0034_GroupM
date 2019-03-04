@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -14,7 +14,7 @@ use Countable;
 /**
  * Constraint that checks whether a variable is empty().
  */
-final class IsEmpty extends Constraint
+class IsEmpty extends Constraint
 {
     /**
      * Returns a string representation of the constraint.

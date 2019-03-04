@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -15,7 +15,7 @@ namespace PHPUnit\Framework\Constraint;
  *
  * The expected value is passed in the constructor.
  */
-final class IsType extends Constraint
+class IsType extends Constraint
 {
     public const TYPE_ARRAY    = 'array';
 
@@ -73,6 +73,8 @@ final class IsType extends Constraint
      */
     public function __construct(string $type)
     {
+        parent::__construct();
+
         if (!isset(self::KNOWN_TYPES[$type])) {
             throw new \PHPUnit\Framework\Exception(
                 \sprintf(
@@ -135,20 +137,7 @@ final class IsType extends Constraint
                 return \is_object($other);
 
             case 'resource':
-                if (\is_resource($other)) {
-                    return true;
-                }
-
-                try {
-                    $resource = @\get_resource_type($other);
-
-                    if (\is_string($resource)) {
-                        return true;
-                    }
-                } catch (\TypeError $e) {
-                }
-
-                return false;
+                return \is_resource($other) || \is_string(@\get_resource_type($other));
 
             case 'scalar':
                 return \is_scalar($other);

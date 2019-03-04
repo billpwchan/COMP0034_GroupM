@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -10,9 +10,9 @@
 namespace PHPUnit\Framework;
 
 /**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
+ * Thrown when there is a warning.
  */
-final class Warning extends Exception implements SelfDescribing
+class Warning extends Exception implements SelfDescribing
 {
     /**
      * Wrapper for getMessage() which is declared as final.

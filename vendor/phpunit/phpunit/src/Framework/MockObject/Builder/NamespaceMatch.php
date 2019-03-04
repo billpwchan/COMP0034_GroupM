@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -10,7 +10,9 @@
 namespace PHPUnit\Framework\MockObject\Builder;
 
 /**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
+ * Interface for builders which can register builders with a given identification.
+ *
+ * This interface relates to Identity.
  */
 interface NamespaceMatch
 {

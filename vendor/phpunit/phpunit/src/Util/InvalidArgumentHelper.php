@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -12,7 +12,8 @@ namespace PHPUnit\Util;
 use PHPUnit\Framework\Exception;
 
 /**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
+ * Factory for PHPUnit\Framework\Exception objects that are used to describe
+ * invalid arguments passed to a function or method.
  */
 final class InvalidArgumentHelper
 {

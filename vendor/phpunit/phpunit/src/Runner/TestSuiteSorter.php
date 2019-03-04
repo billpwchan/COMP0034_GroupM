@@ -14,9 +14,6 @@ use PHPUnit\Framework\Test;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\TestSuite;
 
-/**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
- */
 final class TestSuiteSorter
 {
     /**
@@ -77,9 +74,6 @@ final class TestSuiteSorter
      */
     private $executionOrder = [];
 
-    /**
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     */
     public static function getTestSorterUID(Test $test): string
     {
         if ($test instanceof PhptTestCase) {
@@ -106,7 +100,6 @@ final class TestSuiteSorter
 
     /**
      * @throws Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     public function reorderTestsInSuite(Test $suite, int $order, bool $resolveDependencies, int $orderDefects, bool $isRootTestSuite = true): void
     {
@@ -188,9 +181,6 @@ final class TestSuiteSorter
         }
     }
 
-    /**
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     */
     private function addSuiteToDefectSortOrder(TestSuite $suite): void
     {
         $max = 0;
@@ -234,9 +224,6 @@ final class TestSuiteSorter
     {
         \usort(
             $tests,
-            /**
-             * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-             */
             function ($left, $right) {
                 return $this->cmpDefectPriorityAndTime($left, $right);
             }
@@ -249,9 +236,6 @@ final class TestSuiteSorter
     {
         \usort(
             $tests,
-            /**
-             * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-             */
             function ($left, $right) {
                 return $this->cmpDuration($left, $right);
             }
@@ -265,8 +249,6 @@ final class TestSuiteSorter
      * 1. sort tests by defect weight defined in self::DEFECT_SORT_WEIGHT
      * 2. when tests are equally defective, sort the fastest to the front
      * 3. do not reorder successful tests
-     *
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     private function cmpDefectPriorityAndTime(Test $a, Test $b): int
     {
@@ -288,8 +270,6 @@ final class TestSuiteSorter
 
     /**
      * Compares test duration for sorting tests by duration ascending.
-     *
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     private function cmpDuration(Test $a, Test $b): int
     {
@@ -318,9 +298,6 @@ final class TestSuiteSorter
 
         do {
             $todoNames = \array_map(
-                /**
-                 * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-                 */
                 function ($test) {
                     return self::getTestSorterUID($test);
                 },
@@ -361,9 +338,6 @@ final class TestSuiteSorter
         return $names;
     }
 
-    /**
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     */
     private function calculateTestExecutionOrder(Test $suite): array
     {
         $tests = [];

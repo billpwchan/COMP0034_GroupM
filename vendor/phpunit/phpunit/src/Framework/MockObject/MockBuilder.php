@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -11,7 +11,10 @@ namespace PHPUnit\Framework\MockObject;
 
 use PHPUnit\Framework\TestCase;
 
-final class MockBuilder
+/**
+ * Implementation of the Builder pattern for Mock objects.
+ */
+class MockBuilder
 {
     /**
      * @var TestCase
@@ -101,10 +104,6 @@ final class MockBuilder
     /**
      * Creates a mock object using a fluent interface.
      *
-     * @throws \ReflectionException
-     * @throws \PHPUnit\Framework\Exception
-     * @throws RuntimeException
-     *
      * @return MockObject
      */
     public function getMock()
@@ -132,10 +131,6 @@ final class MockBuilder
     /**
      * Creates a mock object for an abstract class using a fluent interface.
      *
-     * @throws \ReflectionException
-     * @throws \PHPUnit\Framework\Exception
-     * @throws RuntimeException
-     *
      * @return MockObject
      */
     public function getMockForAbstractClass()
@@ -158,10 +153,6 @@ final class MockBuilder
 
     /**
      * Creates a mock object for a trait using a fluent interface.
-     *
-     * @throws \ReflectionException
-     * @throws \PHPUnit\Framework\Exception
-     * @throws RuntimeException
      *
      * @return MockObject
      */
@@ -197,8 +188,6 @@ final class MockBuilder
 
     /**
      * Specifies the subset of methods to not mock. Default is to mock all of them.
-     *
-     * @throws \ReflectionException
      *
      * @return MockBuilder
      */

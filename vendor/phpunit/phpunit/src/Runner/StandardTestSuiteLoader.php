@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -15,14 +15,13 @@ use PHPUnit\Util\Filesystem;
 use ReflectionClass;
 
 /**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
+ * The standard test suite loader.
  */
-final class StandardTestSuiteLoader implements TestSuiteLoader
+class StandardTestSuiteLoader implements TestSuiteLoader
 {
     /**
      * @throws Exception
      * @throws \PHPUnit\Framework\Exception
-     * @throws \ReflectionException
      */
     public function load(string $suiteClassName, string $suiteClassFile = ''): ReflectionClass
     {

@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -36,6 +36,19 @@ class DependencyFailureTest extends TestCase
      * @depends clone testOne
      */
     public function testFour(): void
+    {
+        $this->assertTrue(true);
+    }
+
+    /**
+     * This test has been added to check the printed warnings for the user
+     * when a dependency simply doesn't exist.
+     *
+     * @depends doesNotExist
+     *
+     * @see https://github.com/sebastianbergmann/phpunit/issues/3517
+     */
+    public function testHandlesDependsAnnotationForNonexistentTests(): void
     {
         $this->assertTrue(true);
     }

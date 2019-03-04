@@ -1,56 +1,44 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/controllers/dbConnect.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/controllers/tokenValidation.php';
-$connect = db_connect();
+include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/model/order.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/model/cart.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/model/customer.php';
+
+$customer = new customer();
+$order = new order();
+$cart = new cart();
 
 if (!isset($_SESSION['userInfo'])) {
     header("location:../../login.php");
 }
 
-$userID = mysqli_real_escape_string($connect, $_SESSION['userInfo']['user_ID']);
+$userID = $_SESSION['userInfo']['user_ID'];
 
 $totalPrice = 0.0;
 foreach ($_SESSION['cartItems'] as $cartItem) {
     $totalPrice += (float)$cartItem['price'];
 }
-$sql = "
-    SELECT account_balance
-    FROM customer
-    WHERE user_ID = $userID
-";
-$balance = (float)db_select($sql)[0]['account_balance'];
+
+$balance = (float)$customer->getBalance($userID);
 if ($totalPrice > $balance) {
     header("Location:../../shoppingCart.php?status=insufficientBalance");
 }
 
-foreach ($_SESSION['cartItems'] as $cartItem) {
-    $event_ID = mysqli_real_escape_string($connect, $cartItem['event_ID']);
-    $quality = mysqli_real_escape_string($connect, $cartItem['quality']);
-    $event_startTime = mysqli_real_escape_string($connect, $cartItem['eventStartTime']);
-    $event_location = mysqli_real_escape_string($connect, $cartItem['eventLocation']);
-    $price = mysqli_real_escape_string($connect, $cartItem['price']);
-    $status = "Pending";
-    $sql = "
-        INSERT INTO orderhistory (customer_ID)
-        VALUES ($userID);
-    ";
-    $result = db_query($sql);
-    $orderHistoryID = mysqli_insert_id($connect);
-    $sql = "
-        INSERT INTO orderdetail (order_ID, event_ID, quality, event_startTime, event_location, price, status) 
-        VALUES ($orderHistoryID, $event_ID, '$quality', '$event_startTime', '$event_location', $price, '$status')
-    ";
-    $result = db_query($sql);
+$orderID = $order->insertNewOrder($userID);
 
+foreach ($_SESSION['cartItems'] as $cartItem) {
+    $event_ID = $cartItem['event_ID'];
+    $quality = $cartItem['quality'];
+    $event_startTime = $cartItem['eventStartTime'];
+    $event_location = $cartItem['eventLocation'];
+    $price = $cartItem['price'];
+    $status = "Pending";
+    $order->insertNewOrderHistory($orderID, $event_ID, $quality, $event_startTime, $event_location, $price, $status);
 }
 
 unset($_SESSION['cartItems']);
-$sql = "
-    DELETE FROM cart WHERE user_ID = $userID;
-";
-$result = db_query($sql);
+$cart->removeCartByUserID($userID);
 $balance -= $totalPrice;
 
-$sql = "UPDATE customer SET account_balance = $balance WHERE user_ID = $userID";
-$result = db_query($sql);
+$customer->updateBalance($balance, $userID);
 header("Location:../../shoppingCart.php?status=success");

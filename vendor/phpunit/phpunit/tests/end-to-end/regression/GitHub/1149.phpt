@@ -1,7 +1,8 @@
 --TEST--
 GH-1149: Test swallows output buffer when run in a separate process
 --FILE--
-<?php declare(strict_types=1);
+<?php
+
 $_SERVER['argv'][1] = '--no-configuration';
 $_SERVER['argv'][2] = 'Issue1149Test';
 $_SERVER['argv'][3] = __DIR__ . '/1149/Issue1149Test.php';

@@ -7,7 +7,7 @@ if (defined('HHVM_VERSION') || defined('PHPDBG_VERSION')) {
 }
 ?>
 --FILE--
-<?php declare(strict_types=1);
+<?php
 $_SERVER['argv'][1] = '--no-configuration';
 $_SERVER['argv'][]  = '--process-isolation';
 $_SERVER['argv'][]  = 'Issue1348Test';

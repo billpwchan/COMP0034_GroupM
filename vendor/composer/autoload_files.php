@@ -7,9 +7,9 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'e88992873b7765f9b5710cab95ba5dd7' => $vendorDir . '/hoa/consistency/Prelude.php',
+    '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => $vendorDir . '/symfony/polyfill-mbstring/bootstrap.php',
     '320cde22f66dd4f5d3fd621d3e88b98f' => $vendorDir . '/symfony/polyfill-ctype/bootstrap.php',
     '10a6847eba8a430a134fad89f4a30a26' => $vendorDir . '/zendframework/zend-cache/autoload/patternPluginManagerPolyfill.php',
-    '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => $vendorDir . '/symfony/polyfill-mbstring/bootstrap.php',
     '3e76f7f02b41af8cea96018933f6b7e3' => $vendorDir . '/hoa/protocol/Wrapper.php',
     'fe1bcd0336136e435eaf197895daf81a' => $vendorDir . '/nikic/php-parser/lib/bootstrap.php',
     '2c102faa651ef8ea5874edb585946bce' => $vendorDir . '/swiftmailer/swiftmailer/lib/swift_required.php',

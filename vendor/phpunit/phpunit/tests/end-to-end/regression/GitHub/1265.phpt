@@ -1,7 +1,8 @@
 --TEST--
 GH-1265: Could not use "PHPUnit\Runner\StandardTestSuiteLoader" as loader
 --FILE--
-<?php declare(strict_types=1);
+<?php
+
 $_SERVER['argv'][1] = '--configuration';
 $_SERVER['argv'][2] = __DIR__ . '/1265/phpunit1265.xml';
 $_SERVER['argv'][3] = 'Issue1265Test';

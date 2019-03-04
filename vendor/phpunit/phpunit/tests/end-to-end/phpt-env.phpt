@@ -3,7 +3,7 @@ PHPT runner should support ENV section
 --ENV--
 FOO=bar
 --FILE--
-<?php declare(strict_types=1);
+<?php
 if (isset($_SERVER['FOO'])) {
     \var_dump($_SERVER['FOO']);
 }

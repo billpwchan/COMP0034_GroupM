@@ -107,4 +107,25 @@ class user
         $sql = "UPDATE user SET password = ? WHERE email_address = ?";
         return $db_handle->db_update($sql, 'ss', array($password, $email));
     }
+
+    function updateFirstName($firstName, $userID)
+    {
+        $db_handle = new dbController();
+        $sql = "UPDATE user SET first_name = ? WHERE user_ID = ?";
+        $db_handle->db_update($sql, 'si', array($firstName, $userID));
+    }
+
+    function updateLastName($lastName, $userID)
+    {
+        $db_handle = new dbController();
+        $sql = "UPDATE user SET last_name = ? WHERE user_ID = ?";
+        $db_handle->db_update($sql, 'si', array($lastName, $userID));
+    }
+
+    function updatePhone($phone, $userID)
+    {
+        $db_handle = new dbController();
+        $sql = "UPDATE user SET contact_number = ? WHERE user_ID = ?";
+        $db_handle->db_update($sql, 'si', array($phone, $userID));
+    }
 }

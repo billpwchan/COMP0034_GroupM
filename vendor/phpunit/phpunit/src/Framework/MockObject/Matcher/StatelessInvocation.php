@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -12,7 +12,11 @@ namespace PHPUnit\Framework\MockObject\Matcher;
 use PHPUnit\Framework\MockObject\Invocation as BaseInvocation;
 
 /**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
+ * Invocation matcher which does not care about previous state from earlier
+ * invocations.
+ *
+ * This abstract class can be implemented by matchers which does not care about
+ * state but only the current run-time value of the invocation itself.
  */
 abstract class StatelessInvocation implements Invocation
 {
@@ -29,7 +33,7 @@ abstract class StatelessInvocation implements Invocation
      *
      * @param BaseInvocation $invocation Object containing information on a mocked or stubbed method which was invoked
      */
-    public function invoked(BaseInvocation $invocation): void
+    public function invoked(BaseInvocation $invocation)
     {
     }
 

@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -19,9 +19,13 @@ use PHPUnit\Framework\MockObject\Matcher\Invocation as MatcherInvocation;
 use PHPUnit\Framework\MockObject\Stub\MatcherCollection;
 
 /**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
+ * Mocker for invocations which are sent from
+ * MockObject objects.
+ *
+ * Keeps track of all expectations and stubs as well as registering
+ * identifications for builders.
  */
-final class InvocationMocker implements MatcherCollection, Invokable, NamespaceMatch
+class InvocationMocker implements MatcherCollection, Invokable, NamespaceMatch
 {
     /**
      * @var MatcherInvocation[]

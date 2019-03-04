@@ -1,7 +1,7 @@
 --TEST--
 \PHPUnit\Framework\MockObject\Generator::generate('Foo', [], 'MockFoo', true, true)
 --FILE--
-<?php declare(strict_types=1);
+<?php
 interface Foo
 {
     public function bar(string $baz): void;

@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -12,9 +12,10 @@ namespace PHPUnit\Framework\MockObject\Matcher;
 use PHPUnit\Framework\ExpectationFailedException;
 
 /**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
+ * Invocation matcher which checks if a method has been invoked at least
+ * N times.
  */
-final class InvokedAtLeastCount extends InvokedRecorder
+class InvokedAtLeastCount extends InvokedRecorder
 {
     /**
      * @var int

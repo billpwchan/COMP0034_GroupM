@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -12,7 +12,7 @@ namespace PHPUnit\Util;
 use PHPUnit\Framework\Exception;
 
 /**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
+ * Command-line options parsing class.
  */
 final class Getopt
 {
@@ -156,7 +156,7 @@ final class Getopt
 
             if (\substr($long_opt, -1) === '=') {
                 /* @noinspection StrlenInEmptyStringCheckContextInspection */
-                if (\substr($long_opt, -2) !== '==' && !\strlen((string) $opt_arg)) {
+                if (\substr($long_opt, -2) !== '==' && !\strlen($opt_arg)) {
                     /* @noinspection ComparisonOperandsOrderInspection */
                     if (false === $opt_arg = \current($args)) {
                         throw new Exception(

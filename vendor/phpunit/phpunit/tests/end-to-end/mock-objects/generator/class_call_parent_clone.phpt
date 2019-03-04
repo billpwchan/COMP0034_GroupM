@@ -1,7 +1,7 @@
 --TEST--
 \PHPUnit\Framework\MockObject\Generator::generate('Foo', [], 'MockFoo', true)
 --FILE--
-<?php declare(strict_types=1);
+<?php
 class Foo
 {
     public function __clone()

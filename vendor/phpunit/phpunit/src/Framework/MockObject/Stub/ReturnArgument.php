@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -13,9 +13,9 @@ use PHPUnit\Framework\MockObject\Invocation;
 use PHPUnit\Framework\MockObject\Stub;
 
 /**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
+ * Stubs a method by returning an argument that was passed to the mocked method.
  */
-final class ReturnArgument implements Stub
+class ReturnArgument implements Stub
 {
     /**
      * @var int

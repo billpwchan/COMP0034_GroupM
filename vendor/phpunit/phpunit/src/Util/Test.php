@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -14,7 +14,6 @@ use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\CodeCoverageException;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\InvalidCoversTargetException;
-use PHPUnit\Framework\InvalidDataProviderException;
 use PHPUnit\Framework\SelfDescribing;
 use PHPUnit\Framework\SkippedTestError;
 use PHPUnit\Framework\TestCase;
@@ -27,9 +26,6 @@ use ReflectionMethod;
 use SebastianBergmann\Environment\OperatingSystem;
 use Traversable;
 
-/**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
- */
 final class Test
 {
     /**
@@ -104,9 +100,6 @@ final class Test
      */
     private static $hookMethods = [];
 
-    /**
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     */
     public static function describe(\PHPUnit\Framework\Test $test): array
     {
         if ($test instanceof TestCase) {
@@ -166,84 +159,71 @@ final class Test
     public static function getRequirements(string $className, string $methodName): array
     {
         $reflector  = new ReflectionClass($className);
-        $requires   = [
-            '__OFFSET' => [
-                '__FILE' => \realpath($reflector->getFileName()),
-            ],
-        ];
-        $requires = self::parseRequirements((string) $reflector->getDocComment(), $reflector->getStartLine(), $requires);
-
+        $docComment = $reflector->getDocComment();
         $reflector  = new ReflectionMethod($className, $methodName);
+        $docComment .= "\n" . $reflector->getDocComment();
+        $requires = [];
 
-        return self::parseRequirements((string) $reflector->getDocComment(), $reflector->getStartLine(), $requires);
-    }
-
-    public static function parseRequirements(string $docComment, int $offset = 0, array $requires = []): array
-    {
-        // Split docblock into lines and rewind offset to start of docblock
-        $lines = \preg_split('/\r\n|\r|\n/', $docComment);
-        $offset -= \count($lines);
-
-        foreach ($lines as $line) {
-            if (\preg_match(self::REGEX_REQUIRES_OS, $line, $matches)) {
-                $requires[$matches['name']]             = $matches['value'];
-                $requires['__OFFSET'][$matches['name']] = $offset;
+        if ($count = \preg_match_all(self::REGEX_REQUIRES_OS, $docComment, $matches)) {
+            foreach (\range(0, $count - 1) as $i) {
+                $requires[$matches['name'][$i]] = $matches['value'][$i];
             }
+        }
 
-            if (\preg_match(self::REGEX_REQUIRES_VERSION, $line, $matches)) {
-                $requires[$matches['name']] = [
-                    'version'  => $matches['version'],
-                    'operator' => $matches['operator'],
+        if ($count = \preg_match_all(self::REGEX_REQUIRES_VERSION, $docComment, $matches)) {
+            foreach (\range(0, $count - 1) as $i) {
+                $requires[$matches['name'][$i]] = [
+                    'version'  => $matches['version'][$i],
+                    'operator' => $matches['operator'][$i],
                 ];
-                $requires['__OFFSET'][$matches['name']] = $offset;
             }
+        }
 
-            if (\preg_match(self::REGEX_REQUIRES_VERSION_CONSTRAINT, $line, $matches)) {
-                if (!empty($requires[$matches['name']])) {
-                    $offset++;
-
+        if ($count = \preg_match_all(self::REGEX_REQUIRES_VERSION_CONSTRAINT, $docComment, $matches)) {
+            foreach (\range(0, $count - 1) as $i) {
+                if (!empty($requires[$matches['name'][$i]])) {
                     continue;
                 }
 
                 try {
                     $versionConstraintParser = new VersionConstraintParser;
 
-                    $requires[$matches['name'] . '_constraint'] = [
-                        'constraint' => $versionConstraintParser->parse(\trim($matches['constraint'])),
+                    $requires[$matches['name'][$i] . '_constraint'] = [
+                        'constraint' => $versionConstraintParser->parse(\trim($matches['constraint'][$i])),
                     ];
-                    $requires['__OFFSET'][$matches['name'] . '_constraint'] = $offset;
                 } catch (\PharIo\Version\Exception $e) {
                     throw new Warning($e->getMessage(), $e->getCode(), $e);
                 }
             }
+        }
 
-            if (\preg_match(self::REGEX_REQUIRES_SETTING, $line, $matches)) {
-                if (!isset($requires['setting'])) {
-                    $requires['setting'] = [];
-                }
-                $requires['setting'][$matches['setting']]                 = $matches['value'];
-                $requires['__OFFSET']['__SETTING_' . $matches['setting']] = $offset;
+        if ($count = \preg_match_all(self::REGEX_REQUIRES_SETTING, $docComment, $matches)) {
+            $requires['setting'] = [];
+
+            foreach (\range(0, $count - 1) as $i) {
+                $requires['setting'][$matches['setting'][$i]] = $matches['value'][$i];
             }
+        }
 
-            if (\preg_match(self::REGEX_REQUIRES, $line, $matches)) {
-                $name = $matches['name'] . 's';
+        if ($count = \preg_match_all(self::REGEX_REQUIRES, $docComment, $matches)) {
+            foreach (\range(0, $count - 1) as $i) {
+                $name = $matches['name'][$i] . 's';
 
                 if (!isset($requires[$name])) {
                     $requires[$name] = [];
                 }
 
-                $requires[$name][]                                                = $matches['value'];
-                $requires['__OFFSET'][$matches['name'] . '_' . $matches['value']] = $offset;
+                $requires[$name][] = $matches['value'][$i];
 
-                if ($name === 'extensions' && !empty($matches['version'])) {
-                    $requires['extension_versions'][$matches['value']] = [
-                        'version'  => $matches['version'],
-                        'operator' => $matches['operator'],
-                    ];
+                if ($name !== 'extensions' || empty($matches['version'][$i])) {
+                    continue;
                 }
-            }
 
-            $offset++;
+                $requires['extension_versions'][$matches['value'][$i]] = [
+                    'version'  => $matches['version'][$i],
+                    'operator' => $matches['operator'][$i],
+                ];
+            }
         }
 
         return $requires;
@@ -260,14 +240,12 @@ final class Test
     {
         $required = static::getRequirements($className, $methodName);
         $missing  = [];
-        $hint     = null;
 
         if (!empty($required['PHP'])) {
             $operator = empty($required['PHP']['operator']) ? '>=' : $required['PHP']['operator'];
 
             if (!\version_compare(\PHP_VERSION, $required['PHP']['version'], $operator)) {
                 $missing[] = \sprintf('PHP %s %s is required.', $operator, $required['PHP']['version']);
-                $hint      = $hint ?? 'PHP';
             }
         } elseif (!empty($required['PHP_constraint'])) {
             $version = new \PharIo\Version\Version(self::sanitizeVersionNumber(\PHP_VERSION));
@@ -277,7 +255,6 @@ final class Test
                     'PHP version does not match the required constraint %s.',
                     $required['PHP_constraint']['constraint']->asString()
                 );
-                $hint = $hint ?? 'PHP_constraint';
             }
         }
 
@@ -288,7 +265,6 @@ final class Test
 
             if (!\version_compare($phpunitVersion, $required['PHPUnit']['version'], $operator)) {
                 $missing[] = \sprintf('PHPUnit %s %s is required.', $operator, $required['PHPUnit']['version']);
-                $hint      = $hint ?? 'PHPUnit';
             }
         } elseif (!empty($required['PHPUnit_constraint'])) {
             $phpunitVersion = new \PharIo\Version\Version(self::sanitizeVersionNumber(Version::id()));
@@ -298,13 +274,11 @@ final class Test
                     'PHPUnit version does not match the required constraint %s.',
                     $required['PHPUnit_constraint']['constraint']->asString()
                 );
-                $hint = $hint ?? 'PHPUnit_constraint';
             }
         }
 
         if (!empty($required['OSFAMILY']) && $required['OSFAMILY'] !== (new OperatingSystem)->getFamily()) {
             $missing[] = \sprintf('Operating system %s is required.', $required['OSFAMILY']);
-            $hint      = $hint ?? 'OSFAMILY';
         }
 
         if (!empty($required['OS'])) {
@@ -312,7 +286,6 @@ final class Test
 
             if (!\preg_match($requiredOsPattern, \PHP_OS)) {
                 $missing[] = \sprintf('Operating system matching %s is required.', $requiredOsPattern);
-                $hint      = $hint ?? 'OS';
             }
         }
 
@@ -329,7 +302,6 @@ final class Test
                 }
 
                 $missing[] = \sprintf('Function %s is required.', $function);
-                $hint      = $hint ?? 'function_' . $function;
             }
         }
 
@@ -337,7 +309,6 @@ final class Test
             foreach ($required['setting'] as $setting => $value) {
                 if (\ini_get($setting) != $value) {
                     $missing[] = \sprintf('Setting "%s" must be "%s".', $setting, $value);
-                    $hint      = $hint ?? '__SETTING_' . $setting;
                 }
             }
         }
@@ -350,27 +321,20 @@ final class Test
 
                 if (!\extension_loaded($extension)) {
                     $missing[] = \sprintf('Extension %s is required.', $extension);
-                    $hint      = $hint ?? 'extension_' . $extension;
                 }
             }
         }
 
         if (!empty($required['extension_versions'])) {
-            foreach ($required['extension_versions'] as $extension => $req) {
+            foreach ($required['extension_versions'] as $extension => $required) {
                 $actualVersion = \phpversion($extension);
 
-                $operator = empty($req['operator']) ? '>=' : $req['operator'];
+                $operator = empty($required['operator']) ? '>=' : $required['operator'];
 
-                if ($actualVersion === false || !\version_compare($actualVersion, $req['version'], $operator)) {
-                    $missing[] = \sprintf('Extension %s %s %s is required.', $extension, $operator, $req['version']);
-                    $hint      = $hint ?? 'extension_' . $extension;
+                if ($actualVersion === false || !\version_compare($actualVersion, $required['version'], $operator)) {
+                    $missing[] = \sprintf('Extension %s %s %s is required.', $extension, $operator, $required['version']);
                 }
             }
-        }
-
-        if ($hint && isset($required['__OFFSET'])) {
-            \array_unshift($missing, '__OFFSET_FILE=' . $required['__OFFSET']['__FILE']);
-            \array_unshift($missing, '__OFFSET_LINE=' . $required['__OFFSET'][$hint] ?? 1);
         }
 
         return $missing;
@@ -380,15 +344,12 @@ final class Test
      * Returns the expected exception for a test.
      *
      * @return array|false
-     *
-     * @deprecated
-     * @codeCoverageIgnore
      */
-    public static function getExpectedException(string $className, string $methodName)
+    public static function getExpectedException(string $className, ?string $methodName)
     {
         $reflector  = new ReflectionMethod($className, $methodName);
-        $docComment = (string) $reflector->getDocComment();
-        $docComment = (string) \substr($docComment, 3, -2);
+        $docComment = $reflector->getDocComment();
+        $docComment = \substr($docComment, 3, -2);
 
         if (\preg_match(self::REGEX_EXPECTED_EXCEPTION, $docComment, $matches)) {
             $annotations = self::parseTestMethodAnnotations(
@@ -441,12 +402,11 @@ final class Test
      * Returns the provided data for a method.
      *
      * @throws Exception
-     * @throws ReflectionException
      */
     public static function getProvidedData(string $className, string $methodName): ?array
     {
         $reflector  = new ReflectionMethod($className, $methodName);
-        $docComment = (string) $reflector->getDocComment();
+        $docComment = $reflector->getDocComment();
 
         $data = self::getDataFromDataProviderAnnotation($docComment, $className, $methodName);
 
@@ -524,13 +484,13 @@ final class Test
             foreach ($traits as $trait) {
                 $annotations = \array_merge(
                     $annotations,
-                    self::parseAnnotations((string) $trait->getDocComment())
+                    self::parseAnnotations($trait->getDocComment())
                 );
             }
 
             self::$annotationCache[$className] = \array_merge(
                 $annotations,
-                self::parseAnnotations((string) $class->getDocComment())
+                self::parseAnnotations($class->getDocComment())
             );
         }
 
@@ -539,7 +499,7 @@ final class Test
         if ($methodName !== null && !isset(self::$annotationCache[$cacheKey])) {
             try {
                 $method      = new ReflectionMethod($className, $methodName);
-                $annotations = self::parseAnnotations((string) $method->getDocComment());
+                $annotations = self::parseAnnotations($method->getDocComment());
             } catch (ReflectionException $e) {
                 $annotations = [];
             }
@@ -581,7 +541,7 @@ final class Test
     {
         $annotations = [];
         // Strip away the docblock header and footer to ease parsing of one line annotations
-        $docBlock = (string) \substr($docBlock, 3, -2);
+        $docBlock = \substr($docBlock, 3, -2);
 
         if (\preg_match_all('/@(?P<name>[A-Za-z_-]+)(?:[ \t]+(?P<value>.*?))?[ \t]*\r?$/m', $docBlock, $matches)) {
             $numMatches = \count($matches[0]);
@@ -870,8 +830,7 @@ final class Test
     }
 
     /**
-     * @throws \ReflectionException
-     * @throws \PHPUnit\Framework\InvalidDataProviderException
+     * Returns the provided data for a method.
      */
     private static function getDataFromDataProviderAnnotation(string $docComment, string $className, string $methodName): ?iterable
     {
@@ -919,14 +878,6 @@ final class Test
                     foreach ($origData as $key => $value) {
                         if (\is_int($key)) {
                             $data[] = $value;
-                        } elseif (\array_key_exists($key, $data)) {
-                            throw new InvalidDataProviderException(
-                                \sprintf(
-                                    'The key "%s" has already been defined in the data provider "%s".',
-                                    $key,
-                                    $match
-                                )
-                            );
                         } else {
                             $data[$key] = $value;
                         }
@@ -949,7 +900,7 @@ final class Test
         //removing initial '   * ' for docComment
         $docComment = \str_replace("\r\n", "\n", $docComment);
         $docComment = \preg_replace('/' . '\n' . '\s*' . '\*' . '\s?' . '/', "\n", $docComment);
-        $docComment = (string) \substr($docComment, 0, -1);
+        $docComment = \substr($docComment, 0, -1);
 
         return \rtrim($docComment, "\n");
     }

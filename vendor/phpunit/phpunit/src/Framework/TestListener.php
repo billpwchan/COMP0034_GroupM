@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -10,9 +10,7 @@
 namespace PHPUnit\Framework;
 
 /**
- * @deprecated Use the `TestHook` interfaces instead
- *
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
+ * A Listener for test progress.
  */
 interface TestListener
 {

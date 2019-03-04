@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -24,9 +24,10 @@ use ReflectionClass;
 use SebastianBergmann\Comparator\ComparisonFailure;
 
 /**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
+ * A TestListener that generates a logfile of the test execution using the
+ * TeamCity format (for use with PhpStorm, for instance).
  */
-final class TeamCity extends ResultPrinter
+class TeamCity extends ResultPrinter
 {
     /**
      * @var bool
@@ -43,9 +44,6 @@ final class TeamCity extends ResultPrinter
      */
     private $flowId;
 
-    /**
-     * @throws \SebastianBergmann\Timer\RuntimeException
-     */
     public function printResult(TestResult $result): void
     {
         $this->printHeader();
@@ -56,7 +54,6 @@ final class TeamCity extends ResultPrinter
      * An error occurred.
      *
      * @throws \InvalidArgumentException
-     * @throws \ReflectionException
      */
     public function addError(Test $test, \Throwable $t, float $time): void
     {
@@ -75,7 +72,6 @@ final class TeamCity extends ResultPrinter
      * A warning occurred.
      *
      * @throws \InvalidArgumentException
-     * @throws \ReflectionException
      */
     public function addWarning(Test $test, Warning $e, float $time): void
     {
@@ -94,7 +90,6 @@ final class TeamCity extends ResultPrinter
      * A failure occurred.
      *
      * @throws \InvalidArgumentException
-     * @throws \ReflectionException
      */
     public function addFailure(Test $test, AssertionFailedError $e, float $time): void
     {
@@ -134,8 +129,6 @@ final class TeamCity extends ResultPrinter
 
     /**
      * Incomplete test.
-     *
-     * @throws \ReflectionException
      */
     public function addIncompleteTest(Test $test, \Throwable $t, float $time): void
     {
@@ -146,7 +139,6 @@ final class TeamCity extends ResultPrinter
      * Risky test.
      *
      * @throws \InvalidArgumentException
-     * @throws \ReflectionException
      */
     public function addRiskyTest(Test $test, \Throwable $t, float $time): void
     {
@@ -171,9 +163,6 @@ final class TeamCity extends ResultPrinter
         }
     }
 
-    /**
-     * @throws \ReflectionException
-     */
     public function printIgnoredTest($testName, \Throwable $t, float $time): void
     {
         $this->printEvent(
@@ -310,7 +299,7 @@ final class TeamCity extends ResultPrinter
         }
 
         foreach ($params as $key => $value) {
-            $escapedValue = self::escapeValue((string) $value);
+            $escapedValue = self::escapeValue($value);
             $this->write(" $key='$escapedValue'");
         }
 
@@ -335,7 +324,7 @@ final class TeamCity extends ResultPrinter
     }
 
     /**
-     * @throws \ReflectionException
+     * @throws \InvalidArgumentException
      */
     private static function getDetails(\Throwable $t): string
     {
@@ -397,6 +386,6 @@ final class TeamCity extends ResultPrinter
      */
     private static function toMilliseconds(float $time): int
     {
-        return (int) \round($time * 1000);
+        return \round($time * 1000);
     }
 }

@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -13,7 +13,14 @@ use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\MockObject\Invocation as BaseInvocation;
 
 /**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
+ * Invocation matcher which checks if a method was invoked at a certain index.
+ *
+ * If the expected index number does not match the current invocation index it
+ * will not match which means it skips all method and parameter matching. Only
+ * once the index is reached will the method and parameter start matching and
+ * verifying.
+ *
+ * If the index is never reached it will throw an exception in index.
  */
 class InvokedAtIndex implements Invocation
 {

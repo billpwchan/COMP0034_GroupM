@@ -1,7 +1,7 @@
 --TEST--
 Emit deprecation notice when mocking deprecated message.
 --FILE--
-<?php declare(strict_types=1);
+<?php
 class Foo
 {
     /**

@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -12,7 +12,7 @@ namespace PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\MockObject\Matcher\Invocation;
 
 /**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
+ * Stubs a method by returning a user-defined value.
  */
 interface MatcherCollection
 {
