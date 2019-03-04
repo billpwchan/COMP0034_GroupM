@@ -193,7 +193,6 @@
                                     style="visibility: hidden">Cancel
                             </button>
                         </div>
-                        </form>
                     </div>
                     <div aria-labelledby="add_service" class="row tab-pane fade" id="service"
                          role="tabpanel3">
@@ -216,16 +215,14 @@
                         <div class="form-group row">
                             <label for="staticname" class="col-sm-3 col-form-label">Price: </label>
                             <div class="col-sm-5">
-                                <input class="userInput" type="float" name="price" placeholder="Price">
+                                <input class="userInput" name="price" placeholder="Price" type="float">
                             </div>
-                            </form>
                         </div>
                         <div class="form-group row">
                             <label for="staticdescription" class="col-sm-3 col-form-label">Description: </label>
                             <div class="col-sm-5">
                                 <input class="userInput" type="text" name="description" placeholder="Description">
                             </div>
-                            </form>
                         </div>
                         <div class="form-group row">
                             <label for="staticregistration_date" class="col-sm-3 col-form-label">Created: </label>
