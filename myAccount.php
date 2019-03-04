@@ -196,79 +196,47 @@
                         </form>
                     </div>
                     <div aria-labelledby="add_service" class="row tab-pane fade" id="service"
-                         role="tabpane2">
+                         role="tabpane3">
                         <div class="form-group row">
-                            <label for="staticemail_address" class="col-sm-3 col-form-label">Please Work</label>
-                            <div class="col-sm-6">
-                                <input type="text" readonly class="form-control-plaintext" id="staticemail_address"
-                                       value="<?= $_SESSION['userInfo']['email_address'] ?>">
-                            </div>
+                            <label for="staticname" class="col-sm-3 col-form-label">
+                            <select id="event_type" name="event_type">
+                                <option value="0">Event Type</option>
+                                <option value="1">Venue</option>
+                                <option value="2">Entertainment</option>
+                                <option value="3">Menus</option>
+                            </select>
+                            </label>
+                            </form>
                         </div>
                         <div class="form-group row">
-                            <label for="staticgender" class="col-sm-3 col-form-label">Gender</label>
-                            <div class="col-sm-6">
-                                <input type="text" readonly class="form-control-plaintext" id="staticgender"
-                                       value="<?= $_SESSION['userInfo']['gender'] ?>">
+                            <label for="staticname" class="col-sm-3 col-form-label">Name</label>
+                            <div class="col-sm-5">
+                                <input type="text" readonly class="form-control" id="staticname">
                             </div>
+                            </form>
                         </div>
                         <div class="form-group row">
-                            <label for="staticregistration_date" class="col-sm-3 col-form-label">Registration
-                                date</label>
+                            <label for="staticname" class="col-sm-3 col-form-label">Price</label>
+                            <div class="col-sm-5">
+                                <input type="float" readonly class="form-control" id="staticname">
+                            </div>
+                            </form>
+                        </div>
+                        <div class="form-group row">
+                            <label for="staticdescription" class="col-sm-3 col-form-label">Description</label>
+                            <div class="col-sm-5">
+                                <input type="text" readonly class="form-control" id="staticdescription">
+                            </div>
+                            </form>
+                        </div>
+                        <div class="form-group row">
+                            <label for="staticregistration_date" class="col-sm-3 col-form-label">Created: </label>
                             <div class="col-sm-6">
                                 <input type="text" readonly class="form-control-plaintext" id="staticregistration_date"
                                        value="<?= $_SESSION['userInfo']['registration_date'] ?>">
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="staticfirst_name" class="col-sm-3 col-form-label">First name</label>
-                            <div class="col-sm-5">
-                                <input type="text" readonly class="form-control" id="staticfirst_name"
-                                       value="<?= $_SESSION['userInfo']['first_name'] ?>">
-                            </div>
-                            <button class=" col-sm-1 btn edit-btn" id="edit_button_first_name"
-                                    style="visibility: visible">Edit
-                            </button>
-                            <button class=" col-sm-1 btn save-btn" id="save_button_first_name"
-                                    style="visibility: hidden">Save
-                            </button>
-                            <button class=" col-sm-1 btn cancel-btn" id="cancel_button_first_name"
-                                    style="visibility: hidden">Cancel
-                            </button>
                         </div>
-                        <div class="form-group row">
-                            <label for="staticlast_name" class="col-sm-3 col-form-label">Last name</label>
-                            <div class="col-sm-5">
-                                <input type="text" readonly class="form-control" id="staticlast_name"
-                                       value="<?= $_SESSION['userInfo']['last_name'] ?>">
-                            </div>
-                            <button class=" col-sm-1 btn edit-btn" id="edit_button_last_name"
-                                    style="visibility: visible">Edit
-                            </button>
-                            <button class=" col-sm-1 btn save-btn" id="save_button_last_name"
-                                    style="visibility: hidden">Save
-                            </button>
-                            <button class=" col-sm-1 btn cancel-btn" id="cancel_button_last_name"
-                                    style="visibility: hidden">Cancel
-                            </button>
-                        </div>
-                        <div class="form-group row">
-                            <label for="staticcontact_number" class="col-sm-3 col-form-label">Contact number</label>
-                            <div class="col-sm-5">
-                                <input type="text" readonly class="form-control" id="staticcontact_number"
-                                       value="<?= $_SESSION['userInfo']['contact_number'] ?>">
-                            </div>
-                            <button class=" col-sm-1 btn edit-btn" id="edit_button_contact_number"
-                                    style="visibility: visible">Edit
-                            </button>
-                            <button class=" col-sm-1 btn save-btn" id="save_button_contact_number"
-                                    style="visibility: hidden">Save
-                            </button>
-                            <button class=" col-sm-1 btn cancel-btn" id="cancel_button_contact_number"
-                                    style="visibility: hidden">Cancel
-                            </button>
-                        </div>
-                        </form>
-                    </div>
                 </div>
             </div>
     </main>
