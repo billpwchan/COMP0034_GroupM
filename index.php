@@ -7,7 +7,7 @@ include("includes/config.php"); ?>
     <?php include("includes/headTags.php"); ?>
     <?php
     if (isset($_GET['logout'])) {
-        include_once "./assets/model/auth.php";
+        require_once "./assets/model/auth.php";
         $auth = new auth();
         $auth->clearCookies();
         session_destroy();

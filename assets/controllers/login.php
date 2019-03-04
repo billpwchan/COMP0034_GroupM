@@ -11,7 +11,7 @@ $user = new user();
 
 include_once "rememberMeCookieAuth.php";
 
-if ($isLoggedIn) {
+if ($isLoggedIn && $_POST['email'] === $_SESSION['email']) {
     $_SESSION['userInfo'] = $user->selectUserByEmail($_COOKIE['member_login'])[0];
     unset($_SESSION['userInfo']['password']);
     header("Location:../../myAccount.php?login=success");

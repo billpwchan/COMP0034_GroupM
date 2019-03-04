@@ -67,10 +67,12 @@
                         <a class="nav-link" id="personal-tab" data-toggle="tab" href="#personal" role="tab"
                            aria-controls="personal" aria-selected="false">Personal Information</a>
                     </li>
-                    <li class="nav-item" id="add_service">
-                        <a class="nav-link" id="add_service" data-toggle="tab" href="#service" role="tab"
-                           aria-controls="service" aria-selected="false">Add Service</a>
-                    </li>
+                    <?php if (!isset($_SESSION['customer'])) { ?>
+                        <li class="nav-item" id="add_service">
+                            <a class="nav-link" id="add_service" data-toggle="tab" href="#service" role="tab"
+                               aria-controls="service" aria-selected="false">Add Service</a>
+                        </li>
+                    <?php } ?>
                 </ul>
                 <div class="tab-content profile-tab" id="myTabContent">
                     <div aria-labelledby="order-tab" class="row gallery tab-pane fade show active" id="order"
@@ -122,7 +124,7 @@
                         <?php } ?>
                     </div>
                     <div aria-labelledby="personal-tab" class="row tab-pane fade" id="personal"
-                         role="tabpanel2">
+                         role="tabpanel">
                         <div class="form-group row">
                             <label for="staticemail_address" class="col-sm-3 col-form-label">Email address</label>
                             <div class="col-sm-6">
@@ -194,65 +196,84 @@
                             </button>
                         </div>
                     </div>
-                    <div aria-labelledby="add_service" class="row tab-pane fade" id="service"
-                         role="tabpanel3">
-                        <div class="form-group row">
-                            <label for="staticname" class="col-sm-3 col-form-label">Event Type</label>
-                            <div class="col-sm-5">
-                                <select id="event_type" name="event_type">
-                                    <option value="1">Venue</option>
-                                    <option value="2">Entertainment</option>
-                                    <option value="3">Menus</option>
-                                </select>
-                            </div>
+                    <?php if (!isset($_SESSION['customer'])) { ?>
+                        <div aria-labelledby="add_service" class="row tab-pane fade" id="service"
+                             role="tabpanel">
+                            <?php
+                            $token = md5(uniqid(rand(), TRUE));
+                            $_SESSION['token'] = $token;
+                            $_SESSION['token_time'] = time();
+                            ?>
+                            <form id="serviceForm" method="post" action="./assets/controllers/addService.php"
+                                  enctype="multipart/form-data">
+                                <input type="hidden" name="token" value="<?= $token ?>"/>
+                                <div class="form-group row">
+                                    <label for="staticname" class="col-sm-2 col-form-label">Event Type</label>
+                                    <div class="col-sm-5">
+                                        <select class="selectpicker" id="event_type" name="event_type">
+                                            <option value="1">Venue</option>
+                                            <option value="2">Entertainment</option>
+                                            <option value="3">Menu</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="staticname" class="col-sm-2 col-form-label">Name: </label>
+                                    <div class="col-sm-5">
+                                        <input class="form-control" type="text" name="name" placeholder="Name">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="staticname" class="col-sm-2 col-form-label">Price: </label>
+                                    <div class="col-sm-5">
+                                        <input class="form-control" name="price" placeholder="Price" type="number">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="staticdescription" class="col-sm-2 col-form-label">Description: </label>
+                                    <div class="col-sm-5">
+                                        <input class="form-control" type="text" name="description"
+                                               placeholder="Description">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="staticregistration_date"
+                                           class="col-sm-2 col-form-label">Created: </label>
+                                    <div class="col-sm-6">
+                                        <input type="text" readonly class="form-control-plaintext"
+                                               id="staticregistration_date"
+                                               value="<?= $_SESSION['userInfo']['registration_date'] ?>">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class=" custom-file">
+                                        <label for="eventImage1" class="col-sm-7 custom-file-label">Event Image
+                                            1</label>
+                                        <input class="custom-file-input col-sm-5" type="file" name="image1"
+                                               id="eventImage1">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="custom-file">
+                                        <label for="eventImage2" class="col-sm-7 custom-file-label">Event Image
+                                            2</label>
+                                        <input class="custom-file-input col-sm-5" type="file" name="image2"
+                                               id="eventImage2">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="custom-file">
+                                        <label for="eventImage3" class="col-sm-7 custom-file-label">Event Image
+                                            3</label>
+                                        <input class="custom-file-input col-sm-5" type="file" name="image3"
+                                               id="eventImage3">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <button class="btn btn-primary col-sm-4" id="save_button">Save</button>
+                                </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="staticname" class="col-sm-3 col-form-label">Name: </label>
-                            <div class="col-sm-5">
-                                <input class="userInput" type="text" name="name" placeholder="Name">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="staticname" class="col-sm-3 col-form-label">Price: </label>
-                            <div class="col-sm-5">
-                                <input class="userInput" name="price" placeholder="Price" type="float">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="staticdescription" class="col-sm-3 col-form-label">Description: </label>
-                            <div class="col-sm-5">
-                                <input class="userInput" type="text" name="description" placeholder="Description">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="staticregistration_date" class="col-sm-3 col-form-label">Created: </label>
-                            <div class="col-sm-6">
-                                <input type="text" readonly class="form-control-plaintext" id="staticregistration_date"
-                                       value="<?= $_SESSION['userInfo']['registration_date'] ?>">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="staticregistration_date" class="col-sm-3 col-form-label">Event Image 1</label>
-                            <div class="upload-avatar-container">
-                                <input type="file" name="avatar" id="avatar">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="staticregistration_date" class="col-sm-3 col-form-label">Event Image 2</label>
-                            <div class="upload-avatar-container">
-                                <input type="file" name="avatar" id="avatar">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="staticregistration_date" class="col-sm-3 col-form-label">Event Image 3</label>
-                            <div class="upload-avatar-container">
-                                <input type="file" name="avatar" id="avatar">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <button class="col-sm-3 btn save-btn" id="save_button">Save</button>
-                        </div>
-                        </div>
+                    <?php } ?>
                 </div>
             </div>
     </main>

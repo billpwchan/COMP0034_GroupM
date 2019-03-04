@@ -263,3 +263,11 @@ table td, table tr {
     text-align: center;
     vertical-align: middle;
 }
+
+#serviceForm {
+    margin-top: 10px;
+}
+
+.custom-file {
+    margin-left: 15px;
+}

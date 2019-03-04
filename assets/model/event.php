@@ -363,4 +363,28 @@ class event
         ";
         return $db_handle->db_query($sql, 'i', array($productID));
     }
+
+    public function insertEntertainmentPackage()
+    {
+
+    }
+
+    public function insertVenue($userID, $productType, $name, $price, $description, $created, $eventImage1, $eventImage2, $eventImage3, $address, $capacity, $region)
+    {
+        
+        $eventID = $this->insertEvent($userID, $productType, $name, $price, $description, $created, $eventImage1['name'], $eventImage2['name'], $eventImage3['name']);
+    }
+
+    public function insertMenu()
+    {
+
+    }
+
+    private function insertEvent($userID, $productType, $name, $price, $description, $created, $eventImage1, $eventImage2, $eventImage3)
+    {
+        $db_handle = new dbController();
+        $sql = "INSERT INTO event (provider_ID, event_type, name, price, description, created, eventimage1, eventimage2, eventimage3) VALUES (?,?,?,?,?,?,?,?,?)";
+        $db_handle->db_update($sql, 'issdsssss', array($userID, $productType, $name, $price, $description, $created, $eventImage1, $eventImage2, $eventImage3));
+        return $db_handle->db_lastID();
+    }
 }
