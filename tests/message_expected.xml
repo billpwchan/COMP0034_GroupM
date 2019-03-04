@@ -1,0 +1,5 @@
+<?xml version="1.0" ?>
+<dataset>
+    <message name="thomas" email="testing1@mailinator.com" message="Message 1"/>
+    <message name="tom" email="testing2@mailinator.com" message="Message 2"/>
+</dataset>

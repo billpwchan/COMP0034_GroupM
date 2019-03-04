@@ -14,12 +14,6 @@ require_once "dbController.php";
 class contact
 {
 
-    /**
-     * contact constructor.
-     */
-    public function __construct()
-    {
-    }
 
     /**
      * @param $name

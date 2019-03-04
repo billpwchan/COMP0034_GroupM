@@ -52,7 +52,7 @@
                 </div>
 
                 <div class="container-login-form-btn">
-                    <button type="submit" class="login-form-btn">
+                    <button type="submit" class="login-form-btn" id="login-button">
                         Login
                     </button>
                 </div>

@@ -11,6 +11,12 @@ use PHPUnit\Framework\TestCase;
 class eventTest extends TestCase
 {
 
+    public function testTrueAssetsToTrue()
+    {
+        $condition = true;
+        $this->assertTrue($condition);
+    }
+
     public function testRow_count_venue_with_searched_name()
     {
 

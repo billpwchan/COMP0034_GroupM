@@ -21,11 +21,20 @@ class userTest extends PHPUnit_Extensions_Selenium2TestCase
         return $inputs;
     }
 
+    public function testFormSubmissionWithUsername()
+    {
+//        $this->byName('email')->value('newacc@mailinator.com');
+//        $this->byName('pass')->value('12345678Aa*');
+//        $this->byId('#login-button')->submit();
+        echo $this->title();
+        $this->assertEquals('Welcome to UberKidz!', $this->title());
+    }
+
     public function setUp()
     {
         $this->setHost('localhost');
         $this->setPort(4444);
-        $this->setBrowserUrl('http://localhost:63342/COMP0034_GroupM/index.php');
+        $this->setBrowserUrl('localhost:63342/COMP0034_GroupM/login.php');
         $this->setBrowser('chrome');
     }
 
