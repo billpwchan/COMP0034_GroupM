@@ -22,6 +22,15 @@ class cart
 
     }
 
+    /**
+     * @param $userID
+     * @param $productID
+     * @param $quality
+     * @param $eventStartTime
+     * @param $eventLocation
+     * @param $price
+     * @return bool
+     */
     public function insertCart($userID, $productID, $quality, $eventStartTime, $eventLocation, $price)
     {
         $db_handle = new dbController();
@@ -32,6 +41,12 @@ class cart
         return $db_handle->db_update($sql, 'iisssd', array($userID, $productID, $quality, $eventStartTime, $eventLocation, $price));
     }
 
+    /**
+     * @param $productID
+     * @param $startTime
+     * @param $endTime
+     * @return array
+     */
     function checkOverlapBookingCart($productID, $startTime, $endTime)
     {
         $db_handle = new dbController();
@@ -70,12 +85,28 @@ class cart
         return $db_handle->db_query($sql, 's', array($voucher_code));
     }
 
-    public function removeCart($userID)
+    /**
+     * @param $userID
+     * @return bool
+     */
+    public function removeCartByUserID($userID)
     {
         $db_handle = new dbController();
         $sql = "
           DELETE FROM cart WHERE user_ID = ?;
       ";
         return $db_handle->db_update($sql, 'i', array($userID));
+    }
+
+    /**
+     * @param $userID
+     * @param $cartID
+     * @return bool
+     */
+    public function removeCartByCartID($userID, $cartID)
+    {
+        $db_handle = new dbController();
+        $sql = "DELETE FROM cart WHERE cart_ID = ? and user_ID = ?";
+        return $db_handle->db_update($sql, 'ii', array($cartID, $userID));
     }
 }

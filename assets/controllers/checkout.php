@@ -1,5 +1,4 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/controllers/dbConnect.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/controllers/tokenValidation.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/model/order.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/model/cart.php';
@@ -38,7 +37,7 @@ foreach ($_SESSION['cartItems'] as $cartItem) {
 }
 
 unset($_SESSION['cartItems']);
-$cart->removeCart($userID);
+$cart->removeCartByUserID($userID);
 $balance -= $totalPrice;
 
 $customer->updateBalance($balance, $userID);
