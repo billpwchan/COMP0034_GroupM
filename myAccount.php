@@ -1,7 +1,7 @@
 <?php include("includes/config.php"); ?>
 <?php include("assets/controllers/myAccount.php") ?>
 <!doctype html>
-<html>
+<html lang="English">
 <head>
     <?php include("includes/headTags.php"); ?>
     <link rel="stylesheet" href="assets/css/myAccount.css" type="text/css">
@@ -122,7 +122,7 @@
                         <?php } ?>
                     </div>
                     <div aria-labelledby="personal-tab" class="row tab-pane fade" id="personal"
-                         role="tabpane2">
+                         role="tabpanel2">
                         <div class="form-group row">
                             <label for="staticemail_address" class="col-sm-3 col-form-label">Email address</label>
                             <div class="col-sm-6">
@@ -196,7 +196,7 @@
                         </form>
                     </div>
                     <div aria-labelledby="add_service" class="row tab-pane fade" id="service"
-                         role="tabpane3">
+                         role="tabpanel3">
                         <div class="form-group row">
                             <label for="staticname" class="col-sm-3 col-form-label">Event Type</label>
                             <div class="col-sm-5">
@@ -208,22 +208,22 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="staticname" class="col-sm-3 col-form-label">Name</label>
+                            <label for="staticname" class="col-sm-3 col-form-label">Name: </label>
                             <div class="col-sm-5">
-                                <input type="text" readonly class="form-control" id="staticname">
+                                <input class="userInput" type="text" name="name" placeholder="Name">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="staticname" class="col-sm-3 col-form-label">Price</label>
+                            <label for="staticname" class="col-sm-3 col-form-label">Price: </label>
                             <div class="col-sm-5">
-                                <input type="float" readonly class="form-control" id="staticname">
+                                <input class="userInput" type="float" name="price" placeholder="Price">
                             </div>
                             </form>
                         </div>
                         <div class="form-group row">
-                            <label for="staticdescription" class="col-sm-3 col-form-label">Description</label>
+                            <label for="staticdescription" class="col-sm-3 col-form-label">Description: </label>
                             <div class="col-sm-5">
-                                <input type="text" readonly class="form-control" id="staticdescription">
+                                <input class="userInput" type="text" name="description" placeholder="Description">
                             </div>
                             </form>
                         </div>
@@ -251,6 +251,9 @@
                             <div class="upload-avatar-container">
                                 <input type="file" name="avatar" id="avatar">
                             </div>
+                        </div>
+                        <div class="form-group row">
+                            <button class="col-sm-3 btn save-btn" id="save_button">Save</button>
                         </div>
                         </div>
                 </div>
