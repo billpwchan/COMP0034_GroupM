@@ -60,11 +60,16 @@
                     <li class="nav-item" id="order_tab">
                         <a class="nav-link active" id="order-tab" data-toggle="tab" href="#order" role="tab"
                            aria-controls="order"
-                           aria-selected="true"><?= isset($_SESSION['customer']) ? 'Order History' : 'Provided Service' ?></a>
+                           aria-selected="true"><?= isset($_SESSION['customer']) ? 'Order History' : 'Provided Service' ?>
+                        </a>
                     </li>
                     <li class="nav-item" id="personal_tab">
                         <a class="nav-link" id="personal-tab" data-toggle="tab" href="#personal" role="tab"
                            aria-controls="personal" aria-selected="false">Personal Information</a>
+                    </li>
+                    <li class="nav-item" id="personal_tab">
+                        <a class="nav-link" id="add_service" data-toggle="tab" href="#service" role="tab"
+                           aria-controls="service" aria-selected="false">Add Service</a>
                     </li>
                 </ul>
                 <div class="tab-content profile-tab" id="myTabContent">
