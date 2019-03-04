@@ -1,9 +1,7 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/controllers/dbConnect.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/controllers/tokenValidation.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/model/event.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/model/cart.php';
-$connect = db_connect();
 $event = new event();
 $cart = new cart();
 

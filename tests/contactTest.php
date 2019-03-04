@@ -17,7 +17,7 @@ class contactTest extends TestCase
     use TestCaseTrait;
 
     // only instantiate pdo once for test clean-up/fixture load
-    static private $pdo = null;
+    static private $pdo;
 
     // only instantiate PHPUnit\DbUnit\Database\Connection once per test
     private $conn = null;
@@ -25,7 +25,6 @@ class contactTest extends TestCase
     public function setUp()
     {
         $_SERVER['DOCUMENT_ROOT'] = "../";
-
     }
 
     final public function getConnection()

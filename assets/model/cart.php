@@ -69,4 +69,13 @@ class cart
         $sql = "SELECT * FROM voucher WHERE voucher_code = ?";
         return $db_handle->db_query($sql, 's', array($voucher_code));
     }
+
+    public function removeCart($userID)
+    {
+        $db_handle = new dbController();
+        $sql = "
+          DELETE FROM cart WHERE user_ID = ?;
+      ";
+        return $db_handle->db_update($sql, 'i', array($userID));
+    }
 }

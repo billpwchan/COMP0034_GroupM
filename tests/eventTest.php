@@ -2,103 +2,47 @@
 /**
  * Created by PhpStorm.
  * User: Billp
- * Date: 1/3/2019
- * Time: 17:04
+ * Date: 4/3/2019
+ * Time: 16:45
  */
 
+use PHPUnit\DbUnit\TestCaseTrait;
 use PHPUnit\Framework\TestCase;
+
+require __DIR__ . "/../vendor/autoload.php";
+require_once('../assets/model/event.php');
 
 class eventTest extends TestCase
 {
+    use TestCaseTrait;
 
-    public function testTrueAssetsToTrue()
+    // only instantiate pdo once for test clean-up/fixture load
+    static private $pdo;
+
+    // only instantiate PHPUnit\DbUnit\Database\Connection once per test
+    private $conn = null;
+
+    public function setUp()
     {
-        $condition = true;
-        $this->assertTrue($condition);
+        $_SERVER['DOCUMENT_ROOT'] = "../";
     }
 
-    public function testRow_count_venue_with_searched_name()
+    final public function getConnection()
     {
-
+        if ($this->conn === null) {
+            if (self::$pdo == null) {
+//                self::$pdo = new PDO($GLOBALS['DB_DSN'], $GLOBALS['DB_USER'], $GLOBALS['DB_PASSWD']);
+                self::$pdo = new PDO("mysql:dbname=uberkidz;host=localhost", "root", "");
+            }
+            $this->conn = $this->createDefaultDBConnection(self::$pdo, "uberkidz");
+        }
+        return $this->conn;
     }
 
-    public function testRead_entertainment_with_searched_name()
+    public function getDataSet()
     {
-
+        return $this->createFlatXmlDataSet('event_fixture.xml');
     }
 
-    public function testRow_count_menus_with_searched_name()
-    {
 
-    }
-
-    public function testRead_venue_detail()
-    {
-
-    }
-
-    public function testRead_menuItem_detail()
-    {
-
-    }
-
-    public function testRead_venues()
-    {
-
-    }
-
-    public function testRead_with_searched_name()
-    {
-
-    }
-
-    public function testRead_entertainment()
-    {
-
-    }
-
-    public function testRow_count_menus()
-    {
-
-    }
-
-    public function testRow_count_entertainment()
-    {
-
-    }
-
-    public function testRead_event_detail()
-    {
-
-    }
-
-    public function testRead_entertainer_detail()
-    {
-
-    }
-
-    public function testRead_menus_with_searched_name()
-    {
-
-    }
-
-    public function testRead_menus()
-    {
-
-    }
-
-    public function testRead_menu_detail()
-    {
-
-    }
-
-    public function testRow_count_entertainment_with_searched_name()
-    {
-
-    }
-
-    public function testRow_count_venue()
-    {
-
-    }
 }
