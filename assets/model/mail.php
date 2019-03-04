@@ -36,6 +36,17 @@ class mail
             ->setPassword($this->password);
     }
 
+    function passwordReset($subject, $to, $name, $resetLink)
+    {
+
+        $message = (new Swift_Message($subject))
+            ->setFrom([$this->username => 'UberKidz'])
+            ->setTo([$to => $name])
+            ->setBody($resetLink, 'text/html');
+        $mailer = new Swift_Mailer($this->transport);
+        $mailer->send($message);
+    }
+
     /**
      * @param $subject
      * @param $to
