@@ -33,9 +33,7 @@ include("includes/config.php"); ?>
                 <div class="col-md-10 col-md-offset-1">
                     <div class="home-content">
                         <h1 class="white-text">We Are UberKidz</h1>
-                        <p class="white-text">Concerns greatest margaret him absolute entrance nay. Door neat week do
-                            find past he. Be no surprise he honoured indulged. Unpacked endeavor six steepest had
-                            husbands h</p>
+                        <p class="white-text">Party Forever.</p>
                         <a class="white-btn" id="get_started"
                            href="<?php if (isset($_SESSION['userInfo']['email_address'])) { ?>myAccount.php<?php } else { ?>login.php<?php } ?>">Get
                             Started</a>
@@ -59,7 +57,7 @@ include("includes/config.php"); ?>
                 <div class="about">
                     <i class="fas fa-map"></i>
                     <h3>Venues</h3>
-                    <p>Maecenas tempus tellus eget condimentum rhoncus sem quam semper libero sit amet.</p>
+                    <p>Select from our wide range of venues all across London.</p>
                     <a href="#">Read more</a>
                 </div>
             </div>
@@ -68,7 +66,7 @@ include("includes/config.php"); ?>
                 <div class="about">
                     <i class="fas fa-gifts"></i>
                     <h3>Entertainment Packages</h3>
-                    <p>Maecenas tempus tellus eget condimentum rhoncus sem quam semper libero sit amet.</p>
+                    <p>Select for our wide range of tailor made entertainment packages for whatever the occasion is.</p>
                     <a href="#">Read more</a>
                 </div>
             </div>
@@ -77,7 +75,7 @@ include("includes/config.php"); ?>
                 <div class="about">
                     <i class="fab fa-elementor"></i>
                     <h3>Menus</h3>
-                    <p>Maecenas tempus tellus eget condimentum rhoncus sem quam semper libero sit amet.</p>
+                    <p>Select cuisine choices from various restaurants and caterers to match your taste bud needs.</p>
                     <a href="#">Read more</a>
                 </div>
             </div>

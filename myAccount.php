@@ -1,7 +1,7 @@
 <?php include("includes/config.php"); ?>
 <?php include("assets/controllers/myAccount.php") ?>
 <!doctype html>
-<html>
+<html lang="English">
 <head>
     <?php include("includes/headTags.php"); ?>
     <link rel="stylesheet" href="assets/css/myAccount.css" type="text/css">
@@ -60,11 +60,16 @@
                     <li class="nav-item" id="order_tab">
                         <a class="nav-link active" id="order-tab" data-toggle="tab" href="#order" role="tab"
                            aria-controls="order"
-                           aria-selected="true"><?= isset($_SESSION['customer']) ? 'Order History' : 'Provided Service' ?></a>
+                           aria-selected="true"><?= isset($_SESSION['customer']) ? 'Order History' : 'Provided Service' ?>
+                        </a>
                     </li>
                     <li class="nav-item" id="personal_tab">
                         <a class="nav-link" id="personal-tab" data-toggle="tab" href="#personal" role="tab"
                            aria-controls="personal" aria-selected="false">Personal Information</a>
+                    </li>
+                    <li class="nav-item" id="add_service">
+                        <a class="nav-link" id="add_service" data-toggle="tab" href="#service" role="tab"
+                           aria-controls="service" aria-selected="false">Add Service</a>
                     </li>
                 </ul>
                 <div class="tab-content profile-tab" id="myTabContent">
@@ -117,7 +122,7 @@
                         <?php } ?>
                     </div>
                     <div aria-labelledby="personal-tab" class="row tab-pane fade" id="personal"
-                         role="tabpane2">
+                         role="tabpanel2">
                         <div class="form-group row">
                             <label for="staticemail_address" class="col-sm-3 col-form-label">Email address</label>
                             <div class="col-sm-6">
@@ -188,8 +193,66 @@
                                     style="visibility: hidden">Cancel
                             </button>
                         </div>
-                        </form>
                     </div>
+                    <div aria-labelledby="add_service" class="row tab-pane fade" id="service"
+                         role="tabpanel3">
+                        <div class="form-group row">
+                            <label for="staticname" class="col-sm-3 col-form-label">Event Type</label>
+                            <div class="col-sm-5">
+                                <select id="event_type" name="event_type">
+                                    <option value="1">Venue</option>
+                                    <option value="2">Entertainment</option>
+                                    <option value="3">Menus</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="staticname" class="col-sm-3 col-form-label">Name: </label>
+                            <div class="col-sm-5">
+                                <input class="userInput" type="text" name="name" placeholder="Name">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="staticname" class="col-sm-3 col-form-label">Price: </label>
+                            <div class="col-sm-5">
+                                <input class="userInput" name="price" placeholder="Price" type="float">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="staticdescription" class="col-sm-3 col-form-label">Description: </label>
+                            <div class="col-sm-5">
+                                <input class="userInput" type="text" name="description" placeholder="Description">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="staticregistration_date" class="col-sm-3 col-form-label">Created: </label>
+                            <div class="col-sm-6">
+                                <input type="text" readonly class="form-control-plaintext" id="staticregistration_date"
+                                       value="<?= $_SESSION['userInfo']['registration_date'] ?>">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="staticregistration_date" class="col-sm-3 col-form-label">Event Image 1</label>
+                            <div class="upload-avatar-container">
+                                <input type="file" name="avatar" id="avatar">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="staticregistration_date" class="col-sm-3 col-form-label">Event Image 2</label>
+                            <div class="upload-avatar-container">
+                                <input type="file" name="avatar" id="avatar">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="staticregistration_date" class="col-sm-3 col-form-label">Event Image 3</label>
+                            <div class="upload-avatar-container">
+                                <input type="file" name="avatar" id="avatar">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <button class="col-sm-3 btn save-btn" id="save_button">Save</button>
+                        </div>
+                        </div>
                 </div>
             </div>
     </main>
