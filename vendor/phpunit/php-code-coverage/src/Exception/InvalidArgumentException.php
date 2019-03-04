@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of the php-code-coverage package.
  *
@@ -7,18 +7,19 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace SebastianBergmann\CodeCoverage;
 
-final class InvalidArgumentException extends \InvalidArgumentException implements Exception
+class InvalidArgumentException extends \InvalidArgumentException implements Exception
 {
     /**
-     * @param int        $argument
-     * @param string     $type
-     * @param null|mixed $value
+     * @param int    $argument
+     * @param string $type
+     * @param mixed  $value
      *
      * @return InvalidArgumentException
      */
-    public static function create($argument, $type, $value = null): self
+    public static function create($argument, $type, $value = null)
     {
         $stack = \debug_backtrace(0);
 

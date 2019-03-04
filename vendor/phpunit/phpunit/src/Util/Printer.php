@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -12,7 +12,7 @@ namespace PHPUnit\Util;
 use PHPUnit\Framework\Exception;
 
 /**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
+ * Utility class that can print to STDOUT or write to a file.
  */
 class Printer
 {
@@ -36,7 +36,7 @@ class Printer
     /**
      * Constructor.
      *
-     * @param null|resource|string $out
+     * @param mixed $out
      *
      * @throws Exception
      */
@@ -47,14 +47,14 @@ class Printer
                 if (\strpos($out, 'socket://') === 0) {
                     $out = \explode(':', \str_replace('socket://', '', $out));
 
-                    if (\count($out) !== 2) {
+                    if (\count($out) != 2) {
                         throw new Exception;
                     }
 
                     $this->out = \fsockopen($out[0], $out[1]);
                 } else {
-                    if (\strpos($out, 'php://') === false && !Filesystem::createDirectory(\dirname($out))) {
-                        throw new Exception(\sprintf('Directory "%s" was not created', \dirname($out)));
+                    if (\strpos($out, 'php://') === false && !\is_dir(\dirname($out))) {
+                        \mkdir(\dirname($out), 0777, true);
                     }
 
                     $this->out = \fopen($out, 'wt');
@@ -70,7 +70,7 @@ class Printer
     /**
      * Flush buffer and close output if it's not to a PHP stream
      */
-    public function flush(): void
+    public function flush()
     {
         if ($this->out && \strncmp($this->outTarget, 'php://', 6) !== 0) {
             \fclose($this->out);
@@ -84,7 +84,7 @@ class Printer
      * since the flush() function may close the file being written to, rendering
      * the current object no longer usable.
      */
-    public function incrementalFlush(): void
+    public function incrementalFlush()
     {
         if ($this->out) {
             \fflush($this->out);
@@ -93,7 +93,10 @@ class Printer
         }
     }
 
-    public function write(string $buffer): void
+    /**
+     * @param string $buffer
+     */
+    public function write($buffer)
     {
         if ($this->out) {
             \fwrite($this->out, $buffer);
@@ -102,8 +105,8 @@ class Printer
                 $this->incrementalFlush();
             }
         } else {
-            if (\PHP_SAPI !== 'cli' && \PHP_SAPI !== 'phpdbg') {
-                $buffer = \htmlspecialchars($buffer, \ENT_SUBSTITUTE);
+            if (PHP_SAPI != 'cli' && PHP_SAPI != 'phpdbg') {
+                $buffer = \htmlspecialchars($buffer, ENT_SUBSTITUTE);
             }
 
             print $buffer;
@@ -116,8 +119,10 @@ class Printer
 
     /**
      * Check auto-flush mode.
+     *
+     * @return bool
      */
-    public function getAutoFlush(): bool
+    public function getAutoFlush()
     {
         return $this->autoFlush;
     }
@@ -127,9 +132,15 @@ class Printer
      *
      * If set, *incremental* flushes will be done after each write. This should
      * not be confused with the different effects of this class' flush() method.
+     *
+     * @param bool $autoFlush
      */
-    public function setAutoFlush(bool $autoFlush): void
+    public function setAutoFlush($autoFlush)
     {
-        $this->autoFlush = $autoFlush;
+        if (\is_bool($autoFlush)) {
+            $this->autoFlush = $autoFlush;
+        } else {
+            throw InvalidArgumentHelper::factory(1, 'boolean');
+        }
     }
 }

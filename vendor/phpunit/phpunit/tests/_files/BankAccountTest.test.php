@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -16,7 +16,7 @@ class BankAccountWithCustomExtensionTest extends TestCase
 {
     protected $ba;
 
-    protected function setUp(): void
+    protected function setUp()
     {
         $this->ba = new BankAccount;
     }
@@ -26,7 +26,7 @@ class BankAccountWithCustomExtensionTest extends TestCase
      * @group balanceIsInitiallyZero
      * @group specification
      */
-    public function testBalanceIsInitiallyZero(): void
+    public function testBalanceIsInitiallyZero()
     {
         $this->assertEquals(0, $this->ba->getBalance());
     }
@@ -36,7 +36,7 @@ class BankAccountWithCustomExtensionTest extends TestCase
      * @group balanceCannotBecomeNegative
      * @group specification
      */
-    public function testBalanceCannotBecomeNegative(): void
+    public function testBalanceCannotBecomeNegative()
     {
         try {
             $this->ba->withdrawMoney(1);
@@ -54,7 +54,7 @@ class BankAccountWithCustomExtensionTest extends TestCase
      * @group balanceCannotBecomeNegative
      * @group specification
      */
-    public function testBalanceCannotBecomeNegative2(): void
+    public function testBalanceCannotBecomeNegative2()
     {
         try {
             $this->ba->depositMoney(-1);

@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -19,38 +19,31 @@ use ArrayAccess;
  *
  * The array key is passed in the constructor.
  */
-final class ArrayHasKey extends Constraint
+class ArrayHasKey extends Constraint
 {
     /**
      * @var int|string
      */
-    private $key;
+    protected $key;
 
     /**
      * @param int|string $key
      */
     public function __construct($key)
     {
+        parent::__construct();
         $this->key = $key;
-    }
-
-    /**
-     * Returns a string representation of the constraint.
-     *
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     */
-    public function toString(): string
-    {
-        return 'has the key ' . $this->exporter()->export($this->key);
     }
 
     /**
      * Evaluates the constraint for parameter $other. Returns true if the
      * constraint is met, false otherwise.
      *
-     * @param mixed $other value or object to evaluate
+     * @param mixed $other Value or object to evaluate.
+     *
+     * @return bool
      */
-    protected function matches($other): bool
+    protected function matches($other)
     {
         if (\is_array($other)) {
             return \array_key_exists($this->key, $other);
@@ -64,16 +57,26 @@ final class ArrayHasKey extends Constraint
     }
 
     /**
+     * Returns a string representation of the constraint.
+     *
+     * @return string
+     */
+    public function toString()
+    {
+        return 'has the key ' . $this->exporter->export($this->key);
+    }
+
+    /**
      * Returns the description of the failure
      *
      * The beginning of failure messages is "Failed asserting that" in most
      * cases. This method should return the second part of that sentence.
      *
-     * @param mixed $other evaluated value or object
+     * @param mixed $other Evaluated value or object.
      *
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @return string
      */
-    protected function failureDescription($other): string
+    protected function failureDescription($other)
     {
         return 'an array ' . $this->toString();
     }

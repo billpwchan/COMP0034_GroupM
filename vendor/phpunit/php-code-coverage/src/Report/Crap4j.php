@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of the php-code-coverage package.
  *
@@ -7,28 +7,46 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace SebastianBergmann\CodeCoverage\Report;
 
 use SebastianBergmann\CodeCoverage\CodeCoverage;
+use SebastianBergmann\CodeCoverage\InvalidArgumentException;
 use SebastianBergmann\CodeCoverage\Node\File;
 use SebastianBergmann\CodeCoverage\RuntimeException;
 
-final class Crap4j
+class Crap4j
 {
     /**
      * @var int
      */
     private $threshold;
 
-    public function __construct(int $threshold = 30)
+    /**
+     * @param int $threshold
+     */
+    public function __construct($threshold = 30)
     {
+        if (!\is_int($threshold)) {
+            throw InvalidArgumentException::create(
+                1,
+                'integer'
+            );
+        }
+
         $this->threshold = $threshold;
     }
 
     /**
-     * @throws \RuntimeException
+     * @param CodeCoverage $coverage
+     * @param string       $target
+     * @param string       $name
+     *
+     * @return string
+     *
+     * @throws \SebastianBergmann\CodeCoverage\RuntimeException
      */
-    public function process(CodeCoverage $coverage, ?string $target = null, ?string $name = null): string
+    public function process(CodeCoverage $coverage, $target = null, $name = null)
     {
         $document               = new \DOMDocument('1.0', 'UTF-8');
         $document->formatOutput = true;
@@ -38,7 +56,7 @@ final class Crap4j
 
         $project = $document->createElement('project', \is_string($name) ? $name : '');
         $root->appendChild($project);
-        $root->appendChild($document->createElement('timestamp', \date('Y-m-d H:i:s', $_SERVER['REQUEST_TIME'])));
+        $root->appendChild($document->createElement('timestamp', \date('Y-m-d H:i:s', (int) $_SERVER['REQUEST_TIME'])));
 
         $stats       = $document->createElement('stats');
         $methodsNode = $document->createElement('methods');
@@ -86,10 +104,10 @@ final class Crap4j
                     $methodNode->appendChild($document->createElement('methodName', $methodName));
                     $methodNode->appendChild($document->createElement('methodSignature', \htmlspecialchars($method['signature'])));
                     $methodNode->appendChild($document->createElement('fullMethod', \htmlspecialchars($method['signature'])));
-                    $methodNode->appendChild($document->createElement('crap', (string) $this->roundValue($method['crap'])));
-                    $methodNode->appendChild($document->createElement('complexity', (string) $method['ccn']));
-                    $methodNode->appendChild($document->createElement('coverage', (string) $this->roundValue($method['coverage'])));
-                    $methodNode->appendChild($document->createElement('crapLoad', (string) \round($crapLoad)));
+                    $methodNode->appendChild($document->createElement('crap', $this->roundValue($method['crap'])));
+                    $methodNode->appendChild($document->createElement('complexity', $method['ccn']));
+                    $methodNode->appendChild($document->createElement('coverage', $this->roundValue($method['coverage'])));
+                    $methodNode->appendChild($document->createElement('crapLoad', \round($crapLoad)));
 
                     $methodsNode->appendChild($methodNode);
                 }
@@ -97,18 +115,18 @@ final class Crap4j
         }
 
         $stats->appendChild($document->createElement('name', 'Method Crap Stats'));
-        $stats->appendChild($document->createElement('methodCount', (string) $fullMethodCount));
-        $stats->appendChild($document->createElement('crapMethodCount', (string) $fullCrapMethodCount));
-        $stats->appendChild($document->createElement('crapLoad', (string) \round($fullCrapLoad)));
-        $stats->appendChild($document->createElement('totalCrap', (string) $fullCrap));
-
-        $crapMethodPercent = 0;
+        $stats->appendChild($document->createElement('methodCount', $fullMethodCount));
+        $stats->appendChild($document->createElement('crapMethodCount', $fullCrapMethodCount));
+        $stats->appendChild($document->createElement('crapLoad', \round($fullCrapLoad)));
+        $stats->appendChild($document->createElement('totalCrap', $fullCrap));
 
         if ($fullMethodCount > 0) {
             $crapMethodPercent = $this->roundValue((100 * $fullCrapMethodCount) / $fullMethodCount);
+        } else {
+            $crapMethodPercent = 0;
         }
 
-        $stats->appendChild($document->createElement('crapMethodPercent', (string) $crapMethodPercent));
+        $stats->appendChild($document->createElement('crapMethodPercent', $crapMethodPercent));
 
         $root->appendChild($stats);
         $root->appendChild($methodsNode);
@@ -116,8 +134,8 @@ final class Crap4j
         $buffer = $document->saveXML();
 
         if ($target !== null) {
-            if (!$this->createDirectory(\dirname($target))) {
-                throw new \RuntimeException(\sprintf('Directory "%s" was not created', \dirname($target)));
+            if (!\is_dir(\dirname($target))) {
+                \mkdir(\dirname($target), 0777, true);
             }
 
             if (@\file_put_contents($target, $buffer) === false) {
@@ -137,8 +155,10 @@ final class Crap4j
      * @param float $crapValue
      * @param int   $cyclomaticComplexity
      * @param float $coveragePercent
+     *
+     * @return float
      */
-    private function getCrapLoad($crapValue, $cyclomaticComplexity, $coveragePercent): float
+    private function getCrapLoad($crapValue, $cyclomaticComplexity, $coveragePercent)
     {
         $crapLoad = 0;
 
@@ -152,14 +172,11 @@ final class Crap4j
 
     /**
      * @param float $value
+     *
+     * @return float
      */
-    private function roundValue($value): float
+    private function roundValue($value)
     {
         return \round($value, 2);
-    }
-
-    private function createDirectory(string $directory): bool
-    {
-        return !(!\is_dir($directory) && !@\mkdir($directory, 0777, true) && !\is_dir($directory));
     }
 }

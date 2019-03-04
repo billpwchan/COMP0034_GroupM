@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -10,8 +10,9 @@
 namespace PHPUnit\Framework;
 
 /**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
+ * Extension to PHPUnit\Framework\AssertionFailedError to mark the special
+ * case of a test that unintentionally covers code.
  */
-final class UnintentionallyCoveredCodeError extends RiskyTestError
+class UnintentionallyCoveredCodeError extends RiskyTestError
 {
 }

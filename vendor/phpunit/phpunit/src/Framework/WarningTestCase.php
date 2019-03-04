@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -10,9 +10,9 @@
 namespace PHPUnit\Framework;
 
 /**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
+ * A warning.
  */
-final class WarningTestCase extends TestCase
+class WarningTestCase extends TestCase
 {
     /**
      * @var string
@@ -48,24 +48,29 @@ final class WarningTestCase extends TestCase
         parent::__construct('Warning');
     }
 
-    public function getMessage(): string
+    /**
+     * @throws Exception
+     */
+    protected function runTest()
+    {
+        throw new Warning($this->message);
+    }
+
+    /**
+     * @return string
+     */
+    public function getMessage()
     {
         return $this->message;
     }
 
     /**
      * Returns a string representation of the test case.
+     *
+     * @return string
      */
-    public function toString(): string
+    public function toString()
     {
         return 'Warning';
-    }
-
-    /**
-     * @throws Exception
-     */
-    protected function runTest(): void
-    {
-        throw new Warning($this->message);
     }
 }

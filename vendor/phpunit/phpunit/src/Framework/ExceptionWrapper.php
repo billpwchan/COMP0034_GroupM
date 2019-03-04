@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -20,10 +20,8 @@ use Throwable;
  *
  * Unlike PHPUnit\Framework_\Exception, the complete stack of previous Exceptions
  * is processed.
- *
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class ExceptionWrapper extends Exception
+class ExceptionWrapper extends Exception
 {
     /**
      * @var string
@@ -31,55 +29,18 @@ final class ExceptionWrapper extends Exception
     protected $className;
 
     /**
-     * @var null|ExceptionWrapper
+     * @var ExceptionWrapper|null
      */
     protected $previous;
 
+    /**
+     * @param Throwable $t
+     */
     public function __construct(Throwable $t)
     {
         // PDOException::getCode() is a string.
-        // @see https://php.net/manual/en/class.pdoexception.php#95812
+        // @see http://php.net/manual/en/class.pdoexception.php#95812
         parent::__construct($t->getMessage(), (int) $t->getCode());
-        $this->setOriginalException($t);
-    }
-
-    /**
-     * @throws \InvalidArgumentException
-     * @throws \ReflectionException
-     */
-    public function __toString(): string
-    {
-        $string = TestFailure::exceptionToString($this);
-
-        if ($trace = Filter::getFilteredStacktrace($this)) {
-            $string .= "\n" . $trace;
-        }
-
-        if ($this->previous) {
-            $string .= "\nCaused by\n" . $this->previous;
-        }
-
-        return $string;
-    }
-
-    public function getClassName(): string
-    {
-        return $this->className;
-    }
-
-    public function getPreviousWrapped(): ?self
-    {
-        return $this->previous;
-    }
-
-    public function setClassName(string $className): void
-    {
-        $this->className = $className;
-    }
-
-    public function setOriginalException(\Throwable $t): void
-    {
-        $this->originalException($t);
 
         $this->className = \get_class($t);
         $this->file      = $t->getFile();
@@ -96,26 +57,37 @@ final class ExceptionWrapper extends Exception
         }
     }
 
-    public function getOriginalException(): ?Throwable
+    /**
+     * @return string
+     */
+    public function getClassName()
     {
-        return $this->originalException();
+        return $this->className;
     }
 
     /**
-     * Method to contain static originalException to exclude it from stacktrace to prevent the stacktrace contents,
-     * which can be quite big, from being garbage-collected, thus blocking memory until shutdown.
-     * Approach works both for var_dump() and var_export() and print_r()
+     * @return ExceptionWrapper
      */
-    private function originalException(Throwable $exceptionToStore = null): ?Throwable
+    public function getPreviousWrapped()
     {
-        static $originalExceptions;
+        return $this->previous;
+    }
 
-        $instanceId = \spl_object_hash($this);
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        $string = TestFailure::exceptionToString($this);
 
-        if ($exceptionToStore) {
-            $originalExceptions[$instanceId] = $exceptionToStore;
+        if ($trace = Filter::getFilteredStacktrace($this)) {
+            $string .= "\n" . $trace;
         }
 
-        return $originalExceptions[$instanceId] ?? null;
+        if ($this->previous) {
+            $string .= "\nCaused by\n" . $this->previous;
+        }
+
+        return $string;
     }
 }

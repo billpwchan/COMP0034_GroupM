@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework\Constraint;
 
 use SebastianBergmann\Diff\Differ;
@@ -14,46 +15,36 @@ use SebastianBergmann\Diff\Differ;
 /**
  * ...
  */
-final class StringMatchesFormatDescription extends RegularExpression
+class StringMatchesFormatDescription extends RegularExpression
 {
     /**
      * @var string
      */
-    private $string;
+    protected $string;
 
-    public function __construct(string $string)
+    /**
+     * @param string $string
+     */
+    public function __construct($string)
     {
-        parent::__construct(
-            $this->createPatternFromFormat(
-                $this->convertNewlines($string)
-            )
+        parent::__construct($string);
+
+        $this->pattern = $this->createPatternFromFormat(
+            \preg_replace('/\r\n/', "\n", $string)
         );
 
         $this->string = $string;
     }
 
-    /**
-     * Evaluates the constraint for parameter $other. Returns true if the
-     * constraint is met, false otherwise.
-     *
-     * @param mixed $other value or object to evaluate
-     */
-    protected function matches($other): bool
-    {
-        return parent::matches(
-            $this->convertNewlines($other)
-        );
-    }
-
-    protected function failureDescription($other): string
+    protected function failureDescription($other)
     {
         return 'string matches format description';
     }
 
-    protected function additionalFailureDescription($other): string
+    protected function additionalFailureDescription($other)
     {
-        $from = \explode("\n", $this->string);
-        $to   = \explode("\n", $this->convertNewlines($other));
+        $from = \preg_split('(\r\n|\r|\n)', $this->string);
+        $to   = \preg_split('(\r\n|\r|\n)', $other);
 
         foreach ($from as $index => $line) {
             if (isset($to[$index]) && $line !== $to[$index]) {
@@ -73,31 +64,38 @@ final class StringMatchesFormatDescription extends RegularExpression
         return $differ->diff($this->string, $other);
     }
 
-    private function createPatternFromFormat(string $string): string
+    protected function createPatternFromFormat($string)
     {
-        $string = \strtr(
-            \preg_quote($string, '/'),
+        $string = \str_replace(
             [
-                '%%' => '%',
-                '%e' => '\\' . \DIRECTORY_SEPARATOR,
-                '%s' => '[^\r\n]+',
-                '%S' => '[^\r\n]*',
-                '%a' => '.+',
-                '%A' => '.*',
-                '%w' => '\s*',
-                '%i' => '[+-]?\d+',
-                '%d' => '\d+',
-                '%x' => '[0-9a-fA-F]+',
-                '%f' => '[+-]?\.?\d+\.?\d*(?:[Ee][+-]?\d+)?',
-                '%c' => '.',
-            ]
+                '%e',
+                '%s',
+                '%S',
+                '%a',
+                '%A',
+                '%w',
+                '%i',
+                '%d',
+                '%x',
+                '%f',
+                '%c'
+            ],
+            [
+                '\\' . DIRECTORY_SEPARATOR,
+                '[^\r\n]+',
+                '[^\r\n]*',
+                '.+',
+                '.*',
+                '\s*',
+                '[+-]?\d+',
+                '\d+',
+                '[0-9a-fA-F]+',
+                '[+-]?\.?\d+\.?\d*(?:[Ee][+-]?\d+)?',
+                '.'
+            ],
+            \preg_quote($string, '/')
         );
 
         return '/^' . $string . '$/s';
-    }
-
-    private function convertNewlines($text): string
-    {
-        return \preg_replace('/\r\n/', "\n", $text);
     }
 }

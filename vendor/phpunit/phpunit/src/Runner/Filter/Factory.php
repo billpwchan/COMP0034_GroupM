@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -15,10 +15,7 @@ use Iterator;
 use PHPUnit\Framework\TestSuite;
 use ReflectionClass;
 
-/**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
- */
-final class Factory
+class Factory
 {
     /**
      * @var array
@@ -26,9 +23,10 @@ final class Factory
     private $filters = [];
 
     /**
-     * @throws InvalidArgumentException
+     * @param ReflectionClass $filter
+     * @param mixed           $args
      */
-    public function addFilter(ReflectionClass $filter, $args): void
+    public function addFilter(ReflectionClass $filter, $args)
     {
         if (!$filter->isSubclassOf(\RecursiveFilterIterator::class)) {
             throw new InvalidArgumentException(
@@ -42,11 +40,14 @@ final class Factory
         $this->filters[] = [$filter, $args];
     }
 
-    public function factory(Iterator $iterator, TestSuite $suite): FilterIterator
+    /**
+     * @return FilterIterator
+     */
+    public function factory(Iterator $iterator, TestSuite $suite)
     {
         foreach ($this->filters as $filter) {
-            [$class, $args] = $filter;
-            $iterator       = $class->newInstance($iterator, $args, $suite);
+            list($class, $args) = $filter;
+            $iterator           = $class->newInstance($iterator, $args, $suite);
         }
 
         return $iterator;

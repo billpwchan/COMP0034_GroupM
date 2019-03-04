@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -17,24 +17,27 @@ use SebastianBergmann\Comparator\ComparisonFailure;
  * The exception contains the error message and optionally a
  * SebastianBergmann\Comparator\ComparisonFailure which is used to
  * generate diff output of the failed expectations.
- *
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class ExpectationFailedException extends AssertionFailedError
+class ExpectationFailedException extends AssertionFailedError
 {
-    /**
-     * @var ComparisonFailure
-     */
     protected $comparisonFailure;
 
-    public function __construct(string $message, ComparisonFailure $comparisonFailure = null, \Exception $previous = null)
+    /**
+     * @param string                 $message
+     * @param ComparisonFailure|null $comparisonFailure
+     * @param \Exception|null        $previous
+     */
+    public function __construct($message, ComparisonFailure $comparisonFailure = null, \Exception $previous = null)
     {
         $this->comparisonFailure = $comparisonFailure;
 
         parent::__construct($message, 0, $previous);
     }
 
-    public function getComparisonFailure(): ?ComparisonFailure
+    /**
+     * @return null|ComparisonFailure
+     */
+    public function getComparisonFailure()
     {
         return $this->comparisonFailure;
     }

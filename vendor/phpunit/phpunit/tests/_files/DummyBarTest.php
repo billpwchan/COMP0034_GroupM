@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class DummyBarTest extends TestCase
 {
-    public function testBarEqualsBar(): void
+    public function testBarEqualsBar()
     {
         $this->assertEquals('Bar', 'Bar');
     }

@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of the php-code-coverage package.
  *
@@ -7,6 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace SebastianBergmann\CodeCoverage\Report\Html;
 
 use SebastianBergmann\CodeCoverage\Node\AbstractNode;
@@ -50,7 +51,16 @@ abstract class Renderer
      */
     protected $version;
 
-    public function __construct(string $templatePath, string $generator, string $date, int $lowUpperBound, int $highLowerBound)
+    /**
+     * Constructor.
+     *
+     * @param string $templatePath
+     * @param string $generator
+     * @param string $date
+     * @param int    $lowUpperBound
+     * @param int    $highLowerBound
+     */
+    public function __construct($templatePath, $generator, $date, $lowUpperBound, $highLowerBound)
     {
         $this->templatePath   = $templatePath;
         $this->generator      = $generator;
@@ -60,7 +70,13 @@ abstract class Renderer
         $this->version        = Version::id();
     }
 
-    protected function renderItemTemplate(\Text_Template $template, array $data): string
+    /**
+     * @param \Text_Template $template
+     * @param array          $data
+     *
+     * @return string
+     */
+    protected function renderItemTemplate(\Text_Template $template, array $data)
     {
         $numSeparator  = '&nbsp;/&nbsp;';
 
@@ -114,8 +130,8 @@ abstract class Renderer
 
         $template->setVar(
             [
-                'icon'                   => $data['icon'] ?? '',
-                'crap'                   => $data['crap'] ?? '',
+                'icon'                   => isset($data['icon']) ? $data['icon'] : '',
+                'crap'                   => isset($data['crap']) ? $data['crap'] : '',
                 'name'                   => $data['name'],
                 'lines_bar'              => $linesBar,
                 'lines_executed_percent' => $data['linesExecutedPercentAsString'],
@@ -126,16 +142,20 @@ abstract class Renderer
                 'methods_level'          => $methodsLevel,
                 'methods_number'         => $methodsNumber,
                 'classes_bar'            => $classesBar,
-                'classes_tested_percent' => $data['testedClassesPercentAsString'] ?? '',
+                'classes_tested_percent' => isset($data['testedClassesPercentAsString']) ? $data['testedClassesPercentAsString'] : '',
                 'classes_level'          => $classesLevel,
-                'classes_number'         => $classesNumber,
+                'classes_number'         => $classesNumber
             ]
         );
 
         return $template->render();
     }
 
-    protected function setCommonTemplateVariables(\Text_Template $template, AbstractNode $node): void
+    /**
+     * @param \Text_Template $template
+     * @param AbstractNode   $node
+     */
+    protected function setCommonTemplateVariables(\Text_Template $template, AbstractNode $node)
     {
         $template->setVar(
             [
@@ -148,12 +168,12 @@ abstract class Renderer
                 'runtime'          => $this->getRuntimeString(),
                 'generator'        => $this->generator,
                 'low_upper_bound'  => $this->lowUpperBound,
-                'high_lower_bound' => $this->highLowerBound,
+                'high_lower_bound' => $this->highLowerBound
             ]
         );
     }
 
-    protected function getBreadcrumbs(AbstractNode $node): string
+    protected function getBreadcrumbs(AbstractNode $node)
     {
         $breadcrumbs = '';
         $path        = $node->getPathAsArray();
@@ -182,35 +202,35 @@ abstract class Renderer
         return $breadcrumbs;
     }
 
-    protected function getActiveBreadcrumb(AbstractNode $node): string
+    protected function getActiveBreadcrumb(AbstractNode $node)
     {
         $buffer = \sprintf(
-            '         <li class="breadcrumb-item active">%s</li>' . "\n",
+            '        <li class="active">%s</li>' . "\n",
             $node->getName()
         );
 
         if ($node instanceof DirectoryNode) {
-            $buffer .= '         <li class="breadcrumb-item">(<a href="dashboard.html">Dashboard</a>)</li>' . "\n";
+            $buffer .= '        <li>(<a href="dashboard.html">Dashboard</a>)</li>' . "\n";
         }
 
         return $buffer;
     }
 
-    protected function getInactiveBreadcrumb(AbstractNode $node, string $pathToRoot): string
+    protected function getInactiveBreadcrumb(AbstractNode $node, $pathToRoot)
     {
         return \sprintf(
-            '         <li class="breadcrumb-item"><a href="%sindex.html">%s</a></li>' . "\n",
+            '        <li><a href="%sindex.html">%s</a></li>' . "\n",
             $pathToRoot,
             $node->getName()
         );
     }
 
-    protected function getPathToRoot(AbstractNode $node): string
+    protected function getPathToRoot(AbstractNode $node)
     {
         $id    = $node->getId();
         $depth = \substr_count($id, '/');
 
-        if ($id !== 'index' &&
+        if ($id != 'index' &&
             $node instanceof DirectoryNode) {
             $depth++;
         }
@@ -218,7 +238,7 @@ abstract class Renderer
         return \str_repeat('../', $depth);
     }
 
-    protected function getCoverageBar(float $percent): string
+    protected function getCoverageBar($percent)
     {
         $level = $this->getColorLevel($percent);
 
@@ -233,21 +253,27 @@ abstract class Renderer
         return $template->render();
     }
 
-    protected function getColorLevel(float $percent): string
+    /**
+     * @param int $percent
+     *
+     * @return string
+     */
+    protected function getColorLevel($percent)
     {
         if ($percent <= $this->lowUpperBound) {
             return 'danger';
-        }
-
-        if ($percent > $this->lowUpperBound &&
+        } elseif ($percent > $this->lowUpperBound &&
             $percent < $this->highLowerBound) {
             return 'warning';
+        } else {
+            return 'success';
         }
-
-        return 'success';
     }
 
-    private function getRuntimeString(): string
+    /**
+     * @return string
+     */
+    private function getRuntimeString()
     {
         $runtime = new Runtime;
 
@@ -262,13 +288,6 @@ abstract class Renderer
             $buffer .= \sprintf(
                 ' with <a href="https://xdebug.org/">Xdebug %s</a>',
                 \phpversion('xdebug')
-            );
-        }
-
-        if ($runtime->hasPCOV() && !$runtime->hasPHPDBGCodeCoverage()) {
-            $buffer .= \sprintf(
-                ' with <a href="https://github.com/krakjoe/pcov">PCOV %s</a>',
-                \phpversion('pcov')
             );
         }
 

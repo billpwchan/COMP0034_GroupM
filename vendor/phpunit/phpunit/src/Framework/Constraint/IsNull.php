@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -12,24 +12,28 @@ namespace PHPUnit\Framework\Constraint;
 /**
  * Constraint that accepts null.
  */
-final class IsNull extends Constraint
+class IsNull extends Constraint
 {
-    /**
-     * Returns a string representation of the constraint.
-     */
-    public function toString(): string
-    {
-        return 'is null';
-    }
-
     /**
      * Evaluates the constraint for parameter $other. Returns true if the
      * constraint is met, false otherwise.
      *
-     * @param mixed $other value or object to evaluate
+     * @param mixed $other Value or object to evaluate.
+     *
+     * @return bool
      */
-    protected function matches($other): bool
+    protected function matches($other)
     {
         return $other === null;
+    }
+
+    /**
+     * Returns a string representation of the constraint.
+     *
+     * @return string
+     */
+    public function toString()
+    {
+        return 'is null';
     }
 }

@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -14,7 +14,7 @@ use PHPUnit\Framework\ExpectationFailedException;
 /**
  * Constraint that accepts any input value.
  */
-final class IsAnything extends Constraint
+class IsAnything extends Constraint
 {
     /**
      * Evaluates the constraint for parameter $other
@@ -26,25 +26,35 @@ final class IsAnything extends Constraint
      * a boolean value instead: true in case of success, false in case of a
      * failure.
      *
+     * @param mixed  $other        Value or object to evaluate.
+     * @param string $description  Additional information about the test
+     * @param bool   $returnResult Whether to return a result or throw an exception
+     *
+     * @return mixed
+     *
      * @throws ExpectationFailedException
      */
-    public function evaluate($other, string $description = '', bool $returnResult = false)
+    public function evaluate($other, $description = '', $returnResult = false)
     {
         return $returnResult ? true : null;
     }
 
     /**
      * Returns a string representation of the constraint.
+     *
+     * @return string
      */
-    public function toString(): string
+    public function toString()
     {
         return 'is anything';
     }
 
     /**
      * Counts the number of constraint elements.
+     *
+     * @return int
      */
-    public function count(): int
+    public function count()
     {
         return 0;
     }

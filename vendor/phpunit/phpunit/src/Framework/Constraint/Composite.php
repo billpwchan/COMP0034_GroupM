@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -16,10 +16,14 @@ abstract class Composite extends Constraint
     /**
      * @var Constraint
      */
-    private $innerConstraint;
+    protected $innerConstraint;
 
+    /**
+     * @param Constraint $innerConstraint
+     */
     public function __construct(Constraint $innerConstraint)
     {
+        parent::__construct();
         $this->innerConstraint = $innerConstraint;
     }
 
@@ -33,10 +37,15 @@ abstract class Composite extends Constraint
      * a boolean value instead: true in case of success, false in case of a
      * failure.
      *
+     * @param mixed  $other        Value or object to evaluate.
+     * @param string $description  Additional information about the test
+     * @param bool   $returnResult Whether to return a result or throw an exception
+     *
+     * @return mixed
+     *
      * @throws ExpectationFailedException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
-    public function evaluate($other, string $description = '', bool $returnResult = false)
+    public function evaluate($other, $description = '', $returnResult = false)
     {
         try {
             return $this->innerConstraint->evaluate(
@@ -51,14 +60,11 @@ abstract class Composite extends Constraint
 
     /**
      * Counts the number of constraint elements.
+     *
+     * @return int
      */
-    public function count(): int
+    public function count()
     {
         return \count($this->innerConstraint);
-    }
-
-    protected function innerConstraint(): Constraint
-    {
-        return $this->innerConstraint;
     }
 }

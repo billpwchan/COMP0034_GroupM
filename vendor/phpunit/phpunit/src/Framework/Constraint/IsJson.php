@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -12,30 +12,23 @@ namespace PHPUnit\Framework\Constraint;
 /**
  * Constraint that asserts that a string is valid JSON.
  */
-final class IsJson extends Constraint
+class IsJson extends Constraint
 {
-    /**
-     * Returns a string representation of the constraint.
-     */
-    public function toString(): string
-    {
-        return 'is valid JSON';
-    }
-
     /**
      * Evaluates the constraint for parameter $other. Returns true if the
      * constraint is met, false otherwise.
      *
-     * @param mixed $other value or object to evaluate
+     * @param mixed $other Value or object to evaluate.
+     *
+     * @return bool
      */
-    protected function matches($other): bool
+    protected function matches($other)
     {
         if ($other === '') {
             return false;
         }
 
         \json_decode($other);
-
         if (\json_last_error()) {
             return false;
         }
@@ -49,11 +42,11 @@ final class IsJson extends Constraint
      * The beginning of failure messages is "Failed asserting that" in most
      * cases. This method should return the second part of that sentence.
      *
-     * @param mixed $other evaluated value or object
+     * @param mixed $other Evaluated value or object.
      *
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @return string
      */
-    protected function failureDescription($other): string
+    protected function failureDescription($other)
     {
         if ($other === '') {
             return 'an empty string is valid JSON';
@@ -61,13 +54,23 @@ final class IsJson extends Constraint
 
         \json_decode($other);
         $error = JsonMatchesErrorMessageProvider::determineJsonError(
-            (string) \json_last_error()
+            \json_last_error()
         );
 
         return \sprintf(
             '%s is valid JSON (%s)',
-            $this->exporter()->shortenedExport($other),
+            $this->exporter->shortenedExport($other),
             $error
         );
+    }
+
+    /**
+     * Returns a string representation of the constraint.
+     *
+     * @return string
+     */
+    public function toString()
+    {
+        return 'is valid JSON';
     }
 }

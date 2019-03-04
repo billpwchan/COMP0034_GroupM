@@ -11,7 +11,6 @@
 namespace SebastianBergmann\Diff;
 
 use PHPUnit\Framework\TestCase;
-use SebastianBergmann\Diff\Utils\FileUtils;
 
 /**
  * @covers SebastianBergmann\Diff\Parser
@@ -27,21 +26,23 @@ final class ParserTest extends TestCase
      */
     private $parser;
 
-    protected function setUp(): void
+    protected function setUp()
     {
         $this->parser = new Parser;
     }
 
-    public function testParse(): void
+    public function testParse()
     {
-        $content = FileUtils::getFileContent(__DIR__ . '/fixtures/patch.txt');
+        $content = \file_get_contents(__DIR__ . '/fixtures/patch.txt');
 
         $diffs = $this->parser->parse($content);
 
+        $this->assertInternalType('array', $diffs);
         $this->assertContainsOnlyInstancesOf(Diff::class, $diffs);
         $this->assertCount(1, $diffs);
 
         $chunks = $diffs[0]->getChunks();
+        $this->assertInternalType('array', $chunks);
         $this->assertContainsOnlyInstancesOf(Chunk::class, $chunks);
 
         $this->assertCount(1, $chunks);
@@ -51,9 +52,9 @@ final class ParserTest extends TestCase
         $this->assertCount(4, $chunks[0]->getLines());
     }
 
-    public function testParseWithMultipleChunks(): void
+    public function testParseWithMultipleChunks()
     {
-        $content = FileUtils::getFileContent(__DIR__ . '/fixtures/patch2.txt');
+        $content = \file_get_contents(__DIR__ . '/fixtures/patch2.txt');
 
         $diffs = $this->parser->parse($content);
 
@@ -71,9 +72,9 @@ final class ParserTest extends TestCase
         $this->assertCount(4, $chunks[2]->getLines());
     }
 
-    public function testParseWithRemovedLines(): void
+    public function testParseWithRemovedLines()
     {
-        $content = <<<END
+        $content = <<<A
 diff --git a/Test.txt b/Test.txt
 index abcdefg..abcdefh 100644
 --- a/Test.txt
@@ -81,13 +82,15 @@ index abcdefg..abcdefh 100644
 @@ -49,9 +49,8 @@
  A
 -B
-END;
+A;
         $diffs = $this->parser->parse($content);
+        $this->assertInternalType('array', $diffs);
         $this->assertContainsOnlyInstancesOf(Diff::class, $diffs);
         $this->assertCount(1, $diffs);
 
         $chunks = $diffs[0]->getChunks();
 
+        $this->assertInternalType('array', $chunks);
         $this->assertContainsOnlyInstancesOf(Chunk::class, $chunks);
         $this->assertCount(1, $chunks);
 
@@ -98,6 +101,7 @@ END;
         $this->assertSame(8, $chunk->getEndRange());
 
         $lines = $chunk->getLines();
+        $this->assertInternalType('array', $lines);
         $this->assertContainsOnlyInstancesOf(Line::class, $lines);
         $this->assertCount(2, $lines);
 
@@ -111,9 +115,9 @@ END;
         $this->assertSame(Line::REMOVED, $line->getType());
     }
 
-    public function testParseDiffForMulitpleFiles(): void
+    public function testParseDiffForMulitpleFiles()
     {
-        $content = <<<END
+        $content = <<<A
 diff --git a/Test.txt b/Test.txt
 index abcdefg..abcdefh 100644
 --- a/Test.txt
@@ -129,7 +133,7 @@ index abcdefg..abcdefh 100644
 @@ -1,2 +1,3 @@
  A
 +B
-END;
+A;
         $diffs = $this->parser->parse($content);
         $this->assertCount(2, $diffs);
 
@@ -143,28 +147,5 @@ END;
         $this->assertSame('a/Test2.txt', $diff->getFrom());
         $this->assertSame('b/Test2.txt', $diff->getTo());
         $this->assertCount(1, $diff->getChunks());
-    }
-
-    /**
-     * @param string $diff
-     * @param Diff[] $expected
-     *
-     * @dataProvider diffProvider
-     */
-    public function testParser(string $diff, array $expected): void
-    {
-        $result = $this->parser->parse($diff);
-
-        $this->assertEquals($expected, $result);
-    }
-
-    public function diffProvider(): array
-    {
-        return [
-            [
-                "--- old.txt	2014-11-04 08:51:02.661868729 +0300\n+++ new.txt	2014-11-04 08:51:02.665868730 +0300\n@@ -1,3 +1,4 @@\n+2222111\n 1111111\n 1111111\n 1111111\n@@ -5,10 +6,8 @@\n 1111111\n 1111111\n 1111111\n +1121211\n 1111111\n -1111111\n -1111111\n -2222222\n 2222222\n 2222222\n 2222222\n@@ -17,5 +16,6 @@\n 2222222\n 2222222\n 2222222\n +2122212\n 2222222\n 2222222\n",
-                \unserialize(FileUtils::getFileContent(__DIR__ . '/fixtures/serialized_diff.bin')),
-            ],
-        ];
     }
 }

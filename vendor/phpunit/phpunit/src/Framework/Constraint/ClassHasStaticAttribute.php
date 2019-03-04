@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -17,37 +17,39 @@ use ReflectionClass;
  *
  * The attribute name is passed in the constructor.
  */
-final class ClassHasStaticAttribute extends ClassHasAttribute
+class ClassHasStaticAttribute extends ClassHasAttribute
 {
-    /**
-     * Returns a string representation of the constraint.
-     */
-    public function toString(): string
-    {
-        return \sprintf(
-            'has static attribute "%s"',
-            $this->attributeName()
-        );
-    }
-
     /**
      * Evaluates the constraint for parameter $other. Returns true if the
      * constraint is met, false otherwise.
      *
-     * @param mixed $other value or object to evaluate
+     * @param mixed $other Value or object to evaluate.
      *
-     * @throws \ReflectionException
+     * @return bool
      */
-    protected function matches($other): bool
+    protected function matches($other)
     {
         $class = new ReflectionClass($other);
 
-        if ($class->hasProperty($this->attributeName())) {
-            $attribute = $class->getProperty($this->attributeName());
+        if ($class->hasProperty($this->attributeName)) {
+            $attribute = $class->getProperty($this->attributeName);
 
             return $attribute->isStatic();
         }
 
         return false;
+    }
+
+    /**
+     * Returns a string representation of the constraint.
+     *
+     * @return string
+     */
+    public function toString()
+    {
+        return \sprintf(
+            'has static attribute "%s"',
+            $this->attributeName
+        );
     }
 }

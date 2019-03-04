@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -7,12 +7,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\AssertionFailedError;
 use PHPUnit\Framework\Constraint\ArrayHasKey;
 use PHPUnit\Framework\Constraint\Attribute;
-use PHPUnit\Framework\Constraint\Callback;
 use PHPUnit\Framework\Constraint\ClassHasAttribute;
 use PHPUnit\Framework\Constraint\ClassHasStaticAttribute;
 use PHPUnit\Framework\Constraint\Constraint;
@@ -24,7 +22,6 @@ use PHPUnit\Framework\Constraint\IsAnything;
 use PHPUnit\Framework\Constraint\IsEmpty;
 use PHPUnit\Framework\Constraint\IsEqual;
 use PHPUnit\Framework\Constraint\IsFalse;
-use PHPUnit\Framework\Constraint\IsFinite;
 use PHPUnit\Framework\Constraint\IsIdentical;
 use PHPUnit\Framework\Constraint\IsInfinite;
 use PHPUnit\Framework\Constraint\IsInstanceOf;
@@ -48,33 +45,51 @@ use PHPUnit\Framework\Constraint\StringMatchesFormatDescription;
 use PHPUnit\Framework\Constraint\StringStartsWith;
 use PHPUnit\Framework\Constraint\TraversableContains;
 use PHPUnit\Framework\Constraint\TraversableContainsOnly;
-use PHPUnit\Framework\ExpectationFailedException;
-use PHPUnit\Framework\MockObject\Matcher\AnyInvokedCount as AnyInvokedCountMatcher;
-use PHPUnit\Framework\MockObject\Matcher\InvokedAtIndex as InvokedAtIndexMatcher;
-use PHPUnit\Framework\MockObject\Matcher\InvokedAtLeastCount as InvokedAtLeastCountMatcher;
-use PHPUnit\Framework\MockObject\Matcher\InvokedAtLeastOnce as InvokedAtLeastOnceMatcher;
-use PHPUnit\Framework\MockObject\Matcher\InvokedAtMostCount as InvokedAtMostCountMatcher;
-use PHPUnit\Framework\MockObject\Matcher\InvokedCount as InvokedCountMatcher;
-use PHPUnit\Framework\MockObject\Stub\ConsecutiveCalls as ConsecutiveCallsStub;
-use PHPUnit\Framework\MockObject\Stub\Exception as ExceptionStub;
-use PHPUnit\Framework\MockObject\Stub\ReturnArgument as ReturnArgumentStub;
-use PHPUnit\Framework\MockObject\Stub\ReturnCallback as ReturnCallbackStub;
-use PHPUnit\Framework\MockObject\Stub\ReturnSelf as ReturnSelfStub;
-use PHPUnit\Framework\MockObject\Stub\ReturnStub;
-use PHPUnit\Framework\MockObject\Stub\ReturnValueMap as ReturnValueMapStub;
+use PHPUnit\Framework\TestCase;
+
+/**
+ * Returns a matcher that matches when the method is executed
+ * zero or more times.
+ *
+ * @return PHPUnit\Framework\MockObject\Matcher\AnyInvokedCount
+ */
+function any()
+{
+    return TestCase::any();
+}
+
+/**
+ * Returns a PHPUnit\Framework\Constraint\IsAnything matcher object.
+ *
+ * @return IsAnything
+ */
+function anything()
+{
+    return Assert::anything();
+}
+
+/**
+ * Returns a PHPUnit\Framework\Constraint\ArrayHasKey matcher object.
+ *
+ * @param mixed $key
+ *
+ * @return ArrayHasKey
+ */
+function arrayHasKey($key)
+{
+    return Assert::arrayHasKey(...\func_get_args());
+}
 
 /**
  * Asserts that an array has a specified key.
  *
- * @param int|string        $key
+ * @param mixed             $key
  * @param array|ArrayAccess $array
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+ * @param string            $message
  */
-function assertArrayHasKey($key, $array, string $message = ''): void
+function assertArrayHasKey($key, $array, $message = '')
 {
-    Assert::assertArrayHasKey(...\func_get_args());
+    return Assert::assertArrayHasKey(...\func_get_args());
 }
 
 /**
@@ -82,127 +97,195 @@ function assertArrayHasKey($key, $array, string $message = ''): void
  *
  * @param array|ArrayAccess $subset
  * @param array|ArrayAccess $array
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- *
- * @deprecated https://github.com/sebastianbergmann/phpunit/issues/3494
+ * @param bool              $strict  Check for object identity
+ * @param string            $message
  */
-function assertArraySubset($subset, $array, bool $checkForObjectIdentity = false, string $message = ''): void
+function assertArraySubset($subset, $array, $strict = false, $message = '')
 {
-    Assert::assertArraySubset(...\func_get_args());
+    return Assert::assertArraySubset(...\func_get_args());
 }
 
 /**
  * Asserts that an array does not have a specified key.
  *
- * @param int|string        $key
+ * @param mixed             $key
  * @param array|ArrayAccess $array
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+ * @param string            $message
  */
-function assertArrayNotHasKey($key, $array, string $message = ''): void
+function assertArrayNotHasKey($key, $array, $message = '')
 {
-    Assert::assertArrayNotHasKey(...\func_get_args());
-}
-
-/**
- * Asserts that a haystack contains a needle.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertContains($needle, $haystack, string $message = '', bool $ignoreCase = false, bool $checkForObjectIdentity = true, bool $checkForNonObjectIdentity = false): void
-{
-    Assert::assertContains(...\func_get_args());
+    return Assert::assertArrayNotHasKey(...\func_get_args());
 }
 
 /**
  * Asserts that a haystack that is stored in a static attribute of a class
  * or an attribute of an object contains a needle.
  *
- * @param object|string $haystackClassOrObject
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+ * @param mixed  $needle
+ * @param string $haystackAttributeName
+ * @param mixed  $haystackClassOrObject
+ * @param string $message
+ * @param bool   $ignoreCase
+ * @param bool   $checkForObjectIdentity
+ * @param bool   $checkForNonObjectIdentity
  */
-function assertAttributeContains($needle, string $haystackAttributeName, $haystackClassOrObject, string $message = '', bool $ignoreCase = false, bool $checkForObjectIdentity = true, bool $checkForNonObjectIdentity = false): void
+function assertAttributeContains($needle, $haystackAttributeName, $haystackClassOrObject, $message = '', $ignoreCase = false, $checkForObjectIdentity = true, $checkForNonObjectIdentity = false)
 {
-    Assert::assertAttributeContains(...\func_get_args());
-}
-
-/**
- * Asserts that a haystack does not contain a needle.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertNotContains($needle, $haystack, string $message = '', bool $ignoreCase = false, bool $checkForObjectIdentity = true, bool $checkForNonObjectIdentity = false): void
-{
-    Assert::assertNotContains(...\func_get_args());
-}
-
-/**
- * Asserts that a haystack that is stored in a static attribute of a class
- * or an attribute of an object does not contain a needle.
- *
- * @param object|string $haystackClassOrObject
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertAttributeNotContains($needle, string $haystackAttributeName, $haystackClassOrObject, string $message = '', bool $ignoreCase = false, bool $checkForObjectIdentity = true, bool $checkForNonObjectIdentity = false): void
-{
-    Assert::assertAttributeNotContains(...\func_get_args());
-}
-
-/**
- * Asserts that a haystack contains only values of a given type.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertContainsOnly(string $type, iterable $haystack, ?bool $isNativeType = null, string $message = ''): void
-{
-    Assert::assertContainsOnly(...\func_get_args());
-}
-
-/**
- * Asserts that a haystack contains only instances of a given class name.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertContainsOnlyInstancesOf(string $className, iterable $haystack, string $message = ''): void
-{
-    Assert::assertContainsOnlyInstancesOf(...\func_get_args());
+    return Assert::assertAttributeContains(...\func_get_args());
 }
 
 /**
  * Asserts that a haystack that is stored in a static attribute of a class
  * or an attribute of an object contains only values of a given type.
  *
- * @param object|string $haystackClassOrObject
- * @param bool          $isNativeType
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+ * @param string $type
+ * @param string $haystackAttributeName
+ * @param mixed  $haystackClassOrObject
+ * @param bool   $isNativeType
+ * @param string $message
  */
-function assertAttributeContainsOnly(string $type, string $haystackAttributeName, $haystackClassOrObject, ?bool $isNativeType = null, string $message = ''): void
+function assertAttributeContainsOnly($type, $haystackAttributeName, $haystackClassOrObject, $isNativeType = null, $message = '')
 {
-    Assert::assertAttributeContainsOnly(...\func_get_args());
+    return Assert::assertAttributeContainsOnly(...\func_get_args());
 }
 
 /**
- * Asserts that a haystack does not contain only values of a given type.
+ * Asserts the number of elements of an array, Countable or Traversable
+ * that is stored in an attribute.
  *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+ * @param int    $expectedCount
+ * @param string $haystackAttributeName
+ * @param mixed  $haystackClassOrObject
+ * @param string $message
  */
-function assertNotContainsOnly(string $type, iterable $haystack, ?bool $isNativeType = null, string $message = ''): void
+function assertAttributeCount($expectedCount, $haystackAttributeName, $haystackClassOrObject, $message = '')
 {
-    Assert::assertNotContainsOnly(...\func_get_args());
+    return Assert::assertAttributeCount(...\func_get_args());
+}
+
+/**
+ * Asserts that a static attribute of a class or an attribute of an object
+ * is empty.
+ *
+ * @param string $haystackAttributeName
+ * @param mixed  $haystackClassOrObject
+ * @param string $message
+ */
+function assertAttributeEmpty($haystackAttributeName, $haystackClassOrObject, $message = '')
+{
+    return Assert::assertAttributeEmpty(...\func_get_args());
+}
+
+/**
+ * Asserts that a variable is equal to an attribute of an object.
+ *
+ * @param mixed  $expected
+ * @param string $actualAttributeName
+ * @param string $actualClassOrObject
+ * @param string $message
+ * @param float  $delta
+ * @param int    $maxDepth
+ * @param bool   $canonicalize
+ * @param bool   $ignoreCase
+ */
+function assertAttributeEquals($expected, $actualAttributeName, $actualClassOrObject, $message = '', $delta = 0.0, $maxDepth = 10, $canonicalize = false, $ignoreCase = false)
+{
+    return Assert::assertAttributeEquals(...\func_get_args());
+}
+
+/**
+ * Asserts that an attribute is greater than another value.
+ *
+ * @param mixed  $expected
+ * @param string $actualAttributeName
+ * @param string $actualClassOrObject
+ * @param string $message
+ */
+function assertAttributeGreaterThan($expected, $actualAttributeName, $actualClassOrObject, $message = '')
+{
+    return Assert::assertAttributeGreaterThan(...\func_get_args());
+}
+
+/**
+ * Asserts that an attribute is greater than or equal to another value.
+ *
+ * @param mixed  $expected
+ * @param string $actualAttributeName
+ * @param string $actualClassOrObject
+ * @param string $message
+ */
+function assertAttributeGreaterThanOrEqual($expected, $actualAttributeName, $actualClassOrObject, $message = '')
+{
+    return Assert::assertAttributeGreaterThanOrEqual(...\func_get_args());
+}
+
+/**
+ * Asserts that an attribute is of a given type.
+ *
+ * @param string $expected
+ * @param string $attributeName
+ * @param mixed  $classOrObject
+ * @param string $message
+ */
+function assertAttributeInstanceOf($expected, $attributeName, $classOrObject, $message = '')
+{
+    return Assert::assertAttributeInstanceOf(...\func_get_args());
+}
+
+/**
+ * Asserts that an attribute is of a given type.
+ *
+ * @param string $expected
+ * @param string $attributeName
+ * @param mixed  $classOrObject
+ * @param string $message
+ */
+function assertAttributeInternalType($expected, $attributeName, $classOrObject, $message = '')
+{
+    return Assert::assertAttributeInternalType(...\func_get_args());
+}
+
+/**
+ * Asserts that an attribute is smaller than another value.
+ *
+ * @param mixed  $expected
+ * @param string $actualAttributeName
+ * @param string $actualClassOrObject
+ * @param string $message
+ */
+function assertAttributeLessThan($expected, $actualAttributeName, $actualClassOrObject, $message = '')
+{
+    return Assert::assertAttributeLessThan(...\func_get_args());
+}
+
+/**
+ * Asserts that an attribute is smaller than or equal to another value.
+ *
+ * @param mixed  $expected
+ * @param string $actualAttributeName
+ * @param string $actualClassOrObject
+ * @param string $message
+ */
+function assertAttributeLessThanOrEqual($expected, $actualAttributeName, $actualClassOrObject, $message = '')
+{
+    return Assert::assertAttributeLessThanOrEqual(...\func_get_args());
+}
+
+/**
+ * Asserts that a haystack that is stored in a static attribute of a class
+ * or an attribute of an object does not contain a needle.
+ *
+ * @param mixed  $needle
+ * @param string $haystackAttributeName
+ * @param mixed  $haystackClassOrObject
+ * @param string $message
+ * @param bool   $ignoreCase
+ * @param bool   $checkForObjectIdentity
+ * @param bool   $checkForNonObjectIdentity
+ */
+function assertAttributeNotContains($needle, $haystackAttributeName, $haystackClassOrObject, $message = '', $ignoreCase = false, $checkForObjectIdentity = true, $checkForNonObjectIdentity = false)
+{
+    return Assert::assertAttributeNotContains(...\func_get_args());
 }
 
 /**
@@ -210,1075 +293,452 @@ function assertNotContainsOnly(string $type, iterable $haystack, ?bool $isNative
  * or an attribute of an object does not contain only values of a given
  * type.
  *
- * @param object|string $haystackClassOrObject
- * @param bool          $isNativeType
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+ * @param string $type
+ * @param string $haystackAttributeName
+ * @param mixed  $haystackClassOrObject
+ * @param bool   $isNativeType
+ * @param string $message
  */
-function assertAttributeNotContainsOnly(string $type, string $haystackAttributeName, $haystackClassOrObject, ?bool $isNativeType = null, string $message = ''): void
+function assertAttributeNotContainsOnly($type, $haystackAttributeName, $haystackClassOrObject, $isNativeType = null, $message = '')
 {
-    Assert::assertAttributeNotContainsOnly(...\func_get_args());
-}
-
-/**
- * Asserts the number of elements of an array, Countable or Traversable.
- *
- * @param Countable|iterable $haystack
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertCount(int $expectedCount, $haystack, string $message = ''): void
-{
-    Assert::assertCount(...\func_get_args());
+    return Assert::assertAttributeNotContainsOnly(...\func_get_args());
 }
 
 /**
  * Asserts the number of elements of an array, Countable or Traversable
  * that is stored in an attribute.
  *
- * @param object|string $haystackClassOrObject
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+ * @param int    $expectedCount
+ * @param string $haystackAttributeName
+ * @param mixed  $haystackClassOrObject
+ * @param string $message
  */
-function assertAttributeCount(int $expectedCount, string $haystackAttributeName, $haystackClassOrObject, string $message = ''): void
+function assertAttributeNotCount($expectedCount, $haystackAttributeName, $haystackClassOrObject, $message = '')
 {
-    Assert::assertAttributeCount(...\func_get_args());
-}
-
-/**
- * Asserts the number of elements of an array, Countable or Traversable.
- *
- * @param Countable|iterable $haystack
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertNotCount(int $expectedCount, $haystack, string $message = ''): void
-{
-    Assert::assertNotCount(...\func_get_args());
-}
-
-/**
- * Asserts the number of elements of an array, Countable or Traversable
- * that is stored in an attribute.
- *
- * @param object|string $haystackClassOrObject
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertAttributeNotCount(int $expectedCount, string $haystackAttributeName, $haystackClassOrObject, string $message = ''): void
-{
-    Assert::assertAttributeNotCount(...\func_get_args());
-}
-
-/**
- * Asserts that two variables are equal.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertEquals($expected, $actual, string $message = '', float $delta = 0.0, int $maxDepth = 10, bool $canonicalize = false, bool $ignoreCase = false): void
-{
-    Assert::assertEquals(...\func_get_args());
-}
-
-/**
- * Asserts that a variable is equal to an attribute of an object.
- *
- * @param object|string $actualClassOrObject
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertAttributeEquals($expected, string $actualAttributeName, $actualClassOrObject, string $message = '', float $delta = 0.0, int $maxDepth = 10, bool $canonicalize = false, bool $ignoreCase = false): void
-{
-    Assert::assertAttributeEquals(...\func_get_args());
-}
-
-/**
- * Asserts that two variables are not equal.
- *
- * @param float $delta
- * @param int   $maxDepth
- * @param bool  $canonicalize
- * @param bool  $ignoreCase
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertNotEquals($expected, $actual, string $message = '', $delta = 0.0, $maxDepth = 10, $canonicalize = false, $ignoreCase = false): void
-{
-    Assert::assertNotEquals(...\func_get_args());
-}
-
-/**
- * Asserts that a variable is not equal to an attribute of an object.
- *
- * @param object|string $actualClassOrObject
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertAttributeNotEquals($expected, string $actualAttributeName, $actualClassOrObject, string $message = '', float $delta = 0.0, int $maxDepth = 10, bool $canonicalize = false, bool $ignoreCase = false): void
-{
-    Assert::assertAttributeNotEquals(...\func_get_args());
-}
-
-/**
- * Asserts that a variable is empty.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertEmpty($actual, string $message = ''): void
-{
-    Assert::assertEmpty(...\func_get_args());
-}
-
-/**
- * Asserts that a static attribute of a class or an attribute of an object
- * is empty.
- *
- * @param object|string $haystackClassOrObject
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertAttributeEmpty(string $haystackAttributeName, $haystackClassOrObject, string $message = ''): void
-{
-    Assert::assertAttributeEmpty(...\func_get_args());
-}
-
-/**
- * Asserts that a variable is not empty.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertNotEmpty($actual, string $message = ''): void
-{
-    Assert::assertNotEmpty(...\func_get_args());
+    return Assert::assertAttributeNotCount(...\func_get_args());
 }
 
 /**
  * Asserts that a static attribute of a class or an attribute of an object
  * is not empty.
  *
- * @param object|string $haystackClassOrObject
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+ * @param string $haystackAttributeName
+ * @param mixed  $haystackClassOrObject
+ * @param string $message
  */
-function assertAttributeNotEmpty(string $haystackAttributeName, $haystackClassOrObject, string $message = ''): void
+function assertAttributeNotEmpty($haystackAttributeName, $haystackClassOrObject, $message = '')
 {
-    Assert::assertAttributeNotEmpty(...\func_get_args());
+    return Assert::assertAttributeNotEmpty(...\func_get_args());
 }
 
 /**
- * Asserts that a value is greater than another value.
+ * Asserts that a variable is not equal to an attribute of an object.
  *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+ * @param mixed  $expected
+ * @param string $actualAttributeName
+ * @param string $actualClassOrObject
+ * @param string $message
+ * @param float  $delta
+ * @param int    $maxDepth
+ * @param bool   $canonicalize
+ * @param bool   $ignoreCase
  */
-function assertGreaterThan($expected, $actual, string $message = ''): void
+function assertAttributeNotEquals($expected, $actualAttributeName, $actualClassOrObject, $message = '', $delta = 0.0, $maxDepth = 10, $canonicalize = false, $ignoreCase = false)
 {
-    Assert::assertGreaterThan(...\func_get_args());
+    return Assert::assertAttributeNotEquals(...\func_get_args());
 }
 
 /**
- * Asserts that an attribute is greater than another value.
+ * Asserts that an attribute is of a given type.
  *
- * @param object|string $actualClassOrObject
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+ * @param string $expected
+ * @param string $attributeName
+ * @param mixed  $classOrObject
+ * @param string $message
  */
-function assertAttributeGreaterThan($expected, string $actualAttributeName, $actualClassOrObject, string $message = ''): void
+function assertAttributeNotInstanceOf($expected, $attributeName, $classOrObject, $message = '')
 {
-    Assert::assertAttributeGreaterThan(...\func_get_args());
+    return Assert::assertAttributeNotInstanceOf(...\func_get_args());
 }
 
 /**
- * Asserts that a value is greater than or equal to another value.
+ * Asserts that an attribute is of a given type.
  *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+ * @param string $expected
+ * @param string $attributeName
+ * @param mixed  $classOrObject
+ * @param string $message
  */
-function assertGreaterThanOrEqual($expected, $actual, string $message = ''): void
+function assertAttributeNotInternalType($expected, $attributeName, $classOrObject, $message = '')
 {
-    Assert::assertGreaterThanOrEqual(...\func_get_args());
-}
-
-/**
- * Asserts that an attribute is greater than or equal to another value.
- *
- * @param object|string $actualClassOrObject
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertAttributeGreaterThanOrEqual($expected, string $actualAttributeName, $actualClassOrObject, string $message = ''): void
-{
-    Assert::assertAttributeGreaterThanOrEqual(...\func_get_args());
-}
-
-/**
- * Asserts that a value is smaller than another value.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertLessThan($expected, $actual, string $message = ''): void
-{
-    Assert::assertLessThan(...\func_get_args());
-}
-
-/**
- * Asserts that an attribute is smaller than another value.
- *
- * @param object|string $actualClassOrObject
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertAttributeLessThan($expected, string $actualAttributeName, $actualClassOrObject, string $message = ''): void
-{
-    Assert::assertAttributeLessThan(...\func_get_args());
-}
-
-/**
- * Asserts that a value is smaller than or equal to another value.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertLessThanOrEqual($expected, $actual, string $message = ''): void
-{
-    Assert::assertLessThanOrEqual(...\func_get_args());
-}
-
-/**
- * Asserts that an attribute is smaller than or equal to another value.
- *
- * @param object|string $actualClassOrObject
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertAttributeLessThanOrEqual($expected, string $actualAttributeName, $actualClassOrObject, string $message = ''): void
-{
-    Assert::assertAttributeLessThanOrEqual(...\func_get_args());
-}
-
-/**
- * Asserts that the contents of one file is equal to the contents of another
- * file.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertFileEquals(string $expected, string $actual, string $message = '', bool $canonicalize = false, bool $ignoreCase = false): void
-{
-    Assert::assertFileEquals(...\func_get_args());
-}
-
-/**
- * Asserts that the contents of one file is not equal to the contents of
- * another file.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertFileNotEquals(string $expected, string $actual, string $message = '', bool $canonicalize = false, bool $ignoreCase = false): void
-{
-    Assert::assertFileNotEquals(...\func_get_args());
-}
-
-/**
- * Asserts that the contents of a string is equal
- * to the contents of a file.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertStringEqualsFile(string $expectedFile, string $actualString, string $message = '', bool $canonicalize = false, bool $ignoreCase = false): void
-{
-    Assert::assertStringEqualsFile(...\func_get_args());
-}
-
-/**
- * Asserts that the contents of a string is not equal
- * to the contents of a file.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertStringNotEqualsFile(string $expectedFile, string $actualString, string $message = '', bool $canonicalize = false, bool $ignoreCase = false): void
-{
-    Assert::assertStringNotEqualsFile(...\func_get_args());
-}
-
-/**
- * Asserts that a file/dir is readable.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertIsReadable(string $filename, string $message = ''): void
-{
-    Assert::assertIsReadable(...\func_get_args());
-}
-
-/**
- * Asserts that a file/dir exists and is not readable.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertNotIsReadable(string $filename, string $message = ''): void
-{
-    Assert::assertNotIsReadable(...\func_get_args());
-}
-
-/**
- * Asserts that a file/dir exists and is writable.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertIsWritable(string $filename, string $message = ''): void
-{
-    Assert::assertIsWritable(...\func_get_args());
-}
-
-/**
- * Asserts that a file/dir exists and is not writable.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertNotIsWritable(string $filename, string $message = ''): void
-{
-    Assert::assertNotIsWritable(...\func_get_args());
-}
-
-/**
- * Asserts that a directory exists.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertDirectoryExists(string $directory, string $message = ''): void
-{
-    Assert::assertDirectoryExists(...\func_get_args());
-}
-
-/**
- * Asserts that a directory does not exist.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertDirectoryNotExists(string $directory, string $message = ''): void
-{
-    Assert::assertDirectoryNotExists(...\func_get_args());
-}
-
-/**
- * Asserts that a directory exists and is readable.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertDirectoryIsReadable(string $directory, string $message = ''): void
-{
-    Assert::assertDirectoryIsReadable(...\func_get_args());
-}
-
-/**
- * Asserts that a directory exists and is not readable.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertDirectoryNotIsReadable(string $directory, string $message = ''): void
-{
-    Assert::assertDirectoryNotIsReadable(...\func_get_args());
-}
-
-/**
- * Asserts that a directory exists and is writable.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertDirectoryIsWritable(string $directory, string $message = ''): void
-{
-    Assert::assertDirectoryIsWritable(...\func_get_args());
-}
-
-/**
- * Asserts that a directory exists and is not writable.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertDirectoryNotIsWritable(string $directory, string $message = ''): void
-{
-    Assert::assertDirectoryNotIsWritable(...\func_get_args());
-}
-
-/**
- * Asserts that a file exists.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertFileExists(string $filename, string $message = ''): void
-{
-    Assert::assertFileExists(...\func_get_args());
-}
-
-/**
- * Asserts that a file does not exist.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertFileNotExists(string $filename, string $message = ''): void
-{
-    Assert::assertFileNotExists(...\func_get_args());
-}
-
-/**
- * Asserts that a file exists and is readable.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertFileIsReadable(string $file, string $message = ''): void
-{
-    Assert::assertFileIsReadable(...\func_get_args());
-}
-
-/**
- * Asserts that a file exists and is not readable.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertFileNotIsReadable(string $file, string $message = ''): void
-{
-    Assert::assertFileNotIsReadable(...\func_get_args());
-}
-
-/**
- * Asserts that a file exists and is writable.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertFileIsWritable(string $file, string $message = ''): void
-{
-    Assert::assertFileIsWritable(...\func_get_args());
-}
-
-/**
- * Asserts that a file exists and is not writable.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertFileNotIsWritable(string $file, string $message = ''): void
-{
-    Assert::assertFileNotIsWritable(...\func_get_args());
-}
-
-/**
- * Asserts that a condition is true.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertTrue($condition, string $message = ''): void
-{
-    Assert::assertTrue(...\func_get_args());
-}
-
-/**
- * Asserts that a condition is not true.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertNotTrue($condition, string $message = ''): void
-{
-    Assert::assertNotTrue(...\func_get_args());
-}
-
-/**
- * Asserts that a condition is false.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertFalse($condition, string $message = ''): void
-{
-    Assert::assertFalse(...\func_get_args());
-}
-
-/**
- * Asserts that a condition is not false.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertNotFalse($condition, string $message = ''): void
-{
-    Assert::assertNotFalse(...\func_get_args());
-}
-
-/**
- * Asserts that a variable is null.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertNull($actual, string $message = ''): void
-{
-    Assert::assertNull(...\func_get_args());
-}
-
-/**
- * Asserts that a variable is not null.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertNotNull($actual, string $message = ''): void
-{
-    Assert::assertNotNull(...\func_get_args());
-}
-
-/**
- * Asserts that a variable is finite.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertFinite($actual, string $message = ''): void
-{
-    Assert::assertFinite(...\func_get_args());
-}
-
-/**
- * Asserts that a variable is infinite.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertInfinite($actual, string $message = ''): void
-{
-    Assert::assertInfinite(...\func_get_args());
-}
-
-/**
- * Asserts that a variable is nan.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertNan($actual, string $message = ''): void
-{
-    Assert::assertNan(...\func_get_args());
-}
-
-/**
- * Asserts that a class has a specified attribute.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertClassHasAttribute(string $attributeName, string $className, string $message = ''): void
-{
-    Assert::assertClassHasAttribute(...\func_get_args());
-}
-
-/**
- * Asserts that a class does not have a specified attribute.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertClassNotHasAttribute(string $attributeName, string $className, string $message = ''): void
-{
-    Assert::assertClassNotHasAttribute(...\func_get_args());
-}
-
-/**
- * Asserts that a class has a specified static attribute.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertClassHasStaticAttribute(string $attributeName, string $className, string $message = ''): void
-{
-    Assert::assertClassHasStaticAttribute(...\func_get_args());
-}
-
-/**
- * Asserts that a class does not have a specified static attribute.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertClassNotHasStaticAttribute(string $attributeName, string $className, string $message = ''): void
-{
-    Assert::assertClassNotHasStaticAttribute(...\func_get_args());
-}
-
-/**
- * Asserts that an object has a specified attribute.
- *
- * @param object $object
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertObjectHasAttribute(string $attributeName, $object, string $message = ''): void
-{
-    Assert::assertObjectHasAttribute(...\func_get_args());
-}
-
-/**
- * Asserts that an object does not have a specified attribute.
- *
- * @param object $object
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertObjectNotHasAttribute(string $attributeName, $object, string $message = ''): void
-{
-    Assert::assertObjectNotHasAttribute(...\func_get_args());
-}
-
-/**
- * Asserts that two variables have the same type and value.
- * Used on objects, it asserts that two variables reference
- * the same object.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertSame($expected, $actual, string $message = ''): void
-{
-    Assert::assertSame(...\func_get_args());
-}
-
-/**
- * Asserts that a variable and an attribute of an object have the same type
- * and value.
- *
- * @param object|string $actualClassOrObject
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertAttributeSame($expected, string $actualAttributeName, $actualClassOrObject, string $message = ''): void
-{
-    Assert::assertAttributeSame(...\func_get_args());
-}
-
-/**
- * Asserts that two variables do not have the same type and value.
- * Used on objects, it asserts that two variables do not reference
- * the same object.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertNotSame($expected, $actual, string $message = ''): void
-{
-    Assert::assertNotSame(...\func_get_args());
+    return Assert::assertAttributeNotInternalType(...\func_get_args());
 }
 
 /**
  * Asserts that a variable and an attribute of an object do not have the
  * same type and value.
  *
- * @param object|string $actualClassOrObject
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+ * @param mixed  $expected
+ * @param string $actualAttributeName
+ * @param object $actualClassOrObject
+ * @param string $message
  */
-function assertAttributeNotSame($expected, string $actualAttributeName, $actualClassOrObject, string $message = ''): void
+function assertAttributeNotSame($expected, $actualAttributeName, $actualClassOrObject, $message = '')
 {
-    Assert::assertAttributeNotSame(...\func_get_args());
+    return Assert::assertAttributeNotSame(...\func_get_args());
 }
 
 /**
- * Asserts that a variable is of a given type.
+ * Asserts that a variable and an attribute of an object have the same type
+ * and value.
  *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+ * @param mixed  $expected
+ * @param string $actualAttributeName
+ * @param object $actualClassOrObject
+ * @param string $message
  */
-function assertInstanceOf(string $expected, $actual, string $message = ''): void
+function assertAttributeSame($expected, $actualAttributeName, $actualClassOrObject, $message = '')
 {
-    Assert::assertInstanceOf(...\func_get_args());
+    return Assert::assertAttributeSame(...\func_get_args());
 }
 
 /**
- * Asserts that an attribute is of a given type.
+ * Asserts that a class has a specified attribute.
  *
- * @param object|string $classOrObject
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+ * @param string $attributeName
+ * @param string $className
+ * @param string $message
  */
-function assertAttributeInstanceOf(string $expected, string $attributeName, $classOrObject, string $message = ''): void
+function assertClassHasAttribute($attributeName, $className, $message = '')
 {
-    Assert::assertAttributeInstanceOf(...\func_get_args());
+    return Assert::assertClassHasAttribute(...\func_get_args());
 }
 
 /**
- * Asserts that a variable is not of a given type.
+ * Asserts that a class has a specified static attribute.
  *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+ * @param string $attributeName
+ * @param string $className
+ * @param string $message
  */
-function assertNotInstanceOf(string $expected, $actual, string $message = ''): void
+function assertClassHasStaticAttribute($attributeName, $className, $message = '')
 {
-    Assert::assertNotInstanceOf(...\func_get_args());
+    return Assert::assertClassHasStaticAttribute(...\func_get_args());
 }
 
 /**
- * Asserts that an attribute is of a given type.
+ * Asserts that a class does not have a specified attribute.
  *
- * @param object|string $classOrObject
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+ * @param string $attributeName
+ * @param string $className
+ * @param string $message
  */
-function assertAttributeNotInstanceOf(string $expected, string $attributeName, $classOrObject, string $message = ''): void
+function assertClassNotHasAttribute($attributeName, $className, $message = '')
 {
-    Assert::assertAttributeNotInstanceOf(...\func_get_args());
+    return Assert::assertClassNotHasAttribute(...\func_get_args());
 }
 
 /**
- * Asserts that a variable is of a given type.
+ * Asserts that a class does not have a specified static attribute.
  *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+ * @param string $attributeName
+ * @param string $className
+ * @param string $message
  */
-function assertInternalType(string $expected, $actual, string $message = ''): void
+function assertClassNotHasStaticAttribute($attributeName, $className, $message = '')
 {
-    Assert::assertInternalType(...\func_get_args());
+    return Assert::assertClassNotHasStaticAttribute(...\func_get_args());
 }
 
 /**
- * Asserts that an attribute is of a given type.
+ * Asserts that a haystack contains a needle.
  *
- * @param object|string $classOrObject
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+ * @param mixed  $needle
+ * @param mixed  $haystack
+ * @param string $message
+ * @param bool   $ignoreCase
+ * @param bool   $checkForObjectIdentity
+ * @param bool   $checkForNonObjectIdentity
  */
-function assertAttributeInternalType(string $expected, string $attributeName, $classOrObject, string $message = ''): void
+function assertContains($needle, $haystack, $message = '', $ignoreCase = false, $checkForObjectIdentity = true, $checkForNonObjectIdentity = false)
 {
-    Assert::assertAttributeInternalType(...\func_get_args());
+    return Assert::assertContains(...\func_get_args());
 }
 
 /**
- * Asserts that a variable is not of a given type.
+ * Asserts that a haystack contains only values of a given type.
  *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+ * @param string $type
+ * @param mixed  $haystack
+ * @param bool   $isNativeType
+ * @param string $message
  */
-function assertNotInternalType(string $expected, $actual, string $message = ''): void
+function assertContainsOnly($type, $haystack, $isNativeType = null, $message = '')
 {
-    Assert::assertNotInternalType(...\func_get_args());
+    return Assert::assertContainsOnly(...\func_get_args());
 }
 
 /**
- * Asserts that an attribute is of a given type.
+ * Asserts that a haystack contains only instances of a given classname
  *
- * @param object|string $classOrObject
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+ * @param string             $classname
+ * @param array|\Traversable $haystack
+ * @param string             $message
  */
-function assertAttributeNotInternalType(string $expected, string $attributeName, $classOrObject, string $message = ''): void
+function assertContainsOnlyInstancesOf($classname, $haystack, $message = '')
 {
-    Assert::assertAttributeNotInternalType(...\func_get_args());
+    return Assert::assertContainsOnlyInstancesOf(...\func_get_args());
 }
 
 /**
- * Asserts that a string matches a given regular expression.
+ * Asserts the number of elements of an array, Countable or Traversable.
  *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+ * @param int    $expectedCount
+ * @param mixed  $haystack
+ * @param string $message
  */
-function assertRegExp(string $pattern, string $string, string $message = ''): void
+function assertCount($expectedCount, $haystack, $message = '')
 {
-    Assert::assertRegExp(...\func_get_args());
+    return Assert::assertCount(...\func_get_args());
 }
 
 /**
- * Asserts that a string does not match a given regular expression.
+ * Asserts that a variable is empty.
  *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+ * @param mixed  $actual
+ * @param string $message
+ *
+ * @throws AssertionFailedError
  */
-function assertNotRegExp(string $pattern, string $string, string $message = ''): void
+function assertEmpty($actual, $message = '')
 {
-    Assert::assertNotRegExp(...\func_get_args());
-}
-
-/**
- * Assert that the size of two arrays (or `Countable` or `Traversable` objects)
- * is the same.
- *
- * @param Countable|iterable $expected
- * @param Countable|iterable $actual
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertSameSize($expected, $actual, string $message = ''): void
-{
-    Assert::assertSameSize(...\func_get_args());
-}
-
-/**
- * Assert that the size of two arrays (or `Countable` or `Traversable` objects)
- * is not the same.
- *
- * @param Countable|iterable $expected
- * @param Countable|iterable $actual
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertNotSameSize($expected, $actual, string $message = ''): void
-{
-    Assert::assertNotSameSize(...\func_get_args());
-}
-
-/**
- * Asserts that a string matches a given format string.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertStringMatchesFormat(string $format, string $string, string $message = ''): void
-{
-    Assert::assertStringMatchesFormat(...\func_get_args());
-}
-
-/**
- * Asserts that a string does not match a given format string.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertStringNotMatchesFormat(string $format, string $string, string $message = ''): void
-{
-    Assert::assertStringNotMatchesFormat(...\func_get_args());
-}
-
-/**
- * Asserts that a string matches a given format file.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertStringMatchesFormatFile(string $formatFile, string $string, string $message = ''): void
-{
-    Assert::assertStringMatchesFormatFile(...\func_get_args());
-}
-
-/**
- * Asserts that a string does not match a given format string.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertStringNotMatchesFormatFile(string $formatFile, string $string, string $message = ''): void
-{
-    Assert::assertStringNotMatchesFormatFile(...\func_get_args());
-}
-
-/**
- * Asserts that a string starts with a given prefix.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertStringStartsWith(string $prefix, string $string, string $message = ''): void
-{
-    Assert::assertStringStartsWith(...\func_get_args());
-}
-
-/**
- * Asserts that a string starts not with a given prefix.
- *
- * @param string $prefix
- * @param string $string
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertStringStartsNotWith($prefix, $string, string $message = ''): void
-{
-    Assert::assertStringStartsNotWith(...\func_get_args());
-}
-
-/**
- * Asserts that a string ends with a given suffix.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertStringEndsWith(string $suffix, string $string, string $message = ''): void
-{
-    Assert::assertStringEndsWith(...\func_get_args());
-}
-
-/**
- * Asserts that a string ends not with a given suffix.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertStringEndsNotWith(string $suffix, string $string, string $message = ''): void
-{
-    Assert::assertStringEndsNotWith(...\func_get_args());
-}
-
-/**
- * Asserts that two XML files are equal.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertXmlFileEqualsXmlFile(string $expectedFile, string $actualFile, string $message = ''): void
-{
-    Assert::assertXmlFileEqualsXmlFile(...\func_get_args());
-}
-
-/**
- * Asserts that two XML files are not equal.
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertXmlFileNotEqualsXmlFile(string $expectedFile, string $actualFile, string $message = ''): void
-{
-    Assert::assertXmlFileNotEqualsXmlFile(...\func_get_args());
-}
-
-/**
- * Asserts that two XML documents are equal.
- *
- * @param DOMDocument|string $actualXml
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertXmlStringEqualsXmlFile(string $expectedFile, $actualXml, string $message = ''): void
-{
-    Assert::assertXmlStringEqualsXmlFile(...\func_get_args());
-}
-
-/**
- * Asserts that two XML documents are not equal.
- *
- * @param DOMDocument|string $actualXml
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertXmlStringNotEqualsXmlFile(string $expectedFile, $actualXml, string $message = ''): void
-{
-    Assert::assertXmlStringNotEqualsXmlFile(...\func_get_args());
-}
-
-/**
- * Asserts that two XML documents are equal.
- *
- * @param DOMDocument|string $expectedXml
- * @param DOMDocument|string $actualXml
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertXmlStringEqualsXmlString($expectedXml, $actualXml, string $message = ''): void
-{
-    Assert::assertXmlStringEqualsXmlString(...\func_get_args());
-}
-
-/**
- * Asserts that two XML documents are not equal.
- *
- * @param DOMDocument|string $expectedXml
- * @param DOMDocument|string $actualXml
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
- */
-function assertXmlStringNotEqualsXmlString($expectedXml, $actualXml, string $message = ''): void
-{
-    Assert::assertXmlStringNotEqualsXmlString(...\func_get_args());
+    return Assert::assertEmpty(...\func_get_args());
 }
 
 /**
  * Asserts that a hierarchy of DOMElements matches.
  *
- * @throws AssertionFailedError
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+ * @param DOMElement $expectedElement
+ * @param DOMElement $actualElement
+ * @param bool       $checkAttributes
+ * @param string     $message
  */
-function assertEqualXMLStructure(DOMElement $expectedElement, DOMElement $actualElement, bool $checkAttributes = false, string $message = ''): void
+function assertEqualXMLStructure(DOMElement $expectedElement, DOMElement $actualElement, $checkAttributes = false, $message = '')
 {
-    Assert::assertEqualXMLStructure(...\func_get_args());
+    return Assert::assertEqualXMLStructure(...\func_get_args());
 }
 
 /**
- * Evaluates a PHPUnit\Framework\Constraint matcher object.
+ * Asserts that two variables are equal.
  *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+ * @param mixed  $expected
+ * @param mixed  $actual
+ * @param string $message
+ * @param float  $delta
+ * @param int    $maxDepth
+ * @param bool   $canonicalize
+ * @param bool   $ignoreCase
  */
-function assertThat($value, Constraint $constraint, string $message = ''): void
+function assertEquals($expected, $actual, $message = '', $delta = 0.0, $maxDepth = 10, $canonicalize = false, $ignoreCase = false)
 {
-    Assert::assertThat(...\func_get_args());
+    return Assert::assertEquals(...\func_get_args());
+}
+
+/**
+ * Asserts that a condition is not true.
+ *
+ * @param bool   $condition
+ * @param string $message
+ *
+ * @throws AssertionFailedError
+ */
+function assertNotTrue($condition, $message = '')
+{
+    return Assert::assertNotTrue(...\func_get_args());
+}
+
+/**
+ * Asserts that a condition is false.
+ *
+ * @param bool   $condition
+ * @param string $message
+ *
+ * @throws AssertionFailedError
+ */
+function assertFalse($condition, $message = '')
+{
+    return Assert::assertFalse(...\func_get_args());
+}
+
+/**
+ * Asserts that the contents of one file is equal to the contents of another
+ * file.
+ *
+ * @param string $expected
+ * @param string $actual
+ * @param string $message
+ * @param bool   $canonicalize
+ * @param bool   $ignoreCase
+ */
+function assertFileEquals($expected, $actual, $message = '', $canonicalize = false, $ignoreCase = false)
+{
+    return Assert::assertFileEquals(...\func_get_args());
+}
+
+/**
+ * Asserts that a file exists.
+ *
+ * @param string $filename
+ * @param string $message
+ */
+function assertFileExists($filename, $message = '')
+{
+    return Assert::assertFileExists(...\func_get_args());
+}
+
+/**
+ * Asserts that the contents of one file is not equal to the contents of
+ * another file.
+ *
+ * @param string $expected
+ * @param string $actual
+ * @param string $message
+ * @param bool   $canonicalize
+ * @param bool   $ignoreCase
+ */
+function assertFileNotEquals($expected, $actual, $message = '', $canonicalize = false, $ignoreCase = false)
+{
+    return Assert::assertFileNotEquals(...\func_get_args());
+}
+
+/**
+ * Asserts that a file does not exist.
+ *
+ * @param string $filename
+ * @param string $message
+ */
+function assertFileNotExists($filename, $message = '')
+{
+    return Assert::assertFileNotExists(...\func_get_args());
+}
+
+/**
+ * Asserts that a value is greater than another value.
+ *
+ * @param mixed  $expected
+ * @param mixed  $actual
+ * @param string $message
+ */
+function assertGreaterThan($expected, $actual, $message = '')
+{
+    return Assert::assertGreaterThan(...\func_get_args());
+}
+
+/**
+ * Asserts that a value is greater than or equal to another value.
+ *
+ * @param mixed  $expected
+ * @param mixed  $actual
+ * @param string $message
+ */
+function assertGreaterThanOrEqual($expected, $actual, $message = '')
+{
+    return Assert::assertGreaterThanOrEqual(...\func_get_args());
+}
+
+/**
+ * Asserts that a variable is of a given type.
+ *
+ * @param string $expected
+ * @param mixed  $actual
+ * @param string $message
+ */
+function assertInstanceOf($expected, $actual, $message = '')
+{
+    return Assert::assertInstanceOf(...\func_get_args());
+}
+
+/**
+ * Asserts that a variable is of a given type.
+ *
+ * @param string $expected
+ * @param mixed  $actual
+ * @param string $message
+ */
+function assertInternalType($expected, $actual, $message = '')
+{
+    return Assert::assertInternalType(...\func_get_args());
 }
 
 /**
  * Asserts that a string is a valid JSON string.
  *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+ * @param string $actualJson
+ * @param string $message
  */
-function assertJson(string $actualJson, string $message = ''): void
+function assertJson($actualJson, $message = '')
 {
-    Assert::assertJson(...\func_get_args());
+    return Assert::assertJson(...\func_get_args());
+}
+
+/**
+ * Asserts that two JSON files are equal.
+ *
+ * @param string $expectedFile
+ * @param string $actualFile
+ * @param string $message
+ */
+function assertJsonFileEqualsJsonFile($expectedFile, $actualFile, $message = '')
+{
+    return Assert::assertJsonFileEqualsJsonFile(...\func_get_args());
+}
+
+/**
+ * Asserts that two JSON files are not equal.
+ *
+ * @param string $expectedFile
+ * @param string $actualFile
+ * @param string $message
+ */
+function assertJsonFileNotEqualsJsonFile($expectedFile, $actualFile, $message = '')
+{
+    return Assert::assertJsonFileNotEqualsJsonFile(...\func_get_args());
+}
+
+/**
+ * Asserts that the generated JSON encoded object and the content of the given file are equal.
+ *
+ * @param string $expectedFile
+ * @param string $actualJson
+ * @param string $message
+ */
+function assertJsonStringEqualsJsonFile($expectedFile, $actualJson, $message = '')
+{
+    return Assert::assertJsonStringEqualsJsonFile(...\func_get_args());
 }
 
 /**
  * Asserts that two given JSON encoded objects or arrays are equal.
  *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+ * @param string $expectedJson
+ * @param string $actualJson
+ * @param string $message
  */
-function assertJsonStringEqualsJsonString(string $expectedJson, string $actualJson, string $message = ''): void
+function assertJsonStringEqualsJsonString($expectedJson, $actualJson, $message = '')
 {
-    Assert::assertJsonStringEqualsJsonString(...\func_get_args());
+    return Assert::assertJsonStringEqualsJsonString(...\func_get_args());
+}
+
+/**
+ * Asserts that the generated JSON encoded object and the content of the given file are not equal.
+ *
+ * @param string $expectedFile
+ * @param string $actualJson
+ * @param string $message
+ */
+function assertJsonStringNotEqualsJsonFile($expectedFile, $actualJson, $message = '')
+{
+    return Assert::assertJsonStringNotEqualsJsonFile(...\func_get_args());
 }
 
 /**
@@ -1286,308 +746,692 @@ function assertJsonStringEqualsJsonString(string $expectedJson, string $actualJs
  *
  * @param string $expectedJson
  * @param string $actualJson
- *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+ * @param string $message
  */
-function assertJsonStringNotEqualsJsonString($expectedJson, $actualJson, string $message = ''): void
+function assertJsonStringNotEqualsJsonString($expectedJson, $actualJson, $message = '')
 {
-    Assert::assertJsonStringNotEqualsJsonString(...\func_get_args());
+    return Assert::assertJsonStringNotEqualsJsonString(...\func_get_args());
 }
 
 /**
- * Asserts that the generated JSON encoded object and the content of the given file are equal.
+ * Asserts that a value is smaller than another value.
  *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+ * @param mixed  $expected
+ * @param mixed  $actual
+ * @param string $message
  */
-function assertJsonStringEqualsJsonFile(string $expectedFile, string $actualJson, string $message = ''): void
+function assertLessThan($expected, $actual, $message = '')
 {
-    Assert::assertJsonStringEqualsJsonFile(...\func_get_args());
+    return Assert::assertLessThan(...\func_get_args());
 }
 
 /**
- * Asserts that the generated JSON encoded object and the content of the given file are not equal.
+ * Asserts that a value is smaller than or equal to another value.
  *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+ * @param mixed  $expected
+ * @param mixed  $actual
+ * @param string $message
  */
-function assertJsonStringNotEqualsJsonFile(string $expectedFile, string $actualJson, string $message = ''): void
+function assertLessThanOrEqual($expected, $actual, $message = '')
 {
-    Assert::assertJsonStringNotEqualsJsonFile(...\func_get_args());
+    return Assert::assertLessThanOrEqual(...\func_get_args());
 }
 
 /**
- * Asserts that two JSON files are equal.
+ * Asserts that a variable is finite.
  *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+ * @param mixed  $actual
+ * @param string $message
  */
-function assertJsonFileEqualsJsonFile(string $expectedFile, string $actualFile, string $message = ''): void
+function assertFinite($actual, $message = '')
 {
-    Assert::assertJsonFileEqualsJsonFile(...\func_get_args());
+    return Assert::assertFinite(...\func_get_args());
 }
 
 /**
- * Asserts that two JSON files are not equal.
+ * Asserts that a variable is infinite.
  *
- * @throws ExpectationFailedException
- * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+ * @param mixed  $actual
+ * @param string $message
  */
-function assertJsonFileNotEqualsJsonFile(string $expectedFile, string $actualFile, string $message = ''): void
+function assertInfinite($actual, $message = '')
 {
-    Assert::assertJsonFileNotEqualsJsonFile(...\func_get_args());
+    return Assert::assertInfinite(...\func_get_args());
 }
 
-function logicalAnd(): LogicalAnd
+/**
+ * Asserts that a variable is nan.
+ *
+ * @param mixed  $actual
+ * @param string $message
+ */
+function assertNan($actual, $message = '')
 {
-    return Assert::logicalAnd(...\func_get_args());
+    return Assert::assertNan(...\func_get_args());
 }
 
-function logicalOr(): LogicalOr
+/**
+ * Asserts that a haystack does not contain a needle.
+ *
+ * @param mixed  $needle
+ * @param mixed  $haystack
+ * @param string $message
+ * @param bool   $ignoreCase
+ * @param bool   $checkForObjectIdentity
+ * @param bool   $checkForNonObjectIdentity
+ */
+function assertNotContains($needle, $haystack, $message = '', $ignoreCase = false, $checkForObjectIdentity = true, $checkForNonObjectIdentity = false)
 {
-    return Assert::logicalOr(...\func_get_args());
+    return Assert::assertNotContains(...\func_get_args());
 }
 
-function logicalNot(Constraint $constraint): LogicalNot
+/**
+ * Asserts that a haystack does not contain only values of a given type.
+ *
+ * @param string $type
+ * @param mixed  $haystack
+ * @param bool   $isNativeType
+ * @param string $message
+ */
+function assertNotContainsOnly($type, $haystack, $isNativeType = null, $message = '')
 {
-    return Assert::logicalNot(...\func_get_args());
+    return Assert::assertNotContainsOnly(...\func_get_args());
 }
 
-function logicalXor(): LogicalXor
+/**
+ * Asserts the number of elements of an array, Countable or Traversable.
+ *
+ * @param int    $expectedCount
+ * @param mixed  $haystack
+ * @param string $message
+ */
+function assertNotCount($expectedCount, $haystack, $message = '')
 {
-    return Assert::logicalXor(...\func_get_args());
+    return Assert::assertNotCount(...\func_get_args());
 }
 
-function anything(): IsAnything
+/**
+ * Asserts that a variable is not empty.
+ *
+ * @param mixed  $actual
+ * @param string $message
+ *
+ * @throws AssertionFailedError
+ */
+function assertNotEmpty($actual, $message = '')
 {
-    return Assert::anything();
+    return Assert::assertNotEmpty(...\func_get_args());
 }
 
-function isTrue(): IsTrue
+/**
+ * Asserts that two variables are not equal.
+ *
+ * @param mixed  $expected
+ * @param mixed  $actual
+ * @param string $message
+ * @param float  $delta
+ * @param int    $maxDepth
+ * @param bool   $canonicalize
+ * @param bool   $ignoreCase
+ */
+function assertNotEquals($expected, $actual, $message = '', $delta = 0.0, $maxDepth = 10, $canonicalize = false, $ignoreCase = false)
 {
-    return Assert::isTrue();
+    return Assert::assertNotEquals(...\func_get_args());
 }
 
-function callback(callable $callback): Callback
+/**
+ * Asserts that a variable is not of a given type.
+ *
+ * @param string $expected
+ * @param mixed  $actual
+ * @param string $message
+ */
+function assertNotInstanceOf($expected, $actual, $message = '')
 {
-    return Assert::callback(...\func_get_args());
+    return Assert::assertNotInstanceOf(...\func_get_args());
 }
 
-function isFalse(): IsFalse
+/**
+ * Asserts that a variable is not of a given type.
+ *
+ * @param string $expected
+ * @param mixed  $actual
+ * @param string $message
+ */
+function assertNotInternalType($expected, $actual, $message = '')
 {
-    return Assert::isFalse();
+    return Assert::assertNotInternalType(...\func_get_args());
 }
 
-function isJson(): IsJson
+/**
+ * Asserts that a condition is not false.
+ *
+ * @param bool   $condition
+ * @param string $message
+ *
+ * @throws AssertionFailedError
+ */
+function assertNotFalse($condition, $message = '')
 {
-    return Assert::isJson();
+    return Assert::assertNotFalse(...\func_get_args());
 }
 
-function isNull(): IsNull
+/**
+ * Asserts that a variable is not null.
+ *
+ * @param mixed  $actual
+ * @param string $message
+ */
+function assertNotNull($actual, $message = '')
 {
-    return Assert::isNull();
+    return Assert::assertNotNull(...\func_get_args());
 }
 
-function isFinite(): IsFinite
+/**
+ * Asserts that a string does not match a given regular expression.
+ *
+ * @param string $pattern
+ * @param string $string
+ * @param string $message
+ */
+function assertNotRegExp($pattern, $string, $message = '')
 {
-    return Assert::isFinite();
+    return Assert::assertNotRegExp(...\func_get_args());
 }
 
-function isInfinite(): IsInfinite
+/**
+ * Asserts that two variables do not have the same type and value.
+ * Used on objects, it asserts that two variables do not reference
+ * the same object.
+ *
+ * @param mixed  $expected
+ * @param mixed  $actual
+ * @param string $message
+ */
+function assertNotSame($expected, $actual, $message = '')
 {
-    return Assert::isInfinite();
+    return Assert::assertNotSame(...\func_get_args());
 }
 
-function isNan(): IsNan
+/**
+ * Assert that the size of two arrays (or `Countable` or `Traversable` objects)
+ * is not the same.
+ *
+ * @param array|\Countable|\Traversable $expected
+ * @param array|\Countable|\Traversable $actual
+ * @param string                        $message
+ */
+function assertNotSameSize($expected, $actual, $message = '')
 {
-    return Assert::isNan();
+    return Assert::assertNotSameSize(...\func_get_args());
 }
 
-function attribute(Constraint $constraint, string $attributeName): Attribute
+/**
+ * Asserts that a variable is null.
+ *
+ * @param mixed  $actual
+ * @param string $message
+ */
+function assertNull($actual, $message = '')
+{
+    return Assert::assertNull(...\func_get_args());
+}
+
+/**
+ * Asserts that an object has a specified attribute.
+ *
+ * @param string $attributeName
+ * @param object $object
+ * @param string $message
+ */
+function assertObjectHasAttribute($attributeName, $object, $message = '')
+{
+    return Assert::assertObjectHasAttribute(...\func_get_args());
+}
+
+/**
+ * Asserts that an object does not have a specified attribute.
+ *
+ * @param string $attributeName
+ * @param object $object
+ * @param string $message
+ */
+function assertObjectNotHasAttribute($attributeName, $object, $message = '')
+{
+    return Assert::assertObjectNotHasAttribute(...\func_get_args());
+}
+
+/**
+ * Asserts that a string matches a given regular expression.
+ *
+ * @param string $pattern
+ * @param string $string
+ * @param string $message
+ */
+function assertRegExp($pattern, $string, $message = '')
+{
+    return Assert::assertRegExp(...\func_get_args());
+}
+
+/**
+ * Asserts that two variables have the same type and value.
+ * Used on objects, it asserts that two variables reference
+ * the same object.
+ *
+ * @param mixed  $expected
+ * @param mixed  $actual
+ * @param string $message
+ */
+function assertSame($expected, $actual, $message = '')
+{
+    return Assert::assertSame(...\func_get_args());
+}
+
+/**
+ * Assert that the size of two arrays (or `Countable` or `Traversable` objects)
+ * is the same.
+ *
+ * @param array|\Countable|\Traversable $expected
+ * @param array|\Countable|\Traversable $actual
+ * @param string                        $message
+ */
+function assertSameSize($expected, $actual, $message = '')
+{
+    return Assert::assertSameSize(...\func_get_args());
+}
+
+/**
+ * Asserts that a string ends not with a given prefix.
+ *
+ * @param string $suffix
+ * @param string $string
+ * @param string $message
+ */
+function assertStringEndsNotWith($suffix, $string, $message = '')
+{
+    return Assert::assertStringEndsNotWith(...\func_get_args());
+}
+
+/**
+ * Asserts that a string ends with a given prefix.
+ *
+ * @param string $suffix
+ * @param string $string
+ * @param string $message
+ */
+function assertStringEndsWith($suffix, $string, $message = '')
+{
+    return Assert::assertStringEndsWith(...\func_get_args());
+}
+
+/**
+ * Asserts that the contents of a string is equal
+ * to the contents of a file.
+ *
+ * @param string $expectedFile
+ * @param string $actualString
+ * @param string $message
+ * @param bool   $canonicalize
+ * @param bool   $ignoreCase
+ */
+function assertStringEqualsFile($expectedFile, $actualString, $message = '', $canonicalize = false, $ignoreCase = false)
+{
+    return Assert::assertStringEqualsFile(...\func_get_args());
+}
+
+/**
+ * Asserts that a string matches a given format string.
+ *
+ * @param string $format
+ * @param string $string
+ * @param string $message
+ */
+function assertStringMatchesFormat($format, $string, $message = '')
+{
+    return Assert::assertStringMatchesFormat(...\func_get_args());
+}
+
+/**
+ * Asserts that a string matches a given format file.
+ *
+ * @param string $formatFile
+ * @param string $string
+ * @param string $message
+ */
+function assertStringMatchesFormatFile($formatFile, $string, $message = '')
+{
+    return Assert::assertStringMatchesFormatFile(...\func_get_args());
+}
+
+/**
+ * Asserts that the contents of a string is not equal
+ * to the contents of a file.
+ *
+ * @param string $expectedFile
+ * @param string $actualString
+ * @param string $message
+ * @param bool   $canonicalize
+ * @param bool   $ignoreCase
+ */
+function assertStringNotEqualsFile($expectedFile, $actualString, $message = '', $canonicalize = false, $ignoreCase = false)
+{
+    return Assert::assertStringNotEqualsFile(...\func_get_args());
+}
+
+/**
+ * Asserts that a string does not match a given format string.
+ *
+ * @param string $format
+ * @param string $string
+ * @param string $message
+ */
+function assertStringNotMatchesFormat($format, $string, $message = '')
+{
+    return Assert::assertStringNotMatchesFormat(...\func_get_args());
+}
+
+/**
+ * Asserts that a string does not match a given format string.
+ *
+ * @param string $formatFile
+ * @param string $string
+ * @param string $message
+ */
+function assertStringNotMatchesFormatFile($formatFile, $string, $message = '')
+{
+    return Assert::assertStringNotMatchesFormatFile(...\func_get_args());
+}
+
+/**
+ * Asserts that a string starts not with a given prefix.
+ *
+ * @param string $prefix
+ * @param string $string
+ * @param string $message
+ */
+function assertStringStartsNotWith($prefix, $string, $message = '')
+{
+    return Assert::assertStringStartsNotWith(...\func_get_args());
+}
+
+/**
+ * Asserts that a string starts with a given prefix.
+ *
+ * @param string $prefix
+ * @param string $string
+ * @param string $message
+ */
+function assertStringStartsWith($prefix, $string, $message = '')
+{
+    return Assert::assertStringStartsWith(...\func_get_args());
+}
+
+/**
+ * Evaluates a PHPUnit\Framework\Constraint matcher object.
+ *
+ * @param mixed      $value
+ * @param Constraint $constraint
+ * @param string     $message
+ */
+function assertThat($value, Constraint $constraint, $message = '')
+{
+    return Assert::assertThat(...\func_get_args());
+}
+
+/**
+ * Asserts that a condition is true.
+ *
+ * @param bool   $condition
+ * @param string $message
+ *
+ * @throws AssertionFailedError
+ */
+function assertTrue($condition, $message = '')
+{
+    return Assert::assertTrue(...\func_get_args());
+}
+
+/**
+ * Asserts that two XML files are equal.
+ *
+ * @param string $expectedFile
+ * @param string $actualFile
+ * @param string $message
+ */
+function assertXmlFileEqualsXmlFile($expectedFile, $actualFile, $message = '')
+{
+    return Assert::assertXmlFileEqualsXmlFile(...\func_get_args());
+}
+
+/**
+ * Asserts that two XML files are not equal.
+ *
+ * @param string $expectedFile
+ * @param string $actualFile
+ * @param string $message
+ */
+function assertXmlFileNotEqualsXmlFile($expectedFile, $actualFile, $message = '')
+{
+    return Assert::assertXmlFileNotEqualsXmlFile(...\func_get_args());
+}
+
+/**
+ * Asserts that two XML documents are equal.
+ *
+ * @param string             $expectedFile
+ * @param string|DOMDocument $actualXml
+ * @param string             $message
+ */
+function assertXmlStringEqualsXmlFile($expectedFile, $actualXml, $message = '')
+{
+    return Assert::assertXmlStringEqualsXmlFile(...\func_get_args());
+}
+
+/**
+ * Asserts that two XML documents are equal.
+ *
+ * @param string|DOMDocument $expectedXml
+ * @param string|DOMDocument $actualXml
+ * @param string             $message
+ */
+function assertXmlStringEqualsXmlString($expectedXml, $actualXml, $message = '')
+{
+    return Assert::assertXmlStringEqualsXmlString(...\func_get_args());
+}
+
+/**
+ * Asserts that two XML documents are not equal.
+ *
+ * @param string             $expectedFile
+ * @param string|DOMDocument $actualXml
+ * @param string             $message
+ */
+function assertXmlStringNotEqualsXmlFile($expectedFile, $actualXml, $message = '')
+{
+    return Assert::assertXmlStringNotEqualsXmlFile(...\func_get_args());
+}
+
+/**
+ * Asserts that two XML documents are not equal.
+ *
+ * @param string|DOMDocument $expectedXml
+ * @param string|DOMDocument $actualXml
+ * @param string             $message
+ */
+function assertXmlStringNotEqualsXmlString($expectedXml, $actualXml, $message = '')
+{
+    return Assert::assertXmlStringNotEqualsXmlString(...\func_get_args());
+}
+
+/**
+ * Returns a matcher that matches when the method is executed
+ * at the given $index.
+ *
+ * @param int $index
+ *
+ * @return PHPUnit\Framework\MockObject\Matcher\InvokedAtIndex
+ */
+function at($index)
+{
+    return TestCase::at(...\func_get_args());
+}
+
+/**
+ * Returns a matcher that matches when the method is executed at least once.
+ *
+ * @return PHPUnit\Framework\MockObject\Matcher\InvokedAtLeastOnce
+ */
+function atLeastOnce()
+{
+    return TestCase::atLeastOnce();
+}
+
+/**
+ * Returns a PHPUnit\Framework\Constraint\Attribute matcher object.
+ *
+ * @param Constraint $constraint
+ * @param string     $attributeName
+ *
+ * @return Attribute
+ */
+function attribute(Constraint $constraint, $attributeName)
 {
     return Assert::attribute(...\func_get_args());
 }
 
-function contains($value, bool $checkForObjectIdentity = true, bool $checkForNonObjectIdentity = false): TraversableContains
-{
-    return Assert::contains(...\func_get_args());
-}
-
-function containsOnly(string $type): TraversableContainsOnly
-{
-    return Assert::containsOnly(...\func_get_args());
-}
-
-function containsOnlyInstancesOf(string $className): TraversableContainsOnly
-{
-    return Assert::containsOnlyInstancesOf(...\func_get_args());
-}
-
-function arrayHasKey($key): ArrayHasKey
-{
-    return Assert::arrayHasKey(...\func_get_args());
-}
-
-function equalTo($value, float $delta = 0.0, int $maxDepth = 10, bool $canonicalize = false, bool $ignoreCase = false): IsEqual
-{
-    return Assert::equalTo(...\func_get_args());
-}
-
-function attributeEqualTo(string $attributeName, $value, float $delta = 0.0, int $maxDepth = 10, bool $canonicalize = false, bool $ignoreCase = false): Attribute
+/**
+ * Returns a PHPUnit\Framework\Constraint\IsEqual matcher object
+ * that is wrapped in a PHPUnit\Framework\Constraint\Attribute matcher
+ * object.
+ *
+ * @param string $attributeName
+ * @param mixed  $value
+ * @param float  $delta
+ * @param int    $maxDepth
+ * @param bool   $canonicalize
+ * @param bool   $ignoreCase
+ *
+ * @return Attribute
+ */
+function attributeEqualTo($attributeName, $value, $delta = 0.0, $maxDepth = 10, $canonicalize = false, $ignoreCase = false)
 {
     return Assert::attributeEqualTo(...\func_get_args());
 }
 
-function isEmpty(): IsEmpty
+/**
+ * Returns a PHPUnit\Framework\Constraint\Callback matcher object.
+ *
+ * @param callable $callback
+ *
+ * @return Callback
+ */
+function callback($callback)
 {
-    return Assert::isEmpty();
+    return Assert::callback(...\func_get_args());
 }
 
-function isWritable(): IsWritable
-{
-    return Assert::isWritable();
-}
-
-function isReadable(): IsReadable
-{
-    return Assert::isReadable();
-}
-
-function directoryExists(): DirectoryExists
-{
-    return Assert::directoryExists();
-}
-
-function fileExists(): FileExists
-{
-    return Assert::fileExists();
-}
-
-function greaterThan($value): GreaterThan
-{
-    return Assert::greaterThan(...\func_get_args());
-}
-
-function greaterThanOrEqual($value): LogicalOr
-{
-    return Assert::greaterThanOrEqual(...\func_get_args());
-}
-
-function classHasAttribute(string $attributeName): ClassHasAttribute
+/**
+ * Returns a PHPUnit\Framework\Constraint\ClassHasAttribute matcher object.
+ *
+ * @param string $attributeName
+ *
+ * @return ClassHasAttribute
+ */
+function classHasAttribute($attributeName)
 {
     return Assert::classHasAttribute(...\func_get_args());
 }
 
-function classHasStaticAttribute(string $attributeName): ClassHasStaticAttribute
+/**
+ * Returns a PHPUnit\Framework\Constraint\ClassHasStaticAttribute matcher
+ * object.
+ *
+ * @param string $attributeName
+ *
+ * @return ClassHasStaticAttribute
+ */
+function classHasStaticAttribute($attributeName)
 {
     return Assert::classHasStaticAttribute(...\func_get_args());
 }
 
-function objectHasAttribute($attributeName): ObjectHasAttribute
+/**
+ * Returns a PHPUnit\Framework\Constraint\TraversableContains matcher
+ * object.
+ *
+ * @param mixed $value
+ * @param bool  $checkForObjectIdentity
+ * @param bool  $checkForNonObjectIdentity
+ *
+ * @return TraversableContains
+ */
+function contains($value, $checkForObjectIdentity = true, $checkForNonObjectIdentity = false)
 {
-    return Assert::objectHasAttribute(...\func_get_args());
+    return Assert::contains(...\func_get_args());
 }
 
-function identicalTo($value): IsIdentical
+/**
+ * Returns a PHPUnit\Framework\Constraint\TraversableContainsOnly matcher
+ * object.
+ *
+ * @param string $type
+ *
+ * @return TraversableContainsOnly
+ */
+function containsOnly($type)
 {
-    return Assert::identicalTo(...\func_get_args());
+    return Assert::containsOnly(...\func_get_args());
 }
 
-function isInstanceOf(string $className): IsInstanceOf
+/**
+ * Returns a PHPUnit\Framework\Constraint\TraversableContainsOnly matcher
+ * object.
+ *
+ * @param string $classname
+ *
+ * @return TraversableContainsOnly
+ */
+function containsOnlyInstancesOf($classname)
 {
-    return Assert::isInstanceOf(...\func_get_args());
+    return Assert::containsOnlyInstancesOf(...\func_get_args());
 }
 
-function isType(string $type): IsType
-{
-    return Assert::isType(...\func_get_args());
-}
-
-function lessThan($value): LessThan
-{
-    return Assert::lessThan(...\func_get_args());
-}
-
-function lessThanOrEqual($value): LogicalOr
-{
-    return Assert::lessThanOrEqual(...\func_get_args());
-}
-
-function matchesRegularExpression(string $pattern): RegularExpression
-{
-    return Assert::matchesRegularExpression(...\func_get_args());
-}
-
-function matches(string $string): StringMatchesFormatDescription
-{
-    return Assert::matches(...\func_get_args());
-}
-
-function stringStartsWith($prefix): StringStartsWith
-{
-    return Assert::stringStartsWith(...\func_get_args());
-}
-
-function stringContains(string $string, bool $case = true): StringContains
-{
-    return Assert::stringContains(...\func_get_args());
-}
-
-function stringEndsWith(string $suffix): StringEndsWith
-{
-    return Assert::stringEndsWith(...\func_get_args());
-}
-
-function countOf(int $count): Count
+/**
+ * Returns a PHPUnit\Framework\Constraint\Count matcher object.
+ *
+ * @param int $count
+ *
+ * @return Count
+ */
+function countOf($count)
 {
     return Assert::countOf(...\func_get_args());
 }
 
 /**
- * Returns a matcher that matches when the method is executed
- * zero or more times.
- */
-function any(): AnyInvokedCountMatcher
-{
-    return new AnyInvokedCountMatcher;
-}
-
-/**
- * Returns a matcher that matches when the method is never executed.
- */
-function never(): InvokedCountMatcher
-{
-    return new InvokedCountMatcher(0);
-}
-
-/**
- * Returns a matcher that matches when the method is executed
- * at least N times.
+ * Returns a PHPUnit\Framework\Constraint\DirectoryExists matcher object.
  *
- * @param int $requiredInvocations
+ * @return DirectoryExists
  */
-function atLeast($requiredInvocations): InvokedAtLeastCountMatcher
+function directoryExists()
 {
-    return new InvokedAtLeastCountMatcher(
-        $requiredInvocations
-    );
+    return Assert::directoryExists();
 }
 
 /**
- * Returns a matcher that matches when the method is executed at least once.
+ * Returns a PHPUnit\Framework\Constraint\IsEqual matcher object.
+ *
+ * @param mixed $value
+ * @param float $delta
+ * @param int   $maxDepth
+ * @param bool  $canonicalize
+ * @param bool  $ignoreCase
+ *
+ * @return IsEqual
  */
-function atLeastOnce(): InvokedAtLeastOnceMatcher
+function equalTo($value, $delta = 0.0, $maxDepth = 10, $canonicalize = false, $ignoreCase = false)
 {
-    return new InvokedAtLeastOnceMatcher;
-}
-
-/**
- * Returns a matcher that matches when the method is executed exactly once.
- */
-function once(): InvokedCountMatcher
-{
-    return new InvokedCountMatcher(1);
+    return Assert::equalTo(...\func_get_args());
 }
 
 /**
@@ -1595,75 +1439,405 @@ function once(): InvokedCountMatcher
  * exactly $count times.
  *
  * @param int $count
+ *
+ * @return PHPUnit\Framework\MockObject\Matcher\InvokedCount
  */
-function exactly($count): InvokedCountMatcher
+function exactly($count)
 {
-    return new InvokedCountMatcher($count);
+    return TestCase::exactly(...\func_get_args());
 }
 
 /**
- * Returns a matcher that matches when the method is executed
- * at most N times.
+ * Returns a PHPUnit\Framework\Constraint\FileExists matcher object.
  *
- * @param int $allowedInvocations
+ * @return FileExists
  */
-function atMost($allowedInvocations): InvokedAtMostCountMatcher
+function fileExists()
 {
-    return new InvokedAtMostCountMatcher($allowedInvocations);
+    return Assert::fileExists();
 }
 
 /**
- * Returns a matcher that matches when the method is executed
- * at the given index.
+ * Returns a PHPUnit\Framework\Constraint\GreaterThan matcher object.
  *
- * @param int $index
+ * @param mixed $value
+ *
+ * @return GreaterThan
  */
-function at($index): InvokedAtIndexMatcher
+function greaterThan($value)
 {
-    return new InvokedAtIndexMatcher($index);
+    return Assert::greaterThan(...\func_get_args());
 }
 
-function returnValue($value): ReturnStub
+/**
+ * Returns a PHPUnit\Framework\Constraint\Or matcher object that wraps
+ * a PHPUnit\Framework\Constraint\IsEqual and a
+ * PHPUnit\Framework\Constraint\GreaterThan matcher object.
+ *
+ * @param mixed $value
+ *
+ * @return LogicalOr
+ */
+function greaterThanOrEqual($value)
 {
-    return new ReturnStub($value);
+    return Assert::greaterThanOrEqual(...\func_get_args());
 }
 
-function returnValueMap(array $valueMap): ReturnValueMapStub
+/**
+ * Returns a PHPUnit\Framework\Constraint\IsIdentical matcher object.
+ *
+ * @param mixed $value
+ *
+ * @return IsIdentical
+ */
+function identicalTo($value)
 {
-    return new ReturnValueMapStub($valueMap);
+    return Assert::identicalTo(...\func_get_args());
+}
+
+/**
+ * Returns a PHPUnit\Framework\Constraint\IsEmpty matcher object.
+ *
+ * @return IsEmpty
+ */
+function isEmpty()
+{
+    return Assert::isEmpty();
+}
+
+/**
+ * Returns a PHPUnit\Framework\Constraint\IsFalse matcher object.
+ *
+ * @return IsFalse
+ */
+function isFalse()
+{
+    return Assert::isFalse();
+}
+
+/**
+ * Returns a PHPUnit\Framework\Constraint\IsInfinite matcher object.
+ *
+ * @return IsInfinite
+ */
+function isInfinite()
+{
+    return Assert::isInfinite();
+}
+
+/**
+ * Returns a PHPUnit\Framework\Constraint\IsInstanceOf matcher object.
+ *
+ * @param string $className
+ *
+ * @return IsInstanceOf
+ */
+function isInstanceOf($className)
+{
+    return Assert::isInstanceOf(...\func_get_args());
+}
+
+/**
+ * Returns a PHPUnit\Framework\Constraint\IsJson matcher object.
+ *
+ * @return IsJson
+ */
+function isJson()
+{
+    return Assert::isJson();
+}
+
+/**
+ * Returns a PHPUnit\Framework\Constraint\IsNan matcher object.
+ *
+ * @return IsNan
+ */
+function isNan()
+{
+    return Assert::isNan();
+}
+
+/**
+ * Returns a PHPUnit\Framework\Constraint\IsNull matcher object.
+ *
+ * @return IsNull
+ */
+function isNull()
+{
+    return Assert::isNull();
+}
+
+/**
+ * Returns a PHPUnit\Framework\Constraint\IsReadable matcher object.
+ *
+ * @return IsReadable
+ */
+function isReadable()
+{
+    return Assert::isReadable();
+}
+
+/**
+ * Returns a PHPUnit\Framework\Constraint\IsTrue matcher object.
+ *
+ * @return IsTrue
+ */
+function isTrue()
+{
+    return Assert::isTrue();
+}
+
+/**
+ * Returns a PHPUnit\Framework\Constraint\IsType matcher object.
+ *
+ * @param string $type
+ *
+ * @return IsType
+ */
+function isType($type)
+{
+    return Assert::isType(...\func_get_args());
+}
+
+/**
+ * Returns a PHPUnit\Framework\Constraint\IsWritable matcher object.
+ *
+ * @return IsWritable
+ */
+function isWritable()
+{
+    return Assert::isWritable();
+}
+
+/**
+ * Returns a PHPUnit\Framework\Constraint\LessThan matcher object.
+ *
+ * @param mixed $value
+ *
+ * @return LessThan
+ */
+function lessThan($value)
+{
+    return Assert::lessThan(...\func_get_args());
+}
+
+/**
+ * Returns a PHPUnit\Framework\Constraint\Or matcher object that wraps
+ * a PHPUnit\Framework\Constraint\IsEqual and a
+ * PHPUnit\Framework\Constraint\LessThan matcher object.
+ *
+ * @param mixed $value
+ *
+ * @return LogicalOr
+ */
+function lessThanOrEqual($value)
+{
+    return Assert::lessThanOrEqual(...\func_get_args());
+}
+
+/**
+ * Returns a PHPUnit\Framework\Constraint\And matcher object.
+ *
+ * @return LogicalAnd
+ */
+function logicalAnd()
+{
+    return Assert::logicalAnd(...\func_get_args());
+}
+
+/**
+ * Returns a PHPUnit\Framework\Constraint\Not matcher object.
+ *
+ * @param Constraint $constraint
+ *
+ * @return LogicalNot
+ */
+function logicalNot(Constraint $constraint)
+{
+    return Assert::logicalNot(...\func_get_args());
+}
+
+/**
+ * Returns a PHPUnit\Framework\Constraint\Or matcher object.
+ *
+ * @return LogicalOr
+ */
+function logicalOr()
+{
+    return Assert::logicalOr(...\func_get_args());
+}
+
+/**
+ * Returns a PHPUnit\Framework\Constraint\Xor matcher object.
+ *
+ * @return LogicalXor
+ */
+function logicalXor()
+{
+    return Assert::logicalXor(...\func_get_args());
+}
+
+/**
+ * Returns a PHPUnit\Framework\Constraint\StringMatches matcher object.
+ *
+ * @param string $string
+ *
+ * @return StringMatchesFormatDescription
+ */
+function matches($string)
+{
+    return Assert::matches(...\func_get_args());
+}
+
+/**
+ * Returns a PHPUnit\Framework\Constraint\PCREMatch matcher object.
+ *
+ * @param string $pattern
+ *
+ * @return RegularExpression
+ */
+function matchesRegularExpression($pattern)
+{
+    return Assert::matchesRegularExpression(...\func_get_args());
+}
+
+/**
+ * Returns a matcher that matches when the method is never executed.
+ *
+ * @return PHPUnit\Framework\MockObject\Matcher\InvokedCount
+ */
+function never()
+{
+    return TestCase::never();
+}
+
+/**
+ * Returns a PHPUnit\Framework\Constraint\ObjectHasAttribute matcher object.
+ *
+ * @param string $attributeName
+ *
+ * @return ObjectHasAttribute
+ */
+function objectHasAttribute($attributeName)
+{
+    return Assert::objectHasAttribute(...\func_get_args());
+}
+
+/**
+ * @param mixed $value, ...
+ *
+ * @return PHPUnit\Framework\MockObject\Stub\ConsecutiveCalls
+ */
+function onConsecutiveCalls()
+{
+    return TestCase::onConsecutiveCalls(...\func_get_args());
+}
+
+/**
+ * Returns a matcher that matches when the method is executed exactly once.
+ *
+ * @return PHPUnit\Framework\MockObject\Matcher\InvokedCount
+ */
+function once()
+{
+    return TestCase::once();
 }
 
 /**
  * @param int $argumentIndex
+ *
+ * @return PHPUnit\Framework\MockObject\Stub\ReturnArgument
  */
-function returnArgument($argumentIndex): ReturnArgumentStub
+function returnArgument($argumentIndex)
 {
-    return new ReturnArgumentStub($argumentIndex);
+    return TestCase::returnArgument(...\func_get_args());
 }
 
-function returnCallback($callback): ReturnCallbackStub
+/**
+ * @param mixed $callback
+ *
+ * @return PHPUnit\Framework\MockObject\Stub\ReturnCallback
+ */
+function returnCallback($callback)
 {
-    return new ReturnCallbackStub($callback);
+    return TestCase::returnCallback(...\func_get_args());
 }
 
 /**
  * Returns the current object.
  *
  * This method is useful when mocking a fluent interface.
+ *
+ * @return PHPUnit\Framework\MockObject\Stub\ReturnSelf
  */
-function returnSelf(): ReturnSelfStub
+function returnSelf()
 {
-    return new ReturnSelfStub;
+    return TestCase::returnSelf();
 }
 
-function throwException(Throwable $exception): ExceptionStub
+/**
+ * @param mixed $value
+ *
+ * @return PHPUnit\Framework\MockObject\Stub\Return
+ */
+function returnValue($value)
 {
-    return new ExceptionStub($exception);
+    return TestCase::returnValue(...\func_get_args());
 }
 
-function onConsecutiveCalls(): ConsecutiveCallsStub
+/**
+ * @param array $valueMap
+ *
+ * @return PHPUnit\Framework\MockObject\Stub\ReturnValueMap
+ */
+function returnValueMap(array $valueMap)
 {
-    $args = \func_get_args();
+    return TestCase::returnValueMap(...\func_get_args());
+}
 
-    return new ConsecutiveCallsStub($args);
+/**
+ * Returns a PHPUnit\Framework\Constraint\StringContains matcher object.
+ *
+ * @param string $string
+ * @param bool   $case
+ *
+ * @return StringContains
+ */
+function stringContains($string, $case = true)
+{
+    return Assert::stringContains(...\func_get_args());
+}
+
+/**
+ * Returns a PHPUnit\Framework\Constraint\StringEndsWith matcher object.
+ *
+ * @param mixed $suffix
+ *
+ * @return StringEndsWith
+ */
+function stringEndsWith($suffix)
+{
+    return Assert::stringEndsWith(...\func_get_args());
+}
+
+/**
+ * Returns a PHPUnit\Framework\Constraint\StringStartsWith matcher object.
+ *
+ * @param mixed $prefix
+ *
+ * @return StringStartsWith
+ */
+function stringStartsWith($prefix)
+{
+    return Assert::stringStartsWith(...\func_get_args());
+}
+
+/**
+ * @param Exception $exception
+ *
+ * @return PHPUnit\Framework\MockObject\Stub\Exception
+ */
+function throwException(Exception $exception)
+{
+    return TestCase::throwException(...\func_get_args());
 }

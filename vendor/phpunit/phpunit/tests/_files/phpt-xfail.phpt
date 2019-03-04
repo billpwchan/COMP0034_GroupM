@@ -1,7 +1,7 @@
 --TEST--
 PHPT runner supports XFAIL section
 --FILE--
-<?php declare(strict_types=1);
+<?php
 {syntaxError}
 echo "Should not see this";
 ?>

@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -30,8 +30,6 @@ use PHPUnit\Util\Filter;
  * the parent would break the intended encapsulation of process isolation.
  *
  * @see http://fabien.potencier.org/article/9/php-serialization-stack-traces-and-exceptions
- *
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
 class Exception extends \RuntimeException implements \PHPUnit\Exception
 {
@@ -52,10 +50,19 @@ class Exception extends \RuntimeException implements \PHPUnit\Exception
     }
 
     /**
-     * @throws \InvalidArgumentException
-     * @throws \ReflectionException
+     * Returns the serializable trace (without 'args').
+     *
+     * @return array
      */
-    public function __toString(): string
+    public function getSerializableTrace()
+    {
+        return $this->serializableTrace;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
     {
         $string = TestFailure::exceptionToString($this);
 
@@ -66,16 +73,8 @@ class Exception extends \RuntimeException implements \PHPUnit\Exception
         return $string;
     }
 
-    public function __sleep(): array
+    public function __sleep()
     {
         return \array_keys(\get_object_vars($this));
-    }
-
-    /**
-     * Returns the serializable trace (without 'args').
-     */
-    public function getSerializableTrace(): array
-    {
-        return $this->serializableTrace;
     }
 }

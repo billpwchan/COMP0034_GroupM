@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -7,17 +7,20 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework;
 
 /**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
+ * Thrown when an assertion failed.
  */
 class AssertionFailedError extends Exception implements SelfDescribing
 {
     /**
      * Wrapper for getMessage() which is declared as final.
+     *
+     * @return string
      */
-    public function toString(): string
+    public function toString()
     {
         return $this->getMessage();
     }
