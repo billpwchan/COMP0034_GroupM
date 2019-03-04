@@ -1,4 +1,11 @@
 <?php
+
+/*This File is Procedural Programming DB Connection Class.
+ Change to PDO Approach after Refactoring.*/
+
+/**
+ * @return mysqli
+ */
 function db_connect()
 {
     static $connection;
@@ -11,6 +18,9 @@ function db_connect()
     return $connection;
 }
 
+/**
+ * @param $connection
+ */
 function db_close($connection)
 {
     if (isset($connection)) {
@@ -18,6 +28,9 @@ function db_close($connection)
     }
 }
 
+/**
+ *
+ */
 function db_validate()
 {
     if (mysqli_connect_errno()) {
@@ -28,6 +41,10 @@ function db_validate()
     }
 }
 
+/**
+ * @param $query
+ * @return bool|mysqli_result
+ */
 function db_query($query)
 {
     $connection = db_connect();
@@ -35,6 +52,10 @@ function db_query($query)
     return $result;
 }
 
+/**
+ * @param $query
+ * @return array|bool
+ */
 function db_select($query)
 {
     $rows = array();
@@ -51,6 +72,9 @@ function db_select($query)
     return $rows;
 }
 
+/**
+ * @return string
+ */
 function db_error()
 {
     $connection = db_connect();
