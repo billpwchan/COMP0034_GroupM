@@ -11,6 +11,14 @@
 <!--<div class="form-gap"></div>-->
 
 <?php $selector = filter_input(INPUT_GET, 'selector');
+/**
+ * Copyright (C) UberKidz - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ * Written by UberKidz <uberkidz@gmail.com>, 2019
+ *
+ */
+
 $validator = filter_input(INPUT_GET, 'validator');
 
 if (false !== ctype_xdigit($selector) && false !== ctype_xdigit($validator)) :

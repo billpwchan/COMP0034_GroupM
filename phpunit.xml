@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  ~ Copyright (C) UberKidz - All Rights Reserved
+  ~ Unauthorized copying of this file, via any medium is strictly prohibited
+  ~ Proprietary and confidential
+  ~ Written by UberKidz <uberkidz@gmail.com>, 2019
+  ~
+  -->
+
 <phpunit>
     <php>
         <var name="DB_DSN" value="mysql:dbname=uberkidz;host=localhost"/>

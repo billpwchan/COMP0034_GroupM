@@ -1,4 +1,12 @@
 <?xml version="1.0" ?>
+<!--
+  ~ Copyright (C) UberKidz - All Rights Reserved
+  ~ Unauthorized copying of this file, via any medium is strictly prohibited
+  ~ Proprietary and confidential
+  ~ Written by UberKidz <uberkidz@gmail.com>, 2019
+  ~
+  -->
+
 <dataset>
     <message name="thomas" email="testing1@mailinator.com" message="Message 1"/>
     <message name="tom" email="testing2@mailinator.com" message="Message 2"/>

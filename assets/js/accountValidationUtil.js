@@ -1,3 +1,11 @@
+/*
+ * Copyright (C) UberKidz - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ * Written by UberKidz <uberkidz@gmail.com>, 2019
+ *
+ */
+
 function validate_phonenumber(phone_number) {
     const phoneno = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;  //does not check for random number like 1234567890
     return phone_number.value.match(phoneno);

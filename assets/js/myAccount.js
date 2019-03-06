@@ -1,3 +1,11 @@
+/*
+ * Copyright (C) UberKidz - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ * Written by UberKidz <uberkidz@gmail.com>, 2019
+ *
+ */
+
 $( document ).ready(function() {
     document.getElementById("order_tab").style.borderBottom = "2px solid #999";
 });

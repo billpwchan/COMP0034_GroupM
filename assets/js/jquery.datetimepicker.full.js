@@ -1,12 +1,9 @@
-/*!
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2016
- * @version 1.3.4
+/*
+ * Copyright (C) UberKidz - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ * Written by UberKidz <uberkidz@gmail.com>, 2019
  *
- * Date formatter utility library that allows formatting date/time variables or Date objects using PHP DateTime format.
- * @see http://php.net/manual/en/function.date.php
- *
- * For more JQuery plugins visit http://plugins.krajee.com
- * For more Yii related demos visit http://demos.krajee.com
  */
 var DateFormatter;
 !function () {

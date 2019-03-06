@@ -1,4 +1,12 @@
 <?php
+/**
+ * Copyright (C) UberKidz - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ * Written by UberKidz <uberkidz@gmail.com>, 2019
+ *
+ */
+
 include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/controllers/tokenValidation.php';
 
 if ($_POST['token'] != $_SESSION['token']) {
@@ -31,8 +39,3 @@ switch (strtolower($productType)) {
         break;
 }
 
-//$fileName = $avatar['name'];
-//$fileTmpName = $avatar['tmp_name'];
-//$uploadPath = $uploadDirectory . basename($fileName);
-//
-//move_uploaded_file($fileTmpName, $uploadPath);
