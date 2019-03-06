@@ -44,6 +44,12 @@ class mail
             ->setPassword($this->password);
     }
 
+    /**
+     * @param $subject
+     * @param $to
+     * @param $name
+     * @param $resetLink
+     */
     function passwordReset($subject, $to, $name, $resetLink)
     {
 

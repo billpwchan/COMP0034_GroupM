@@ -7,12 +7,6 @@
  *
  */
 
-/**
- * Created by PhpStorm.
- * User: Billp
- * Date: 27/2/2019
- * Time: 1:48
- */
 require_once "dbController.php";
 require_once "mail.php";
 
@@ -116,6 +110,10 @@ class user
         return $db_handle->db_update($sql, 'ss', array($password, $email));
     }
 
+    /**
+     * @param $firstName
+     * @param $userID
+     */
     function updateFirstName($firstName, $userID)
     {
         $db_handle = new dbController();
@@ -123,6 +121,10 @@ class user
         $db_handle->db_update($sql, 'si', array($firstName, $userID));
     }
 
+    /**
+     * @param $lastName
+     * @param $userID
+     */
     function updateLastName($lastName, $userID)
     {
         $db_handle = new dbController();
@@ -130,6 +132,10 @@ class user
         $db_handle->db_update($sql, 'si', array($lastName, $userID));
     }
 
+    /**
+     * @param $phone
+     * @param $userID
+     */
     function updatePhone($phone, $userID)
     {
         $db_handle = new dbController();

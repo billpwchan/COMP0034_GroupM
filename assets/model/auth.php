@@ -7,13 +7,6 @@
  *
  */
 
-/**
- * Created by PhpStorm.
- * User: Billp
- * Date: 27/2/2019
- * Time: 3:12
- */
-
 require_once "dbController.php";
 
 /**
@@ -34,6 +27,13 @@ class auth
         return $db_handle->db_query($sql, 'si', array($selector, $time));
     }
 
+    /**
+     * @param $email
+     * @param $selector
+     * @param $token
+     * @param $expires
+     * @return bool
+     */
     public function insertResetLink($email, $selector, $token, $expires)
     {
         $db_handle = new dbController();
@@ -41,6 +41,10 @@ class auth
         return $db_handle->db_update($sql, 'sssi', array($email, $selector, $token, $expires));
     }
 
+    /**
+     * @param $email
+     * @return array
+     */
     public function selectNameByEmail($email)
     {
         $db_handle = new dbController();

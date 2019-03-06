@@ -16,9 +16,16 @@
 
 require_once "dbController.php";
 
+/**
+ * Class customer
+ */
 class customer
 {
 
+    /**
+     * @param $userID
+     * @return mixed
+     */
     function getBalance($userID)
     {
         $db_handle = new dbController();
@@ -30,6 +37,11 @@ class customer
         return $db_handle->db_query($sql, 'i', array($userID))[0]['account_balance'];
     }
 
+    /**
+     * @param $balance
+     * @param $userID
+     * @return bool
+     */
     function updateBalance($balance, $userID)
     {
         $db_handle = new dbController();
@@ -37,6 +49,10 @@ class customer
         return $db_handle->db_update($sql, 'di', array($balance, $userID));
     }
 
+    /**
+     * @param $userID
+     * @return array
+     */
     function customer_read($userID)
     {
         $db_handle = new dbController();
@@ -49,6 +65,10 @@ class customer
         return $db_handle->db_query($sql, 'i', array($userID));
     }
 
+    /**
+     * @param $userID
+     * @return array
+     */
     function customer_order_history($userID)
     {
         $db_handle = new dbController();

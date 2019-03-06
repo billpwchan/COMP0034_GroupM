@@ -16,8 +16,15 @@
 
 require_once "dbController.php";
 
+/**
+ * Class order
+ */
 class order
 {
+    /**
+     * @param $userID
+     * @return int|string
+     */
     function insertNewOrder($userID)
     {
         $db_handle = new dbController();
@@ -26,6 +33,16 @@ class order
         return $db_handle->db_lastID();
     }
 
+    /**
+     * @param $orderHistoryID
+     * @param $event_ID
+     * @param $quality
+     * @param $event_startTime
+     * @param $event_location
+     * @param $price
+     * @param $status
+     * @return bool
+     */
     function insertNewOrderHistory($orderHistoryID, $event_ID, $quality, $event_startTime, $event_location, $price, $status)
     {
         $db_handle = new dbController();

@@ -22,6 +22,11 @@ require_once "dbController.php";
 class event
 {
 
+    /**
+     * @param $productType
+     * @param $productID
+     * @return mixed
+     */
     function selectDuration($productType, $productID)
     {
         $db_handle = new dbController();
@@ -36,6 +41,12 @@ class event
         return $db_handle->db_query($sql, 'i', array($productID))[0]['duration'];
     }
 
+    /**
+     * @param $productID
+     * @param $startTime
+     * @param $endTime
+     * @return array
+     */
     function checkOverlapBookingOrderDetail($productID, $startTime, $endTime)
     {
         $db_handle = new dbController();
@@ -48,6 +59,10 @@ class event
     }
 
 
+    /**
+     * @param $productID
+     * @return mixed
+     */
     function getEventPrice($productID)
     {
         $db_handle = new dbController();
@@ -55,6 +70,10 @@ class event
         return $db_handle->db_query($sql, 'i', array($productID))[0]['price'];
     }
 
+    /**
+     * @param $productID
+     * @return mixed
+     */
     function getEventType($productID)
     {
         $db_handle = new dbController();
@@ -372,6 +391,21 @@ class event
         return $db_handle->db_query($sql, 'i', array($productID));
     }
 
+    /**
+     * @param $userID
+     * @param $productType
+     * @param $name
+     * @param $price
+     * @param $description
+     * @param $created
+     * @param $eventImage1
+     * @param $eventImage2
+     * @param $eventImage3
+     * @param $address
+     * @param $capacity
+     * @param $region
+     * @return bool
+     */
     public function insertVenue($userID, $productType, $name, $price, $description, $created, $eventImage1, $eventImage2, $eventImage3, $address, $capacity, $region)
     {
         $db_handle = new dbController();
@@ -380,6 +414,19 @@ class event
         return $db_handle->db_insert($sql, 'isis', array($eventID, $address, $capacity, $region));
     }
 
+    /**
+     * @param $userID
+     * @param $productType
+     * @param $name
+     * @param $price
+     * @param $description
+     * @param $created
+     * @param $eventImage1
+     * @param $eventImage2
+     * @param $eventImage3
+     * @param $duration
+     * @param $entertainmentItems
+     */
     public function insertEntertainmentPackage($userID, $productType, $name, $price, $description, $created, $eventImage1, $eventImage2, $eventImage3, $duration, $entertainmentItems)
     {
         $db_handle = new dbController();
@@ -393,6 +440,19 @@ class event
         }
     }
 
+    /**
+     * @param $userID
+     * @param $productType
+     * @param $name
+     * @param $price
+     * @param $description
+     * @param $created
+     * @param $eventImage1
+     * @param $eventImage2
+     * @param $eventImage3
+     * @param $duration
+     * @param $menuItems
+     */
     public function insertMenu($userID, $productType, $name, $price, $description, $created, $eventImage1, $eventImage2, $eventImage3, $duration, $menuItems)
     {
         $db_handle = new dbController();
@@ -406,6 +466,18 @@ class event
         }
     }
 
+    /**
+     * @param $userID
+     * @param $productType
+     * @param $name
+     * @param $price
+     * @param $description
+     * @param $created
+     * @param $eventImage1
+     * @param $eventImage2
+     * @param $eventImage3
+     * @return int|string
+     */
     private function insertEvent($userID, $productType, $name, $price, $description, $created, $eventImage1, $eventImage2, $eventImage3)
     {
         $uploadDirectory = $_SERVER['DOCUMENT_ROOT'] . "/assets/uploads/" . $productType . "/";
