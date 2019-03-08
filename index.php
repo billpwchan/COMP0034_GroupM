@@ -41,7 +41,9 @@ include("includes/config.php"); ?>
                 <div class="col-md-10 col-md-offset-1">
                     <div class="home-content">
                         <h1 class="white-text">We Are UberKidz</h1>
-                        <p class="white-text">Party Forever.</p>
+                        <p class="white-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed iaculis
+                            lobortis pharetra. Nullam convallis mi sem, ut facilisis risus consequat vitae. Sed sodales,
+                            tortor non aliquam congue, ante orci rutrum enim.</p>
                         <a class="white-btn" id="get_started"
                            href="<?php if (isset($_SESSION['userInfo']['email_address'])) { ?>myAccount.php<?php } else { ?>login.php<?php } ?>">Get
                             Started</a>
@@ -66,7 +68,7 @@ include("includes/config.php"); ?>
                     <i class="fas fa-map"></i>
                     <h3>Venues</h3>
                     <p>Select from our wide range of venues all across London.</p>
-                    <a href="#">Read more</a>
+                    <a href="venues.php">Read more</a>
                 </div>
             </div>
 
@@ -75,7 +77,7 @@ include("includes/config.php"); ?>
                     <i class="fas fa-gifts"></i>
                     <h3>Entertainment Packages</h3>
                     <p>Select for our wide range of tailor made entertainment packages for whatever the occasion is.</p>
-                    <a href="#">Read more</a>
+                    <a href="events.php">Read more</a>
                 </div>
             </div>
 
@@ -84,7 +86,7 @@ include("includes/config.php"); ?>
                     <i class="fab fa-elementor"></i>
                     <h3>Menus</h3>
                     <p>Select cuisine choices from various restaurants and caterers to match your taste bud needs.</p>
-                    <a href="#">Read more</a>
+                    <a href="menus.php">Read more</a>
                 </div>
             </div>
         </div>

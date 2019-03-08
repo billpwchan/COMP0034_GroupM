@@ -208,70 +208,98 @@
                                   enctype="multipart/form-data">
                                 <input type="hidden" name="token" value="<?= $token ?>"/>
                                 <div class="form-group row">
-                                    <label for="staticname" class="col-sm-2 col-form-label">Event Type</label>
+                                    <label for="" class="col-sm-2 col-form-label">Event Type</label>
                                     <div class="col-sm-5">
                                         <select class="selectpicker" id="event_type" name="event_type">
-                                            <option value="1">Venue</option>
-                                            <option value="2">Entertainment</option>
-                                            <option value="3">Menu</option>
+                                            <option value="default">--------</option>
+                                            <option value="venue">Venue</option>
+                                            <option value="entertainment">Entertainment</option>
+                                            <option value="menu">Menu</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="staticname" class="col-sm-2 col-form-label">Name: </label>
+                                    <label for="" class="col-sm-2 col-form-label">Name: </label>
                                     <div class="col-sm-5">
                                         <input class="form-control" type="text" name="name" placeholder="Name">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="staticname" class="col-sm-2 col-form-label">Price: </label>
+                                    <label for="" class="col-sm-2 col-form-label">Price: </label>
                                     <div class="col-sm-5">
                                         <input class="form-control" name="price" placeholder="Price" type="number">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="staticdescription" class="col-sm-2 col-form-label">Description: </label>
+                                    <label for="" class="col-sm-2 col-form-label">Description: </label>
                                     <div class="col-sm-5">
                                         <input class="form-control" type="text" name="description"
                                                placeholder="Description">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="staticregistration_date"
+                                    <label for=""
                                            class="col-sm-2 col-form-label">Created: </label>
                                     <div class="col-sm-6">
                                         <input type="text" readonly class="form-control-plaintext"
-                                               id="staticregistration_date"
-                                               value="<?= $_SESSION['userInfo']['registration_date'] ?>">
+                                               value="<?= date('Y-m-d', $_SERVER['REQUEST_TIME']) ?>">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class=" custom-file">
-                                        <label for="eventImage1" class="col-sm-7 custom-file-label">Event Image
+                                    <label for=""
+                                           class="col-sm-2 col-form-label">EventImage 1: </label>
+                                    <div class="custom-file col-sm-6">
+                                        <label for="eventImage1" class="custom-file-label">Event Image
                                             1</label>
-                                        <input class="custom-file-input col-sm-5" type="file" name="image1"
+                                        <input class="custom-file-input" type="file" name="image1"
                                                id="eventImage1">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="custom-file">
-                                        <label for="eventImage2" class="col-sm-7 custom-file-label">Event Image
+                                    <label for=""
+                                           class="col-sm-2 col-form-label">EventImage 2: </label>
+                                    <div class="custom-file col-sm-6">
+                                        <label for="eventImage2" class="custom-file-label">Event Image
                                             2</label>
-                                        <input class="custom-file-input col-sm-5" type="file" name="image2"
+                                        <input class="custom-file-input" type="file" name="image2"
                                                id="eventImage2">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="custom-file">
-                                        <label for="eventImage3" class="col-sm-7 custom-file-label">Event Image
+                                    <label for=""
+                                           class="col-sm-2 col-form-label">EventImage 3: </label>
+                                    <div class="custom-file col-sm-6">
+                                        <label for="eventImage3" class="custom-file-label">Event Image
                                             3</label>
-                                        <input class="custom-file-input col-sm-5" type="file" name="image3"
+                                        <input class="custom-file-input" type="file" name="image3"
                                                id="eventImage3">
+                                    </div>
+                                </div>
+                                <div class="form-group row venue-only">
+                                    <label for="" class="col-sm-2 col-form-label">Address: </label>
+                                    <div class="col-sm-5">
+                                        <input class="form-control" type="text" name="address"
+                                               placeholder="Address">
+                                    </div>
+                                </div>
+                                <div class="form-group row venue-only">
+                                    <label for="" class="col-sm-2 col-form-label">Capacity: </label>
+                                    <div class="col-sm-5">
+                                        <input class="form-control" type="number" name="capacity"
+                                               placeholder="Capacity">
+                                    </div>
+                                </div>
+                                <div class="form-group row venue-only">
+                                    <label for="" class="col-sm-2 col-form-label">Region: </label>
+                                    <div class="col-sm-5">
+                                        <input class="form-control" type="text" name="Region"
+                                               placeholder="Region">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <button class="btn btn-primary col-sm-4" id="save_button">Save</button>
                                 </div>
+                            </form>
                         </div>
                     <?php } ?>
                 </div>

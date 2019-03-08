@@ -6,16 +6,16 @@
  *
  */
 
-$( document ).ready(function() {
+$(document).ready(function () {
     document.getElementById("order_tab").style.borderBottom = "2px solid #999";
 });
 
-document.getElementById("order_tab").addEventListener("click", function() {
+document.getElementById("order_tab").addEventListener("click", function () {
     document.getElementById("order_tab").style.borderBottom = "2px solid #999";
     document.getElementById("personal_tab").style.borderBottom = "0px solid #999";
 });
 
-document.getElementById("personal_tab").addEventListener("click", function() {
+document.getElementById("personal_tab").addEventListener("click", function () {
     document.getElementById("personal_tab").style.borderBottom = "2px solid #999";
     document.getElementById("order_tab").style.borderBottom = "0px solid #999";
 });
@@ -100,6 +100,26 @@ document.querySelector("#cancel_button_contact_number").addEventListener("click"
     document.querySelector("#edit_button_contact_number").style.visibility = "visible";
     document.querySelector("#save_button_contact_number").style.visibility = "hidden";
     document.querySelector("#cancel_button_contact_number").style.visibility = "hidden";
+});
+
+
+$('#event_type').on('change', function () {
+    switch (this.value) {
+        case "venue":
+            $(".venue-only").attr("style", "");
+            $(".menu-only").attr("style", "display:none");
+            $(".entertainment-only").attr("style", "display:none");
+            break;
+        case "menu":
+            $(".menu-only").attr("style", "");
+            $(".entertainment-only").attr("style", "display:none");
+            $(".venue-only").attr("style", "display:none");
+            break;
+        case "entertainment":
+            $(".entertainment-only").attr("style", "");
+            $(".menu-only").attr("style", "display:none");
+            $(".venue-only").attr("style", "display:none");
+    }
 });
 
 
