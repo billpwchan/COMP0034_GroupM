@@ -20,7 +20,6 @@ $auth0Oauth = $auth0->get_oauth_client($client_secret, $redirect_uri, [
     'persist_id_token' => true,
     'persist_refresh_token' => true,
 ]);
-$starWarsNames = ['Darth Vader', 'Ahsoka Tano', 'Kylo Ren', 'Obi-Wan Kenobi', 'R2-D2', 'Snoke'];
 $userInfo = $auth0Oauth->getUser();
 ob_start();
 include("includes/config.php"); ?>
@@ -77,7 +76,7 @@ include("includes/config.php"); ?>
 <div id="about" class="section md-padding">
 
     <div class="container">
-        <div class="row justify-content-md-center">
+        <div class="row justify-content-sm-center">
             <div class="section-header text-center">
                 <h2 class="title">Welcome to Website</h2>
             </div>

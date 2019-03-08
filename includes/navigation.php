@@ -61,12 +61,13 @@ if (isset($_SESSION['userInfo'])) {
                     Contact Us
                 </a>
             </li>
-            <li class="nav-item <?php if ($CURRENT_PAGE == "FAQ") { ?>active<?php } ?>">
-                <a class="nav-link" href="FAQ.php">
-                    <i class="fas fa-question-circle"></i>
-                    FAQ
-                </a>
-            </li>
+            <!--            <li class="nav-item --><?php //if ($CURRENT_PAGE == "FAQ") { ?><!--active-->
+            <?php //} ?><!--">-->
+            <!--                <a class="nav-link" href="FAQ.php">-->
+            <!--                    <i class="fas fa-question-circle"></i>-->
+            <!--                    FAQ-->
+            <!--                </a>-->
+            <!--            </li>-->
         </ul>
 
         <ul class="navbar-nav">
