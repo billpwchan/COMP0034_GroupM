@@ -8,6 +8,7 @@
 
 $(document).ready(function () {
     document.getElementById("order_tab").style.borderBottom = "2px solid #999";
+    $(".menu-only, .entertainment-only, .venue-only").attr("style", "display:none");
 });
 
 document.getElementById("order_tab").addEventListener("click", function () {
@@ -118,19 +119,16 @@ $('#event_type').on('change', function () {
     switch (this.value.toLowerCase()) {
         case "venue":
             $(".venue-only").attr("style", "");
-            $(".menu-only").attr("style", "display:none");
-            $(".entertainment-only").attr("style", "display:none");
+            $(".menu-only, .entertainment-only").attr("style", "display:none");
             break;
         case "menu":
             $(".menu-only").attr("style", "");
-            $(".entertainment-only").attr("style", "display:none");
-            $(".venue-only").attr("style", "display:none");
+            $(".entertainment-only, .venue-only").attr("style", "display:none");
             getMenuItems();
             break;
         case "entertainment":
             $(".entertainment-only").attr("style", "");
-            $(".menu-only").attr("style", "display:none");
-            $(".venue-only").attr("style", "display:none");
+            $(".menu-only, .venue-only").attr("style", "display:none");
             break;
         default:
             $(".entertainment-only, .venue-only, .menu-only").attr("style", "display:none");
@@ -139,12 +137,11 @@ $('#event_type').on('change', function () {
 
 function getMenuItems() {
     $.getJSON("assets/controllers/getProvidedServices.php?methodID=1", function (data) {
-        var items = [];
         $.each(data, function (i, val) {
-            items.push(val);
-            $("#menuItems").append(new Option("val", "i"));
+            $("#menuItems").append($("<option></option>")
+                .attr("value", val['menuitem_ID'])
+                .text(val['name']));
         });
-
     });
 
     $.ajax({

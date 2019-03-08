@@ -305,10 +305,11 @@
                                 </div>
                                 <div class="form-group row menu-only">
                                     <label for="" class="col-sm-2 col-form-label">Menu Items:</label>
-                                    <select class="selectpicker" multiple id="menuItems" name="menuItems">
-                                        <option value="default">--------</option>
-                                        <?php ?>
-                                    </select>
+                                    <div class="col-sm-5">
+                                        <select class="form-control" multiple id="menuItems" name="menuItems">
+                                            <option value="default">--------</option>
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="form-group row">
                                     <button class="btn btn-primary col-sm-4" id="save_button">Save</button>
