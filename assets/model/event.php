@@ -430,10 +430,11 @@ class event
     public function insertEntertainmentPackage($userID, $productType, $name, $price, $description, $created, $eventImage1, $eventImage2, $eventImage3, $duration, $entertainmentItems)
     {
         $db_handle = new dbController();
-        $eventID = $this->insertEvent($userID, $productType, $name, $price, $description, $created, $eventImage1['name'], $eventImage2['name'], $eventImage3['name']);
+        $eventID = $this->insertEvent($userID, $productType, $name, $price, $description, $created, $eventImage1, $eventImage2, $eventImage3);
         $sql = "INSERT INTO entertainmentpackage (event_ID, duration) VALUES (?,?)";
         $db_handle->db_insert($sql, 'ii', array($eventID, $duration));
 
+        print_r($entertainmentItems);
         foreach ($entertainmentItems as $entertainmentItem) {
             $sql = "INSERT INTO entertainmentpackagemap (entertainment_ID, entertainer_ID) VALUES (?,?)";
             $db_handle->db_insert($sql, 'ii', array($eventID, $entertainmentItem));
@@ -491,7 +492,7 @@ class event
         }
         $db_handle = new dbController();
         $sql = "INSERT INTO event (provider_ID, event_type, name, price, description, created, eventimage1, eventimage2, eventimage3) VALUES (?,?,?,?,?,?,?,?,?)";
-        $db_handle->db_update($sql, 'issdsssss', array($userID, $productType, $name, $price, $description, $created, $eventImage1, $eventImage2, $eventImage3));
+        $db_handle->db_insert($sql, 'issdsssss', array($userID, $productType, $name, $price, $description, $created, $eventImage1, $eventImage2, $eventImage3));
         return $db_handle->db_lastID();
     }
 

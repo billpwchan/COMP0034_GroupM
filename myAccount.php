@@ -253,7 +253,7 @@
                                         <label for="eventImage1" class="custom-file-label">Event Image
                                             1</label>
                                         <input class="custom-file-input" type="file" name="image1"
-                                               id="eventImage1" required>
+                                               id="eventImage1">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -263,7 +263,7 @@
                                         <label for="eventImage2" class="custom-file-label">Event Image
                                             2</label>
                                         <input class="custom-file-input" type="file" name="image2"
-                                               id="eventImage2" required>
+                                               id="eventImage2">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -273,7 +273,7 @@
                                         <label for="eventImage3" class="custom-file-label">Event Image
                                             3</label>
                                         <input class="custom-file-input" type="file" name="image3"
-                                               id="eventImage3" required>
+                                               id="eventImage3">
                                     </div>
                                 </div>
                                 <div class="form-group row venue-only">
@@ -287,7 +287,7 @@
                                     <label for="" class="col-sm-2 col-form-label">Capacity: </label>
                                     <div class="col-sm-5">
                                         <input class="form-control" type="number" name="capacity"
-                                               placeholder="Capacity" required>
+                                               placeholder="Capacity">
                                     </div>
                                 </div>
                                 <div class="form-group row venue-only">
@@ -301,14 +301,14 @@
                                     <label for="" class="col-sm-2 col-form-label">Duration: </label>
                                     <div class="col-sm-5">
                                         <input class="form-control" type="number" name="duration"
-                                               placeholder="Duration" required>
+                                               placeholder="Duration">
                                     </div>
                                 </div>
                                 <div class="form-group row menu-only">
                                     <label for="" class="col-sm-2 col-form-label">Menu Items:</label>
                                     <div class="col-sm-5">
                                         <select class="form-control" multiple id="menuItems" name="menuItems[]"
-                                                required>
+                                        >
                                             <option value="default" disabled>--------</option>
                                         </select>
                                     </div>
@@ -317,14 +317,14 @@
                                     <label for="" class="col-sm-2 col-form-label">Duration: </label>
                                     <div class="col-sm-5">
                                         <input class="form-control" type="number" name="duration"
-                                               placeholder="Duration" required>
+                                               placeholder="Duration">
                                     </div>
                                 </div>
                                 <div class="form-group row entertainment-only">
                                     <label for="" class="col-sm-2 col-form-label">Entertainers: </label>
                                     <div class="col-sm-5">
                                         <select class="form-control" multiple id="entertainers" name="entertainers[]"
-                                                required>
+                                        >
                                             <option value="default" disabled>--------</option>
                                         </select>
                                     </div>
