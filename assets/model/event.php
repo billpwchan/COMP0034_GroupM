@@ -493,4 +493,18 @@ class event
         $db_handle->db_update($sql, 'issdsssss', array($userID, $productType, $name, $price, $description, $created, $eventImage1['name'], $eventImage2['name'], $eventImage3['name']));
         return $db_handle->db_lastID();
     }
+
+    function getMenuItems()
+    {
+        $db_handle = new dbController();
+        $sql = "SELECT menuitem_ID, name FROM menuitem";
+        return $db_handle->runBaseQuery($sql);
+    }
+
+    function getEntertainers()
+    {
+        $db_handle = new dbController();
+        $sql = "SELECT * FROM entertainer WHERE name != ?";
+        return $db_handle->db_query($sql, 's', '');
+    }
 }

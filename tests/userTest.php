@@ -25,7 +25,6 @@ class userTest extends PHPUnit_Extensions_Selenium2TestCase
                 'password' => '12345678Aa*',
             ]
         ];
-
         return $inputs;
     }
 

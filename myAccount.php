@@ -68,8 +68,8 @@
                            aria-controls="personal" aria-selected="false">Personal Information</a>
                     </li>
                     <?php if (!isset($_SESSION['customer'])) { ?>
-                        <li class="nav-item" id="add_service">
-                            <a class="nav-link" id="add_service" data-toggle="tab" href="#service" role="tab"
+                        <li class="nav-item" id="service_tab">
+                            <a class="nav-link" id="service_tab" data-toggle="tab" href="#service" role="tab"
                                aria-controls="service" aria-selected="false">Add Service</a>
                         </li>
                     <?php } ?>
@@ -197,7 +197,7 @@
                         </div>
                     </div>
                     <?php if (!isset($_SESSION['customer'])) { ?>
-                        <div aria-labelledby="add_service" class="row tab-pane fade" id="service"
+                        <div aria-labelledby="service_tab" class="row tab-pane fade" id="service"
                              role="tabpanel">
                             <?php
                             $token = md5(uniqid(rand(), TRUE));
@@ -292,9 +292,23 @@
                                 <div class="form-group row venue-only">
                                     <label for="" class="col-sm-2 col-form-label">Region: </label>
                                     <div class="col-sm-5">
-                                        <input class="form-control" type="text" name="Region"
+                                        <input class="form-control" type="text" name="region"
                                                placeholder="Region">
                                     </div>
+                                </div>
+                                <div class="form-group row menu-only">
+                                    <label for="" class="col-sm-2 col-form-label">Duration: </label>
+                                    <div class="col-sm-5">
+                                        <input class="form-control" type="number" name="duration"
+                                               placeholder="Duration">
+                                    </div>
+                                </div>
+                                <div class="form-group row menu-only">
+                                    <label for="" class="col-sm-2 col-form-label">Menu Items:</label>
+                                    <select class="selectpicker" multiple id="menuItems" name="menuItems">
+                                        <option value="default">--------</option>
+                                        <?php ?>
+                                    </select>
                                 </div>
                                 <div class="form-group row">
                                     <button class="btn btn-primary col-sm-4" id="save_button">Save</button>

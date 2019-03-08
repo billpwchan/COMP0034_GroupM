@@ -11,14 +11,25 @@ $(document).ready(function () {
 });
 
 document.getElementById("order_tab").addEventListener("click", function () {
+    clearLowerBorder();
     document.getElementById("order_tab").style.borderBottom = "2px solid #999";
-    document.getElementById("personal_tab").style.borderBottom = "0px solid #999";
 });
 
 document.getElementById("personal_tab").addEventListener("click", function () {
+    clearLowerBorder();
     document.getElementById("personal_tab").style.borderBottom = "2px solid #999";
-    document.getElementById("order_tab").style.borderBottom = "0px solid #999";
 });
+
+document.getElementById("service_tab").addEventListener("click", function () {
+    clearLowerBorder();
+    document.getElementById("service_tab").style.borderBottom = "2px solid #999";
+});
+
+function clearLowerBorder() {
+    document.getElementById("order_tab").style.borderBottom = "0px solid #999";
+    document.getElementById("personal_tab").style.borderBottom = "0px solid #999";
+    document.getElementById("service_tab").style.borderBottom = "0px solid #999";
+}
 
 let original_firstname = document.querySelector("#staticfirst_name").value;
 let original_lastname = document.querySelector("#staticlast_name").value;
@@ -104,7 +115,7 @@ document.querySelector("#cancel_button_contact_number").addEventListener("click"
 
 
 $('#event_type').on('change', function () {
-    switch (this.value) {
+    switch (this.value.toLowerCase()) {
         case "venue":
             $(".venue-only").attr("style", "");
             $(".menu-only").attr("style", "display:none");
@@ -114,13 +125,36 @@ $('#event_type').on('change', function () {
             $(".menu-only").attr("style", "");
             $(".entertainment-only").attr("style", "display:none");
             $(".venue-only").attr("style", "display:none");
+            getMenuItems();
             break;
         case "entertainment":
             $(".entertainment-only").attr("style", "");
             $(".menu-only").attr("style", "display:none");
             $(".venue-only").attr("style", "display:none");
+            break;
+        default:
+            $(".entertainment-only, .venue-only, .menu-only").attr("style", "display:none");
     }
 });
+
+function getMenuItems() {
+    $.getJSON("assets/controllers/getProvidedServices.php?methodID=1", function (data) {
+        var items = [];
+        $.each(data, function (i, val) {
+            items.push(val);
+            $("#menuItems").append(new Option("val", "i"));
+        });
+
+    });
+
+    $.ajax({
+        type: "POST",
+        url: "assets/controllers/getProvidedServices.php",
+        data: {'methodID': 1},
+        success: function (data) {
+        }
+    });
+}
 
 
 function update_first_name() {

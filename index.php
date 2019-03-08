@@ -14,10 +14,15 @@ include("includes/config.php"); ?>
 <head>
     <?php include("includes/headTags.php"); ?>
     <?php
+    echo isset($_GET['logout']);
     if (isset($_GET['logout'])) {
         require_once "./assets/model/auth.php";
         $auth = new auth();
         $auth->clearCookies();
+        unset($_COOKIE['member_login']);
+        unset($_COOKIE['random_password']);
+        unset($_COOKIE['random_selector']);
+        print_r($_COOKIE);
         session_destroy();
         session_unset();
         header('Location: index.php');
