@@ -184,7 +184,7 @@ main {
     color: #888;
 }
 
-.nav li:hover{
+.nav li:hover {
     color: #999;
     border-bottom: 2px solid #999;
 }

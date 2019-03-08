@@ -8,11 +8,13 @@
  */
 
 include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/controllers/tokenValidation.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/model/event.php';
 
 if ($_POST['token'] != $_SESSION['token']) {
     header("Location:../../index.php?status=invalidToken");
     exit();
 }
+$event = new event();
 
 $productType = $_POST['event_type'];
 $userID = $_SESSION['userInfo']['user_ID'];
@@ -20,13 +22,15 @@ $name = $_POST['name'];
 $price = $_POST['price'];
 $description = $_POST['description'];
 $created = date('Y-m-d H:i:s');
-$eventImage1 = $_FILES['image1'];
-$eventImage2 = $_FILES['image2'];
-$eventImage3 = $_FILES['image3'];
+$eventImage1 = $_FILES['image1']['name'];
+$eventImage2 = $_FILES['image2']['name'];
+$eventImage3 = $_FILES['image3']['name'];
 
 switch (strtolower($productType)) {
     case 'entertainment':
         $duration = $_POST['duration'];
+        $entertainers = $_POST['entertainers'];
+        $event->insertEntertainmentPackage($userID, 'entertainment', $name, $price, $description, $created, $eventImage1, $eventImage2, $eventImage3, $duration, $entertainers);
         break;
     case 'venue':
         $address = $_POST['address'];
@@ -36,6 +40,9 @@ switch (strtolower($productType)) {
         break;
     case 'menu':
         $duration = $_POST['duration'];
+        $menuItems = $_POST['menuItems'];
+        $event->insertMenu($userID, 'entertainment', $name, $price, $description, $created, $eventImage1, $eventImage2, $eventImage3, $duration, $menuItems);
         break;
 }
+header("location:../../myAccount.php");
 

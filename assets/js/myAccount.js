@@ -6,19 +6,31 @@
  *
  */
 
-$( document ).ready(function() {
+$(document).ready(function () {
+    document.getElementById("order_tab").style.borderBottom = "2px solid #999";
+    $(".menu-only, .entertainment-only, .venue-only").attr("style", "display:none");
+});
+
+document.getElementById("order_tab").addEventListener("click", function () {
+    clearLowerBorder();
     document.getElementById("order_tab").style.borderBottom = "2px solid #999";
 });
 
-document.getElementById("order_tab").addEventListener("click", function() {
-    document.getElementById("order_tab").style.borderBottom = "2px solid #999";
-    document.getElementById("personal_tab").style.borderBottom = "0px solid #999";
-});
-
-document.getElementById("personal_tab").addEventListener("click", function() {
+document.getElementById("personal_tab").addEventListener("click", function () {
+    clearLowerBorder();
     document.getElementById("personal_tab").style.borderBottom = "2px solid #999";
-    document.getElementById("order_tab").style.borderBottom = "0px solid #999";
 });
+
+document.getElementById("service_tab").addEventListener("click", function () {
+    clearLowerBorder();
+    document.getElementById("service_tab").style.borderBottom = "2px solid #999";
+});
+
+function clearLowerBorder() {
+    document.getElementById("order_tab").style.borderBottom = "0px solid #999";
+    document.getElementById("personal_tab").style.borderBottom = "0px solid #999";
+    document.getElementById("service_tab").style.borderBottom = "0px solid #999";
+}
 
 let original_firstname = document.querySelector("#staticfirst_name").value;
 let original_lastname = document.querySelector("#staticlast_name").value;
@@ -101,6 +113,49 @@ document.querySelector("#cancel_button_contact_number").addEventListener("click"
     document.querySelector("#save_button_contact_number").style.visibility = "hidden";
     document.querySelector("#cancel_button_contact_number").style.visibility = "hidden";
 });
+
+
+$('#event_type').on('change', function () {
+    switch (this.value.toLowerCase()) {
+        case "venue":
+            $(".venue-only").attr("style", "");
+            $(".menu-only, .entertainment-only").attr("style", "display:none");
+            break;
+        case "menu":
+            $(".menu-only").attr("style", "");
+            $(".entertainment-only, .venue-only").attr("style", "display:none");
+            getMenuItems();
+            break;
+        case "entertainment":
+            $(".entertainment-only").attr("style", "");
+            $(".menu-only, .venue-only").attr("style", "display:none");
+            getEntertainers();
+            break;
+        default:
+            $(".entertainment-only, .venue-only, .menu-only").attr("style", "display:none");
+    }
+});
+
+function getMenuItems() {
+    $.getJSON("assets/controllers/getProvidedServices.php?methodID=1", function (data) {
+        $.each(data, function (i, val) {
+            $("#menuItems").append($("<option></option>")
+                .attr("value", val['menuitem_ID'])
+                .text(val['name']));
+        });
+    });
+}
+
+function getEntertainers() {
+    $.getJSON("assets/controllers/getProvidedServices.php?methodID=2", function (data) {
+        $.each(data, function (i, val) {
+            console.log(val);
+            $("#entertainers").append($("<option></option>")
+                .attr("value", val['entertainer_ID'])
+                .text("Name: " + val['name'] + " Skill: " + val['skill']));
+        });
+    });
+}
 
 
 function update_first_name() {

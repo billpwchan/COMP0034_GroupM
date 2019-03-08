@@ -35,7 +35,7 @@ $token = md5(uniqid(rand(), TRUE));
         <fieldset id="fieldset1">
             <h2 class="fs-title">Create your account</h2>
             <h3 class="fs-subtitle">First step to use UberKidz!</h3>
-            <input class="userInput" type="text" name="email" id="email" placeholder="Email"/>
+            <input class="userInput" type="email" name="email" id="email" placeholder="Email"/>
             <input class="userInput" type="password" name="pass" placeholder="Password"/>
             <input class="userInput" type="password" name="cpass" placeholder="Confirm Password"/>
             <select class="selectpicker userInput" title="User Type..." name="accounttype">
@@ -66,7 +66,7 @@ $token = md5(uniqid(rand(), TRUE));
                     <span class="checkmark"></span>
                 </label>
             </div>
-            <input class="userInput" type="text" name="phone" placeholder="Phone No."/>
+            <input class="userInput" type="number" name="phone" placeholder="Phone No."/>
             <input type="button" name="previous" class="previous action-button" value="Previous"/>
             <input type="button" name="next" class="next2 action-button" value="Next"/>
         </fieldset>

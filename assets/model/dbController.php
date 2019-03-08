@@ -68,7 +68,6 @@ class dbController
      */
     function db_query($query, $param_type, $param_value_array)
     {
-
         $sql = $this->conn->prepare($query);
         $this->bindQueryParams($sql, $param_type, $param_value_array);
         $sql->execute();

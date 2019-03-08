@@ -4,7 +4,9 @@
     "ext-mysqli": "*",
     "ext-json": "*",
     "ext-openssl": "*",
-    "ext-pdo": "*"
+    "ext-pdo": "*",
+    "vlucas/phpdotenv": "2.3.0",
+    "auth0/auth0-php": "~4.0"
   },
   "require-dev": {
     "phpdocumentor/phpdocumentor": "2.*",
