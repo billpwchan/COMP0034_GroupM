@@ -434,7 +434,6 @@ class event
         $sql = "INSERT INTO entertainmentpackage (event_ID, duration) VALUES (?,?)";
         $db_handle->db_insert($sql, 'ii', array($eventID, $duration));
 
-        print_r($entertainmentItems);
         foreach ($entertainmentItems as $entertainmentItem) {
             $sql = "INSERT INTO entertainmentpackagemap (entertainment_ID, entertainer_ID) VALUES (?,?)";
             $db_handle->db_insert($sql, 'ii', array($eventID, $entertainmentItem));
@@ -463,7 +462,7 @@ class event
 
         foreach ($menuItems as $menuItem) {
             $sql = "INSERT INTO menumap (event_ID, menuitem_ID, quantity) VALUES (?,?,?)";
-            $db_handle->db_insert($sql, 'iii', array($eventID, $menuItem['id'], $menuItem['quantity']));
+            $db_handle->db_insert($sql, 'iii', array($eventID, $menuItem, 1));
         }
     }
 
