@@ -20,6 +20,6 @@ switch ($methodID) {
         break;
     case 2:
         $entertainers = $event->getEntertainers();
-        return $entertainers;
+        echo json_encode($entertainers);
         break;
 }

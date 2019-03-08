@@ -35,7 +35,7 @@
 						Member Login
 					</span>
                 <div class="wrap-input validate-input">
-                    <input class="userInput" type="text" name="email" placeholder="Email"
+                    <input class="userInput" type="email" name="email" placeholder="Email"
                            value="<?= $isLoggedIn ? $_SESSION['email'] : "" ?>">
                     <span class="focus-input"></span>
                     <span class="symbol-input">

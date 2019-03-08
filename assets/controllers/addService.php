@@ -8,11 +8,13 @@
  */
 
 include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/controllers/tokenValidation.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/assets/model/event.php';
 
 if ($_POST['token'] != $_SESSION['token']) {
     header("Location:../../index.php?status=invalidToken");
     exit();
 }
+$event = new event();
 
 $productType = $_POST['event_type'];
 $userID = $_SESSION['userInfo']['user_ID'];

@@ -129,6 +129,7 @@ $('#event_type').on('change', function () {
         case "entertainment":
             $(".entertainment-only").attr("style", "");
             $(".menu-only, .venue-only").attr("style", "display:none");
+            getEntertainers();
             break;
         default:
             $(".entertainment-only, .venue-only, .menu-only").attr("style", "display:none");
@@ -143,13 +144,16 @@ function getMenuItems() {
                 .text(val['name']));
         });
     });
+}
 
-    $.ajax({
-        type: "POST",
-        url: "assets/controllers/getProvidedServices.php",
-        data: {'methodID': 1},
-        success: function (data) {
-        }
+function getEntertainers() {
+    $.getJSON("assets/controllers/getProvidedServices.php?methodID=2", function (data) {
+        $.each(data, function (i, val) {
+            console.log(val);
+            $("#entertainers").append($("<option></option>")
+                .attr("value", val['entertainer_ID'])
+                .text("Name: " + val['name'] + " Skill: " + val['skill']));
+        });
     });
 }
 

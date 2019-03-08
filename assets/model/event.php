@@ -456,7 +456,7 @@ class event
     public function insertMenu($userID, $productType, $name, $price, $description, $created, $eventImage1, $eventImage2, $eventImage3, $duration, $menuItems)
     {
         $db_handle = new dbController();
-        $eventID = $this->insertEvent($userID, $productType, $name, $price, $description, $created, $eventImage1['name'], $eventImage2['name'], $eventImage3['name']);
+        $eventID = $this->insertEvent($userID, $productType, $name, $price, $description, $created, $eventImage1, $eventImage2, $eventImage3);
         $sql = "INSERT INTO menu (event_ID, duration) VALUES (?,?)";
         $db_handle->db_insert($sql, 'ii', array($eventID, $duration));
 
@@ -481,16 +481,17 @@ class event
     private function insertEvent($userID, $productType, $name, $price, $description, $created, $eventImage1, $eventImage2, $eventImage3)
     {
         $uploadDirectory = $_SERVER['DOCUMENT_ROOT'] . "/assets/uploads/" . $productType . "/";
-        $files = array($eventImage1, $eventImage2, $eventImage3);
+        $files = array('image1', 'image2', 'image3');
+
         foreach ($files as $eventImage) {
-            $fileName = $eventImage['name'];
-            $fileTmpName = $eventImage['tmp_name'];
+            $fileName = $_FILES[$eventImage]['name'];
+            $fileTmpName = $_FILES[$eventImage]['tmp_name'];
             $uploadPath = $uploadDirectory . basename($fileName);
             move_uploaded_file($fileTmpName, $uploadPath);
         }
         $db_handle = new dbController();
         $sql = "INSERT INTO event (provider_ID, event_type, name, price, description, created, eventimage1, eventimage2, eventimage3) VALUES (?,?,?,?,?,?,?,?,?)";
-        $db_handle->db_update($sql, 'issdsssss', array($userID, $productType, $name, $price, $description, $created, $eventImage1['name'], $eventImage2['name'], $eventImage3['name']));
+        $db_handle->db_update($sql, 'issdsssss', array($userID, $productType, $name, $price, $description, $created, $eventImage1, $eventImage2, $eventImage3));
         return $db_handle->db_lastID();
     }
 
@@ -504,7 +505,7 @@ class event
     function getEntertainers()
     {
         $db_handle = new dbController();
-        $sql = "SELECT * FROM entertainer WHERE name != ?";
-        return $db_handle->db_query($sql, 's', '');
+        $sql = "SELECT * FROM entertainer";
+        return $db_handle->runBaseQuery($sql);
     }
 }
