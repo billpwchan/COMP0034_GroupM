@@ -11,6 +11,7 @@ return array(
     'Prophecy\\' => array($vendorDir . '/phpspec/prophecy/src'),
     'Pimple' => array($vendorDir . '/pimple/pimple/lib'),
     'Parsedown' => array($vendorDir . '/erusev/parsedown'),
+    'OAuth2' => array($vendorDir . '/adoy/oauth2/src'),
     'KevinGH\\Version' => array($vendorDir . '/kherge/version/src/lib'),
     'Herrera\\Phar\\Update' => array($vendorDir . '/herrera-io/phar-update/src/lib'),
     'Herrera\\Json' => array($vendorDir . '/herrera-io/json/src/lib'),
