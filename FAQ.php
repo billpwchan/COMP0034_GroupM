@@ -18,7 +18,7 @@
             <h1 class="display-3 text-white">How can I help you?</h1>
             <form class="mt-2 mt-md-0">
                 <input class="form-control mr-sm-2" type="text" placeholder="Type keywords to find answer" aria-label="Search">
-                <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
+                <button class="btn btn-primary mt-2" type="submit">Search</button>
             </form>
                 <br>
             <p class="text-white">You can also browser the topics below to find what you are looking for</p>

@@ -188,3 +188,133 @@ function update_contact_number() {
     });
 }
 
+function submit_form() {
+    var submit = true;
+    var drop_down_list = document.getElementById("event_type");
+    var selected_service = drop_down_list.options[drop_down_list.selectedIndex].text;
+
+    // -------- General Information --------
+    if (validate_service_name(document.getElementById("service_name")) === false){
+         submit = false;
+     }
+    if (validate_price(document.getElementById("service_price")) === false){
+        submit = false;
+    }
+    if (validate_description(document.getElementById("service_description")) === false){
+        submit = false;
+    }
+    if(document.getElementById("eventImage1").files.length == 0 || document.getElementById("eventImage2").files.length == 0 || document.getElementById("eventImage3").files.length == 0) {
+        showAlert("Image not uploaded", "Please upload images for your new service.");
+    }
+
+    // -------- Venue --------
+     if (selected_service === "Venue"){
+         if (validate_capacity(document.getElementById("venue_capacity")) === false){
+             submit = false;
+         }
+         if (validate_region(document.getElementById("venue_region")) === false){
+             submit = false;
+         }
+    }
+
+    // -------- Entertainment --------
+    if (selected_service === "Entertainment"){
+        if (validate_duration(document.getElementById("entertainment_duration")) === false){
+            submit = false;
+        }
+        if ($("#entertainers")[0].selectedIndex <= 0) {
+            showAlert("No selected items", "Please select the entertainers that is included in your new package");
+            submit = false;
+        }
+    }
+
+    // -------- Menu --------
+    if (selected_service === "Menu"){
+        if (validate_duration(document.getElementById("menu_duration")) === false){
+            submit = false;
+        }
+        if ($("#menuItems")[0].selectedIndex <= 0) {
+            showAlert("No selected items", "Please select the food that is included in your new menu");
+            submit = false;
+        }
+    }
+    return submit;
+};
+
+function validate_service_name(name) {
+    const aSpecial = /[!|@|#|$|%|^|&|*|(|)|-|_]/;
+    if (name.value.trim() === "") {
+        showAlert("Blank service name", "Please enter the name of your new service.");
+        return false;
+    }
+    if (name.value.search(aSpecial) !== -1) {
+        showAlert("Invalid name format", "Please do not include special characters in the name");
+        return false;
+    }
+}
+
+function validate_price(price) {
+    if (price.value.trim() === "") {
+        showAlert("Please enter the price", "");
+        return false;
+    }
+    if (price.value <= 0 || name.value >= 5000) {
+        showAlert("Price not within normal range.", "Please re-enter your price.");
+        return false;
+    }
+}
+
+function validate_description(description) {
+    if (description.value.trim() === "") {
+        showAlert("Blank description", "Please enter the description of your new service.");
+        return false;
+    }
+}
+
+function validate_address(address) {
+    if (address.value.trim() === "") {
+        showAlert("Blank address", "Please enter the first line of address of your new venue.");
+        return false;
+    }
+}
+
+function validate_postcode(postcode) {
+    var postcodeReg = /[A-Z]{1,2}[0-9]{1,2} ?[0-9][A-Z]{2}/i;
+    if (address.value.trim() === "") {
+        showAlert("Blank address", "Please enter the first line of address of your new venue.");
+        return false;
+    }
+    if (postcodeReg.test(postcode) == false){
+        showAlert("Invalid post code", "Please re-enter the post code of your new venue.");
+        return false;
+    }
+}
+
+function validate_capacity(capacity) {
+    if (capacity.value.trim() === "") {
+        showAlert("Blank capacity", "Please enter the capacity of your new venue.");
+        return false;
+    }
+    if (capacity.value <=0 || capacity.value >=1000) {
+        showAlert("Capacity not within normal range", "PPlease re-enter the capacity of your new venue.");
+        return false;
+    }
+}
+
+function validate_region(region) {
+    if (region.value.trim() === "") {
+        showAlert("Blank capacity", "Please enter the capacity of your new venue.");
+        return false;
+    }
+}
+
+function validate_duration(duration) {
+    if (duration.value.trim() === "") {
+        showAlert("Blank duration", "Please enter the duration of your new service");
+        return false;
+    }
+    if (duration.value <=0 || capacity.value >=24) {
+        showAlert("Duration not within normal range", "PPlease re-enter the duration of your new service.");
+        return false;
+    }
+}

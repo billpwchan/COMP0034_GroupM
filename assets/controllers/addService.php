@@ -33,10 +33,12 @@ switch (strtolower($productType)) {
         $event->insertEntertainmentPackage($userID, 'entertainment', $name, $price, $description, $created, $eventImage1, $eventImage2, $eventImage3, $duration, $entertainers);
         break;
     case 'venue':
-        $address = $_POST['address'];
+        $address1 = $_POST['address1'];
+        $address2 = $_POST['address2'];
+        $postcode = $_POST['post_code'];
         $capacity = $_POST['capacity'];
         $region = $_POST['region'];
-        $event->insertVenue($userID, 'venue', $name, $price, $description, $created, $eventImage1, $eventImage2, $eventImage3, $address, $capacity, $region);
+        $event->insertVenue($userID, 'venue', $name, $price, $description, $created, $eventImage1, $eventImage2, $eventImage3, $address1, $address2, $postcode, $capacity, $region);
         break;
     case 'menu':
         $duration = $_POST['duration'];

@@ -64,7 +64,7 @@ include("includes/config.php"); ?>
     <div class="container">
         <div class="row justify-content-md-center">
             <div class="section-header text-center">
-                <h2 class="title">Welcome to Website</h2>
+                <h2 class="title">Welcome to Uberkidz</h2>
             </div>
         </div>
         <div class="row">

@@ -39,9 +39,7 @@ body {
     background-image: url("../img/FAQ-BG.jpg");
 
 }
-.opacity{
-    opacity:0.4;
-}
+
 
 .BG-FAQ::before {
     width: 100%;
