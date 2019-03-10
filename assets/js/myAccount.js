@@ -205,10 +205,17 @@ function submit_form() {
     }
     if(document.getElementById("eventImage1").files.length == 0 || document.getElementById("eventImage2").files.length == 0 || document.getElementById("eventImage3").files.length == 0) {
         showAlert("Image not uploaded", "Please upload images for your new service.");
+        submit = false;
     }
 
     // -------- Venue --------
      if (selected_service === "Venue"){
+         if (validate_address(document.getElementById("venue_address")) === false){
+             submit = false;
+         }
+         if (validate_postcode(document.getElementById("venue_postcode")) === false){
+             submit = false;
+         }
          if (validate_capacity(document.getElementById("venue_capacity")) === false){
              submit = false;
          }
@@ -279,12 +286,12 @@ function validate_address(address) {
 }
 
 function validate_postcode(postcode) {
-    var postcodeReg = /[A-Z]{1,2}[0-9]{1,2} ?[0-9][A-Z]{2}/i;
-    if (address.value.trim() === "") {
-        showAlert("Blank address", "Please enter the first line of address of your new venue.");
+    var postcodeReg = /^[A-Z]{1,2}[0-9]{1,2}[A-Z]{0,1} ?[0-9][A-Z]{2}$/i;
+    if (postcode.value.trim() === "") {
+        showAlert("Blank post code", "Please enter the post code of your new venue.");
         return false;
     }
-    if (postcodeReg.test(postcode) == false){
+    if (postcodeReg.test(postcode.value) === false){
         showAlert("Invalid post code", "Please re-enter the post code of your new venue.");
         return false;
     }
@@ -303,7 +310,7 @@ function validate_capacity(capacity) {
 
 function validate_region(region) {
     if (region.value.trim() === "") {
-        showAlert("Blank capacity", "Please enter the capacity of your new venue.");
+        showAlert("Blank region", "Please enter which region your new venue is located at.");
         return false;
     }
 }
@@ -313,8 +320,23 @@ function validate_duration(duration) {
         showAlert("Blank duration", "Please enter the duration of your new service");
         return false;
     }
-    if (duration.value <=0 || capacity.value >=24) {
+    if (duration.value <=0 || duration.value >=24) {
         showAlert("Duration not within normal range", "PPlease re-enter the duration of your new service.");
         return false;
     }
 }
+
+$("input[id='eventImage1']").change(function(){
+    var filename = $(this).val().split('\\').pop();
+    document.getElementById('eventImage1_label').innerText = filename;
+});
+
+$("input[id='eventImage2']").change(function(){
+    var filename = $(this).val().split('\\').pop();
+    document.getElementById('eventImage2_label').innerText = filename;
+});
+
+$("input[id='eventImage3']").change(function(){
+    var filename = $(this).val().split('\\').pop();
+    document.getElementById('eventImage3_label').innerText = filename;
+});

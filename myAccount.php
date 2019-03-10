@@ -246,28 +246,28 @@
                                 <div class="form-group row">
                                     <label for="" class="col-sm-2 col-form-label">Event Image 1: </label>
                                     <div class="custom-file col-sm-6">
-                                        <label for="eventImage1" class="custom-file-label">Event Image 1</label>
+                                        <label for="eventImage1" class="custom-file-label" id="eventImage1_label">No file chosen</label>
                                         <input class="custom-file-input" type="file" name="image1" id="eventImage1">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="" class="col-sm-2 col-form-label">Event Image 2: </label>
                                     <div class="custom-file col-sm-6">
-                                        <label for="eventImage2" class="custom-file-label">Event Image 2</label>
+                                        <label for="eventImage2" class="custom-file-label" id="eventImage2_label">No file chosen</label>
                                         <input class="custom-file-input" type="file" name="image2" id="eventImage2">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="" class="col-sm-2 col-form-label">Event Image 3: </label>
                                     <div class="custom-file col-sm-6">
-                                        <label for="eventImage3" class="custom-file-label">Event Image 3</label>
+                                        <label for="eventImage3" class="custom-file-label" id="eventImage3_label">No file chosen</label>
                                         <input class="custom-file-input" type="file" name="image3" id="eventImage3">
                                     </div>
                                 </div>
                                 <div class="form-group row venue-only">
                                     <label for="" class="col-sm-2 col-form-label">Address: </label>
                                     <div class="col-sm-5">
-                                        <input class="form-control" type="text" name="address1" placeholder="Address Line 1">
+                                        <input class="form-control" type="text" name="address1" id="venue_address" placeholder="Address Line 1">
                                     </div>
                                 </div>
                                 <div class="form-group row venue-only">
@@ -279,7 +279,7 @@
                                 <div class="form-group row venue-only">
                                     <label for="" class="col-sm-2 col-form-label">Post code: </label>
                                     <div class="col-sm-5">
-                                        <input class="form-control" type="text" name="post_code" placeholder="Post code">
+                                        <input class="form-control" type="text" name="post_code" id="venue_postcode" placeholder="Post code">
                                     </div>
                                 </div>
                                 <div class="form-group row venue-only">
