@@ -26,9 +26,9 @@
                     <?php } ?>
                 </div>
                 <h4 class="name"><?= $_SESSION['userInfo']['first_name'] ?> <?= $_SESSION['userInfo']['last_name'] ?></h4>
-                <p class="info"><?= (isset($_SESSION['customer']) and (float)$_SESSION['customer']['account_balance'] > 1000) ? 'Premium' : '' ?> <?= isset($_SESSION['customer']) ? 'Customer' : 'Service Provider' ?></p>
-                <p class="info"><?= $_SESSION['userInfo']['email_address'] ?></p>
-                <p class="desc"><?= isset($_SESSION['customer']['description']) ? $_SESSION['customer']['description'] : '' ?></p>
+                <p class="info" id="user-type"><?= (isset($_SESSION['customer']) and (float)$_SESSION['customer']['account_balance'] > 1000) ? 'Premium' : '' ?> <?= isset($_SESSION['customer']) ? 'Customer' : 'Service Provider' ?></p>
+                <p class="info" id="user-email"><?= $_SESSION['userInfo']['email_address'] ?></p>
+                <p class="desc" id="user-description"><?= isset($_SESSION['customer']['description']) ? $_SESSION['customer']['description'] : '' ?></p>
                 <?php if (isset($_SESSION['customer'])) { ?>
                     <p class="desc balance"><i class="fas fa-hand-holding-usd"></i> Balance
                         : £<?= $_SESSION['customer']['account_balance'] ?></p>
