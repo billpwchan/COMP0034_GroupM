@@ -35,7 +35,7 @@ $token = md5(uniqid(rand(), TRUE));
                 <span class="contact-form-title">Get in touch</span>
 
                 <div class="wrap-userInput validate-input" data-validate="Name is required">
-                    <input class="userInput" type="text" name="name" placeholder="Name">
+                    <input class="userInput" type="text" name="name" placeholder="Name" id="name">
                     <span class="focus-userInput"></span>
                     <span class="symbol-userInput">
 							<i class="fa fa-user" aria-hidden="true"></i>
@@ -46,7 +46,7 @@ $token = md5(uniqid(rand(), TRUE));
                 </div>
 
                 <div class="wrap-userInput validate-input" data-validate="Valid email is required: ex@abc.xyz">
-                    <input class="userInput" type="text" name="email" placeholder="Email">
+                    <input class="userInput" type="text" name="email" placeholder="Email" id="email">
                     <span class="focus-userInput"></span>
                     <span class="symbol-userInput">
 							<i class="fa fa-envelope" aria-hidden="true"></i>
@@ -57,7 +57,8 @@ $token = md5(uniqid(rand(), TRUE));
                 </div>
 
                 <div class="wrap-userInput validate-input" data-validate="Message is required">
-                    <textarea class="userInput" type="text" name="message" placeholder="Message"></textarea>
+                    <textarea class="userInput" type="text" name="message" placeholder="Message"
+                              id="message"></textarea>
                     <span class="focus-userInput"></span>
                     <span class="alert-validate">
                         <i class="fas fa-exclamation-triangle"></i>
@@ -65,7 +66,7 @@ $token = md5(uniqid(rand(), TRUE));
                 </div>
 
                 <div class="container-contact-form-btn">
-                    <button class="contact-form-btn">
+                    <button class="contact-form-btn" id="message-button">
                         Send
                     </button>
                 </div>
