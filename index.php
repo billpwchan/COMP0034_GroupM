@@ -6,7 +6,21 @@
  * Written by UberKidz <uberkidz@gmail.com>, 2019
  *
  */
+require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/dotenv-loader.php';
 
+use Auth0\SDK\API\Authentication;
+
+$domain = getenv('AUTH0_DOMAIN');
+$client_id = getenv('AUTH0_CLIENT_ID');
+$client_secret = getenv('AUTH0_CLIENT_SECRET');
+$redirect_uri = getenv('AUTH0_CALLBACK_URL');
+$auth0 = new Authentication($domain, $client_id);
+$auth0Oauth = $auth0->get_oauth_client($client_secret, $redirect_uri, [
+    'persist_id_token' => true,
+    'persist_refresh_token' => true,
+]);
+$userInfo = $auth0Oauth->getUser();
 ob_start();
 include("includes/config.php"); ?>
 <!doctype html>
@@ -62,7 +76,7 @@ include("includes/config.php"); ?>
 <div id="about" class="section md-padding">
 
     <div class="container">
-        <div class="row justify-content-md-center">
+        <div class="row justify-content-sm-center">
             <div class="section-header text-center">
                 <h2 class="title">Welcome to Website</h2>
             </div>
