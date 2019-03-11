@@ -80,7 +80,7 @@ describe('Test Login page', () => {
 
         const userEmail = await page.$eval("#user-email", el=>el.innerHTML);
         expect(userEmail).toBe(SERVICE_PROVIDER_EMAIL);
-        browser.close();
+        // browser.close();
     });
     test("Login Success Test (Customer)", async () => {
         await page.goto(url);
@@ -106,6 +106,6 @@ describe('Test Login page', () => {
 
         const userEmail = await page.$eval("#user-email", el=>el.innerHTML);
         expect(userEmail).toBe(CUSTOMER_EMAIL);
-        browser.close();
+        // browser.close();
     });
 })

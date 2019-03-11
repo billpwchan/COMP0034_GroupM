@@ -49,7 +49,7 @@ describe('Test UberKidz Contact Page', () => {
         const pageURL = await page.url();
         expect(pageURL).toContain("success");
 
-        const sa2 = await page.$eval(".swal2-shown", el => (el ? true : false));
+        const sa2 = await page.$eval("#swal2-content", el => (el ? true : false));
         expect(sa2).toBe(true);
 
         const sa2Content = await page.$eval("#swal2-content", el => el.innerHTML);
