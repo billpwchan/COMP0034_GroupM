@@ -237,7 +237,7 @@ class event
     {
         $db_handle = new dbController();
         $sql = "
-        SELECT event.event_ID, event.name, event.description, event.price, event.eventimage1, event.eventimage2, address, capacity, region
+        SELECT event.event_ID, event.name, event.description, event.price, event.eventimage1, event.eventimage2, address_line1, address_line2, post_code, capacity, region
         from event, venue
         WHERE event.event_ID = venue.event_ID
         AND event.event_type = 'venue'
@@ -348,7 +348,7 @@ class event
     {
         $db_handle = new dbController();
         $sql = "
-        SELECT event.event_ID, event.provider_ID, event.event_type, event.name, event.price, event.description, event.created, event.eventimage1, event.eventimage2, event.eventimage3, address, capacity, region
+        SELECT event.event_ID, event.provider_ID, event.event_type, event.name, event.price, event.description, event.created, event.eventimage1, event.eventimage2, event.eventimage3, venue.address_line1, venue.address_line2, venue.post_code, venue.capacity, venue.region
         FROM event, venue
         WHERE event.event_ID = venue.event_ID
         AND event.event_ID = ?
@@ -401,17 +401,19 @@ class event
      * @param $eventImage1
      * @param $eventImage2
      * @param $eventImage3
-     * @param $address
+     * @param $address1
+     * @param $address2
+     * @param $postcode
      * @param $capacity
      * @param $region
      * @return bool
      */
-    public function insertVenue($userID, $productType, $name, $price, $description, $created, $eventImage1, $eventImage2, $eventImage3, $address, $capacity, $region)
+    public function insertVenue($userID, $productType, $name, $price, $description, $created, $eventImage1, $eventImage2, $eventImage3, $address1, $address2, $postcode, $capacity, $region)
     {
         $db_handle = new dbController();
         $eventID = $this->insertEvent($userID, $productType, $name, $price, $description, $created, $eventImage1['name'], $eventImage2['name'], $eventImage3['name']);
-        $sql = "INSERT INTO venue (event_ID, address, capacity, region) VALUES (?,?,?,?)";
-        return $db_handle->db_insert($sql, 'isis', array($eventID, $address, $capacity, $region));
+        $sql = "INSERT INTO venue (event_ID, address_line1, address_line2, post_code, capacity, region) VALUES (?,?,?,?,?,?)";
+        return $db_handle->db_insert($sql, 'isis', array($eventID, $address1, $address2, $postcode, $capacity, $region));
     }
 
     /**

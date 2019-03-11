@@ -210,7 +210,7 @@
                                     <label for="" class="col-sm-2 col-form-label">Service Type</label>
                                     <div class="col-sm-5">
                                         <select class="selectpicker" id="event_type" name="event_type" required>
-                                            <option value="default">--------</option>
+                                            <option value="default">---- Select service type ----</option>
                                             <option value="venue">Venue</option>
                                             <option value="entertainment">Entertainment</option>
                                             <option value="menu">Menu</option>
@@ -226,7 +226,7 @@
                                 <div class="form-group row">
                                     <label for="" class="col-sm-2 col-form-label">Price: </label>
                                     <div class="col-sm-5">
-                                        <input class="form-control" name="price" placeholder="Price" id="service_price" type="number" min="1" max="5000" step="10">
+                                        <input class="form-control" name="price" placeholder="Price" id="service_price" type="number" min="1" max="5000" step="0.01">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -237,7 +237,7 @@
                                 </div>
                                 <div class="form-group row">
                                     <label for=""
-                                           class="col-sm-2 col-form-label">Created: </label>
+                                           class="col-sm-2 col-form-label">Created on: </label>
                                     <div class="col-sm-6">
                                         <input type="text" readonly class="form-control-plaintext"
                                                value="<?= date('Y-m-d', $_SERVER['REQUEST_TIME']) ?>">

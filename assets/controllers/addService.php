@@ -43,7 +43,7 @@ switch (strtolower($productType)) {
     case 'menu':
         $duration = $_POST['duration'];
         $menuItems = $_POST['menuItems'];
-        $event->insertMenu($userID, 'entertainment', $name, $price, $description, $created, $eventImage1, $eventImage2, $eventImage3, $duration, $menuItems);
+        $event->insertMenu($userID, 'menu', $name, $price, $description, $created, $eventImage1, $eventImage2, $eventImage3, $duration, $menuItems);
         break;
 }
 header("location:../../myAccount.php");

@@ -120,6 +120,7 @@ $('#event_type').on('change', function () {
         case "venue":
             $(".venue-only").attr("style", "");
             $(".menu-only, .entertainment-only").attr("style", "display:none");
+
             break;
         case "menu":
             $(".menu-only").attr("style", "");
@@ -137,6 +138,8 @@ $('#event_type').on('change', function () {
 });
 
 function getMenuItems() {
+    $('#menuItems').empty()
+                   .append($("<option></option>").text("---- Select menu item(s) ----"));
     $.getJSON("assets/controllers/getProvidedServices.php?methodID=1", function (data) {
         $.each(data, function (i, val) {
             $("#menuItems").append($("<option></option>")
@@ -147,9 +150,10 @@ function getMenuItems() {
 }
 
 function getEntertainers() {
+    $('#entertainers').empty()
+                      .append($("<option></option>").text("---- Select entertainer(s) ----"));
     $.getJSON("assets/controllers/getProvidedServices.php?methodID=2", function (data) {
         $.each(data, function (i, val) {
-            console.log(val);
             $("#entertainers").append($("<option></option>")
                 .attr("value", val['entertainer_ID'])
                 .text("Name: " + val['name'] + " Skill: " + val['skill']));
@@ -194,6 +198,10 @@ function submit_form() {
     var selected_service = drop_down_list.options[drop_down_list.selectedIndex].text;
 
     // -------- General Information --------
+    if ($("#event_type option:selected").index() === 0){
+        showAlert("Event type not specified", "Please select the type of your new service");
+        submit = false;
+    }
     if (validate_service_name(document.getElementById("service_name")) === false){
          submit = false;
      }
@@ -279,8 +287,13 @@ function validate_description(description) {
 }
 
 function validate_address(address) {
+    const aSpecial = /[!|@|#|$|%|^|&|*|(|)|_]/;
     if (address.value.trim() === "") {
         showAlert("Blank address", "Please enter the first line of address of your new venue.");
+        return false;
+    }
+    if (address.value.search(aSpecial) !== -1) {
+        showAlert("Invalid address", "Please do not include special characters in the address");
         return false;
     }
 }
@@ -309,8 +322,13 @@ function validate_capacity(capacity) {
 }
 
 function validate_region(region) {
+    const aSpecial = /[!|@|#|$|%|^|&|*|(|)|_]/;
     if (region.value.trim() === "") {
         showAlert("Blank region", "Please enter which region your new venue is located at.");
+        return false;
+    }
+    if (region.value.search(aSpecial) !== -1) {
+        showAlert("Invalid region", "Please do not include special characters.");
         return false;
     }
 }
