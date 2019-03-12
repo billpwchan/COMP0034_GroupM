@@ -297,7 +297,7 @@
                                 <div class="form-group row menu-only">
                                     <label for="" class="col-sm-2 col-form-label">Duration: </label>
                                     <div class="col-sm-5">
-                                        <input class="form-control" type="number" name="duration" min="1" max="24" id="menu_duration" placeholder="Duration">
+                                        <input class="form-control" type="number" name="menu_duration" min="1" max="24" id="menu_duration" placeholder="Duration">
                                     </div>
                                     <div class="col-sm-1 col-form-label"> hour(s) </div>
                                 </div>
@@ -312,7 +312,7 @@
                                 <div class="form-group row entertainment-only">
                                     <label for="" class="col-sm-2 col-form-label">Duration: </label>
                                     <div class="col-sm-5">
-                                        <input class="form-control" type="number" name="duration" min="1" max="24" id="entertainment_duration" placeholder="Duration">
+                                        <input class="form-control" type="number" name="entertainment_duration" min="1" max="24" id="entertainment_duration" placeholder="Duration">
                                     </div>
                                     <div class="col-sm-1 col-form-label"> hour(s) </div>
                                 </div>

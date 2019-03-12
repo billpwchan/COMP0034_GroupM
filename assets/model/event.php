@@ -411,9 +411,9 @@ class event
     public function insertVenue($userID, $productType, $name, $price, $description, $created, $eventImage1, $eventImage2, $eventImage3, $address1, $address2, $postcode, $capacity, $region)
     {
         $db_handle = new dbController();
-        $eventID = $this->insertEvent($userID, $productType, $name, $price, $description, $created, $eventImage1['name'], $eventImage2['name'], $eventImage3['name']);
+        $eventID = $this->insertEvent($userID, $productType, $name, $price, $description, $created, $eventImage1, $eventImage2, $eventImage3);
         $sql = "INSERT INTO venue (event_ID, address_line1, address_line2, post_code, capacity, region) VALUES (?,?,?,?,?,?)";
-        return $db_handle->db_insert($sql, 'isis', array($eventID, $address1, $address2, $postcode, $capacity, $region));
+        return $db_handle->db_insert($sql, 'isssis', array($eventID, $address1, $address2, $postcode, $capacity, $region));
     }
 
     /**
