@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer');
 const HEADLESS = true;
 const CUSTOMER_EMAIL = 'newacc@mailinator.com';
-const CUSTOMER_PASSWORD = '1234567890Aa*';
+const CUSTOMER_PASSWORD = '12345678Aa*';
 
 describe('Test UberKidz Venue', () => {
     jest.setTimeout(30000);

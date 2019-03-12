@@ -2,7 +2,7 @@ const puppeteer = require('puppeteer');
 const HEADLESS = true;
 describe('Test UberKidz Home Page', () => {
 	var browser, page;
-	var url = 'http://localhost/index.php'
+    var url = 'http://localhost/index.php';
 	let width = 1920;
 	let height = 1080;
 	beforeEach(async () => {
@@ -33,6 +33,6 @@ describe('Test UberKidz Home Page', () => {
 
 		const title = await page.title();
 		expect(title).toBe("Login");
-	
-	})
+
+    });
 })

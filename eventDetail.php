@@ -102,7 +102,7 @@
                         case 'venue': ?>
                             <span>Location</span>
                             <iframe width="600" height="450" frameborder="0" style="border:0"
-                                    src="https://www.google.com/maps/embed/v1/search?q=<?= htmlentities($productDetails['address']) ?>&key=AIzaSyAp_ixDe7lUnJhtKJSp6mgByno7jzC7P04"
+                                    src="https://www.google.com/maps/embed/v1/search?q=<?= htmlentities($productDetails['post_code']) ?>&key=AIzaSyAp_ixDe7lUnJhtKJSp6mgByno7jzC7P04"
                                     allowfullscreen></iframe>
                             <?php break;
                     } ?>
