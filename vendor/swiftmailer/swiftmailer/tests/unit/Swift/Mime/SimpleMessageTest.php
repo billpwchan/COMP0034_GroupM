@@ -13,10 +13,10 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
     {
         $message = $this->createMessage($this->createHeaderSet(),
             $this->createEncoder(), $this->createCache()
-        );
+            );
         $this->assertEquals(
             Swift_Mime_SimpleMimeEntity::LEVEL_TOP, $message->getNestingLevel()
-        );
+            );
     }
 
     public function testDateIsReturnedFromHeader()
@@ -27,7 +27,7 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
         $message = $this->createMessage(
             $this->createHeaderSet(['Date' => $date]),
             $this->createEncoder(), $this->createCache()
-        );
+            );
         $this->assertEquals($dateTime, $message->getDate());
     }
 
@@ -37,15 +37,15 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
 
         $date = $this->createHeader('Date', new DateTimeImmutable(), [], false);
         $date->shouldReceive('setFieldBodyModel')
-            ->once()
-            ->with($dateTime);
+             ->once()
+             ->with($dateTime);
         $date->shouldReceive('setFieldBodyModel')
-            ->zeroOrMoreTimes();
+             ->zeroOrMoreTimes();
 
         $message = $this->createMessage(
             $this->createHeaderSet(['Date' => $date]),
             $this->createEncoder(), $this->createCache()
-        );
+            );
         $message->setDate($dateTime);
     }
 
@@ -55,14 +55,14 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
 
         $headers = $this->createHeaderSet([], false);
         $headers->shouldReceive('addDateHeader')
-            ->once()
-            ->with('Date', $dateTime);
+                ->once()
+                ->with('Date', $dateTime);
         $headers->shouldReceive('addDateHeader')
-            ->zeroOrMoreTimes();
+                ->zeroOrMoreTimes();
 
         $message = $this->createMessage($headers, $this->createEncoder(),
             $this->createCache()
-        );
+            );
         $message->setDate($dateTime);
     }
 
@@ -70,12 +70,12 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
     {
         $headers = $this->createHeaderSet([], false);
         $headers->shouldReceive('addDateHeader')
-            ->once()
-            ->with('Date', Mockery::type('DateTimeImmutable'));
+                ->once()
+                ->with('Date', Mockery::type('DateTimeImmutable'));
 
         $message = $this->createMessage($headers, $this->createEncoder(),
             $this->createCache()
-        );
+            );
     }
 
     public function testIdIsReturnedFromHeader()
@@ -91,7 +91,7 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
         $message = $this->createMessage(
             $this->createHeaderSet(['Message-ID' => $messageId]),
             $this->createEncoder(), $this->createCache()
-        );
+            );
         $this->assertEquals('a@b', $message->getId());
     }
 
@@ -99,15 +99,15 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
     {
         $messageId = $this->createHeader('Message-ID', 'a@b', [], false);
         $messageId->shouldReceive('setFieldBodyModel')
-            ->once()
-            ->with('x@y');
+                  ->once()
+                  ->with('x@y');
         $messageId->shouldReceive('setFieldBodyModel')
-            ->zeroOrMoreTimes();
+                  ->zeroOrMoreTimes();
 
         $message = $this->createMessage(
             $this->createHeaderSet(['Message-ID' => $messageId]),
             $this->createEncoder(), $this->createCache()
-        );
+            );
         $message->setId('x@y');
     }
 
@@ -115,12 +115,12 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
     {
         $headers = $this->createHeaderSet([], false);
         $headers->shouldReceive('addIdHeader')
-            ->once()
-            ->with('Message-ID', '/^.*?@.*?$/D');
+                ->once()
+                ->with('Message-ID', '/^.*?@.*?$/D');
 
         $message = $this->createMessage($headers, $this->createEncoder(),
             $this->createCache()
-        );
+            );
     }
 
     public function testSubjectIsReturnedFromHeader()
@@ -132,7 +132,7 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
         $message = $this->createMessage(
             $this->createHeaderSet(['Subject' => $subject]),
             $this->createEncoder(), $this->createCache()
-        );
+            );
         $this->assertEquals('example subject', $message->getSubject());
     }
 
@@ -140,13 +140,13 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
     {
         $subject = $this->createHeader('Subject', '', [], false);
         $subject->shouldReceive('setFieldBodyModel')
-            ->once()
-            ->with('foo');
+                ->once()
+                ->with('foo');
 
         $message = $this->createMessage(
             $this->createHeaderSet(['Subject' => $subject]),
             $this->createEncoder(), $this->createCache()
-        );
+            );
         $message->setSubject('foo');
     }
 
@@ -154,14 +154,14 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
     {
         $headers = $this->createHeaderSet([], false);
         $headers->shouldReceive('addTextHeader')
-            ->once()
-            ->with('Subject', 'example subject');
+                ->once()
+                ->with('Subject', 'example subject');
         $headers->shouldReceive('addTextHeader')
-            ->zeroOrMoreTimes();
+                ->zeroOrMoreTimes();
 
         $message = $this->createMessage($headers, $this->createEncoder(),
             $this->createCache()
-        );
+            );
         $message->setSubject('example subject');
     }
 
@@ -174,7 +174,7 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
         $message = $this->createMessage(
             $this->createHeaderSet(['Return-Path' => $path]),
             $this->createEncoder(), $this->createCache()
-        );
+            );
         $this->assertEquals('bounces@domain', $message->getReturnPath());
     }
 
@@ -182,13 +182,13 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
     {
         $path = $this->createHeader('Return-Path', '', [], false);
         $path->shouldReceive('setFieldBodyModel')
-            ->once()
-            ->with('bounces@domain');
+             ->once()
+             ->with('bounces@domain');
 
         $message = $this->createMessage(
             $this->createHeaderSet(['Return-Path' => $path]),
             $this->createEncoder(), $this->createCache()
-        );
+            );
         $message->setReturnPath('bounces@domain');
     }
 
@@ -196,12 +196,12 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
     {
         $headers = $this->createHeaderSet([], false);
         $headers->shouldReceive('addPathHeader')
-            ->once()
-            ->with('Return-Path', 'bounces@domain');
+                ->once()
+                ->with('Return-Path', 'bounces@domain');
 
         $message = $this->createMessage($headers, $this->createEncoder(),
             $this->createCache()
-        );
+            );
         $message->setReturnPath('bounces@domain');
     }
 
@@ -214,7 +214,7 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
         $message = $this->createMessage(
             $this->createHeaderSet(['Sender' => $sender]),
             $this->createEncoder(), $this->createCache()
-        );
+            );
         $this->assertEquals(['sender@domain' => 'Name'], $message->getSender());
     }
 
@@ -222,15 +222,15 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
     {
         $sender = $this->createHeader('Sender', ['sender@domain' => 'Name'],
             [], false
-        );
+            );
         $sender->shouldReceive('setFieldBodyModel')
-            ->once()
-            ->with(['other@domain' => 'Other']);
+               ->once()
+               ->with(['other@domain' => 'Other']);
 
         $message = $this->createMessage(
             $this->createHeaderSet(['Sender' => $sender]),
             $this->createEncoder(), $this->createCache()
-        );
+            );
         $message->setSender(['other@domain' => 'Other']);
     }
 
@@ -238,14 +238,14 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
     {
         $headers = $this->createHeaderSet([], false);
         $headers->shouldReceive('addMailboxHeader')
-            ->once()
-            ->with('Sender', (array)'sender@domain');
+                ->once()
+                ->with('Sender', (array) 'sender@domain');
         $headers->shouldReceive('addMailboxHeader')
-            ->zeroOrMoreTimes();
+                ->zeroOrMoreTimes();
 
         $message = $this->createMessage($headers, $this->createEncoder(),
             $this->createCache()
-        );
+            );
         $message->setSender('sender@domain');
     }
 
@@ -253,14 +253,14 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
     {
         $headers = $this->createHeaderSet([], false);
         $headers->shouldReceive('addMailboxHeader')
-            ->once()
-            ->with('Sender', ['sender@domain' => 'Name']);
+                ->once()
+                ->with('Sender', ['sender@domain' => 'Name']);
         $headers->shouldReceive('addMailboxHeader')
-            ->zeroOrMoreTimes();
+                ->zeroOrMoreTimes();
 
         $message = $this->createMessage($headers, $this->createEncoder(),
             $this->createCache()
-        );
+            );
         $message->setSender('sender@domain', 'Name');
     }
 
@@ -273,7 +273,7 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
         $message = $this->createMessage(
             $this->createHeaderSet(['From' => $from]),
             $this->createEncoder(), $this->createCache()
-        );
+            );
         $this->assertEquals(['from@domain' => 'Name'], $message->getFrom());
     }
 
@@ -281,15 +281,15 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
     {
         $from = $this->createHeader('From', ['from@domain' => 'Name'],
             [], false
-        );
+            );
         $from->shouldReceive('setFieldBodyModel')
-            ->once()
-            ->with(['other@domain' => 'Other']);
+             ->once()
+             ->with(['other@domain' => 'Other']);
 
         $message = $this->createMessage(
             $this->createHeaderSet(['From' => $from]),
             $this->createEncoder(), $this->createCache()
-        );
+            );
         $message->setFrom(['other@domain' => 'Other']);
     }
 
@@ -297,15 +297,15 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
     {
         $from = $this->createHeader('From', ['from@domain' => 'Name'],
             [], false
-        );
+            );
         $from->shouldReceive('setFieldBodyModel')
-            ->once()
-            ->with(['from@domain' => 'Name', 'other@domain' => 'Other']);
+             ->once()
+             ->with(['from@domain' => 'Name', 'other@domain' => 'Other']);
 
         $message = $this->createMessage(
             $this->createHeaderSet(['From' => $from]),
             $this->createEncoder(), $this->createCache()
-        );
+            );
         $message->addFrom('other@domain', 'Other');
     }
 
@@ -313,14 +313,14 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
     {
         $headers = $this->createHeaderSet([], false);
         $headers->shouldReceive('addMailboxHeader')
-            ->once()
-            ->with('From', (array)'from@domain');
+                ->once()
+                ->with('From', (array) 'from@domain');
         $headers->shouldReceive('addMailboxHeader')
-            ->zeroOrMoreTimes();
+                ->zeroOrMoreTimes();
 
         $message = $this->createMessage($headers, $this->createEncoder(),
             $this->createCache()
-        );
+            );
         $message->setFrom('from@domain');
     }
 
@@ -328,14 +328,14 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
     {
         $headers = $this->createHeaderSet([], false);
         $headers->shouldReceive('addMailboxHeader')
-            ->once()
-            ->with('From', ['from@domain' => 'Name']);
+                ->once()
+                ->with('From', ['from@domain' => 'Name']);
         $headers->shouldReceive('addMailboxHeader')
-            ->zeroOrMoreTimes();
+                ->zeroOrMoreTimes();
 
         $message = $this->createMessage($headers, $this->createEncoder(),
             $this->createCache()
-        );
+            );
         $message->setFrom('from@domain', 'Name');
     }
 
@@ -348,7 +348,7 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
         $message = $this->createMessage(
             $this->createHeaderSet(['Reply-To' => $reply]),
             $this->createEncoder(), $this->createCache()
-        );
+            );
         $this->assertEquals(['reply@domain' => 'Name'], $message->getReplyTo());
     }
 
@@ -356,15 +356,15 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
     {
         $reply = $this->createHeader('Reply-To', ['reply@domain' => 'Name'],
             [], false
-        );
+            );
         $reply->shouldReceive('setFieldBodyModel')
-            ->once()
-            ->with(['other@domain' => 'Other']);
+              ->once()
+              ->with(['other@domain' => 'Other']);
 
         $message = $this->createMessage(
             $this->createHeaderSet(['Reply-To' => $reply]),
             $this->createEncoder(), $this->createCache()
-        );
+            );
         $message->setReplyTo(['other@domain' => 'Other']);
     }
 
@@ -372,15 +372,15 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
     {
         $replyTo = $this->createHeader('Reply-To', ['from@domain' => 'Name'],
             [], false
-        );
+            );
         $replyTo->shouldReceive('setFieldBodyModel')
-            ->once()
-            ->with(['from@domain' => 'Name', 'other@domain' => 'Other']);
+                ->once()
+                ->with(['from@domain' => 'Name', 'other@domain' => 'Other']);
 
         $message = $this->createMessage(
             $this->createHeaderSet(['Reply-To' => $replyTo]),
             $this->createEncoder(), $this->createCache()
-        );
+            );
         $message->addReplyTo('other@domain', 'Other');
     }
 
@@ -388,14 +388,14 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
     {
         $headers = $this->createHeaderSet([], false);
         $headers->shouldReceive('addMailboxHeader')
-            ->once()
-            ->with('Reply-To', (array)'reply@domain');
+                ->once()
+                ->with('Reply-To', (array) 'reply@domain');
         $headers->shouldReceive('addMailboxHeader')
-            ->zeroOrMoreTimes();
+                ->zeroOrMoreTimes();
 
         $message = $this->createMessage($headers, $this->createEncoder(),
             $this->createCache()
-        );
+            );
         $message->setReplyTo('reply@domain');
     }
 
@@ -403,14 +403,14 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
     {
         $headers = $this->createHeaderSet([], false);
         $headers->shouldReceive('addMailboxHeader')
-            ->once()
-            ->with('Reply-To', ['reply@domain' => 'Name']);
+                ->once()
+                ->with('Reply-To', ['reply@domain' => 'Name']);
         $headers->shouldReceive('addMailboxHeader')
-            ->zeroOrMoreTimes();
+                ->zeroOrMoreTimes();
 
         $message = $this->createMessage($headers, $this->createEncoder(),
             $this->createCache()
-        );
+            );
         $message->setReplyTo('reply@domain', 'Name');
     }
 
@@ -423,7 +423,7 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
         $message = $this->createMessage(
             $this->createHeaderSet(['To' => $to]),
             $this->createEncoder(), $this->createCache()
-        );
+            );
         $this->assertEquals(['to@domain' => 'Name'], $message->getTo());
     }
 
@@ -431,15 +431,15 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
     {
         $to = $this->createHeader('To', ['to@domain' => 'Name'],
             [], false
-        );
+            );
         $to->shouldReceive('setFieldBodyModel')
-            ->once()
-            ->with(['other@domain' => 'Other']);
+           ->once()
+           ->with(['other@domain' => 'Other']);
 
         $message = $this->createMessage(
             $this->createHeaderSet(['To' => $to]),
             $this->createEncoder(), $this->createCache()
-        );
+            );
         $message->setTo(['other@domain' => 'Other']);
     }
 
@@ -447,15 +447,15 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
     {
         $to = $this->createHeader('To', ['from@domain' => 'Name'],
             [], false
-        );
+            );
         $to->shouldReceive('setFieldBodyModel')
-            ->once()
-            ->with(['from@domain' => 'Name', 'other@domain' => 'Other']);
+           ->once()
+           ->with(['from@domain' => 'Name', 'other@domain' => 'Other']);
 
         $message = $this->createMessage(
             $this->createHeaderSet(['To' => $to]),
             $this->createEncoder(), $this->createCache()
-        );
+            );
         $message->addTo('other@domain', 'Other');
     }
 
@@ -463,14 +463,14 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
     {
         $headers = $this->createHeaderSet([], false);
         $headers->shouldReceive('addMailboxHeader')
-            ->once()
-            ->with('To', (array)'to@domain');
+                ->once()
+                ->with('To', (array) 'to@domain');
         $headers->shouldReceive('addMailboxHeader')
-            ->zeroOrMoreTimes();
+                ->zeroOrMoreTimes();
 
         $message = $this->createMessage($headers, $this->createEncoder(),
             $this->createCache()
-        );
+            );
         $message->setTo('to@domain');
     }
 
@@ -478,14 +478,14 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
     {
         $headers = $this->createHeaderSet([], false);
         $headers->shouldReceive('addMailboxHeader')
-            ->once()
-            ->with('To', ['to@domain' => 'Name']);
+                ->once()
+                ->with('To', ['to@domain' => 'Name']);
         $headers->shouldReceive('addMailboxHeader')
-            ->zeroOrMoreTimes();
+                ->zeroOrMoreTimes();
 
         $message = $this->createMessage($headers, $this->createEncoder(),
             $this->createCache()
-        );
+            );
         $message->setTo('to@domain', 'Name');
     }
 
@@ -498,7 +498,7 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
         $message = $this->createMessage(
             $this->createHeaderSet(['Cc' => $cc]),
             $this->createEncoder(), $this->createCache()
-        );
+            );
         $this->assertEquals(['cc@domain' => 'Name'], $message->getCc());
     }
 
@@ -506,15 +506,15 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
     {
         $cc = $this->createHeader('Cc', ['cc@domain' => 'Name'],
             [], false
-        );
+            );
         $cc->shouldReceive('setFieldBodyModel')
-            ->once()
-            ->with(['other@domain' => 'Other']);
+           ->once()
+           ->with(['other@domain' => 'Other']);
 
         $message = $this->createMessage(
             $this->createHeaderSet(['Cc' => $cc]),
             $this->createEncoder(), $this->createCache()
-        );
+            );
         $message->setCc(['other@domain' => 'Other']);
     }
 
@@ -522,15 +522,15 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
     {
         $cc = $this->createHeader('Cc', ['from@domain' => 'Name'],
             [], false
-        );
+            );
         $cc->shouldReceive('setFieldBodyModel')
-            ->once()
-            ->with(['from@domain' => 'Name', 'other@domain' => 'Other']);
+           ->once()
+           ->with(['from@domain' => 'Name', 'other@domain' => 'Other']);
 
         $message = $this->createMessage(
             $this->createHeaderSet(['Cc' => $cc]),
             $this->createEncoder(), $this->createCache()
-        );
+            );
         $message->addCc('other@domain', 'Other');
     }
 
@@ -538,14 +538,14 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
     {
         $headers = $this->createHeaderSet([], false);
         $headers->shouldReceive('addMailboxHeader')
-            ->once()
-            ->with('Cc', (array)'cc@domain');
+                ->once()
+                ->with('Cc', (array) 'cc@domain');
         $headers->shouldReceive('addMailboxHeader')
-            ->zeroOrMoreTimes();
+                ->zeroOrMoreTimes();
 
         $message = $this->createMessage($headers, $this->createEncoder(),
             $this->createCache()
-        );
+            );
         $message->setCc('cc@domain');
     }
 
@@ -553,14 +553,14 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
     {
         $headers = $this->createHeaderSet([], false);
         $headers->shouldReceive('addMailboxHeader')
-            ->once()
-            ->with('Cc', ['cc@domain' => 'Name']);
+                ->once()
+                ->with('Cc', ['cc@domain' => 'Name']);
         $headers->shouldReceive('addMailboxHeader')
-            ->zeroOrMoreTimes();
+                ->zeroOrMoreTimes();
 
         $message = $this->createMessage($headers, $this->createEncoder(),
             $this->createCache()
-        );
+            );
         $message->setCc('cc@domain', 'Name');
     }
 
@@ -573,7 +573,7 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
         $message = $this->createMessage(
             $this->createHeaderSet(['Bcc' => $bcc]),
             $this->createEncoder(), $this->createCache()
-        );
+            );
         $this->assertEquals(['bcc@domain' => 'Name'], $message->getBcc());
     }
 
@@ -581,7 +581,7 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
     {
         $bcc = $this->createHeader('Bcc', ['bcc@domain' => 'Name'],
             [], false
-        );
+            );
         $bcc->shouldReceive('setFieldBodyModel')
             ->once()
             ->with(['other@domain' => 'Other']);
@@ -589,7 +589,7 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
         $message = $this->createMessage(
             $this->createHeaderSet(['Bcc' => $bcc]),
             $this->createEncoder(), $this->createCache()
-        );
+            );
         $message->setBcc(['other@domain' => 'Other']);
     }
 
@@ -597,7 +597,7 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
     {
         $bcc = $this->createHeader('Bcc', ['from@domain' => 'Name'],
             [], false
-        );
+            );
         $bcc->shouldReceive('setFieldBodyModel')
             ->once()
             ->with(['from@domain' => 'Name', 'other@domain' => 'Other']);
@@ -605,7 +605,7 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
         $message = $this->createMessage(
             $this->createHeaderSet(['Bcc' => $bcc]),
             $this->createEncoder(), $this->createCache()
-        );
+            );
         $message->addBcc('other@domain', 'Other');
     }
 
@@ -613,14 +613,14 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
     {
         $headers = $this->createHeaderSet([], false);
         $headers->shouldReceive('addMailboxHeader')
-            ->once()
-            ->with('Bcc', (array)'bcc@domain');
+                ->once()
+                ->with('Bcc', (array) 'bcc@domain');
         $headers->shouldReceive('addMailboxHeader')
-            ->zeroOrMoreTimes();
+                ->zeroOrMoreTimes();
 
         $message = $this->createMessage($headers, $this->createEncoder(),
             $this->createCache()
-        );
+            );
         $message->setBcc('bcc@domain');
     }
 
@@ -628,14 +628,14 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
     {
         $headers = $this->createHeaderSet([], false);
         $headers->shouldReceive('addMailboxHeader')
-            ->once()
-            ->with('Bcc', ['bcc@domain' => 'Name']);
+                ->once()
+                ->with('Bcc', ['bcc@domain' => 'Name']);
         $headers->shouldReceive('addMailboxHeader')
-            ->zeroOrMoreTimes();
+                ->zeroOrMoreTimes();
 
         $message = $this->createMessage($headers, $this->createEncoder(),
             $this->createCache()
-        );
+            );
         $message->setBcc('bcc@domain', 'Name');
     }
 
@@ -645,7 +645,7 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
         $message = $this->createMessage(
             $this->createHeaderSet(['X-Priority' => $prio]),
             $this->createEncoder(), $this->createCache()
-        );
+            );
         $this->assertEquals(2, $message->getPriority());
     }
 
@@ -653,13 +653,13 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
     {
         $prio = $this->createHeader('X-Priority', '2 (High)', [], false);
         $prio->shouldReceive('setFieldBodyModel')
-            ->once()
-            ->with('5 (Lowest)');
+             ->once()
+             ->with('5 (Lowest)');
 
         $message = $this->createMessage(
             $this->createHeaderSet(['X-Priority' => $prio]),
             $this->createEncoder(), $this->createCache()
-        );
+            );
         $message->setPriority($message::PRIORITY_LOWEST);
     }
 
@@ -667,14 +667,14 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
     {
         $headers = $this->createHeaderSet([], false);
         $headers->shouldReceive('addTextHeader')
-            ->once()
-            ->with('X-Priority', '4 (Low)');
+                ->once()
+                ->with('X-Priority', '4 (Low)');
         $headers->shouldReceive('addTextHeader')
-            ->zeroOrMoreTimes();
+                ->zeroOrMoreTimes();
 
         $message = $this->createMessage($headers, $this->createEncoder(),
             $this->createCache()
-        );
+            );
         $message->setPriority($message::PRIORITY_LOW);
     }
 
@@ -682,27 +682,27 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
     {
         $rcpt = $this->createHeader('Disposition-Notification-To',
             ['chris@swiftmailer.org' => 'Chris']
-        );
+            );
         $message = $this->createMessage(
             $this->createHeaderSet(['Disposition-Notification-To' => $rcpt]),
             $this->createEncoder(), $this->createCache()
-        );
+            );
         $this->assertEquals(['chris@swiftmailer.org' => 'Chris'],
             $message->getReadReceiptTo()
-        );
+            );
     }
 
     public function testReadReceiptIsSetInHeader()
     {
         $rcpt = $this->createHeader('Disposition-Notification-To', [], [], false);
         $rcpt->shouldReceive('setFieldBodyModel')
-            ->once()
-            ->with('mark@swiftmailer.org');
+             ->once()
+             ->with('mark@swiftmailer.org');
 
         $message = $this->createMessage(
             $this->createHeaderSet(['Disposition-Notification-To' => $rcpt]),
             $this->createEncoder(), $this->createCache()
-        );
+            );
         $message->setReadReceiptTo('mark@swiftmailer.org');
     }
 
@@ -710,14 +710,14 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
     {
         $headers = $this->createHeaderSet([], false);
         $headers->shouldReceive('addMailboxHeader')
-            ->once()
-            ->with('Disposition-Notification-To', 'mark@swiftmailer.org');
+                ->once()
+                ->with('Disposition-Notification-To', 'mark@swiftmailer.org');
         $headers->shouldReceive('addMailboxHeader')
-            ->zeroOrMoreTimes();
+                ->zeroOrMoreTimes();
 
         $message = $this->createMessage($headers, $this->createEncoder(),
             $this->createCache()
-        );
+            );
         $message->setReadReceiptTo('mark@swiftmailer.org');
     }
 
@@ -728,7 +728,7 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
 
         $message = $this->createMessage($this->createHeaderSet(),
             $this->createEncoder(), $this->createCache()
-        );
+            );
 
         $message->attach($child1);
         $message->attach($child2);
@@ -743,7 +743,7 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
 
         $message = $this->createMessage($this->createHeaderSet(),
             $this->createEncoder(), $this->createCache()
-        );
+            );
 
         $message->attach($child1);
         $message->attach($child2);
@@ -759,7 +759,7 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
 
         $message = $this->createMessage($this->createHeaderSet(),
             $this->createEncoder(), $this->createCache()
-        );
+            );
 
         $message->embed($child);
 
@@ -770,14 +770,14 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
     {
         $child = $this->createChild(Swift_Mime_SimpleMimeEntity::LEVEL_RELATED, '',
             false
-        );
+            );
         $child->shouldReceive('getId')
-            ->zeroOrMoreTimes()
-            ->andReturn('foo@bar');
+              ->zeroOrMoreTimes()
+              ->andReturn('foo@bar');
 
         $message = $this->createMessage($this->createHeaderSet(),
             $this->createEncoder(), $this->createCache()
-        );
+            );
 
         $this->assertEquals('cid:foo@bar', $message->embed($child));
     }
@@ -787,34 +787,34 @@ class Swift_Mime_SimpleMessageTest extends Swift_Mime_MimePartTest
         $child = $this->createChild();
         $message = $this->createMessage($this->createHeaderSet(),
             $this->createEncoder(), $this->createCache()
-        );
+            );
         $this->assertSame($message,
             $message
-                ->setContentType('text/plain')
-                ->setEncoder($this->createEncoder())
-                ->setId('foo@bar')
-                ->setDescription('my description')
-                ->setMaxLineLength(998)
-                ->setBody('xx')
-                ->setBoundary('xyz')
-                ->setChildren([])
-                ->setCharset('iso-8859-1')
-                ->setFormat('flowed')
-                ->setDelSp(false)
-                ->setSubject('subj')
-                ->setDate(new DateTimeImmutable())
-                ->setReturnPath('foo@bar')
-                ->setSender('foo@bar')
-                ->setFrom(['x@y' => 'XY'])
-                ->setReplyTo(['ab@cd' => 'ABCD'])
-                ->setTo(['chris@site.tld', 'mark@site.tld'])
-                ->setCc('john@somewhere.tld')
-                ->setBcc(['one@site', 'two@site' => 'Two'])
-                ->setPriority($message::PRIORITY_LOW)
-                ->setReadReceiptTo('a@b')
-                ->attach($child)
-                ->detach($child)
-        );
+            ->setContentType('text/plain')
+            ->setEncoder($this->createEncoder())
+            ->setId('foo@bar')
+            ->setDescription('my description')
+            ->setMaxLineLength(998)
+            ->setBody('xx')
+            ->setBoundary('xyz')
+            ->setChildren([])
+            ->setCharset('iso-8859-1')
+            ->setFormat('flowed')
+            ->setDelSp(false)
+            ->setSubject('subj')
+            ->setDate(new DateTimeImmutable())
+            ->setReturnPath('foo@bar')
+            ->setSender('foo@bar')
+            ->setFrom(['x@y' => 'XY'])
+            ->setReplyTo(['ab@cd' => 'ABCD'])
+            ->setTo(['chris@site.tld', 'mark@site.tld'])
+            ->setCc('john@somewhere.tld')
+            ->setBcc(['one@site', 'two@site' => 'Two'])
+            ->setPriority($message::PRIORITY_LOW)
+            ->setReadReceiptTo('a@b')
+            ->attach($child)
+            ->detach($child)
+            );
     }
 
     //abstract

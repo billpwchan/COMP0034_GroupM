@@ -130,7 +130,7 @@ class Swift_Mime_Headers_PathHeader extends Swift_Mime_Headers_AbstractHeader
         if (!$this->getCachedValue()) {
             if (isset($this->address)) {
                 $address = $this->addressEncoder->encodeString($this->address);
-                $this->setCachedValue('<' . $address . '>');
+                $this->setCachedValue('<'.$address.'>');
             }
         }
 

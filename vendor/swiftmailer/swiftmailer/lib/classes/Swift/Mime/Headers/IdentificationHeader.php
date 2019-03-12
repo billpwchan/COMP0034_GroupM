@@ -161,7 +161,7 @@ class Swift_Mime_Headers_IdentificationHeader extends Swift_Mime_Headers_Abstrac
             $angleAddrs = [];
 
             foreach ($this->ids as $id) {
-                $angleAddrs[] = '<' . $this->addressEncoder->encodeString($id) . '>';
+                $angleAddrs[] = '<'.$this->addressEncoder->encodeString($id).'>';
             }
 
             $this->setCachedValue(implode(' ', $angleAddrs));
@@ -180,7 +180,7 @@ class Swift_Mime_Headers_IdentificationHeader extends Swift_Mime_Headers_Abstrac
     private function assertValidId($id)
     {
         if (!$this->emailValidator->isValid($id, new RFCValidation())) {
-            throw new Swift_RfcComplianceException('Invalid ID given <' . $id . '>');
+            throw new Swift_RfcComplianceException('Invalid ID given <'.$id.'>');
         }
     }
 }

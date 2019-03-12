@@ -68,23 +68,23 @@ class Swift_Signers_SMimeSigner implements Swift_Signers_BodySigner
      *
      * @see https://secure.php.net/manual/en/openssl.pkcs7.flags.php
      *
-     * @param string $certificate
-     * @param string|array $privateKey If the key needs an passphrase use array('file-location', 'passphrase') instead
-     * @param int $signOptions Bitwise operator options for openssl_pkcs7_sign()
-     * @param string $extraCerts A file containing intermediate certificates needed by the signing certificate
+     * @param string       $certificate
+     * @param string|array $privateKey  If the key needs an passphrase use array('file-location', 'passphrase') instead
+     * @param int          $signOptions Bitwise operator options for openssl_pkcs7_sign()
+     * @param string       $extraCerts  A file containing intermediate certificates needed by the signing certificate
      *
      * @return $this
      */
     public function setSignCertificate($certificate, $privateKey = null, $signOptions = PKCS7_DETACHED, $extraCerts = null)
     {
-        $this->signCertificate = 'file://' . str_replace('\\', '/', realpath($certificate));
+        $this->signCertificate = 'file://'.str_replace('\\', '/', realpath($certificate));
 
         if (null !== $privateKey) {
             if (is_array($privateKey)) {
                 $this->signPrivateKey = $privateKey;
-                $this->signPrivateKey[0] = 'file://' . str_replace('\\', '/', realpath($privateKey[0]));
+                $this->signPrivateKey[0] = 'file://'.str_replace('\\', '/', realpath($privateKey[0]));
             } else {
-                $this->signPrivateKey = 'file://' . str_replace('\\', '/', realpath($privateKey));
+                $this->signPrivateKey = 'file://'.str_replace('\\', '/', realpath($privateKey));
             }
         }
 
@@ -101,7 +101,7 @@ class Swift_Signers_SMimeSigner implements Swift_Signers_BodySigner
      * @see https://secure.php.net/manual/en/openssl.ciphers.php
      *
      * @param string|array $recipientCerts Either an single X.509 certificate, or an assoc array of X.509 certificates.
-     * @param int $cipher
+     * @param int          $cipher
      *
      * @return $this
      */
@@ -111,10 +111,10 @@ class Swift_Signers_SMimeSigner implements Swift_Signers_BodySigner
             $this->encryptCert = [];
 
             foreach ($recipientCerts as $cert) {
-                $this->encryptCert[] = 'file://' . str_replace('\\', '/', realpath($cert));
+                $this->encryptCert[] = 'file://'.str_replace('\\', '/', realpath($cert));
             }
         } else {
-            $this->encryptCert = 'file://' . str_replace('\\', '/', realpath($recipientCerts));
+            $this->encryptCert = 'file://'.str_replace('\\', '/', realpath($recipientCerts));
         }
 
         if (null !== $cipher) {
@@ -266,14 +266,14 @@ class Swift_Signers_SMimeSigner implements Swift_Signers_BodySigner
 
         // Sign the message using openssl
         if (!openssl_pkcs7_sign(
-            $messageStream->getPath(),
-            $signedMessageStream->getPath(),
-            $this->signCertificate,
-            $this->signPrivateKey,
-            [],
-            $this->signOptions,
-            $this->extraCerts
-        )
+                $messageStream->getPath(),
+                $signedMessageStream->getPath(),
+                $this->signCertificate,
+                $this->signPrivateKey,
+                [],
+                $this->signOptions,
+                $this->extraCerts
+            )
         ) {
             throw new Swift_IoException(sprintf('Failed to sign S/Mime message. Error: "%s".', openssl_error_string()));
         }
@@ -324,13 +324,13 @@ class Swift_Signers_SMimeSigner implements Swift_Signers_BodySigner
 
         // Encrypt the message
         if (!openssl_pkcs7_encrypt(
-            $messageStream->getPath(),
-            $encryptedMessageStream->getPath(),
-            $this->encryptCert,
-            [],
-            0,
-            $this->encryptCipher
-        )
+                $messageStream->getPath(),
+                $encryptedMessageStream->getPath(),
+                $this->encryptCert,
+                [],
+                0,
+                $this->encryptCipher
+            )
         ) {
             throw new Swift_IoException(sprintf('Failed to encrypt S/Mime message. Error: "%s".', openssl_error_string()));
         }
@@ -347,8 +347,7 @@ class Swift_Signers_SMimeSigner implements Swift_Signers_BodySigner
         Swift_Message $fromMessage,
         Swift_Message $toMessage,
         array $headers = []
-    )
-    {
+    ) {
         foreach ($headers as $header) {
             $this->copyHeader($fromMessage, $toMessage, $header);
         }
@@ -497,7 +496,7 @@ class Swift_Signers_SMimeSigner implements Swift_Signers_BodySigner
         foreach ($headerLines as $headerLine) {
             // Handle headers that span multiple lines
             if (false === strpos($headerLine, ':')) {
-                $headers[$currentHeaderName] .= ' ' . trim($headerLine);
+                $headers[$currentHeaderName] .= ' '.trim($headerLine);
                 continue;
             }
 

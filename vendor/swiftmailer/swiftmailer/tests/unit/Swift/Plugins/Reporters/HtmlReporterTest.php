@@ -16,7 +16,7 @@ class Swift_Plugins_Reporters_HtmlReporterTest extends \PHPUnit\Framework\TestCa
         ob_start();
         $this->html->notify($this->message, 'foo@bar.tld',
             Swift_Plugins_Reporter::RESULT_PASS
-        );
+            );
         $html = ob_get_clean();
 
         $this->assertRegExp('~ok|pass~i', $html, '%s: Reporter should indicate pass');
@@ -28,7 +28,7 @@ class Swift_Plugins_Reporters_HtmlReporterTest extends \PHPUnit\Framework\TestCa
         ob_start();
         $this->html->notify($this->message, 'zip@button',
             Swift_Plugins_Reporter::RESULT_FAIL
-        );
+            );
         $html = ob_get_clean();
 
         $this->assertRegExp('~fail~i', $html, '%s: Reporter should indicate fail');
@@ -40,10 +40,10 @@ class Swift_Plugins_Reporters_HtmlReporterTest extends \PHPUnit\Framework\TestCa
         ob_start();
         $this->html->notify($this->message, 'foo@bar.tld',
             Swift_Plugins_Reporter::RESULT_PASS
-        );
+            );
         $this->html->notify($this->message, 'zip@button',
             Swift_Plugins_Reporter::RESULT_FAIL
-        );
+            );
         $html = ob_get_clean();
 
         $this->assertRegExp('~ok|pass~i', $html, '%s: Reporter should indicate pass');

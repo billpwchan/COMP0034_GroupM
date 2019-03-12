@@ -24,7 +24,7 @@ class Swift_SmtpTransport extends Swift_Transport_EsmtpTransport
 {
     /**
      * @param string $host
-     * @param int $port
+     * @param int    $port
      * @param string $encryption
      */
     public function __construct($host = 'localhost', $port = 25, $encryption = null)
@@ -33,7 +33,7 @@ class Swift_SmtpTransport extends Swift_Transport_EsmtpTransport
             [$this, 'Swift_Transport_EsmtpTransport::__construct'],
             Swift_DependencyContainer::getInstance()
                 ->createDependenciesFor('transport.smtp')
-        );
+            );
 
         $this->setHost($host);
         $this->setPort($port);

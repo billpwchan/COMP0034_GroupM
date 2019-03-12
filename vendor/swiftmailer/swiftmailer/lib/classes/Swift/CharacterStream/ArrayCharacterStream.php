@@ -8,6 +8,8 @@
  * file that was distributed with this source code.
  */
 
+@trigger_error(sprintf('The "%s" class is deprecated since Swiftmailer 6.2; use "%s" instead.', Swift_CharacterStream_ArrayCharacterStream::class, Swift_CharacterStream_CharacterStream::class), E_USER_DEPRECATED);
+
 /**
  * A CharacterStream implementation which stores characters in an internal array.
  *
@@ -43,7 +45,7 @@ class Swift_CharacterStream_ArrayCharacterStream implements Swift_CharacterStrea
      * Create a new CharacterStream with the given $chars, if set.
      *
      * @param Swift_CharacterReaderFactory $factory for loading validators
-     * @param string $charset used in the stream
+     * @param string                       $charset used in the stream
      */
     public function __construct(Swift_CharacterReaderFactory $factory, $charset)
     {

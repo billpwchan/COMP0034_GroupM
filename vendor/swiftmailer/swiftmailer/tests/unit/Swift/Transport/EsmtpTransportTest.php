@@ -104,13 +104,13 @@ class Swift_Transport_EsmtpTransportTest extends Swift_Transport_AbstractSmtpEve
         $buf->shouldReceive('readLine')
             ->once()
             ->with(1)
-            ->andReturn('250 ServerName' . "\r\n");
+            ->andReturn('250 ServerName'."\r\n");
 
         $this->finishBuffer($buf);
         try {
             $smtp->start();
         } catch (Exception $e) {
-            $this->fail('Starting Esmtp should send EHLO and accept 250 response: ' . $e->getMessage());
+            $this->fail('Starting Esmtp should send EHLO and accept 250 response: '.$e->getMessage());
         }
     }
 
@@ -140,7 +140,7 @@ class Swift_Transport_EsmtpTransportTest extends Swift_Transport_AbstractSmtpEve
         $buf->shouldReceive('readLine')
             ->once()
             ->with(1)
-            ->andReturn('501 WTF' . "\r\n");
+            ->andReturn('501 WTF'."\r\n");
         $buf->shouldReceive('write')
             ->once()
             ->with('~^HELO .+?\r\n$~D')
@@ -148,7 +148,7 @@ class Swift_Transport_EsmtpTransportTest extends Swift_Transport_AbstractSmtpEve
         $buf->shouldReceive('readLine')
             ->once()
             ->with(2)
-            ->andReturn('250 HELO' . "\r\n");
+            ->andReturn('250 HELO'."\r\n");
 
         $this->finishBuffer($buf);
         try {
@@ -156,7 +156,7 @@ class Swift_Transport_EsmtpTransportTest extends Swift_Transport_AbstractSmtpEve
         } catch (Exception $e) {
             $this->fail(
                 'Starting Esmtp should fallback to HELO if needed and accept 250 response'
-            );
+                );
         }
     }
 
@@ -179,7 +179,7 @@ class Swift_Transport_EsmtpTransportTest extends Swift_Transport_AbstractSmtpEve
         $buf->shouldReceive('readLine')
             ->once()
             ->with(1)
-            ->andReturn('501 WTF' . "\r\n");
+            ->andReturn('501 WTF'."\r\n");
         $buf->shouldReceive('write')
             ->once()
             ->with('~^HELO .+?\r\n$~D')
@@ -187,7 +187,7 @@ class Swift_Transport_EsmtpTransportTest extends Swift_Transport_AbstractSmtpEve
         $buf->shouldReceive('readLine')
             ->once()
             ->with(2)
-            ->andReturn('504 WTF' . "\r\n");
+            ->andReturn('504 WTF'."\r\n");
         $this->finishBuffer($buf);
 
         try {
@@ -227,7 +227,7 @@ class Swift_Transport_EsmtpTransportTest extends Swift_Transport_AbstractSmtpEve
         $buf->shouldReceive('readLine')
             ->once()
             ->with(1)
-            ->andReturn('250 ServerName' . "\r\n");
+            ->andReturn('250 ServerName'."\r\n");
 
         $this->finishBuffer($buf);
         $smtp->setLocalDomain('mydomain.com');
@@ -263,7 +263,7 @@ class Swift_Transport_EsmtpTransportTest extends Swift_Transport_AbstractSmtpEve
         $buf->shouldReceive('readLine')
             ->once()
             ->with(1)
-            ->andReturn('501 WTF' . "\r\n");
+            ->andReturn('501 WTF'."\r\n");
         $buf->shouldReceive('write')
             ->once()
             ->with("HELO mydomain.com\r\n")
@@ -271,7 +271,7 @@ class Swift_Transport_EsmtpTransportTest extends Swift_Transport_AbstractSmtpEve
         $buf->shouldReceive('readLine')
             ->once()
             ->with(2)
-            ->andReturn('250 ServerName' . "\r\n");
+            ->andReturn('250 ServerName'."\r\n");
 
         $this->finishBuffer($buf);
         $smtp->setLocalDomain('mydomain.com');
@@ -286,11 +286,11 @@ class Swift_Transport_EsmtpTransportTest extends Swift_Transport_AbstractSmtpEve
 
         $message = $this->createMessage();
         $message->shouldReceive('getFrom')
-            ->zeroOrMoreTimes()
-            ->andReturn(['me@domain.com' => 'Me']);
+                ->zeroOrMoreTimes()
+                ->andReturn(['me@domain.com' => 'Me']);
         $message->shouldReceive('getTo')
-            ->zeroOrMoreTimes()
-            ->andReturn(['foo@bar' => null]);
+                ->zeroOrMoreTimes()
+                ->andReturn(['foo@bar' => null]);
 
         $buf->shouldReceive('initialize')
             ->once();
@@ -305,11 +305,11 @@ class Swift_Transport_EsmtpTransportTest extends Swift_Transport_AbstractSmtpEve
         $buf->shouldReceive('readLine')
             ->once()
             ->with(1)
-            ->andReturn('250-ServerName' . "\r\n");
+            ->andReturn('250-ServerName'."\r\n");
         $buf->shouldReceive('readLine')
             ->once()
             ->with(1)
-            ->andReturn('250 PIPELINING' . "\r\n");
+            ->andReturn('250 PIPELINING'."\r\n");
 
         $buf->shouldReceive('write')
             ->ordered()
@@ -356,15 +356,15 @@ class Swift_Transport_EsmtpTransportTest extends Swift_Transport_AbstractSmtpEve
 
         $message = $this->createMessage();
         $message->shouldReceive('getFrom')
-            ->zeroOrMoreTimes()
-            ->andReturn(['me@domain.com' => 'Me']);
+                ->zeroOrMoreTimes()
+                ->andReturn(['me@domain.com' => 'Me']);
         $message->shouldReceive('getTo')
-            ->zeroOrMoreTimes()
-            ->andReturn([
-                'good@foo' => null,
-                'bad@foo' => null,
-                'good@bar' => null,
-            ]);
+                ->zeroOrMoreTimes()
+                ->andReturn([
+                    'good@foo' => null,
+                    'bad@foo' => null,
+                    'good@bar' => null,
+                ]);
 
         $buf->shouldReceive('initialize')
             ->once();
@@ -379,11 +379,11 @@ class Swift_Transport_EsmtpTransportTest extends Swift_Transport_AbstractSmtpEve
         $buf->shouldReceive('readLine')
             ->once()
             ->with(1)
-            ->andReturn('250-ServerName' . "\r\n");
+            ->andReturn('250-ServerName'."\r\n");
         $buf->shouldReceive('readLine')
             ->once()
             ->with(1)
-            ->andReturn('250 PIPELINING' . "\r\n");
+            ->andReturn('250 PIPELINING'."\r\n");
 
         $buf->shouldReceive('write')
             ->ordered()
@@ -454,11 +454,11 @@ class Swift_Transport_EsmtpTransportTest extends Swift_Transport_AbstractSmtpEve
 
         $message = $this->createMessage();
         $message->shouldReceive('getFrom')
-            ->zeroOrMoreTimes()
-            ->andReturn(['me@domain.com' => 'Me']);
+                ->zeroOrMoreTimes()
+                ->andReturn(['me@domain.com' => 'Me']);
         $message->shouldReceive('getTo')
-            ->zeroOrMoreTimes()
-            ->andReturn(['foo@bar' => null]);
+                ->zeroOrMoreTimes()
+                ->andReturn(['foo@bar' => null]);
 
         $buf->shouldReceive('initialize')
             ->once();
@@ -473,11 +473,11 @@ class Swift_Transport_EsmtpTransportTest extends Swift_Transport_AbstractSmtpEve
         $buf->shouldReceive('readLine')
             ->once()
             ->with(1)
-            ->andReturn('250-ServerName' . "\r\n");
+            ->andReturn('250-ServerName'."\r\n");
         $buf->shouldReceive('readLine')
             ->once()
             ->with(1)
-            ->andReturn('250 PIPELINING' . "\r\n");
+            ->andReturn('250 PIPELINING'."\r\n");
 
         $buf->shouldReceive('write')
             ->ordered()
@@ -514,11 +514,11 @@ class Swift_Transport_EsmtpTransportTest extends Swift_Transport_AbstractSmtpEve
 
         $message = $this->createMessage();
         $message->shouldReceive('getFrom')
-            ->zeroOrMoreTimes()
-            ->andReturn(['me@domain.com' => 'Me']);
+                ->zeroOrMoreTimes()
+                ->andReturn(['me@domain.com' => 'Me']);
         $message->shouldReceive('getTo')
-            ->zeroOrMoreTimes()
-            ->andReturn(['foo@bar' => null]);
+                ->zeroOrMoreTimes()
+                ->andReturn(['foo@bar' => null]);
 
         $buf->shouldReceive('initialize')
             ->once();
@@ -533,11 +533,11 @@ class Swift_Transport_EsmtpTransportTest extends Swift_Transport_AbstractSmtpEve
         $buf->shouldReceive('readLine')
             ->once()
             ->with(1)
-            ->andReturn('250-ServerName' . "\r\n");
+            ->andReturn('250-ServerName'."\r\n");
         $buf->shouldReceive('readLine')
             ->once()
             ->with(1)
-            ->andReturn('250 PIPELINING' . "\r\n");
+            ->andReturn('250 PIPELINING'."\r\n");
 
         $buf->shouldReceive('write')
             ->ordered()
@@ -602,8 +602,8 @@ class Swift_Transport_EsmtpTransportTest extends Swift_Transport_AbstractSmtpEve
 
         $message = $this->createMessage();
         $message->shouldReceive('getFrom')
-            ->zeroOrMoreTimes()
-            ->andReturn(['me@domain.com' => 'Me']);
+                ->zeroOrMoreTimes()
+                ->andReturn(['me@domain.com' => 'Me']);
 
         $buf->shouldReceive('initialize')
             ->once();
@@ -618,11 +618,11 @@ class Swift_Transport_EsmtpTransportTest extends Swift_Transport_AbstractSmtpEve
         $buf->shouldReceive('readLine')
             ->once()
             ->with(1)
-            ->andReturn('250-ServerName' . "\r\n");
+            ->andReturn('250-ServerName'."\r\n");
         $buf->shouldReceive('readLine')
             ->once()
             ->with(1)
-            ->andReturn('250 ' . ($supported ? 'PIPELINING' : 'FOOBAR') . "\r\n");
+            ->andReturn('250 '.($supported ? 'PIPELINING' : 'FOOBAR')."\r\n");
 
         $this->finishBuffer($buf);
         $smtp->start();
@@ -644,7 +644,8 @@ class Swift_Transport_EsmtpTransportTest extends Swift_Transport_AbstractSmtpEve
             ->setPort(25)
             ->setEncryption('tls')
             ->setTimeout(30)
-            ->setPipelining(false);
+            ->setPipelining(false)
+            ;
         $this->assertEquals($ref, $smtp);
     }
 }

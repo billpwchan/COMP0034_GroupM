@@ -49,7 +49,7 @@ class Swift_Mime_SimpleHeaderFactory implements Swift_Mime_CharsetObserver
     /**
      * Create a new Mailbox Header with a list of $addresses.
      *
-     * @param string $name
+     * @param string            $name
      * @param array|string|null $addresses
      *
      * @return Swift_Mime_Header
@@ -68,7 +68,7 @@ class Swift_Mime_SimpleHeaderFactory implements Swift_Mime_CharsetObserver
     /**
      * Create a new Date header using $dateTime.
      *
-     * @param string $name
+     * @param string                 $name
      * @param DateTimeInterface|null $dateTime
      *
      * @return Swift_Mime_Header
@@ -108,7 +108,7 @@ class Swift_Mime_SimpleHeaderFactory implements Swift_Mime_CharsetObserver
      *
      * @param string $name
      * @param string $value
-     * @param array $params
+     * @param array  $params
      *
      * @return Swift_Mime_Headers_ParameterizedHeader
      */
@@ -129,7 +129,7 @@ class Swift_Mime_SimpleHeaderFactory implements Swift_Mime_CharsetObserver
     /**
      * Create a new ID header for Message-ID or Content-ID.
      *
-     * @param string $name
+     * @param string       $name
      * @param string|array $ids
      *
      * @return Swift_Mime_Header

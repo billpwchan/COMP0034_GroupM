@@ -13,7 +13,7 @@ class Swift_Bug650Test extends \PHPUnit\Framework\TestCase
     public function testMailboxHeaderEncoding($name, $expectedEncodedName)
     {
         $factory = new Swift_CharacterReaderFactory_SimpleCharacterReaderFactory();
-        $charStream = new Swift_CharacterStream_NgCharacterStream($factory, 'utf-8');
+        $charStream = new Swift_CharacterStream_CharacterStream($factory, 'utf-8');
         $encoder = new Swift_Mime_HeaderEncoder_QpHeaderEncoder($charStream);
         $header = new Swift_Mime_Headers_MailboxHeader('To', $encoder, new EmailValidator());
         $header->setCharset('utf-8');
@@ -22,7 +22,7 @@ class Swift_Bug650Test extends \PHPUnit\Framework\TestCase
             'test@example.com' => $name,
         ]);
 
-        $this->assertSame('To: ' . $expectedEncodedName . " <test@example.com>\r\n", $header->toString());
+        $this->assertSame('To: '.$expectedEncodedName." <test@example.com>\r\n", $header->toString());
     }
 
     public function encodingDataProvider()

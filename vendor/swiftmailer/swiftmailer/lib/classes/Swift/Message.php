@@ -46,7 +46,7 @@ class Swift_Message extends Swift_Mime_SimpleMessage
             [$this, 'Swift_Mime_SimpleMessage::__construct'],
             Swift_DependencyContainer::getInstance()
                 ->createDependenciesFor('mime.message')
-        );
+            );
 
         if (!isset($charset)) {
             $charset = Swift_DependencyContainer::getInstance()
@@ -64,8 +64,8 @@ class Swift_Message extends Swift_Mime_SimpleMessage
      * Add a MimePart to this Message.
      *
      * @param string|Swift_OutputByteStream $body
-     * @param string $contentType
-     * @param string $charset
+     * @param string                        $contentType
+     * @param string                        $charset
      *
      * @return $this
      */

@@ -7,7 +7,7 @@ class Swift_Encoder_QpEncoderAcceptanceTest extends \PHPUnit\Framework\TestCase
 
     protected function setUp()
     {
-        $this->samplesDir = realpath(__DIR__ . '/../../../_samples/charsets');
+        $this->samplesDir = realpath(__DIR__.'/../../../_samples/charsets');
         $this->factory = new Swift_CharacterReaderFactory_SimpleCharacterReaderFactory();
     }
 
@@ -20,11 +20,11 @@ class Swift_Encoder_QpEncoderAcceptanceTest extends \PHPUnit\Framework\TestCase
             }
 
             $encoding = $encodingDir;
-            $charStream = new Swift_CharacterStream_ArrayCharacterStream(
+            $charStream = new Swift_CharacterStream_CharacterStream(
                 $this->factory, $encoding);
             $encoder = new Swift_Encoder_QpEncoder($charStream);
 
-            $sampleDir = $this->samplesDir . '/' . $encodingDir;
+            $sampleDir = $this->samplesDir.'/'.$encodingDir;
 
             if (is_dir($sampleDir)) {
                 $fileFp = opendir($sampleDir);
@@ -33,7 +33,7 @@ class Swift_Encoder_QpEncoderAcceptanceTest extends \PHPUnit\Framework\TestCase
                         continue;
                     }
 
-                    $text = file_get_contents($sampleDir . '/' . $sampleFile);
+                    $text = file_get_contents($sampleDir.'/'.$sampleFile);
                     $encodedText = $encoder->encodeString($text);
 
                     foreach (explode("\r\n", $encodedText) as $line) {
@@ -42,9 +42,9 @@ class Swift_Encoder_QpEncoderAcceptanceTest extends \PHPUnit\Framework\TestCase
 
                     $this->assertEquals(
                         quoted_printable_decode($encodedText), $text,
-                        '%s: Encoded string should decode back to original string for sample ' .
-                        $sampleDir . '/' . $sampleFile
-                    );
+                        '%s: Encoded string should decode back to original string for sample '.
+                        $sampleDir.'/'.$sampleFile
+                        );
                 }
                 closedir($fileFp);
             }

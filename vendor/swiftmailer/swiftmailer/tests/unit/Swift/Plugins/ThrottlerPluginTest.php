@@ -11,7 +11,7 @@ class Swift_Plugins_ThrottlerPluginTest extends \SwiftMailerTestCase
         $plugin = new Swift_Plugins_ThrottlerPlugin(
             10000000, Swift_Plugins_ThrottlerPlugin::BYTES_PER_MINUTE,
             $sleeper, $timer
-        );
+            );
 
         $timer->shouldReceive('getTimestamp')->once()->andReturn(0);
         $timer->shouldReceive('getTimestamp')->once()->andReturn(1); //expected 0.6
@@ -44,7 +44,7 @@ class Swift_Plugins_ThrottlerPluginTest extends \SwiftMailerTestCase
         $plugin = new Swift_Plugins_ThrottlerPlugin(
             60, Swift_Plugins_ThrottlerPlugin::MESSAGES_PER_MINUTE,
             $sleeper, $timer
-        );
+            );
 
         $timer->shouldReceive('getTimestamp')->once()->andReturn(0);
         $timer->shouldReceive('getTimestamp')->once()->andReturn(0); //expected 1 (sleep 1)
