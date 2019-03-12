@@ -204,14 +204,13 @@
                             $_SESSION['token'] = $token;
                             $_SESSION['token_time'] = time();
                             ?>
-                            <form id="serviceForm" method="post" action="./assets/controllers/addService.php"
-                                  enctype="multipart/form-data">
+                            <form id="serviceForm" onsubmit="return submit_form()" method="post" action="./assets/controllers/addService.php" enctype="multipart/form-data">
                                 <input type="hidden" name="token" value="<?= $token ?>"/>
                                 <div class="form-group row">
-                                    <label for="" class="col-sm-2 col-form-label">Event Type</label>
+                                    <label for="" class="col-sm-2 col-form-label">Service Type</label>
                                     <div class="col-sm-5">
                                         <select class="selectpicker" id="event_type" name="event_type" required>
-                                            <option value="default">--------</option>
+                                            <option value="default">---- Select service type ----</option>
                                             <option value="venue">Venue</option>
                                             <option value="entertainment">Entertainment</option>
                                             <option value="menu">Menu</option>
@@ -221,94 +220,91 @@
                                 <div class="form-group row">
                                     <label for="" class="col-sm-2 col-form-label">Name: </label>
                                     <div class="col-sm-5">
-                                        <input class="form-control" type="text" name="name" placeholder="Name" required>
+                                        <input class="form-control" type="text" name="name" placeholder="Name" id="service_name">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="" class="col-sm-2 col-form-label">Price: </label>
                                     <div class="col-sm-5">
-                                        <input class="form-control" name="price" placeholder="Price" type="number"
-                                               step="0.01" required>
+                                        <input class="form-control" name="price" placeholder="Price" id="service_price" type="number" min="1" max="5000" step="0.01">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="" class="col-sm-2 col-form-label">Description: </label>
                                     <div class="col-sm-5">
-                                        <input class="form-control" type="text" name="description"
-                                               placeholder="Description" required>
+                                        <input class="form-control" type="text" name="description" id="service_description" placeholder="Description">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for=""
-                                           class="col-sm-2 col-form-label">Created: </label>
+                                           class="col-sm-2 col-form-label">Created on: </label>
                                     <div class="col-sm-6">
                                         <input type="text" readonly class="form-control-plaintext"
                                                value="<?= date('Y-m-d', $_SERVER['REQUEST_TIME']) ?>">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for=""
-                                           class="col-sm-2 col-form-label">EventImage 1: </label>
+                                    <label for="" class="col-sm-2 col-form-label">Event Image 1: </label>
                                     <div class="custom-file col-sm-6">
-                                        <label for="eventImage1" class="custom-file-label">Event Image
-                                            1</label>
-                                        <input class="custom-file-input" type="file" name="image1"
-                                               id="eventImage1">
+                                        <label for="eventImage1" class="custom-file-label" id="eventImage1_label">No file chosen</label>
+                                        <input class="custom-file-input" type="file" name="image1" id="eventImage1">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for=""
-                                           class="col-sm-2 col-form-label">EventImage 2: </label>
+                                    <label for="" class="col-sm-2 col-form-label">Event Image 2: </label>
                                     <div class="custom-file col-sm-6">
-                                        <label for="eventImage2" class="custom-file-label">Event Image
-                                            2</label>
-                                        <input class="custom-file-input" type="file" name="image2"
-                                               id="eventImage2">
+                                        <label for="eventImage2" class="custom-file-label" id="eventImage2_label">No file chosen</label>
+                                        <input class="custom-file-input" type="file" name="image2" id="eventImage2">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for=""
-                                           class="col-sm-2 col-form-label">EventImage 3: </label>
+                                    <label for="" class="col-sm-2 col-form-label">Event Image 3: </label>
                                     <div class="custom-file col-sm-6">
-                                        <label for="eventImage3" class="custom-file-label">Event Image
-                                            3</label>
-                                        <input class="custom-file-input" type="file" name="image3"
-                                               id="eventImage3">
+                                        <label for="eventImage3" class="custom-file-label" id="eventImage3_label">No file chosen</label>
+                                        <input class="custom-file-input" type="file" name="image3" id="eventImage3">
                                     </div>
                                 </div>
                                 <div class="form-group row venue-only">
                                     <label for="" class="col-sm-2 col-form-label">Address: </label>
                                     <div class="col-sm-5">
-                                        <input class="form-control" type="text" name="address"
-                                               placeholder="Address">
+                                        <input class="form-control" type="text" name="address1" id="venue_address" placeholder="Address Line 1">
+                                    </div>
+                                </div>
+                                <div class="form-group row venue-only">
+                                    <label for="" class="col-sm-2 col-form-label"></label>
+                                    <div class="col-sm-5">
+                                        <input class="form-control" type="text" name="address2" placeholder="Address Line 2 (optional)">
+                                    </div>
+                                </div>
+                                <div class="form-group row venue-only">
+                                    <label for="" class="col-sm-2 col-form-label">Post code: </label>
+                                    <div class="col-sm-5">
+                                        <input class="form-control" type="text" name="post_code" id="venue_postcode" placeholder="Post code">
                                     </div>
                                 </div>
                                 <div class="form-group row venue-only">
                                     <label for="" class="col-sm-2 col-form-label">Capacity: </label>
                                     <div class="col-sm-5">
-                                        <input class="form-control" type="number" name="capacity"
-                                               placeholder="Capacity">
+                                        <input class="form-control" type="number" name="capacity" min="5" max="1000" id="venue_capacity" placeholder="Capacity">
                                     </div>
                                 </div>
                                 <div class="form-group row venue-only">
                                     <label for="" class="col-sm-2 col-form-label">Region: </label>
                                     <div class="col-sm-5">
-                                        <input class="form-control" type="text" name="region"
-                                               placeholder="Region">
+                                        <input class="form-control" type="text" name="region" id="venue_region" placeholder="Region">
                                     </div>
                                 </div>
                                 <div class="form-group row menu-only">
                                     <label for="" class="col-sm-2 col-form-label">Duration: </label>
                                     <div class="col-sm-5">
-                                        <input class="form-control" type="number" name="duration"
-                                               placeholder="Duration">
+                                        <input class="form-control" type="number" name="menu_duration" min="1" max="24" id="menu_duration" placeholder="Duration">
                                     </div>
+                                    <div class="col-sm-1 col-form-label"> hour(s) </div>
                                 </div>
                                 <div class="form-group row menu-only">
                                     <label for="" class="col-sm-2 col-form-label">Menu Items:</label>
                                     <div class="col-sm-5">
-                                        <select class="form-control" multiple id="menuItems" name="menuItems[]"
-                                        >
+                                        <select class="form-control" multiple id="menuItems" name="menuItems[]">
                                             <option value="default" disabled>--------</option>
                                         </select>
                                     </div>
@@ -316,15 +312,14 @@
                                 <div class="form-group row entertainment-only">
                                     <label for="" class="col-sm-2 col-form-label">Duration: </label>
                                     <div class="col-sm-5">
-                                        <input class="form-control" type="number" name="duration"
-                                               placeholder="Duration">
+                                        <input class="form-control" type="number" name="entertainment_duration" min="1" max="24" id="entertainment_duration" placeholder="Duration">
                                     </div>
+                                    <div class="col-sm-1 col-form-label"> hour(s) </div>
                                 </div>
                                 <div class="form-group row entertainment-only">
                                     <label for="" class="col-sm-2 col-form-label">Entertainers: </label>
                                     <div class="col-sm-5">
-                                        <select class="form-control" multiple id="entertainers" name="entertainers[]"
-                                        >
+                                        <select class="form-control" multiple id="entertainers" name="entertainers[]">
                                             <option value="default" disabled>--------</option>
                                         </select>
                                     </div>

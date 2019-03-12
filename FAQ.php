@@ -11,6 +11,7 @@
 </head>
 <body>
 <?php include("includes/navigation.php"); ?>
+
 <header>
     <h1>UberKidz FAQ</h1>
 </header>

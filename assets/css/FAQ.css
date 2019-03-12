@@ -144,9 +144,6 @@ header h1 {
     transform: rotate(90deg);
 }
 
-.cd-faq-categories li:last-child a {
-    border-bottom: none;
-}
 
 @media only screen and (min-width: 768px) {
     .cd-faq-categories {

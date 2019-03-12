@@ -28,20 +28,22 @@ $eventImage3 = $_FILES['image3']['name'];
 
 switch (strtolower($productType)) {
     case 'entertainment':
-        $duration = $_POST['duration'];
+        $duration = $_POST['entertainment_duration'];
         $entertainers = $_POST['entertainers'];
         $event->insertEntertainmentPackage($userID, 'entertainment', $name, $price, $description, $created, $eventImage1, $eventImage2, $eventImage3, $duration, $entertainers);
         break;
     case 'venue':
-        $address = $_POST['address'];
+            $address1 = $_POST['address1'];
+            $address2 = $_POST['address2'];
+        $postcode = $_POST['post_code'];
         $capacity = $_POST['capacity'];
         $region = $_POST['region'];
-        $event->insertVenue($userID, 'venue', $name, $price, $description, $created, $eventImage1, $eventImage2, $eventImage3, $address, $capacity, $region);
+        $event->insertVenue($userID, 'venue', $name, $price, $description, $created, $eventImage1, $eventImage2, $eventImage3, $address1, $address2, $postcode, $capacity, $region);
         break;
     case 'menu':
-        $duration = $_POST['duration'];
+        $duration = $_POST['menu_duration'];
         $menuItems = $_POST['menuItems'];
-        $event->insertMenu($userID, 'entertainment', $name, $price, $description, $created, $eventImage1, $eventImage2, $eventImage3, $duration, $menuItems);
+        $event->insertMenu($userID, 'menu', $name, $price, $description, $created, $eventImage1, $eventImage2, $eventImage3, $duration, $menuItems);
         break;
 }
 header("location:../../myAccount.php");
