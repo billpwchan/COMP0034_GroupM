@@ -1,0 +1,17 @@
+{
+  "name": "puppeteer-test",
+  "version": "1.0.0",
+  "description": "Puppeteer Acceptance Test",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Bill Chan",
+  "license": "ISC",
+  "dependencies": {
+    "expect-puppeteer": "^4.0.0",
+    "jest": "^24.4.0",
+    "jest-puppeteer": "^4.0.0",
+    "puppeteer": "^1.13.0"
+  }
+}

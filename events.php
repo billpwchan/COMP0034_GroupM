@@ -121,7 +121,6 @@
  * Written by UberKidz <uberkidz@gmail.com>, 2019
  *
  */
-
 if (isset($_GET['addtocart']) && $_GET['addtocart'] === 'success') { ?>
     <script> Swal.fire({
             title: 'Successful',
@@ -131,7 +130,7 @@ if (isset($_GET['addtocart']) && $_GET['addtocart'] === 'success') { ?>
             type: 'success'
         });
     </script>
-<?php } elseif (isset($_GET['display']) && $_GET['display'] === 'invalid') { ?>
+<?php } else if (isset($_GET['display']) && $_GET['display'] === 'invalid') { ?>
     <script> Swal.fire({
             title: 'Invalid Product',
             animation: false,

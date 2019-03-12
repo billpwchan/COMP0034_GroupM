@@ -119,7 +119,6 @@
  * Written by UberKidz <uberkidz@gmail.com>, 2019
  *
  */
-
 if (isset($_GET['addtocart']) && $_GET['addtocart'] === 'success') { ?>
     <script> Swal.fire({
             title: 'Successful',
@@ -144,6 +143,15 @@ if (isset($_GET['addtocart']) && $_GET['addtocart'] === 'success') { ?>
             animation: false,
             customClass: 'animated tada',
             text: "Invalid Booking TimeSlot.",
+            type: 'error'
+        });
+    </script>
+<?php } elseif (isset($_GET['addtocart']) && $_GET['addtocart'] === 'duplicateInCart') { ?>
+    <script> Swal.fire({
+            title: 'Duplicate Entry in Cart',
+            animation: false,
+            customClass: 'animated tada',
+            text: "The service with specified quality level is already added in your cart",
             type: 'error'
         });
     </script>

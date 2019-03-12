@@ -35,7 +35,7 @@
 						Member Login
 					</span>
                 <div class="wrap-input validate-input">
-                    <input class="userInput" type="email" name="email" placeholder="Email"
+                    <input class="userInput" type="email" name="email" placeholder="Email" id="Email"
                            value="<?= $isLoggedIn ? $_SESSION['email'] : "" ?>">
                     <span class="focus-input"></span>
                     <span class="symbol-input">
@@ -47,7 +47,7 @@
                 </div>
 
                 <div class="wrap-input validate-input">
-                    <input class="userInput" type="password" name="pass" placeholder="Password"
+                    <input class="userInput" type="password" name="pass" placeholder="Password" id="Password"
                            value="<?= $isLoggedIn ? "Password123456" : "" ?>">
                     <span class="focus-input"></span>
                     <span class="symbol-input">
