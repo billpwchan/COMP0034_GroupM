@@ -86,7 +86,7 @@ include("includes/config.php"); ?>
                 <div class="about">
                     <i class="fas fa-map"></i>
                     <h3>Venues</h3>
-                    <p>Select from our wide range of venues all across London.</p>
+                    <p>Select from our wide range of venues all across London, both in town and countryside.</p>
                     <a href="venues.php">Read more</a>
                 </div>
             </div>

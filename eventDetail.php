@@ -170,8 +170,10 @@
                                                                     name="productPrice"
                                                                     value="<?= $productDetails['price'] ?>">
                 </span>
-                <?php if (isset($_SESSION['userInfo'])) { ?>
+                <?php if (isset($_SESSION['userInfo']) && isset($_SESSION['customer'])) { ?>
                     <button type="submit" class="cart-btn">Add to cart</button>
+                <?php } else if (isset($_SESSION['userInfo']) && !isset($_SESSION['customer'])) { ?>
+                    <a href="registration.php">Only Customer can Add to Cart.</a>
                 <?php } else { ?>
                     <a href="login.php">You need to Login! </a>
                 <?php } ?>

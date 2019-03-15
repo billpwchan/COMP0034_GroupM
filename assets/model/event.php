@@ -151,7 +151,7 @@ class event
         from event, entertainmentpackage
         WHERE event.event_ID = entertainmentpackage.event_ID
         AND event.event_type = 'entertainment'
-        AND event.name LIKE '%$searchKey%'
+        AND event.name LIKE ?
     ";
         return $db_handle->db_query($sql, 's', array('%' . $searchKey . '%'))[0]['rowCount'];
     }

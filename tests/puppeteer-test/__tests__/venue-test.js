@@ -11,7 +11,7 @@ describe('Test UberKidz Venue', () => {
     let height = 1080;
     beforeEach(async () => {
         browser = await puppeteer.launch({
-            headless: true
+            headless: HEADLESS
         });
         page = await browser.newPage();
         await page.setViewport({
@@ -86,5 +86,5 @@ describe('Test UberKidz Venue', () => {
         const sa2Content = await page.$eval("#swal2-content", el => el.innerHTML);
         expect(sa2Content.trim()).toBe('The service with specified quality level is already added in your cart');
 
-    })
+    });
 })

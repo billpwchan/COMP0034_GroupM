@@ -1,5 +1,5 @@
 const puppeteer = require('puppeteer');
-const HEADLESS = true;
+const HEADLESS = false;
 
 const CUSTOMER_EMAIL = 'newacc@mailinator.com';
 const CUSTOMER_PASSWORD = '12345678Aa*';
