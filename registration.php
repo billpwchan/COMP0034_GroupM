@@ -36,8 +36,8 @@ $token = md5(uniqid(rand(), TRUE));
             <h2 class="fs-title">Create your account</h2>
             <h3 class="fs-subtitle">First step to use UberKidz!</h3>
             <input class="userInput" type="email" name="email" id="email" placeholder="Email"/>
-            <input class="userInput" type="password" name="pass" placeholder="Password"/>
-            <input class="userInput" type="password" name="cpass" placeholder="Confirm Password"/>
+            <input class="userInput" type="password" name="pass" id="pass" placeholder="Password"/>
+            <input class="userInput" type="password" name="cpass" id="cpass" placeholder="Confirm Password"/>
             <select class="selectpicker userInput" title="User Type..." name="accounttype">
                 <option>Customer</option>
                 <option>Service Provider</option>
@@ -66,15 +66,15 @@ $token = md5(uniqid(rand(), TRUE));
                     <span class="checkmark"></span>
                 </label>
             </div>
-            <input class="userInput" type="number" name="phone" placeholder="Phone No."/>
+            <input class="userInput" type="number" name="phone" id="phone" placeholder="Phone No."/>
             <input type="button" name="previous" class="previous action-button" value="Previous"/>
             <input type="button" name="next" class="next2 action-button" value="Next"/>
         </fieldset>
         <fieldset id="fieldset3">
             <h2 class="fs-title">Personal Details</h2>
             <h3 class="fs-subtitle">Last step already...till your account! </h3>
-            <input class="userInput" type="text" name="fname" placeholder="First Name"/>
-            <input class="userInput" type="text" name="lname" placeholder="Last Name"/>
+            <input class="userInput" type="text" name="fname" id="fname" placeholder="First Name"/>
+            <input class="userInput" type="text" name="lname" id="lname" placeholder="Last Name"/>
             <div class="upload-avatar-container">
                 <button class="avatar-btn">Upload Profile Picture</button>
                 <input type="file" name="avatar" id="avatar">

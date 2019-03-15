@@ -1,6 +1,7 @@
 const puppeteer = require('puppeteer');
 const HEADLESS = true;
 describe('Test UberKidz Contact Page', () => {
+    jest.setTimeout(30000);
     var browser, page;
     var url = 'http://localhost/contactUs.php'
     let width = 1920;

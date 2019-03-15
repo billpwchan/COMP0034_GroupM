@@ -28,7 +28,7 @@
                     title: 'Logging out...',
                     type: 'success'
                 });
-                window.location.href = "index.php?logout=true";
+                window.location.href = "login.php?logout=true";
             } else {
                 return false;
             }

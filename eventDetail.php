@@ -117,11 +117,6 @@
                     </div>
                     <link rel="stylesheet" href="./assets/css/jquery.datetimepicker.min.css">
 
-                    <span>Booking Time: </span>
-                    <div class="time-choose">
-                        <input id="datetimepicker" class="form__field" type="text" name="eventStartTime"
-                               placeholder="DATE : TIME">
-                    </div>
                     <span>Location Selector</span>
                     <div class="pac-card" id="pac-card">
                         <div style="visibility: hidden; height: 0px;">
@@ -157,6 +152,11 @@
                         <img src="" width="16" height="16" id="place-icon">
                         <span id="place-name" class="title"></span><br>
                         <span id="place-address"></span>
+                    </div>
+                    <span>Booking Time: </span>
+                    <div class="time-choose">
+                        <input id="datetimepicker" class="form__field" type="text" name="eventStartTime"
+                               placeholder="DATE : TIME">
                     </div>
                 </div>
             </div>

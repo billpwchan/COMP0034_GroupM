@@ -128,7 +128,7 @@ function validate_Input1() {
     }
     if ($('.userInput option:selected').val() === "") {
         check = false;
-        showAlert("Please select Account Type!", "Only customer can place order, while service provider can add products.")
+        showAlert("Please select Account Type!", "It is necessary to indicate which type of user you registered.")
     }
     return check;
 }
