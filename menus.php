@@ -19,8 +19,7 @@
                     Menus
                 </h1>
                 <p class="text-white">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temp <br> or incididunt ut
-                    labore et dolore magna aliqua. Ut enim ad minim.
+                    Select from 100s of dishs from restauants across London <br> If none are suited for the occasion, contact us.
                 </p>
                 <a href="#" class="primary-btn header-btn text-uppercase">Check Our Menu</a>
             </div>
