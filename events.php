@@ -20,7 +20,7 @@
                     Entertainment Packages
                 </h1>
                 <p class="text-white">
-                    Select from a range of entertainment packages <br> If none are suited for the occasion, contact us 
+                    Select from a range of entertainment packages <br> If none are suited for the occasion, contact us
                 </p>
                 <a href="#product-display" class="primary-btn header-btn text-uppercase">Check Our
                     Event</a>
