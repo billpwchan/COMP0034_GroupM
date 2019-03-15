@@ -19,7 +19,7 @@
                     Menus
                 </h1>
                 <p class="text-white">
-                    Select from 100s of dishs from restauants across London <br> If none are suited for the occasion, contact us.
+                    Select from 100s of dishs from restaurants across London <br> If none are suited for the occasion, contact us.
                 </p>
                 <a href="#" class="primary-btn header-btn text-uppercase">Check Our Menu</a>
             </div>
