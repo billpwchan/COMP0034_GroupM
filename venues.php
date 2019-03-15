@@ -19,8 +19,7 @@
                     Venues
                 </h1>
                 <p class="text-white">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temp <br> or incididunt ut
-                    labore et dolore magna aliqua. Ut enim ad minim.
+                    Select from venues across London <br> If none are suited for the occasion, contact us
                 </p>
                 <a href="#" class="primary-btn header-btn text-uppercase">Check Our Venue</a>
             </div>
@@ -112,6 +111,13 @@
 <?php include("includes/scripts.php"); ?>
 <script src="assets/js/events.js"></script>
 <?php
+/**
+ * Copyright (C) UberKidz - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ * Written by UberKidz <uberkidz@gmail.com>, 2019
+ *
+ */
 if (isset($_GET['addtocart']) && $_GET['addtocart'] === 'success') { ?>
     <script> Swal.fire({
             title: 'Successful',
@@ -136,6 +142,15 @@ if (isset($_GET['addtocart']) && $_GET['addtocart'] === 'success') { ?>
             animation: false,
             customClass: 'animated tada',
             text: "Invalid Booking TimeSlot.",
+            type: 'error'
+        });
+    </script>
+<?php } elseif (isset($_GET['addtocart']) && $_GET['addtocart'] === 'duplicateInCart') { ?>
+    <script> Swal.fire({
+            title: 'Duplicate Entry in Cart',
+            animation: false,
+            customClass: 'animated tada',
+            text: "The service with specified quality level is already added in your cart",
             type: 'error'
         });
     </script>
