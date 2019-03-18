@@ -6,6 +6,8 @@
     <?php include("includes/headTags.php"); ?>
     <link rel="stylesheet" href="assets/css/menus.css" type="text/css">
     <link rel="stylesheet" href="assets/css/util.css" type="text/css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.0/css/ion.rangeSlider.min.css"/>
 </head>
 <body>
 <?php include("includes/navigation.php"); ?>
@@ -28,7 +30,8 @@
     </div>
 </section>
 <div class="container product" id="product-display">
-    <div class="row">
+    <div class="row" style="padding-left: 15px;">
+        <span style=" line-height: 2; margin: 0 0 10px; font-size: 27px; font-weight: bold; ">Filters: </span>
         <div class="searchbar">
             <input class="search_input" id="search_input" type="text" name="searchName"
                    placeholder="Search for Event Name..."
@@ -38,6 +41,16 @@
         <?php if (isset($_GET['searchKey']) && $_GET['searchKey'] !== "") { ?>
             <button type="button" class="btn btn-dark clear-button">Clear</button>
         <?php } ?>
+        <div class="price-range-slider">
+            <input type="text" class="js-range-slider" name="my_range" value=""
+                   data-type="double"
+                   data-min="<?= $min ?>"
+                   data-max="<?= $max ?>"
+                   data-from="<?= $from ?>"
+                   data-to="<?= $to ?>"
+                   data-grid="true"
+            />
+        </div>
     </div>
     <div class="row">
         <?php for ($i = 0; $i < min($records_per_page, $row_count_menus - $records_per_page * ($page - 1)); $i++) { ?>
@@ -109,6 +122,8 @@
 <?php include("includes/footer.php"); ?>
 </body>
 <?php include("includes/scripts.php"); ?>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.0/js/ion.rangeSlider.min.js"></script>
 <script src="assets/js/events.js"></script>
 <?php
 /**

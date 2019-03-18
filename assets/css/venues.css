@@ -355,3 +355,8 @@
         margin-bottom: 30px
     }
 }
+
+.price-range-slider {
+    width: 40%;
+    margin-left: 10%;
+}
