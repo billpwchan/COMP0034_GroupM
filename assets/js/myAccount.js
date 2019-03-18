@@ -12,36 +12,35 @@ $(document).ready(function () {
 
 });
 
-/*$("table.order-list").on("click", "#add_menuItem", function () {
-    alert("clicked");
-    console.log("clicked");
+$("table.order-list").on("click", "#add_menuItem", function () {
+    counter++;
     var newRow = $("<tr>");
     var cols = "";
 
-    cols += '<td><select class="form-control" id="menuItems" class="form-control" name="menuItem' + counter + '"/><option value="default" disabled>--------</option></td>';
+    cols += '<td><select class="form-control" id="menuItems' + counter + '" class="form-control" name="menuItem' + counter + '"/></td>';
     cols += '<td><label for="" class="col-form-label">Quantity:</label></td>';
     cols += '<td><input type="number" class="form-control" min="1" name="quantity' + counter + '"/></td>';
 
     cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger" value="Delete"></td>';
     newRow.append(cols);
     $("table.order-list").append(newRow);
-    counter++;
+
+    $("#menuItems" + counter).append($("<option></option>").text("---- Select menu item(s) ----"));
+    $.getJSON("assets/controllers/getProvidedServices.php?methodID=1", function (data) {
+        $.each(data, function (i, val) {
+            $("#menuItems" + counter).append($("<option></option>")
+                .attr("value", val['menuitem_ID'])
+                .text(val['name']));
+        });
+    });
 });
 
 
 
-/* $("table.order-list").on("click", ".ibtnDel", function () {
+$("table.order-list").on("click", ".ibtnDel", function () {
         $(this).closest("tr").remove();
         counter -= 1
-}); */
-
-document.getElementById("add_menuItem").addEventListener("click", function () {
-    alert("clicked");
 });
-
-document.querySelector("#add_menuItem").addEventListener("click", function () {
-    console.log("Hi");
-})
 
 
 document.getElementById("order_tab").addEventListener("click", function () {

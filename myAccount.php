@@ -333,13 +333,13 @@
                                             <tfoot>
                                             <tr>
                                                 <td colspan="5" style="text-align: left">
+                                                    <button type="button" class="btn btn-lg btn-block" id="add_menuItem">Add another menu item</button>
                                                 </td>
                                             </tr>
                                             <tr>
                                             </tr>
                                             </tfoot>
                                         </table>
-                                        <button type="button" class="btn btn-lg btn-block" id="add_menuItem">Add another menu item</button>
                                 </div>
                                 </div>
                                 <div class="form-group row entertainment-only">
