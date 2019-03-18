@@ -5,11 +5,44 @@
  * Written by UberKidz <uberkidz@gmail.com>, 2019
  *
  */
-
+let counter = 0;
 $(document).ready(function () {
     document.getElementById("order_tab").style.borderBottom = "2px solid #999";
     $(".menu-only, .entertainment-only, .venue-only").attr("style", "display:none");
+
 });
+
+/*$("table.order-list").on("click", "#add_menuItem", function () {
+    alert("clicked");
+    console.log("clicked");
+    var newRow = $("<tr>");
+    var cols = "";
+
+    cols += '<td><select class="form-control" id="menuItems" class="form-control" name="menuItem' + counter + '"/><option value="default" disabled>--------</option></td>';
+    cols += '<td><label for="" class="col-form-label">Quantity:</label></td>';
+    cols += '<td><input type="number" class="form-control" min="1" name="quantity' + counter + '"/></td>';
+
+    cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger" value="Delete"></td>';
+    newRow.append(cols);
+    $("table.order-list").append(newRow);
+    counter++;
+});
+
+
+
+/* $("table.order-list").on("click", ".ibtnDel", function () {
+        $(this).closest("tr").remove();
+        counter -= 1
+}); */
+
+document.getElementById("add_menuItem").addEventListener("click", function () {
+    alert("clicked");
+});
+
+document.querySelector("#add_menuItem").addEventListener("click", function () {
+    console.log("Hi");
+})
+
 
 document.getElementById("order_tab").addEventListener("click", function () {
     clearLowerBorder();

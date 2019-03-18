@@ -303,11 +303,44 @@
                                 </div>
                                 <div class="form-group row menu-only">
                                     <label for="" class="col-sm-2 col-form-label">Menu Items:</label>
-                                    <div class="col-sm-5">
-                                        <select class="form-control" multiple id="menuItems" name="menuItems[]">
-                                            <option value="default" disabled>--------</option>
-                                        </select>
-                                    </div>
+                                </div>
+                                <div class="form-group row menu-only">
+                                    <div class="col-sm-10">
+                                        <table id="myTable" class="table order-list">
+                                            <colgroup>
+                                                <col span="1" style="width: 50%;">
+                                                <col span="1" style="width: 5%;">
+                                                <col span="1" style="width: 20%;">
+                                                <col span="1" style="width: 25%;">
+                                            </colgroup>
+                                            <tbody>
+                                            <tr>
+                                                <td>
+                                                    <select class="form-control" id="menuItems" name="menuItems[]">
+                                                        <option value="default" disabled>--------</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <label for="" class="col-form-label">Quantity:</label>
+                                                </td>
+                                                <td>
+                                                    <input type="number" name="quantity" class="form-control" min="1">
+                                                </td>
+                                                <td><a class="deleteRow"></a>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                            <tfoot>
+                                            <tr>
+                                                <td colspan="5" style="text-align: left">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                            </tr>
+                                            </tfoot>
+                                        </table>
+                                        <button type="button" class="btn btn-lg btn-block" id="add_menuItem">Add another menu item</button>
+                                </div>
                                 </div>
                                 <div class="form-group row entertainment-only">
                                     <label for="" class="col-sm-2 col-form-label">Duration: </label>
@@ -325,7 +358,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <button class="btn btn-primary col-sm-4" id="save_button">Save</button>
+                                    <input type="submit" class="btn btn-primary col-sm-4" id="save_button" value="Save">
                                 </div>
                             </form>
                         </div>
