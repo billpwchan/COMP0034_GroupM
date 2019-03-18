@@ -72,10 +72,10 @@ if (isset($_SESSION['userInfo'])) {
 
         <ul class="navbar-nav">
             <?php if (isset($_SESSION['userInfo']['email_address'])) { ?>
-                <li class="nav-item">
-                    <button class="nav-link" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false"><i
-                                class="fas fa-user-secret"></i><?= $_SESSION['userInfo']['email_address'] ?></button>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" role="button" id="dropdownMenuButton" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user-secret"></i><?= $_SESSION['userInfo']['email_address'] ?></a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <a class="dropdown-item" id="logout">Logout</a>
                     </div>

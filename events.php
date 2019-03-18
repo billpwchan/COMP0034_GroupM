@@ -71,7 +71,8 @@
                                  alt="Preview Image 2">
                         </a>
                         <ul class="function">
-                            <li><a href="" data-tip="Details" class="detail"><i class="fas fa-search"></i></a></li>
+                            <li><a href="" data-tip="Details" class="detail"><i class="fas fa-chevron-circle-down"></i></a>
+                            </li>
                             <li>
                                 <a>
                                     <button type="submit" data-tip="Add to Shopping Cart" class="add-to-cart">
