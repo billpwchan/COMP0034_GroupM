@@ -454,17 +454,18 @@ class event
      * @param $eventImage3
      * @param $duration
      * @param $menuItems
+     * @param $quantities
      */
-    public function insertMenu($userID, $productType, $name, $price, $description, $created, $eventImage1, $eventImage2, $eventImage3, $duration, $menuItems)
+    public function insertMenu($userID, $productType, $name, $price, $description, $created, $eventImage1, $eventImage2, $eventImage3, $duration, $menuItems, $quantities)
     {
         $db_handle = new dbController();
         $eventID = $this->insertEvent($userID, $productType, $name, $price, $description, $created, $eventImage1, $eventImage2, $eventImage3);
         $sql = "INSERT INTO menu (event_ID, duration) VALUES (?,?)";
         $db_handle->db_insert($sql, 'ii', array($eventID, $duration));
 
-        foreach ($menuItems as $menuItem) {
+        foreach (array_combine($menuItems, $quantities) as $menuItem => $quantity) {
             $sql = "INSERT INTO menumap (event_ID, menuitem_ID, quantity) VALUES (?,?,?)";
-            $db_handle->db_insert($sql, 'iii', array($eventID, $menuItem, 1));
+            $db_handle->db_insert($sql, 'iii', array($eventID, $menuItem, $quantity));
         }
     }
 

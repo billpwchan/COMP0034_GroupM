@@ -324,7 +324,7 @@
                                                     <label for="" class="col-form-label">Quantity:</label>
                                                 </td>
                                                 <td>
-                                                    <input type="number" id="quantity" name="quantity" class="form-control" min="1">
+                                                    <input type="number" id="quantity" name="quantities[]" class="form-control" min="1">
                                                 </td>
                                                 <td><a class="deleteRow"></a>
                                                 </td>

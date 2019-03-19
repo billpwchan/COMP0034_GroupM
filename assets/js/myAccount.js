@@ -19,7 +19,7 @@ $("table.order-list").on("click", "#add_menuItem", function () {
 
     cols += '<td><select id="menuItems' + counter + '" class="form-control menu_item_list" name="menuItems[]"/></td>';
     cols += '<td><label for="" class="col-form-label">Quantity:</label></td>';
-    cols += '<td><input type="number" id="quantity' + counter + '" class="form-control" min="1" name="quantity' + counter + '"/></td>';
+    cols += '<td><input type="number" id="quantity' + counter + '" class="form-control" min="1" name="quantities[]"/></td>';
 
     cols += '<td><input type="button" class="delete_button btn btn-md btn-danger" value="Delete"></td>';
     newRow.append(cols);
@@ -46,13 +46,10 @@ $("table.order-list").on("click", ".delete_button", function () {
         for (var a = deleted_counter; a<=counter; a++) {
             $("#menuItems" + (a)).attr({
                 id: "menuItems" + (a-1),
-              //  name: "menuItem" + (a-1) + "[]"
             });
             $("#quantity" + (a)).attr({
                 id: "quantity" + (a-1),
-              //  name: "quantity" + (a-1) + "[]"
             });
-
         }
         counter -= 1;
 });
