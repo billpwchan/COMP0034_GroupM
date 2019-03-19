@@ -316,7 +316,7 @@
                                             <tbody>
                                             <tr>
                                                 <td>
-                                                    <select class="form-control" id="menuItems" name="menuItems[]">
+                                                    <select class="form-control menu_item_list" id="menuItems" name="menuItems[]">
                                                         <option value="default" disabled>--------</option>
                                                     </select>
                                                 </td>
@@ -324,7 +324,7 @@
                                                     <label for="" class="col-form-label">Quantity:</label>
                                                 </td>
                                                 <td>
-                                                    <input type="number" name="quantity" class="form-control" min="1">
+                                                    <input type="number" id="quantity" name="quantity" class="form-control" min="1">
                                                 </td>
                                                 <td><a class="deleteRow"></a>
                                                 </td>
