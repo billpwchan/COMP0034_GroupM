@@ -131,7 +131,7 @@ class Swift_Transport_LoadBalancedTransport implements Swift_Transport
         $this->lastUsedTransport = null;
 
         for ($i = 0; $i < $maxTransports
-        && $transport = $this->getNextTransport(); ++$i) {
+            && $transport = $this->getNextTransport(); ++$i) {
             try {
                 if (!$transport->isStarted()) {
                     $transport->start();
@@ -148,7 +148,7 @@ class Swift_Transport_LoadBalancedTransport implements Swift_Transport
         if (0 == count($this->transports)) {
             throw new Swift_TransportException(
                 'All Transports in LoadBalancedTransport failed, or no Transports available'
-            );
+                );
         }
 
         return $sent;

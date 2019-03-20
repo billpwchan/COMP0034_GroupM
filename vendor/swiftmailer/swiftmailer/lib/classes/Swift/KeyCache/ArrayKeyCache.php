@@ -46,7 +46,7 @@ class Swift_KeyCache_ArrayKeyCache implements Swift_KeyCache
      * @param string $nsKey
      * @param string $itemKey
      * @param string $string
-     * @param int $mode
+     * @param int    $mode
      */
     public function setString($nsKey, $itemKey, $string, $mode)
     {
@@ -63,9 +63,9 @@ class Swift_KeyCache_ArrayKeyCache implements Swift_KeyCache
                 break;
             default:
                 throw new Swift_SwiftException(
-                    'Invalid mode [' . $mode . '] used to set nsKey=' .
-                    $nsKey . ', itemKey=' . $itemKey
-                );
+                    'Invalid mode ['.$mode.'] used to set nsKey='.
+                    $nsKey.', itemKey='.$itemKey
+                    );
         }
     }
 
@@ -76,7 +76,7 @@ class Swift_KeyCache_ArrayKeyCache implements Swift_KeyCache
      *
      * @param string $nsKey
      * @param string $itemKey
-     * @param int $mode
+     * @param int    $mode
      */
     public function importFromByteStream($nsKey, $itemKey, Swift_OutputByteStream $os, $mode)
     {
@@ -84,7 +84,7 @@ class Swift_KeyCache_ArrayKeyCache implements Swift_KeyCache
         switch ($mode) {
             case self::MODE_WRITE:
                 $this->clearKey($nsKey, $itemKey);
-            // no break
+                // no break
             case self::MODE_APPEND:
                 if (!$this->hasKey($nsKey, $itemKey)) {
                     $this->contents[$nsKey][$itemKey] = '';
@@ -95,9 +95,9 @@ class Swift_KeyCache_ArrayKeyCache implements Swift_KeyCache
                 break;
             default:
                 throw new Swift_SwiftException(
-                    'Invalid mode [' . $mode . '] used to set nsKey=' .
-                    $nsKey . ', itemKey=' . $itemKey
-                );
+                    'Invalid mode ['.$mode.'] used to set nsKey='.
+                    $nsKey.', itemKey='.$itemKey
+                    );
         }
     }
 
@@ -143,9 +143,9 @@ class Swift_KeyCache_ArrayKeyCache implements Swift_KeyCache
     /**
      * Get data back out of the cache as a ByteStream.
      *
-     * @param string $nsKey
-     * @param string $itemKey
-     * @param Swift_InputByteStream $is to write the data to
+     * @param string                $nsKey
+     * @param string                $itemKey
+     * @param Swift_InputByteStream $is      to write the data to
      */
     public function exportToByteStream($nsKey, $itemKey, Swift_InputByteStream $is)
     {

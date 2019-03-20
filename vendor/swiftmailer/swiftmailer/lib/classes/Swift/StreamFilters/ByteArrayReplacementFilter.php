@@ -108,7 +108,7 @@ class Swift_StreamFilters_ByteArrayReplacementFilter implements Swift_StreamFilt
      * Perform the actual replacements on $buffer and return the result.
      *
      * @param array $buffer
-     * @param int $minReplaces
+     * @param int   $minReplaces
      *
      * @return array
      */
@@ -135,7 +135,8 @@ class Swift_StreamFilters_ByteArrayReplacementFilter implements Swift_StreamFilt
                         $last_found = $search_pos[-1];
                         $last_size = $search_pos[-2];
                     }
-                } // We got a complete pattern
+                }
+                // We got a complete pattern
                 elseif (PHP_INT_MAX !== $last_found) {
                     // Adding replacement datas to output buffer
                     $rep_size = $this->repSize[$last_found];

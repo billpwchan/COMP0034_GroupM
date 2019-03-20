@@ -2,11 +2,12 @@ const puppeteer = require('puppeteer');
 const HEADLESS = true;
 
 const CUSTOMER_EMAIL = 'newacc@mailinator.com';
-const CUSTOMER_PASSWORD = '1234567890Aa*';
+const CUSTOMER_PASSWORD = '12345678Aa*';
 const SERVICE_PROVIDER_EMAIL = 'sp@mailinator.com';
 const SERVICE_PROVIDER_PASSWORD = '12345678Aa*';
 
 describe('Test Login page', () => {
+    jest.setTimeout(30000);
     var browser, page;
     var url = 'http://localhost/login.php'
     let width = 1920;
@@ -50,7 +51,7 @@ describe('Test Login page', () => {
         const title = await page.title();
         expect(title).toBe("Login");
 
-        const sa2 = await page.$eval(".swal2-shown", el => (el ? true : false));
+        const sa2 = await page.$eval("#swal2-content", el => (el ? true : false));
         expect(sa2).toBe(true);
 
         const sa2Content = await page.$eval("#swal2-content", el => el.innerHTML);

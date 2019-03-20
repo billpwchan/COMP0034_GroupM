@@ -27,20 +27,6 @@ include("includes/config.php"); ?>
 <html>
 <head>
     <?php include("includes/headTags.php"); ?>
-    <?php
-    echo isset($_GET['logout']);
-    if (isset($_GET['logout'])) {
-        require_once "./assets/model/auth.php";
-        $auth = new auth();
-        $auth->clearCookies();
-        unset($_COOKIE['member_login']);
-        unset($_COOKIE['random_password']);
-        unset($_COOKIE['random_selector']);
-        print_r($_COOKIE);
-        session_destroy();
-        session_unset();
-        header('Location: index.php');
-    } ?>
     <link rel="stylesheet" href="assets/css/styles.css" type="text/css">
     <link rel="stylesheet" href="assets/css/util.css" type="text/css">
     <link rel="stylesheet" href="assets/css/animate.css" type="text/css">
@@ -86,7 +72,7 @@ include("includes/config.php"); ?>
                 <div class="about">
                     <i class="fas fa-map"></i>
                     <h3>Venues</h3>
-                    <p>Select from our wide range of venues all across London.</p>
+                    <p>Select from our wide range of venues all across London, both in town and countryside.</p>
                     <a href="venues.php">Read more</a>
                 </div>
             </div>

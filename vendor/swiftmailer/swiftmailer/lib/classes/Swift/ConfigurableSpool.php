@@ -28,7 +28,7 @@ abstract class Swift_ConfigurableSpool implements Swift_Spool
      */
     public function setMessageLimit($limit)
     {
-        $this->message_limit = (int)$limit;
+        $this->message_limit = (int) $limit;
     }
 
     /**
@@ -48,7 +48,7 @@ abstract class Swift_ConfigurableSpool implements Swift_Spool
      */
     public function setTimeLimit($limit)
     {
-        $this->time_limit = (int)$limit;
+        $this->time_limit = (int) $limit;
     }
 
     /**

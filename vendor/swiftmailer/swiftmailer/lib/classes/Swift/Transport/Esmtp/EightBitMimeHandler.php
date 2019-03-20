@@ -64,7 +64,7 @@ class Swift_Transport_Esmtp_EightBitMimeHandler implements Swift_Transport_Esmtp
      */
     public function getMailParams()
     {
-        return ['BODY=' . $this->encoding];
+        return ['BODY='.$this->encoding];
     }
 
     /**

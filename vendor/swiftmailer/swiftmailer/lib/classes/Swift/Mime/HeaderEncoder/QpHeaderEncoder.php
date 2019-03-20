@@ -28,9 +28,9 @@ class Swift_Mime_HeaderEncoder_QpHeaderEncoder extends Swift_Encoder_QpEncoder i
     protected function initSafeMap()
     {
         foreach (array_merge(
-                     range(0x61, 0x7A), range(0x41, 0x5A),
-                     range(0x30, 0x39), [0x20, 0x21, 0x2A, 0x2B, 0x2D, 0x2F]
-                 ) as $byte) {
+            range(0x61, 0x7A), range(0x41, 0x5A),
+            range(0x30, 0x39), [0x20, 0x21, 0x2A, 0x2B, 0x2D, 0x2F]
+        ) as $byte) {
             $this->safeMap[$byte] = chr($byte);
         }
     }
@@ -50,9 +50,9 @@ class Swift_Mime_HeaderEncoder_QpHeaderEncoder extends Swift_Encoder_QpEncoder i
     /**
      * Takes an unencoded string and produces a QP encoded string from it.
      *
-     * @param string $string string to encode
-     * @param int $firstLineOffset optional
-     * @param int $maxLineLength optional, 0 indicates the default of 76 chars
+     * @param string $string          string to encode
+     * @param int    $firstLineOffset optional
+     * @param int    $maxLineLength   optional, 0 indicates the default of 76 chars
      *
      * @return string
      */

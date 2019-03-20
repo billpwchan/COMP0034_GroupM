@@ -106,7 +106,6 @@
                                         <?php foreach (array_keys($providedServices[0]) as $key) { ?>
                                             <th scope="col"><?= $key ?></th>
                                         <?php } ?>
-                                        <th scope="col">Operations</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -115,7 +114,6 @@
                                             <?php foreach (array_values($providedService) as $value) { ?>
                                                 <td scope="col"><?= ucfirst($value) ?></td>
                                             <?php } ?>
-                                            <td scope="col"><i class="fas fa-times"></i></td>
                                         </tr>
                                     <?php } ?>
                                     </tbody>

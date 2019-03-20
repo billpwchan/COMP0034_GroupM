@@ -3,6 +3,20 @@
 <html>
 <head>
     <?php include("includes/headTags.php"); ?>
+    <?php
+    echo isset($_GET['logout']);
+    if (isset($_GET['logout'])) {
+        require_once "./assets/model/auth.php";
+        $auth = new auth();
+        $auth->clearCookies();
+        unset($_COOKIE['member_login']);
+        unset($_COOKIE['random_password']);
+        unset($_COOKIE['random_selector']);
+        print_r($_COOKIE);
+        session_destroy();
+        session_unset();
+        header('Location: login.php');
+    } ?>
     <link rel="stylesheet" href="assets/css/login.css" type="text/css">
     <link rel="stylesheet" href="assets/css/util.css" type="text/css">
     <link rel="stylesheet" href="assets/css/animate.css" type="text/css">
@@ -36,7 +50,7 @@
 					</span>
                 <div class="wrap-input validate-input">
                     <input class="userInput" type="email" name="email" placeholder="Email" id="Email"
-                           value="<?= $isLoggedIn ? $_SESSION['email'] : "" ?>">
+                           value="<?= $isLoggedIn && isset($_SESSION['email']) ? $_SESSION['email'] : "" ?>">
                     <span class="focus-input"></span>
                     <span class="symbol-input">
 							<i class="fas fa-envelope" aria-hidden="true"></i>

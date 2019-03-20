@@ -102,7 +102,7 @@
                         case 'venue': ?>
                             <span>Location</span>
                             <iframe width="600" height="450" frameborder="0" style="border:0"
-                                    src="https://www.google.com/maps/embed/v1/search?q=<?= htmlentities($productDetails['address']) ?>&key=AIzaSyAp_ixDe7lUnJhtKJSp6mgByno7jzC7P04"
+                                    src="https://www.google.com/maps/embed/v1/search?q=<?= htmlentities($productDetails['post_code']) ?>&key=AIzaSyAp_ixDe7lUnJhtKJSp6mgByno7jzC7P04"
                                     allowfullscreen></iframe>
                             <?php break;
                     } ?>
@@ -117,11 +117,6 @@
                     </div>
                     <link rel="stylesheet" href="./assets/css/jquery.datetimepicker.min.css">
 
-                    <span>Booking Time: </span>
-                    <div class="time-choose">
-                        <input id="datetimepicker" class="form__field" type="text" name="eventStartTime"
-                               placeholder="DATE : TIME">
-                    </div>
                     <span>Location Selector</span>
                     <div class="pac-card" id="pac-card">
                         <div style="visibility: hidden; height: 0px;">
@@ -158,6 +153,11 @@
                         <span id="place-name" class="title"></span><br>
                         <span id="place-address"></span>
                     </div>
+                    <span>Booking Time: </span>
+                    <div class="time-choose">
+                        <input id="datetimepicker" class="form__field" type="text" name="eventStartTime"
+                               placeholder="DATE : TIME">
+                    </div>
                 </div>
             </div>
 
@@ -170,8 +170,10 @@
                                                                     name="productPrice"
                                                                     value="<?= $productDetails['price'] ?>">
                 </span>
-                <?php if (isset($_SESSION['userInfo'])) { ?>
+                <?php if (isset($_SESSION['userInfo']) && isset($_SESSION['customer'])) { ?>
                     <button type="submit" class="cart-btn">Add to cart</button>
+                <?php } else if (isset($_SESSION['userInfo']) && !isset($_SESSION['customer'])) { ?>
+                    <a href="registration.php">Only Customer can Add to Cart.</a>
                 <?php } else { ?>
                     <a href="login.php">You need to Login! </a>
                 <?php } ?>

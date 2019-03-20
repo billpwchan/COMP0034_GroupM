@@ -45,9 +45,9 @@ class Swift_Plugins_PopBeforeSmtpPlugin implements Swift_Events_TransportChangeL
     /**
      * Create a new PopBeforeSmtpPlugin for $host and $port.
      *
-     * @param string $host Hostname or IP. Literal IPv6 addresses should be
+     * @param string $host   Hostname or IP. Literal IPv6 addresses should be
      *                       wrapped in square brackets.
-     * @param int $port
+     * @param int    $port
      * @param string $crypto as "tls" or "ssl"
      */
     public function __construct($host, $port = 110, $crypto = null)
@@ -86,7 +86,7 @@ class Swift_Plugins_PopBeforeSmtpPlugin implements Swift_Events_TransportChangeL
      */
     public function setTimeout($timeout)
     {
-        $this->timeout = (int)$timeout;
+        $this->timeout = (int) $timeout;
 
         return $this;
     }
@@ -241,11 +241,11 @@ class Swift_Plugins_PopBeforeSmtpPlugin implements Swift_Events_TransportChangeL
         $host = $this->host;
         switch (strtolower($this->crypto)) {
             case 'ssl':
-                $host = 'ssl://' . $host;
+                $host = 'ssl://'.$host;
                 break;
 
             case 'tls':
-                $host = 'tls://' . $host;
+                $host = 'tls://'.$host;
                 break;
         }
 

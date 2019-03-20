@@ -6,8 +6,8 @@ class Swift_Plugins_LoggerPluginTest extends \SwiftMailerTestCase
     {
         $logger = $this->createLogger();
         $logger->expects($this->once())
-            ->method('add')
-            ->with('foo');
+               ->method('add')
+               ->with('foo');
 
         $plugin = $this->createPlugin($logger);
         $plugin->add('foo');
@@ -17,8 +17,8 @@ class Swift_Plugins_LoggerPluginTest extends \SwiftMailerTestCase
     {
         $logger = $this->createLogger();
         $logger->expects($this->once())
-            ->method('dump')
-            ->will($this->returnValue('foobar'));
+               ->method('dump')
+               ->will($this->returnValue('foobar'));
 
         $plugin = $this->createPlugin($logger);
         $this->assertEquals('foobar', $plugin->dump());
@@ -28,7 +28,7 @@ class Swift_Plugins_LoggerPluginTest extends \SwiftMailerTestCase
     {
         $logger = $this->createLogger();
         $logger->expects($this->once())
-            ->method('clear');
+               ->method('clear');
 
         $plugin = $this->createPlugin($logger);
         $plugin->clear();
@@ -39,8 +39,8 @@ class Swift_Plugins_LoggerPluginTest extends \SwiftMailerTestCase
         $evt = $this->createCommandEvent("foo\r\n");
         $logger = $this->createLogger();
         $logger->expects($this->once())
-            ->method('add')
-            ->with(static::regExp('~foo\r\n~'));
+               ->method('add')
+               ->with(static::regExp('~foo\r\n~'));
 
         $plugin = $this->createPlugin($logger);
         $plugin->commandSent($evt);
@@ -51,8 +51,8 @@ class Swift_Plugins_LoggerPluginTest extends \SwiftMailerTestCase
         $evt = $this->createResponseEvent("354 Go ahead\r\n");
         $logger = $this->createLogger();
         $logger->expects($this->once())
-            ->method('add')
-            ->with(static::regExp('~354 Go ahead\r\n~'));
+               ->method('add')
+               ->with(static::regExp('~354 Go ahead\r\n~'));
 
         $plugin = $this->createPlugin($logger);
         $plugin->responseReceived($evt);
@@ -63,8 +63,8 @@ class Swift_Plugins_LoggerPluginTest extends \SwiftMailerTestCase
         $evt = $this->createTransportChangeEvent();
         $logger = $this->createLogger();
         $logger->expects($this->once())
-            ->method('add')
-            ->with($this->anything());
+               ->method('add')
+               ->with($this->anything());
 
         $plugin = $this->createPlugin($logger);
         $plugin->beforeTransportStarted($evt);
@@ -75,8 +75,8 @@ class Swift_Plugins_LoggerPluginTest extends \SwiftMailerTestCase
         $evt = $this->createTransportChangeEvent();
         $logger = $this->createLogger();
         $logger->expects($this->once())
-            ->method('add')
-            ->with($this->anything());
+               ->method('add')
+               ->with($this->anything());
 
         $plugin = $this->createPlugin($logger);
         $plugin->transportStarted($evt);
@@ -87,8 +87,8 @@ class Swift_Plugins_LoggerPluginTest extends \SwiftMailerTestCase
         $evt = $this->createTransportChangeEvent();
         $logger = $this->createLogger();
         $logger->expects($this->once())
-            ->method('add')
-            ->with($this->anything());
+               ->method('add')
+               ->with($this->anything());
 
         $plugin = $this->createPlugin($logger);
         $plugin->transportStopped($evt);
@@ -99,8 +99,8 @@ class Swift_Plugins_LoggerPluginTest extends \SwiftMailerTestCase
         $evt = $this->createTransportChangeEvent();
         $logger = $this->createLogger();
         $logger->expects($this->once())
-            ->method('add')
-            ->with($this->anything());
+               ->method('add')
+               ->with($this->anything());
 
         $plugin = $this->createPlugin($logger);
         $plugin->beforeTransportStopped($evt);
@@ -112,8 +112,8 @@ class Swift_Plugins_LoggerPluginTest extends \SwiftMailerTestCase
         $evt = $this->createTransportExceptionEvent();
         $logger = $this->createLogger();
         $logger->expects($this->once())
-            ->method('add')
-            ->with($this->anything());
+               ->method('add')
+               ->with($this->anything());
 
         $plugin = $this->createPlugin($logger);
         try {
@@ -136,8 +136,8 @@ class Swift_Plugins_LoggerPluginTest extends \SwiftMailerTestCase
     private function createCommandEvent($command)
     {
         $evt = $this->getMockBuilder('Swift_Events_CommandEvent')
-            ->disableOriginalConstructor()
-            ->getMock();
+                    ->disableOriginalConstructor()
+                    ->getMock();
         $evt->expects($this->any())
             ->method('getCommand')
             ->will($this->returnValue($command));
@@ -148,8 +148,8 @@ class Swift_Plugins_LoggerPluginTest extends \SwiftMailerTestCase
     private function createResponseEvent($response)
     {
         $evt = $this->getMockBuilder('Swift_Events_ResponseEvent')
-            ->disableOriginalConstructor()
-            ->getMock();
+                    ->disableOriginalConstructor()
+                    ->getMock();
         $evt->expects($this->any())
             ->method('getResponse')
             ->will($this->returnValue($response));
@@ -165,8 +165,8 @@ class Swift_Plugins_LoggerPluginTest extends \SwiftMailerTestCase
     private function createTransportChangeEvent()
     {
         $evt = $this->getMockBuilder('Swift_Events_TransportChangeEvent')
-            ->disableOriginalConstructor()
-            ->getMock();
+                    ->disableOriginalConstructor()
+                    ->getMock();
         $evt->expects($this->any())
             ->method('getSource')
             ->will($this->returnValue($this->createTransport()));
@@ -177,8 +177,8 @@ class Swift_Plugins_LoggerPluginTest extends \SwiftMailerTestCase
     public function createTransportExceptionEvent()
     {
         $evt = $this->getMockBuilder('Swift_Events_TransportExceptionEvent')
-            ->disableOriginalConstructor()
-            ->getMock();
+                    ->disableOriginalConstructor()
+                    ->getMock();
         $evt->expects($this->any())
             ->method('getException')
             ->will($this->returnValue(new Swift_TransportException('')));
