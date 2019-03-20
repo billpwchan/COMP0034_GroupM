@@ -197,6 +197,7 @@
 }
 
 .product-grid .product-image {
+    height: 200px;
     overflow: hidden;
     position: relative;
 }
@@ -357,4 +358,9 @@
     .product-grid {
         margin-bottom: 30px
     }
+}
+
+.price-range-slider {
+    width: 40%;
+    margin-left: 10%;
 }

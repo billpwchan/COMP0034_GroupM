@@ -7,10 +7,10 @@ class Swift_Bug51Test extends \SwiftMailerTestCase
 
     protected function setUp()
     {
-        $this->attachmentFile = sys_get_temp_dir() . '/attach.rand.bin';
+        $this->attachmentFile = sys_get_temp_dir().'/attach.rand.bin';
         file_put_contents($this->attachmentFile, '');
 
-        $this->outputFile = sys_get_temp_dir() . '/attach.out.bin';
+        $this->outputFile = sys_get_temp_dir().'/attach.out.bin';
         file_put_contents($this->outputFile, '');
     }
 
@@ -102,7 +102,8 @@ class Swift_Bug51Test extends \SwiftMailerTestCase
             ->setBody('test')
             ->setFrom('a@b.c')
             ->setTo('d@e.f')
-            ->attach(Swift_Attachment::fromPath($attachmentPath));
+            ->attach(Swift_Attachment::fromPath($attachmentPath))
+            ;
 
         return $message;
     }

@@ -29,7 +29,7 @@ class Swift_Transport_SendmailTransport extends Swift_Transport_AbstractSmtpTran
         'blocking' => 1,
         'command' => '/usr/sbin/sendmail -bs',
         'type' => Swift_Transport_IoBuffer::TYPE_PROCESS,
-    ];
+        ];
 
     /**
      * Create a new SendmailTransport with $buf for I/O.
@@ -97,7 +97,7 @@ class Swift_Transport_SendmailTransport extends Swift_Transport_AbstractSmtpTran
      */
     public function send(Swift_Mime_SimpleMessage $message, &$failedRecipients = null)
     {
-        $failedRecipients = (array)$failedRecipients;
+        $failedRecipients = (array) $failedRecipients;
         $command = $this->getCommand();
         $buffer = $this->getBuffer();
         $count = 0;
@@ -111,7 +111,7 @@ class Swift_Transport_SendmailTransport extends Swift_Transport_AbstractSmtpTran
             }
 
             if (false === strpos($command, ' -f')) {
-                $command .= ' -f' . escapeshellarg($this->getReversePath($message));
+                $command .= ' -f'.escapeshellarg($this->getReversePath($message));
             }
 
             $buffer->initialize(array_merge($this->params, ['command' => $command]));
@@ -122,9 +122,10 @@ class Swift_Transport_SendmailTransport extends Swift_Transport_AbstractSmtpTran
                 $buffer->setWriteTranslations(["\r\n" => "\n"]);
             }
 
-            $count = count((array)$message->getTo())
-                + count((array)$message->getCc())
-                + count((array)$message->getBcc());
+            $count = count((array) $message->getTo())
+                + count((array) $message->getCc())
+                + count((array) $message->getBcc())
+                ;
             $message->toByteStream($buffer);
             $buffer->flushBuffers();
             $buffer->setWriteTranslations([]);
@@ -141,9 +142,9 @@ class Swift_Transport_SendmailTransport extends Swift_Transport_AbstractSmtpTran
             $count = parent::send($message, $failedRecipients);
         } else {
             $this->throwException(new Swift_TransportException(
-                'Unsupported sendmail command flags [' . $command . ']. ' .
+                'Unsupported sendmail command flags ['.$command.']. '.
                 'Must be one of "-bs" or "-t" but can include additional flags.'
-            ));
+                ));
         }
 
         return $count;

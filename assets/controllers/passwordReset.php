@@ -22,7 +22,7 @@ $token = random_bytes(32);
 $config = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . '/config.ini');
 $folder = $config['rootFolderName'];
 
-$url = sprintf('%sreset.php?%s', $_SERVER['HTTP_HOST'] . '/' . $folder . '/', http_build_query([
+$url = sprintf('%sreset.php?%s', $_SERVER['HTTP_HOST'] . '/', http_build_query([
     'selector' => $selector,
     'validator' => bin2hex($token)
 ]));

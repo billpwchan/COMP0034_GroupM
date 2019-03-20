@@ -10,9 +10,9 @@ abstract class Swift_Transport_StreamBuffer_AbstractStreamBufferAcceptanceTest e
     {
         if (true == getenv('TRAVIS')) {
             $this->markTestSkipped(
-                'Will fail on travis-ci if not skipped due to travis blocking ' .
+                'Will fail on travis-ci if not skipped due to travis blocking '.
                 'socket mailing tcp connections.'
-            );
+             );
         }
 
         $this->buffer = new Swift_Transport_StreamBuffer(
@@ -27,7 +27,7 @@ abstract class Swift_Transport_StreamBuffer_AbstractStreamBufferAcceptanceTest e
         $line = $this->buffer->readLine(0);
         $this->assertRegExp('/^[0-9]{3}.*?\r\n$/D', $line);
         $seq = $this->buffer->write("QUIT\r\n");
-        $this->assertTrue((bool)$seq);
+        $this->assertTrue((bool) $seq);
         $line = $this->buffer->readLine($seq);
         $this->assertRegExp('/^[0-9]{3}.*?\r\n$/D', $line);
         $this->buffer->terminate();
@@ -41,12 +41,12 @@ abstract class Swift_Transport_StreamBuffer_AbstractStreamBufferAcceptanceTest e
         $this->assertRegExp('/^[0-9]{3}.*?\r\n$/D', $line);
 
         $seq = $this->buffer->write("HELO foo\r\n");
-        $this->assertTrue((bool)$seq);
+        $this->assertTrue((bool) $seq);
         $line = $this->buffer->readLine($seq);
         $this->assertRegExp('/^[0-9]{3}.*?\r\n$/D', $line);
 
         $seq = $this->buffer->write("QUIT\r\n");
-        $this->assertTrue((bool)$seq);
+        $this->assertTrue((bool) $seq);
         $line = $this->buffer->readLine($seq);
         $this->assertRegExp('/^[0-9]{3}.*?\r\n$/D', $line);
         $this->buffer->terminate();

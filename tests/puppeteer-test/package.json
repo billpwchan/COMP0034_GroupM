@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "expect-puppeteer": "^4.0.0",
+    "faker": "^4.1.0",
     "jest": "^24.4.0",
     "jest-puppeteer": "^4.0.0",
     "puppeteer": "^1.13.0"

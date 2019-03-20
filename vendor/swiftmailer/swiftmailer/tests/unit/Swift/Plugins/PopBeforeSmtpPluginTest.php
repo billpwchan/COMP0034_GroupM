@@ -6,7 +6,7 @@ class Swift_Plugins_PopBeforeSmtpPluginTest extends \PHPUnit\Framework\TestCase
     {
         $connection = $this->createConnection();
         $connection->expects($this->once())
-            ->method('connect');
+                   ->method('connect');
 
         $plugin = $this->createPlugin('pop.host.tld', 110);
         $plugin->setConnection($connection);
@@ -21,7 +21,7 @@ class Swift_Plugins_PopBeforeSmtpPluginTest extends \PHPUnit\Framework\TestCase
     {
         $connection = $this->createConnection();
         $connection->expects($this->once())
-            ->method('disconnect');
+                   ->method('disconnect');
 
         $plugin = $this->createPlugin('pop.host.tld', 110);
         $plugin->setConnection($connection);
@@ -36,9 +36,9 @@ class Swift_Plugins_PopBeforeSmtpPluginTest extends \PHPUnit\Framework\TestCase
     {
         $connection = $this->createConnection();
         $connection->expects($this->never())
-            ->method('disconnect');
+                   ->method('disconnect');
         $connection->expects($this->never())
-            ->method('connect');
+                   ->method('connect');
 
         $smtp = $this->createTransport();
 
@@ -56,7 +56,7 @@ class Swift_Plugins_PopBeforeSmtpPluginTest extends \PHPUnit\Framework\TestCase
     {
         $connection = $this->createConnection();
         $connection->expects($this->once())
-            ->method('connect');
+                   ->method('connect');
 
         $smtp = $this->createTransport();
 
@@ -77,8 +77,8 @@ class Swift_Plugins_PopBeforeSmtpPluginTest extends \PHPUnit\Framework\TestCase
     private function createTransportChangeEvent($transport)
     {
         $evt = $this->getMockBuilder('Swift_Events_TransportChangeEvent')
-            ->disableOriginalConstructor()
-            ->getMock();
+                    ->disableOriginalConstructor()
+                    ->getMock();
         $evt->expects($this->any())
             ->method('getSource')
             ->will($this->returnValue($transport));

@@ -35,7 +35,7 @@ class Swift_Events_SimpleEventDispatcher implements Swift_Events_EventDispatcher
             'Swift_Events_SendEvent' => 'Swift_Events_SendListener',
             'Swift_Events_TransportChangeEvent' => 'Swift_Events_TransportChangeListener',
             'Swift_Events_TransportExceptionEvent' => 'Swift_Events_TransportExceptionListener',
-        ];
+            ];
     }
 
     /**
@@ -51,8 +51,8 @@ class Swift_Events_SimpleEventDispatcher implements Swift_Events_EventDispatcher
     /**
      * Create a new CommandEvent for $source and $command.
      *
-     * @param string $command That will be executed
-     * @param array $successCodes That are needed
+     * @param string $command      That will be executed
+     * @param array  $successCodes That are needed
      *
      * @return Swift_Events_CommandEvent
      */
@@ -65,7 +65,7 @@ class Swift_Events_SimpleEventDispatcher implements Swift_Events_EventDispatcher
      * Create a new ResponseEvent for $source and $response.
      *
      * @param string $response
-     * @param bool $valid If the response is valid
+     * @param bool   $valid    If the response is valid
      *
      * @return Swift_Events_ResponseEvent
      */

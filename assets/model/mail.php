@@ -13,7 +13,6 @@
  * Date: 27/2/2019
  * Time: 2:42
  */
-
 class mail
 {
     private $folder;
@@ -58,6 +57,7 @@ class mail
             ->setTo([$to => $name])
             ->setBody($resetLink, 'text/html');
         $mailer = new Swift_Mailer($this->transport);
+
         $mailer->send($message);
     }
 
@@ -71,7 +71,7 @@ class mail
     {
 
         // create account verification link. Need to fixed in the future
-        $link = $_SERVER['HTTP_HOST'] . '/' . $this->folder . '/activation.php?key=' . $email_activation_key;
+        $link = $_SERVER['HTTP_HOST'] . '/activation.php?key=' . $email_activation_key;
 
         // get the html email content
         $html_content = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/assets/lib/email/email_verification.html');

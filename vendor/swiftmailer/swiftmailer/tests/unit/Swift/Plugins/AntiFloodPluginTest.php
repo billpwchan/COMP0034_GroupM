@@ -22,9 +22,9 @@ class Swift_Plugins_AntiFloodPluginTest extends \PHPUnit\Framework\TestCase
     {
         $transport = $this->createTransport();
         $transport->expects($this->once())
-            ->method('start');
+                  ->method('start');
         $transport->expects($this->once())
-            ->method('stop');
+                  ->method('stop');
 
         $evt = $this->createSendEvent($transport);
 
@@ -38,9 +38,9 @@ class Swift_Plugins_AntiFloodPluginTest extends \PHPUnit\Framework\TestCase
     {
         $transport = $this->createTransport();
         $transport->expects($this->exactly(5))
-            ->method('start');
+                  ->method('start');
         $transport->expects($this->exactly(5))
-            ->method('stop');
+                  ->method('stop');
 
         $evt = $this->createSendEvent($transport);
 
@@ -54,14 +54,14 @@ class Swift_Plugins_AntiFloodPluginTest extends \PHPUnit\Framework\TestCase
     {
         $sleeper = $this->getMockBuilder('Swift_Plugins_Sleeper')->getMock();
         $sleeper->expects($this->once())
-            ->method('sleep')
-            ->with(10);
+                ->method('sleep')
+                ->with(10);
 
         $transport = $this->createTransport();
         $transport->expects($this->once())
-            ->method('start');
+                  ->method('start');
         $transport->expects($this->once())
-            ->method('stop');
+                  ->method('stop');
 
         $evt = $this->createSendEvent($transport);
 
@@ -79,8 +79,8 @@ class Swift_Plugins_AntiFloodPluginTest extends \PHPUnit\Framework\TestCase
     private function createSendEvent($transport)
     {
         $evt = $this->getMockBuilder('Swift_Events_SendEvent')
-            ->disableOriginalConstructor()
-            ->getMock();
+                    ->disableOriginalConstructor()
+                    ->getMock();
         $evt->expects($this->any())
             ->method('getSource')
             ->will($this->returnValue($transport));

@@ -71,10 +71,10 @@ class Swift_Plugins_ThrottlerPlugin extends Swift_Plugins_BandwidthMonitorPlugin
     /**
      * Create a new ThrottlerPlugin.
      *
-     * @param int $rate
-     * @param int $mode defaults to {@link BYTES_PER_MINUTE}
+     * @param int                   $rate
+     * @param int                   $mode    defaults to {@link BYTES_PER_MINUTE}
      * @param Swift_Plugins_Sleeper $sleeper (only needed in testing)
-     * @param Swift_Plugins_Timer $timer (only needed in testing)
+     * @param Swift_Plugins_Timer   $timer   (only needed in testing)
      */
     public function __construct($rate, $mode = self::BYTES_PER_MINUTE, Swift_Plugins_Sleeper $sleeper = null, Swift_Plugins_Timer $timer = null)
     {
@@ -163,7 +163,7 @@ class Swift_Plugins_ThrottlerPlugin extends Swift_Plugins_BandwidthMonitorPlugin
     {
         $expectedDuration = $this->getBytesOut() / ($this->rate / 60);
 
-        return (int)ceil($expectedDuration - $timePassed);
+        return (int) ceil($expectedDuration - $timePassed);
     }
 
     /**
@@ -177,7 +177,7 @@ class Swift_Plugins_ThrottlerPlugin extends Swift_Plugins_BandwidthMonitorPlugin
     {
         $expectedDuration = $this->messages / $this->rate;
 
-        return (int)ceil($expectedDuration - $timePassed);
+        return (int) ceil($expectedDuration - $timePassed);
     }
 
     /**
@@ -191,6 +191,6 @@ class Swift_Plugins_ThrottlerPlugin extends Swift_Plugins_BandwidthMonitorPlugin
     {
         $expectedDuration = $this->messages / ($this->rate / 60);
 
-        return (int)ceil($expectedDuration - $timePassed);
+        return (int) ceil($expectedDuration - $timePassed);
     }
 }

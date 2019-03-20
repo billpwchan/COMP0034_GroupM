@@ -64,7 +64,7 @@ interface Swift_Transport
      * This is the responsibility of the send method to start the transport if needed.
      *
      * @param Swift_Mime_SimpleMessage $message
-     * @param string[] $failedRecipients An array of failures by-reference
+     * @param string[]                 $failedRecipients An array of failures by-reference
      *
      * @return int
      */

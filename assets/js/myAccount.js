@@ -139,7 +139,7 @@ $('#event_type').on('change', function () {
 
 function getMenuItems() {
     $('#menuItems').empty()
-                   .append($("<option></option>").text("---- Select menu item(s) ----"));
+        .append($("<option></option>").text("---- Select menu item(s) ----"));
     $.getJSON("assets/controllers/getProvidedServices.php?methodID=1", function (data) {
         $.each(data, function (i, val) {
             $("#menuItems").append($("<option></option>")
@@ -151,7 +151,7 @@ function getMenuItems() {
 
 function getEntertainers() {
     $('#entertainers').empty()
-                      .append($("<option></option>").text("---- Select entertainer(s) ----"));
+        .append($("<option></option>").text("---- Select entertainer(s) ----"));
     $.getJSON("assets/controllers/getProvidedServices.php?methodID=2", function (data) {
         $.each(data, function (i, val) {
             $("#entertainers").append($("<option></option>")
@@ -198,43 +198,43 @@ function submit_form() {
     var selected_service = drop_down_list.options[drop_down_list.selectedIndex].text;
 
     // -------- General Information --------
-    if ($("#event_type option:selected").index() === 0){
+    if ($("#event_type option:selected").index() === 0) {
         showAlert("Event type not specified", "Please select the type of your new service");
         submit = false;
     }
-    if (validate_service_name(document.getElementById("service_name")) === false){
-         submit = false;
-     }
-    if (validate_price(document.getElementById("service_price")) === false){
+    if (validate_service_name(document.getElementById("service_name")) === false) {
         submit = false;
     }
-    if (validate_description(document.getElementById("service_description")) === false){
+    if (validate_price(document.getElementById("service_price")) === false) {
         submit = false;
     }
-    if(document.getElementById("eventImage1").files.length == 0 || document.getElementById("eventImage2").files.length == 0 || document.getElementById("eventImage3").files.length == 0) {
+    if (validate_description(document.getElementById("service_description")) === false) {
+        submit = false;
+    }
+    if (document.getElementById("eventImage1").files.length === 0 || document.getElementById("eventImage2").files.length === 0 || document.getElementById("eventImage3").files.length == 0) {
         showAlert("Image not uploaded", "Please upload images for your new service.");
         submit = false;
     }
 
     // -------- Venue --------
-     if (selected_service === "Venue"){
-         if (validate_address(document.getElementById("venue_address")) === false){
-             submit = false;
-         }
-         if (validate_postcode(document.getElementById("venue_postcode")) === false){
-             submit = false;
-         }
-         if (validate_capacity(document.getElementById("venue_capacity")) === false){
-             submit = false;
-         }
-         if (validate_region(document.getElementById("venue_region")) === false){
-             submit = false;
-         }
+    if (selected_service === "Venue") {
+        if (validate_address(document.getElementById("venue_address")) === false) {
+            submit = false;
+        }
+        if (validate_postcode(document.getElementById("venue_postcode")) === false) {
+            submit = false;
+        }
+        if (validate_capacity(document.getElementById("venue_capacity")) === false) {
+            submit = false;
+        }
+        if (validate_region(document.getElementById("venue_region")) === false) {
+            submit = false;
+        }
     }
 
     // -------- Entertainment --------
-    if (selected_service === "Entertainment"){
-        if (validate_duration(document.getElementById("entertainment_duration")) === false){
+    if (selected_service === "Entertainment") {
+        if (validate_duration(document.getElementById("entertainment_duration")) === false) {
             submit = false;
         }
         if ($("#entertainers")[0].selectedIndex <= 0) {
@@ -244,8 +244,8 @@ function submit_form() {
     }
 
     // -------- Menu --------
-    if (selected_service === "Menu"){
-        if (validate_duration(document.getElementById("menu_duration")) === false){
+    if (selected_service === "Menu") {
+        if (validate_duration(document.getElementById("menu_duration")) === false) {
             submit = false;
         }
         if ($("#menuItems")[0].selectedIndex <= 0) {
@@ -304,7 +304,7 @@ function validate_postcode(postcode) {
         showAlert("Blank post code", "Please enter the post code of your new venue.");
         return false;
     }
-    if (postcodeReg.test(postcode.value) === false){
+    if (postcodeReg.test(postcode.value) === false) {
         showAlert("Invalid post code", "Please re-enter the post code of your new venue.");
         return false;
     }
@@ -315,7 +315,7 @@ function validate_capacity(capacity) {
         showAlert("Blank capacity", "Please enter the capacity of your new venue.");
         return false;
     }
-    if (capacity.value <=0 || capacity.value >=1000) {
+    if (capacity.value <= 0 || capacity.value >= 1000) {
         showAlert("Capacity not within normal range", "PPlease re-enter the capacity of your new venue.");
         return false;
     }
@@ -338,23 +338,23 @@ function validate_duration(duration) {
         showAlert("Blank duration", "Please enter the duration of your new service");
         return false;
     }
-    if (duration.value <=0 || duration.value >=24) {
+    if (duration.value <= 0 || duration.value >= 24) {
         showAlert("Duration not within normal range", "PPlease re-enter the duration of your new service.");
         return false;
     }
 }
 
-$("input[id='eventImage1']").change(function(){
+$("input[id='eventImage1']").change(function () {
     var filename = $(this).val().split('\\').pop();
     document.getElementById('eventImage1_label').innerText = filename;
 });
 
-$("input[id='eventImage2']").change(function(){
+$("input[id='eventImage2']").change(function () {
     var filename = $(this).val().split('\\').pop();
     document.getElementById('eventImage2_label').innerText = filename;
 });
 
-$("input[id='eventImage3']").change(function(){
+$("input[id='eventImage3']").change(function () {
     var filename = $(this).val().split('\\').pop();
     document.getElementById('eventImage3_label').innerText = filename;
 });

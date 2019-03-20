@@ -125,6 +125,28 @@ class event
     }
 
     /**
+     * @param $from_record_num
+     * @param $records_per_page
+     * @param $from_price
+     * @param $to_price
+     * @return array
+     */
+    function read_entertainment_with_price_range($from_record_num, $records_per_page, $from_price, $to_price)
+    {
+        $db_handle = new dbController();
+        $sql = "
+        SELECT event.event_ID, event.name, event.description, event.price, event.eventimage1, event.eventimage2
+        from event, entertainmentpackage
+        WHERE event.event_ID = entertainmentpackage.event_ID
+        AND event.event_type = 'entertainment'
+        AND event.price BETWEEN ? AND ?
+        ORDER BY event.created
+        LIMIT ?, ?
+      ";
+        return $db_handle->db_query($sql, 'ddii', array(floatval($from_price), floatval($to_price), $from_record_num, $records_per_page));
+    }
+
+    /**
      * @return mixed
      */
     function row_count_entertainment()
@@ -151,9 +173,27 @@ class event
         from event, entertainmentpackage
         WHERE event.event_ID = entertainmentpackage.event_ID
         AND event.event_type = 'entertainment'
-        AND event.name LIKE '%$searchKey%'
+        AND event.name LIKE ?
     ";
         return $db_handle->db_query($sql, 's', array('%' . $searchKey . '%'))[0]['rowCount'];
+    }
+
+    /**
+     * @param $from_price
+     * @param $to_price
+     * @return mixed
+     */
+    function row_count_entertainment_with_price_range($from_price, $to_price)
+    {
+        $db_handle = new dbController();
+        $sql = "
+        SELECT COUNT(*) as rowCount
+        from event, entertainmentpackage
+        WHERE event.event_ID = entertainmentpackage.event_ID
+        AND event.event_type = 'entertainment'
+        AND event.price BETWEEN ? AND ?
+    ";
+        return $db_handle->db_query($sql, 'dd', array(floatval($from_price), floatval($to_price)))[0]['rowCount'];
     }
 
     /**
@@ -196,6 +236,21 @@ class event
         return $db_handle->db_query($sql, 'sii', array('%' . $searchKey . '%', $from_record_num, $records_per_page));
     }
 
+    function read_menus_with_price_range($from_record_num, $records_per_page, $from_price, $to_price)
+    {
+        $db_handle = new dbController();
+        $sql = "
+        SELECT event.event_ID, event.name, event.description, event.price, event.eventimage1, event.eventimage2
+        from event, menu
+        WHERE event.event_ID = menu.event_ID
+        AND event.event_type = 'menu'
+        AND event.price BETWEEN ? AND ?
+        ORDER BY event.created
+        LIMIT ?, ?
+      ";
+        return $db_handle->db_query($sql, 'ddii', array(floatval($from_price), floatval($to_price), $from_record_num, $records_per_page));
+    }
+
     /**
      * @return mixed
      */
@@ -228,6 +283,19 @@ class event
         return $db_handle->db_query($sql, 's', array('%' . $searchKey . '%'))[0]['rowCount'];
     }
 
+    function row_count_menus_with_price_range($from_price, $to_price)
+    {
+        $db_handle = new dbController();
+        $sql = "
+        SELECT COUNT(*) as rowCount
+        from event, menu
+        WHERE event.event_ID = menu.event_ID
+        AND event.event_type = 'menu'
+        AND event.price BETWEEN ? AND ?
+    ";
+        return $db_handle->db_query($sql, 'dd', array(floatval($from_price), floatval($to_price)))[0]['rowCount'];
+    }
+
     /**
      * @param $from_record_num
      * @param $records_per_page
@@ -253,7 +321,7 @@ class event
      * @param $searchKey
      * @return array
      */
-    function read_with_searched_name($from_record_num, $records_per_page, $searchKey)
+    function read_venue_with_searched_name($from_record_num, $records_per_page, $searchKey)
     {
         $db_handle = new dbController();
         $sql = "
@@ -266,6 +334,21 @@ class event
         LIMIT ?, ?
     ";
         return $db_handle->db_query($sql, 'sii', array('%' . $searchKey . '%', $from_record_num, $records_per_page));
+    }
+
+    function read_venue_with_price_range($from_record_num, $records_per_page, $from_price, $to_price)
+    {
+        $db_handle = new dbController();
+        $sql = "
+        SELECT event.event_ID, event.name, event.description, event.price, event.eventimage1, event.eventimage2
+        from event, venue
+        WHERE event.event_ID = venue.event_ID
+        AND event.event_type = 'venue'
+        AND event.price BETWEEN ? AND ?
+        ORDER BY event.created
+        LIMIT ?, ?
+      ";
+        return $db_handle->db_query($sql, 'ddii', array(floatval($from_price), floatval($to_price), $from_record_num, $records_per_page));
     }
 
     /**
@@ -298,6 +381,19 @@ class event
         AND event.name LIKE ?
         ";
         return $db_handle->db_query($sql, 's', array('%' . $searchKey . '%'))[0]['rowCount'];
+    }
+
+    function row_count_venue_with_price_range($from_price, $to_price)
+    {
+        $db_handle = new dbController();
+        $sql = "
+        SELECT COUNT(*) as rowCount
+        from event, venue
+        WHERE event.event_ID = venue.event_ID
+        AND event.event_type = 'venue'
+        AND event.price BETWEEN ? AND ?
+    ";
+        return $db_handle->db_query($sql, 'dd', array(floatval($from_price), floatval($to_price)))[0]['rowCount'];
     }
 
 
@@ -389,6 +485,28 @@ class event
         AND menu.event_ID = ?
         ";
         return $db_handle->db_query($sql, 'i', array($productID));
+    }
+
+    /**
+     * @param $productType
+     * @return double
+     */
+    public function min_price($productType)
+    {
+        $db_handle = new dbController();
+        $sql = "SELECT min(price) as minPrice FROM event WHERE event_type = ?";
+        return floatval($db_handle->db_query($sql, 's', array($productType))[0]['minPrice']);
+    }
+
+    /**
+     * @param $productType
+     * @return double
+     */
+    public function max_price($productType)
+    {
+        $db_handle = new dbController();
+        $sql = "SELECT max(price) as maxPrice FROM event WHERE event_type = ?";
+        return floatval($db_handle->db_query($sql, 's', array($productType))[0]['maxPrice']);
     }
 
     /**
@@ -497,6 +615,9 @@ class event
         return $db_handle->db_lastID();
     }
 
+    /**
+     * @return array
+     */
     function getMenuItems()
     {
         $db_handle = new dbController();
@@ -504,6 +625,9 @@ class event
         return $db_handle->runBaseQuery($sql);
     }
 
+    /**
+     * @return array
+     */
     function getEntertainers()
     {
         $db_handle = new dbController();
