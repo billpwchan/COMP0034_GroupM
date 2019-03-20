@@ -116,43 +116,44 @@
                         <button type="button" class="premium" name="premium">Premium</button>
                     </div>
                     <link rel="stylesheet" href="./assets/css/jquery.datetimepicker.min.css">
+                    <?php if ($productType != 'venue') { ?>
+                        <span>Location Selector</span>
+                        <div class="pac-card" id="pac-card">
+                            <div style="visibility: hidden; height: 0px;">
+                                <div id="type-selector" class="pac-controls">
+                                    <input type="radio" id="changetype-all" checked="checked">
+                                    <label for="changetype-all">All</label>
 
-                    <span>Location Selector</span>
-                    <div class="pac-card" id="pac-card">
-                        <div style="visibility: hidden; height: 0px;">
-                            <div id="type-selector" class="pac-controls">
-                                <input type="radio" id="changetype-all" checked="checked">
-                                <label for="changetype-all">All</label>
+                                    <input type="radio" id="changetype-establishment">
+                                    <label for="changetype-establishment">Establishments</label>
 
-                                <input type="radio" id="changetype-establishment">
-                                <label for="changetype-establishment">Establishments</label>
+                                    <input type="radio" id="changetype-address">
+                                    <label for="changetype-address">Addresses</label>
 
-                                <input type="radio" id="changetype-address">
-                                <label for="changetype-address">Addresses</label>
-
-                                <input type="radio" id="changetype-geocode">
-                                <label for="changetype-geocode">Geocodes</label>
+                                    <input type="radio" id="changetype-geocode">
+                                    <label for="changetype-geocode">Geocodes</label>
+                                </div>
+                                <div id="strict-bounds-selector" class="pac-controls">
+                                    <input type="checkbox" id="use-strict-bounds" value="">
+                                    <label for="use-strict-bounds">Strict Bounds</label>
+                                </div>
                             </div>
-                            <div id="strict-bounds-selector" class="pac-controls">
-                                <input type="checkbox" id="use-strict-bounds" value="">
-                                <label for="use-strict-bounds">Strict Bounds</label>
+                            <div class="container" id="pac-container">
+                                <div class="container__item">
+                                    <input id="pac-input" type="text" name="eventLocation"
+                                           placeholder="Enter a location "
+                                           class="form__field" aria-label="Default"
+                                           aria-describedby="inputGroup-sizing-default">
+                                </div>
                             </div>
                         </div>
-                        <div class="container" id="pac-container">
-                            <div class="container__item">
-                                <input id="pac-input" type="text" name="eventLocation"
-                                       placeholder="Enter a location "
-                                       class="form__field" aria-label="Default"
-                                       aria-describedby="inputGroup-sizing-default">
-                            </div>
+                        <div id="map"></div>
+                        <div id="infowindow-content">
+                            <img src="" width="16" height="16" id="place-icon">
+                            <span id="place-name" class="title"></span><br>
+                            <span id="place-address"></span>
                         </div>
-                    </div>
-                    <div id="map"></div>
-                    <div id="infowindow-content">
-                        <img src="" width="16" height="16" id="place-icon">
-                        <span id="place-name" class="title"></span><br>
-                        <span id="place-address"></span>
-                    </div>
+                    <?php } ?>
                     <span>Booking Time: </span>
                     <div class="time-choose">
                         <input id="datetimepicker" class="form__field" type="text" name="eventStartTime"
@@ -166,7 +167,7 @@
                 <div style="display:none;" id="productPrice"><?= $productDetails['price'] ?></div>
                 <span class="product-price-value">
                     <span>&#163;</span>
-                    <label for="productPriceDisplay"></label><input disabled id="productPriceDisplay"
+                    <label for="productPriceDisplay"></label><input id="productPriceDisplay"
                                                                     name="productPrice"
                                                                     value="<?= $productDetails['price'] ?>">
                 </span>
