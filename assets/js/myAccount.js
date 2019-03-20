@@ -5,11 +5,55 @@
  * Written by UberKidz <uberkidz@gmail.com>, 2019
  *
  */
-
+let counter = 0;
 $(document).ready(function () {
     document.getElementById("order_tab").style.borderBottom = "2px solid #999";
     $(".menu-only, .entertainment-only, .venue-only").attr("style", "display:none");
+
 });
+
+$("table.order-list").on("click", "#add_menuItem", function () {
+    counter++;
+    var newRow = $("<tr>");
+    var cols = "";
+
+    cols += '<td><select id="menuItems' + counter + '" class="form-control menu_item_list" name="menuItems[]"/></td>';
+    cols += '<td><label for="" class="col-form-label">Quantity:</label></td>';
+    cols += '<td><input type="number" id="quantity' + counter + '" class="form-control" min="1" name="quantities[]"/></td>';
+
+    cols += '<td><input type="button" class="delete_button btn btn-md btn-danger" value="Delete"></td>';
+    newRow.append(cols);
+    $("table.order-list").append(newRow);
+
+    $("#menuItems" + counter).append($("<option></option>").text("---- Select menu item(s) ----"));
+    $.getJSON("assets/controllers/getProvidedServices.php?methodID=1", function (data) {
+        $.each(data, function (i, val) {
+            $("#menuItems" + counter).append($("<option></option>")
+                .attr("value", val['menuitem_ID'])
+                .text(val['name']));
+        });
+    });
+});
+
+
+
+$("table.order-list").on("click", ".delete_button", function () {
+        var table_row = $(this).closest("tr");
+        var deleted_id = $(table_row).find(".menu_item_list")[0].id;
+        var deleted_counter = deleted_id.match(/\d+/)[0];
+
+        $(this).closest("tr").remove();
+        for (var a = deleted_counter; a<=counter; a++) {
+            $("#menuItems" + (a)).attr({
+                id: "menuItems" + (a-1),
+            });
+            $("#quantity" + (a)).attr({
+                id: "quantity" + (a-1),
+            });
+        }
+        counter -= 1;
+});
+
 
 document.getElementById("order_tab").addEventListener("click", function () {
     clearLowerBorder();
@@ -248,9 +292,24 @@ function submit_form() {
         if (validate_duration(document.getElementById("menu_duration")) === false) {
             submit = false;
         }
+        if (validate_quantity(document.getElementById("quantity")) === false){
+            submit = false;
+        }
         if ($("#menuItems")[0].selectedIndex <= 0) {
             showAlert("No selected items", "Please select the food that is included in your new menu");
             submit = false;
+        }
+        if (counter >0){
+            var i;
+            for (i = 1; i<=counter; i++){
+                if ($("#menuItems" + i)[0].selectedIndex <= 0) {
+                    showAlert("No selected items", "Please select the food that is included in your new menu");
+                    submit = false;
+                }
+                if (validate_quantity(document.getElementById("quantity" + i)) === false){
+                    submit = false;
+                }
+            }
         }
     }
     return submit;
@@ -344,7 +403,14 @@ function validate_duration(duration) {
     }
 }
 
-$("input[id='eventImage1']").change(function () {
+function validate_quantity(quantity) {
+    if (quantity.value.trim() === "") {
+        showAlert("Blank quantity", "Please enter the quantity of your menu item.");
+        return false;
+    }
+}
+
+$("input[id='eventImage1']").change(function(){
     var filename = $(this).val().split('\\').pop();
     document.getElementById('eventImage1_label').innerText = filename;
 });
