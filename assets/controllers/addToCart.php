@@ -84,7 +84,6 @@ switch ($productType) {
         }
         break;
     case "venue":
-        $duration = $event->selectDuration('menu', $product_id);
         $startTime = $eventStartTime->modify('-8 hours')->format('Y-m-d H:i:s');
         $endTime = $eventStartTime->modify('+8 hours')->format('Y-m-d H:i:s');
         $orderCount = $event->checkOverlapBookingOrderDetail($product_id, $startTime, $endTime);
@@ -100,7 +99,7 @@ switch ($productType) {
             $eventStartTimeText = $eventStartTime->format('Y-m-d H:i:s');
             $updateFlag = $cart->insertCart($userID, $product_id, $quality, $eventStartTimeText, $eventLocation, $price);
             if ($updateFlag) {
-                header("location:../../{$previousURL}.php?addtocart=success");
+//                header("location:../../{$previousURL}.php?addtocart=success");
                 exit();
             }
         }

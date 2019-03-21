@@ -36,22 +36,21 @@ $("table.order-list").on("click", "#add_menuItem", function () {
 });
 
 
-
 $("table.order-list").on("click", ".delete_button", function () {
-        var table_row = $(this).closest("tr");
-        var deleted_id = $(table_row).find(".menu_item_list")[0].id;
-        var deleted_counter = deleted_id.match(/\d+/)[0];
+    var table_row = $(this).closest("tr");
+    var deleted_id = $(table_row).find(".menu_item_list")[0].id;
+    var deleted_counter = deleted_id.match(/\d+/)[0];
 
-        $(this).closest("tr").remove();
-        for (var a = deleted_counter; a<=counter; a++) {
-            $("#menuItems" + (a)).attr({
-                id: "menuItems" + (a-1),
-            });
-            $("#quantity" + (a)).attr({
-                id: "quantity" + (a-1),
-            });
-        }
-        counter -= 1;
+    $(this).closest("tr").remove();
+    for (var a = deleted_counter; a <= counter; a++) {
+        $("#menuItems" + (a)).attr({
+            id: "menuItems" + (a - 1),
+        });
+        $("#quantity" + (a)).attr({
+            id: "quantity" + (a - 1),
+        });
+    }
+    counter -= 1;
 });
 
 
@@ -65,15 +64,19 @@ document.getElementById("personal_tab").addEventListener("click", function () {
     document.getElementById("personal_tab").style.borderBottom = "2px solid #999";
 });
 
-document.getElementById("service_tab").addEventListener("click", function () {
-    clearLowerBorder();
-    document.getElementById("service_tab").style.borderBottom = "2px solid #999";
-});
+if (document.getElementById("service_tab") !== null) {
+    document.getElementById("service_tab").addEventListener("click", function () {
+        clearLowerBorder();
+        document.getElementById("service_tab").style.borderBottom = "2px solid #999";
+    });
+}
 
 function clearLowerBorder() {
     document.getElementById("order_tab").style.borderBottom = "0px solid #999";
     document.getElementById("personal_tab").style.borderBottom = "0px solid #999";
-    document.getElementById("service_tab").style.borderBottom = "0px solid #999";
+    if (document.getElementById("service_tab") !== null) {
+        document.getElementById("service_tab").style.borderBottom = "0px solid #999";
+    }
 }
 
 let original_firstname = document.querySelector("#staticfirst_name").value;
@@ -292,29 +295,28 @@ function submit_form() {
         if (validate_duration(document.getElementById("menu_duration")) === false) {
             submit = false;
         }
-        if (validate_quantity(document.getElementById("quantity")) === false){
+        if (validate_quantity(document.getElementById("quantity")) === false) {
             submit = false;
         }
         if ($("#menuItems")[0].selectedIndex <= 0) {
             showAlert("No selected items", "Please select the food that is included in your new menu");
             submit = false;
         }
-        if (counter >0){
+        if (counter > 0) {
             var i;
-            for (i = 1; i<=counter; i++){
+            for (i = 1; i <= counter; i++) {
                 if ($("#menuItems" + i)[0].selectedIndex <= 0) {
                     showAlert("No selected items", "Please select the food that is included in your new menu");
                     submit = false;
                 }
-                if (validate_quantity(document.getElementById("quantity" + i)) === false){
+                if (validate_quantity(document.getElementById("quantity" + i)) === false) {
                     submit = false;
                 }
             }
         }
     }
     return submit;
-};
-
+}
 function validate_service_name(name) {
     const aSpecial = /[!|@|#|$|%|^|&|*|(|)|-|_]/;
     if (name.value.trim() === "") {
@@ -410,7 +412,7 @@ function validate_quantity(quantity) {
     }
 }
 
-$("input[id='eventImage1']").change(function(){
+$("input[id='eventImage1']").change(function () {
     var filename = $(this).val().split('\\').pop();
     document.getElementById('eventImage1_label').innerText = filename;
 });
