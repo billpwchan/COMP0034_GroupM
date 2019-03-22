@@ -50,20 +50,22 @@ class cart
     }
 
     /**
+     * @param $userID
      * @param $productID
      * @param $startTime
      * @param $endTime
      * @return array
      */
-    function checkOverlapBookingCart($productID, $startTime, $endTime)
+    function checkOverlapBookingCart($userID, $productID, $startTime, $endTime)
     {
         $db_handle = new dbController();
         $sql = "SELECT quantity
                 FROM cart
                 WHERE event_ID = ?
+                AND user_ID = ?
                 AND eventStartTime BETWEEN ? AND ?
             ";
-        return $db_handle->db_query($sql, 'iss', array($productID, $startTime, $endTime));
+        return $db_handle->db_query($sql, 'iiss', array($productID, $userID, $startTime, $endTime));
     }
 
     /**

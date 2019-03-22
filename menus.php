@@ -21,7 +21,8 @@
                     Menus
                 </h1>
                 <p class="text-white">
-                    Select from 100s of dishs from restaurants across London <br> If none are suited for the occasion, contact us.
+                    Select from 100s of dishs from restaurants across London <br> If none are suited for the occasion,
+                    contact us.
                 </p>
                 <a href="#" class="primary-btn header-btn text-uppercase">Check Our Menu</a>
             </div>
@@ -153,10 +154,10 @@ if (isset($_GET['addtocart']) && $_GET['addtocart'] === 'success') { ?>
     </script>
 <?php } elseif (isset($_GET['addtocart']) && $_GET['addtocart'] === 'overlappedBooking') { ?>
     <script> Swal.fire({
-            title: 'Failed',
+            title: 'Overlapped Booking Time with Other Customer',
             animation: false,
             customClass: 'animated tada',
-            text: "Invalid Booking TimeSlot.",
+            text: "Cannot book the specified timeslot, because other customer has already booked it.",
             type: 'error'
         });
     </script>

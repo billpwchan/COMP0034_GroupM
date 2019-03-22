@@ -44,7 +44,7 @@ switch ($productType) {
         $startTime = $eventStartTime->modify('-' . $duration . ' hours')->format('Y-m-d H:i:s');
         $endTime = $eventStartTime->modify('+' . $duration . ' hours')->format('Y-m-d H:i:s');
         $orderCount = $event->checkOverlapBookingOrderDetail($product_id, $startTime, $endTime);
-        $cartCount = $cart->checkOverlapBookingCart($product_id, $startTime, $endTime);
+        $cartCount = $cart->checkOverlapBookingCart($userID, $product_id, $startTime, $endTime);
         if (sizeof($orderCount) > 0) {
             print_r($orderCount);
             header("location: ../../{$previousURL}.php?addtocart=overlappedBooking");
@@ -66,7 +66,7 @@ switch ($productType) {
         $startTime = $eventStartTime->modify('-' . $duration . ' hours')->format('Y-m-d H:i:s');
         $endTime = $eventStartTime->modify('+' . $duration . ' hours')->format('Y-m-d H:i:s');
         $orderCount = $event->checkOverlapBookingOrderDetail($product_id, $startTime, $endTime);
-        $cartCount = $cart->checkOverlapBookingCart($product_id, $startTime, $endTime);
+        $cartCount = $cart->checkOverlapBookingCart($userID, $product_id, $startTime, $endTime);
         if (sizeof($orderCount) > 0) {
             print_r($orderCount);
             header("location: ../../{$previousURL}.php?addtocart=overlappedBooking");
@@ -87,7 +87,7 @@ switch ($productType) {
         $startTime = $eventStartTime->modify('-8 hours')->format('Y-m-d H:i:s');
         $endTime = $eventStartTime->modify('+8 hours')->format('Y-m-d H:i:s');
         $orderCount = $event->checkOverlapBookingOrderDetail($product_id, $startTime, $endTime);
-        $cartCount = $cart->checkOverlapBookingCart($product_id, $startTime, $endTime);
+        $cartCount = $cart->checkOverlapBookingCart($userID, $product_id, $startTime, $endTime);
         if (sizeof($orderCount) > 0) {
             print_r($orderCount);
             header("location: ../../{$previousURL}.php?addtocart=overlappedBooking");
@@ -99,7 +99,7 @@ switch ($productType) {
             $eventStartTimeText = $eventStartTime->format('Y-m-d H:i:s');
             $updateFlag = $cart->insertCart($userID, $product_id, $quality, $eventStartTimeText, $eventLocation, $price);
             if ($updateFlag) {
-//                header("location:../../{$previousURL}.php?addtocart=success");
+                header("location:../../{$previousURL}.php?addtocart=success");
                 exit();
             }
         }

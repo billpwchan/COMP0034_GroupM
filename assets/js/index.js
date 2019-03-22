@@ -14,7 +14,7 @@
             'slow');
     });
     window.addEventListener("load", function () {
-        document.getElementById('index-loader').animate({top: -200}, 1500);
+        document.getElementById('index-loader').animate({top: -200}, 3000);
         document.getElementById('index-loader').style.display = 'none';
     });
 })(jQuery);

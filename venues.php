@@ -155,10 +155,10 @@ if (isset($_GET['addtocart']) && $_GET['addtocart'] === 'success') { ?>
     </script>
 <?php } elseif (isset($_GET['addtocart']) && $_GET['addtocart'] === 'overlappedBooking') { ?>
     <script> Swal.fire({
-            title: 'Failed',
+            title: 'Overlapped Booking Time with Other Customer',
             animation: false,
             customClass: 'animated tada',
-            text: "Invalid Booking TimeSlot.",
+            text: "Cannot book the specified timeslot, because other customer has already booked it.",
             type: 'error'
         });
     </script>

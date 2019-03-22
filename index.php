@@ -46,9 +46,7 @@ include("includes/config.php"); ?>
                 <div class="col-md-10 col-md-offset-1">
                     <div class="home-content">
                         <h1 class="white-text">We Are UberKidz</h1>
-                        <p class="white-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed iaculis
-                            lobortis pharetra. Nullam convallis mi sem, ut facilisis risus consequat vitae. Sed sodales,
-                            tortor non aliquam congue, ante orci rutrum enim.</p>
+                        <p class="white-text">Party Forever.</p>
                         <a class="white-btn" id="get_started"
                            href="<?php if (isset($_SESSION['userInfo']['email_address'])) { ?>myAccount.php<?php } else { ?>login.php<?php } ?>">Get
                             Started</a>
