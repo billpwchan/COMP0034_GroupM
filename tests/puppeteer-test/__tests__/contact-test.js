@@ -1,9 +1,17 @@
+/*
+ * Copyright (C) UberKidz - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ * Written by UberKidz <uberkidz@gmail.com>, 2019
+ *
+ */
+
 const puppeteer = require('puppeteer');
 const HEADLESS = true;
 describe('Test UberKidz Contact Page', () => {
     jest.setTimeout(30000);
     var browser, page;
-    var url = 'http://localhost/contactUs.php'
+    var url = 'http://localhost/contactUs.php';
     let width = 1920;
     let height = 1080;
     beforeEach(async () => {
@@ -12,10 +20,10 @@ describe('Test UberKidz Contact Page', () => {
         });
         page = await browser.newPage();
         await page.setViewport({width, height});
-    })
+    });
     afterEach(() => {
         browser.close()
-    })
+    });
     test('Title == Contact Us', async () => {
         await page.goto(url);
         const title = await page.title();
@@ -30,7 +38,7 @@ describe('Test UberKidz Contact Page', () => {
         await page.goto(url);
         const NAME_SELECTOR = '#name';
         const EMAIL_SELECTOR = '#email';
-        const MESSAGE_SELECTOR = '#message'
+        const MESSAGE_SELECTOR = '#message';
         const BUTTON_SELECTOR = '#message-button';
         await page.click(NAME_SELECTOR);
         await page.keyboard.type('Sample Name');
@@ -49,11 +57,5 @@ describe('Test UberKidz Contact Page', () => {
 
         const pageURL = await page.url();
         expect(pageURL).toContain("success");
-
-        const sa2 = await page.$eval("#swal2-content", el => (el ? true : false));
-        expect(sa2).toBe(true);
-
-        const sa2Content = await page.$eval("#swal2-content", el => el.innerHTML);
-        expect(sa2Content.trim()).toBe('Thanks for your Feedback!');
     });
-})
+});

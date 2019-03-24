@@ -1,15 +1,23 @@
+/*
+ * Copyright (C) UberKidz - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ * Written by UberKidz <uberkidz@gmail.com>, 2019
+ *
+ */
+
 const puppeteer = require('puppeteer');
 const HEADLESS = true;
 
-const CUSTOMER_EMAIL = 'newacc@mailinator.com';
+const CUSTOMER_EMAIL = 'customerdemo@mailinator.com';
 const CUSTOMER_PASSWORD = '12345678Aa*';
-const SERVICE_PROVIDER_EMAIL = 'sp@mailinator.com';
+const SERVICE_PROVIDER_EMAIL = 'servicedemo@mailinator.com';
 const SERVICE_PROVIDER_PASSWORD = '12345678Aa*';
 
 describe('Test Login page', () => {
     jest.setTimeout(30000);
     var browser, page;
-    var url = 'http://localhost/login.php'
+    var url = 'http://localhost/login.php';
     let width = 1920;
     let height = 1080;
     beforeEach(async () => {
@@ -109,4 +117,4 @@ describe('Test Login page', () => {
         expect(userEmail).toBe(CUSTOMER_EMAIL);
         // browser.close();
     });
-})
+});

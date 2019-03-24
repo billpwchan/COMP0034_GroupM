@@ -8,5 +8,6 @@
   -->
 
 <dataset>
-    <message name="thomas" email="testing1@mailinator.com" message="Message 1"/>
+    <message name="Sample Name" email="a@b.com" message="Sample Message"/>
+    <message name="Feedback" email="Feedback@mailinator.com" message="Demo Feedback"/>
 </dataset>

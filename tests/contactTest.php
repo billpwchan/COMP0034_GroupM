@@ -58,7 +58,7 @@ class contactTest extends TestCase
 
     public function testRowCount()
     {
-        $this->assertSame(1, $this->getConnection()->getRowCount('message'), "Pre-Condition");
+        $this->assertSame(2, $this->getConnection()->getRowCount('message'), "Pre-Condition");
     }
 
     public function testStoreMessage()

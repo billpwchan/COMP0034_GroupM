@@ -30,6 +30,7 @@ foreach ($_SESSION['cartItems'] as $cartItem) {
 $balance = (float)$customer->getBalance($userID);
 if ($totalPrice > $balance) {
     header("Location:../../shoppingCart.php?status=insufficientBalance");
+    exit();
 }
 
 $orderID = $order->insertNewOrder($userID);
@@ -50,3 +51,4 @@ $balance -= $totalPrice;
 
 $customer->updateBalance($balance, $userID);
 header("Location:../../shoppingCart.php?status=success");
+exit();

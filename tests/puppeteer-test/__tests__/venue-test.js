@@ -1,12 +1,20 @@
+/*
+ * Copyright (C) UberKidz - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ * Written by UberKidz <uberkidz@gmail.com>, 2019
+ *
+ */
+
 const puppeteer = require('puppeteer');
 const HEADLESS = true;
-const CUSTOMER_EMAIL = 'newacc@mailinator.com';
+const CUSTOMER_EMAIL = 'customerdemo@mailinator.com';
 const CUSTOMER_PASSWORD = '12345678Aa*';
 
 describe('Test UberKidz Venue', () => {
     jest.setTimeout(30000);
     var browser, page;
-    var url = 'http://localhost/venues.php'
+    var url = 'http://localhost/venues.php';
     let width = 1920;
     let height = 1080;
     beforeEach(async () => {
@@ -18,7 +26,7 @@ describe('Test UberKidz Venue', () => {
             width,
             height
         });
-    })
+    });
     afterEach(() => {
         browser.close()
     });
@@ -77,9 +85,7 @@ describe('Test UberKidz Venue', () => {
 
         await page.click(QUALITY_SELECTOR);
         await page.click(BOOKING_SELECTOR);
-        await page.keyboard.type('2019/03/11 22:00');
-        await page.click(LOCATION_SELECTOR);
-        await page.keyboard.type('UCL');
+        await page.keyboard.type('2019/05/11 22:00');
 
         const CART_SELECTOR = 'body > main > div.right-column.col-lg-6 > form > div.product-price > button';
         await page.click(CART_SELECTOR);
@@ -96,4 +102,4 @@ describe('Test UberKidz Venue', () => {
         expect(sa2Content.trim()).toBe('The service with specified quality level is already added in your cart');
 
     });
-})
+});
