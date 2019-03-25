@@ -2,3 +2,4 @@
 /vendor
 /tests/puppeteer-test/node_modules
 /tests/puppeteer-test/.vscode
+composer.phar
