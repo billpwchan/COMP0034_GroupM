@@ -4,7 +4,9 @@ Kid's Party Planning Online Platform
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+Open XAMPP/MAMP, follow instructions in the report to modify DirectoryRoot and install all necessary Composer and NPM packages. 
+
+Then open browser, type 'localhost' to start using UberKidz Website
 
 ### Prerequisites
 
